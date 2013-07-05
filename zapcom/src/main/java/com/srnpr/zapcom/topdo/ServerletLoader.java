@@ -1,4 +1,4 @@
-package com.srnpr.zapcom.baseinit;
+package com.srnpr.zapcom.topdo;
 
 import javax.servlet.ServletContext;
 
@@ -10,7 +10,7 @@ public class ServerletLoader {
 		try {
 
 
-			servletContext.log("Initializing srnprjava");
+			servletContext.log("Initializing zapsrnpr.zapcom");
 
 
 			//InitProcess(servletContext);
@@ -18,7 +18,7 @@ public class ServerletLoader {
 		}
 		catch(RuntimeException ex)
 		{
-			servletContext.log("Initializing zsrnpr Error"+ex.getMessage());
+			servletContext.log("Error zapsrnpr.zapcom"+ex.getMessage());
 		}
 
 
