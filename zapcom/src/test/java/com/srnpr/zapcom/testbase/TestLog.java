@@ -8,6 +8,9 @@ import com.srnpr.zapcom.baseclass.BaseClass;
 
 public class TestLog extends BaseClass {
 
+	/**
+	 * 
+	 */
 	@Test
 	public void test() {
 		//fail("Not yet implemented");
@@ -15,6 +18,8 @@ public class TestLog extends BaseClass {
 		//new BaseClass().BLog().error("aaa");
 		
 		BLog().debug("aaa");
+		
+		BLog().debug(System.getProperty("java.class.path"));
 		
 	}
 

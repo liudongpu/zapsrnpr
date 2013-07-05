@@ -15,7 +15,7 @@ public class TopInit extends BaseClass implements IBaseInit {
 		String string="";
 		
 		BLog().info(System.getProperty("user.home"));
-
+		BLog().error(System.getProperty("java.class.path"));
 	}
 	
 	
