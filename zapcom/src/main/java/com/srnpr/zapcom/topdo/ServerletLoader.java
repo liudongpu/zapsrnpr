@@ -12,6 +12,8 @@ public class ServerletLoader {
 
 			servletContext.log("Initializing zapsrnpr.zapcom");
 
+			
+			new TopInit().init();
 
 			//InitProcess(servletContext);
 
