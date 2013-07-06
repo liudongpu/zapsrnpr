@@ -16,7 +16,7 @@ public class TestBase extends TopTest {
 		
 		String sBaseString="abcdefghijklmnopqrstuvwxyz";
 		
-		bLog(FormatHelper.convertFormatStringNumber("zc", sBaseString));
+		bLog(0,String.valueOf( FormatHelper.convertFormatStringNumber("zw", sBaseString)));
 	}
 	
 	

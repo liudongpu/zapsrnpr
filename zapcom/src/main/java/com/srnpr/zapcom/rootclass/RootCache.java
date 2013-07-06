@@ -24,8 +24,16 @@ public abstract class RootCache<K,V> extends TopBase implements IBaseCache {
 	
 	public void inElement(K k,V v)
 	{
+		
 		cache.put(new Element(k, v));
 	}
+	
+	
+	public boolean containsKey(K k)
+	{
+		return cache.getKeys().contains(k);
+	}
+	
 	
 	
 	@SuppressWarnings("unchecked")
