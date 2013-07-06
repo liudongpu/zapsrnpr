@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
+import com.srnpr.zapcom.topdo.TopConfig;
+import com.srnpr.zapcom.topdo.TopDir;
 
 public class TestLog extends BaseClass {
 
@@ -17,9 +19,20 @@ public class TestLog extends BaseClass {
 		
 		//new BaseClass().BLog().error("aaa");
 		
-		BLog().debug("aaa");
 		
-		BLog().debug(System.getProperty("java.class.path"));
+		
+		
+		TopDir topDir=new TopDir();
+		BLog().debug(topDir.upTempDir("config"));
+		
+		
+		TopConfig tConfig=new TopConfig();
+		
+		tConfig.inElement("aa", "xx");
+		
+		
+		BLog().info(tConfig.upValue("aa"));
+		
 		
 	}
 

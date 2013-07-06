@@ -5,7 +5,7 @@ import com.srnpr.zapcom.baseface.IBaseInit;
 
 /**
  * @author srnpr
- *
+ * 初始化类
  */
 public class TopInit extends BaseClass implements IBaseInit {
 
