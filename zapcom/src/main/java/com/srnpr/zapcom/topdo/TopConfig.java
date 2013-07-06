@@ -1,5 +1,9 @@
 package com.srnpr.zapcom.topdo;
 
+import java.util.Enumeration;
+
+import net.sf.ehcache.Element;
+
 import com.srnpr.zapcom.baseface.IBaseCache;
 import com.srnpr.zapcom.basehelper.IoHelper;
 import com.srnpr.zapcom.basemodel.MStringMap;
@@ -23,17 +27,22 @@ public class TopConfig extends RootCache<String,String> implements IBaseCache {
 		TopDir topDir=new TopDir();
 		String sTempConfigString= topDir.upTempDir("config");
 		//topDir.upZapDir();
-		bLog("refresh");
+		bLog("refresh "+sTempConfigString);
 		IoHelper ioHelper=new IoHelper();
-		ioHelper.copyResources("classpath*:META-INF/zapsrnpr/config/*.properties", sTempConfigString, "/config/");
+		ioHelper.copyResources("classpath*:META-INF/zapsrnpr/config/*.properties", sTempConfigString);
 		LoadProperties loadProperties=new LoadProperties();
 		
 		
 		MStringMap mStringMap=loadProperties.loadMap(sTempConfigString);
+		
+	
 		for(String s:mStringMap.upKeys())
 		{
 			this.inElement(s, mStringMap.get(s));
 		}
+		
+		
+		
 		
 	}
 

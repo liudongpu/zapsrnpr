@@ -14,7 +14,13 @@ public class TestLog extends TopTest {
 		String sConfigString=bConfig("zapcom.version");
 		
 		bLog(0, sConfigString);
+		bLog(0, sConfigString);
+		bLog(0, bConfig("zapcom.version"));
 		
+		
+		
+		bLog(0, bInfo(967901001));
+		bLog(0, bInfo(967901002));
 	}
 
 }

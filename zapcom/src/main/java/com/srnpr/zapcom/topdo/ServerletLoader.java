@@ -12,9 +12,9 @@ public class ServerletLoader {
 
 			servletContext.log("Initializing zapsrnpr.zapcom");
 
-			String sTopConfigString= servletContext.getInitParameter("zapcomtopconfig");
+			//String sTopConfigString= servletContext.getInitParameter("zapcomtopconfig");
 			
-			servletContext.log(sTopConfigString);
+			//servletContext.log(sTopConfigString);
 			
 			new TopInit().init();
 
