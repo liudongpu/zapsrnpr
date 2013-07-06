@@ -1,14 +1,12 @@
 package com.srnpr.zapcom.testbase;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
-import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.topdo.TopConfig;
 import com.srnpr.zapcom.topdo.TopDir;
+import com.srnpr.zapcom.topdo.TopTest;
 
-public class TestLog extends BaseClass {
+public class TestBase extends TopTest {
 
 	/**
 	 * 
@@ -18,20 +16,19 @@ public class TestLog extends BaseClass {
 		//fail("Not yet implemented");
 		
 		//new BaseClass().BLog().error("aaa");
-		
-		
-		
+
 		
 		TopDir topDir=new TopDir();
-		BLog().debug(topDir.upTempDir("config"));
+		bLog(0,topDir.upTempDir("config"));
 		
 		
 		TopConfig tConfig=new TopConfig();
 		
 		tConfig.inElement("aa", "xx");
+		tConfig.inElement("aa", "ff");
+		tConfig.refresh();
 		
-		
-		BLog().info(tConfig.upValue("aa"));
+		bLog(0,tConfig.upValue("aa"));
 		
 		
 	}

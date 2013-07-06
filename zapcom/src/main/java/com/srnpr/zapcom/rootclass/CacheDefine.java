@@ -15,21 +15,10 @@ public class CacheDefine extends TopBase {
 
 	public CacheDefine() {
 		if (cManager == null) {
-
-			//Configuration configuration=new Configuration();
-			
-			
-			
-			//cManager = CacheManager.create(configuration);
-			
-			//cManager=CacheManager.getInstance();
-			
 			URL url=this.getClass().getResource("/META-INF/ehcache/ehcache.xml");
-			
 			cManager=CacheManager.create(url);
 
 		}
-		// CacheManager.getInstance().getCache("").get("").getObjectValue();
 	}
 
 	public Cache inCache(String sCacheName) {
@@ -38,8 +27,6 @@ public class CacheDefine extends TopBase {
 		if (cManager.cacheExists(sCacheName)) {
 			return upCache(sCacheName);
 		} else {
-			
-			
 			
 			Cache memoryOnlyCache = new Cache(sCacheName, 5000, false, true, 0, 0);
 			cManager.addCache(memoryOnlyCache);

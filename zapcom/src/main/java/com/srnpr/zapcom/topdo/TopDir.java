@@ -61,7 +61,7 @@ public class TopDir extends TopBase {
 
 		if (StringUtils.isEmpty(TopConst.CONST_TOP_DIR_TEMP)) {
 			TopConst.CONST_TOP_DIR_TEMP = upCurrentDir("temp");
-			BInfo("init TopConst.CONST_TOP_DIR_TEMP=" + TopConst.CONST_TOP_DIR_TEMP);
+			bLog("init TopConst.CONST_TOP_DIR_TEMP=" + TopConst.CONST_TOP_DIR_TEMP);
 		}
 		
 		String sReturnString=TopConst.CONST_TOP_DIR_TEMP+"/"+sTempDir;

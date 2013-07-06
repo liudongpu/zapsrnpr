@@ -1,50 +1,33 @@
 package com.srnpr.zapcom.topdo;
 
-import com.srnpr.zapcom.baseface.IBaseCache;
+import org.apache.commons.lang.StringUtils;
+
 import com.srnpr.zapcom.basehelper.IoHelper;
 import com.srnpr.zapcom.basemodel.MStringMap;
 import com.srnpr.zapcom.rootclass.RootCache;
-import com.srnpr.zapcom.topcall.LoadProperties;
 
-/**
- * @author srnpr
- * 初始化加载配置
- */
-public class TopConfig extends RootCache<String,String> implements IBaseCache {
+public class TopInfo extends RootCache<Long, String>  {
 
-
-	
 	/* (non-Javadoc)
-	 * @see com.srnpr.zapcom.baseface.IBaseCache#refresh()
+	 * @see com.srnpr.zapcom.rootclass.RootCache#refresh()
 	 */
 	@Override
 	public synchronized void refresh() {
-		
 		TopDir topDir=new TopDir();
 		String sTempConfigString= topDir.upTempDir("config");
 		//topDir.upZapDir();
 		bLog("refresh");
 		IoHelper ioHelper=new IoHelper();
 		ioHelper.copyResources("classpath*:META-INF/zapsrnpr/config/*.properties", sTempConfigString, "/config/");
-		LoadProperties loadProperties=new LoadProperties();
-		
-		
-		MStringMap mStringMap=loadProperties.loadMap(sTempConfigString);
+		MStringMap mStringMap=new MStringMap();
 		for(String s:mStringMap.upKeys())
 		{
-			this.inElement(s, mStringMap.get(s));
+			
+			this.inElement(Long.parseLong(s), mStringMap.get(s));
 		}
 		
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

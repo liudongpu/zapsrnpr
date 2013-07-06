@@ -7,7 +7,7 @@ public class TopBase {
 
 	private Log logger = null;
 
-	private Log BLog() {
+	private Log baseLog() {
 		
 		if (logger == null) {
 			
@@ -17,9 +17,9 @@ public class TopBase {
 	
 	}
 	
-	public void BInfo(Object oMessage)
+	public void bLog(Object oMessage)
 	{
-		BLog().info(oMessage);
+		baseLog().info(oMessage);
 	}
 	
 	

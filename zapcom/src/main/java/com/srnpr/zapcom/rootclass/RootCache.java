@@ -13,17 +13,9 @@ public abstract class RootCache<K,V> extends TopBase implements IBaseCache {
 	
 	public RootCache()
 	{
-		
 		CacheDefine cDefine=new CacheDefine();
-		
 		String sClassNameString=this.getClass().getName();
-		
-		
 		cache=cDefine.inCache(sClassNameString);
-		
-		
-		
-		
 	}
 	
 	
@@ -36,6 +28,7 @@ public abstract class RootCache<K,V> extends TopBase implements IBaseCache {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public V upValue(K k)
 	{
 		if(cache.get(k)==null)

@@ -4,11 +4,25 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class TestBase {
+import com.srnpr.zapcom.basehelper.FormatHelper;
+import com.srnpr.zapcom.topdo.TopTest;
+
+public class TestBase extends TopTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		
+		
+		
+		String sBaseString="abcdefghijklmnopqrstuvwxyz";
+		
+		bLog(FormatHelper.convertFormatStringNumber("zc", sBaseString));
 	}
+	
+	
+	
+	
+	
+	
 
 }

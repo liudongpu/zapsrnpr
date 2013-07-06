@@ -1,5 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/main/java/com/srnpr/zapcom/baseface/IBaseInit.java=UTF-8
 encoding//src/main/java/com/srnpr/zapcom/zapsrnpr/config/config.zapcom.properties=UTF-8
-encoding//src/test/java/com/srnpr/zapcom/testbase/TestLog.java=UTF-8
+encoding//src/main/resources/META-INF/zapsrnpr/config/config.zapcom.properties=UTF-8
+encoding//src/main/resources/META-INF/zapsrnpr/info/info.zapcom.9679.properties=UTF-8
+encoding//src/test/java/com/srnpr/zapcom/testbase/TestBase.java=UTF-8
 encoding/<project>=UTF-8
