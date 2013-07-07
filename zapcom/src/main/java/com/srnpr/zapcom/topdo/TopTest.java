@@ -9,4 +9,14 @@ import com.srnpr.zapcom.baseclass.BaseClass;
  */
 public abstract class TopTest extends BaseClass {
 
+	private static boolean bFlagLoad=false;
+	public TopTest()
+	{
+		if(!bFlagLoad)
+		{
+			new TopInit().init();
+			bFlagLoad=true;
+		}
+	}
+	
 }

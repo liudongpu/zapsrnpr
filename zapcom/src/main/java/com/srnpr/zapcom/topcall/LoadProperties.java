@@ -31,7 +31,7 @@ public class LoadProperties extends TopBase {
 
 				Iterator<String> em = pConfiguration.getKeys();
 
-				String sNameSpace=StringUtils.defaultString(pConfiguration.getString("@namespace"),"");
+				String sNameSpace=StringUtils.defaultString(pConfiguration.getString("@this$namespace"),"");
 				
 				while (em.hasNext()) {
 					String sKeyString = em.next();
@@ -41,11 +41,34 @@ public class LoadProperties extends TopBase {
 					
 					if(StringUtils.isNotEmpty(sNameSpace))
 					{
-						if(!StringUtils.startsWith(sKeyString, "$")&&!StringUtils.startsWith(sKeyString, sNameSpace))
+						if(!StringUtils.startsWith(sKeyString, "@")&&!StringUtils.startsWith(sKeyString, sNameSpace))
 						{
 							sKeyString=sNameSpace+"."+sKeyString;
 						}
 					}
+					
+					
+					//进行特殊判断模式
+					if(StringUtils.startsWith(sKeyString, "@"))
+					{
+						String sTarget=StringUtils.substringBetween(sKeyString, "@", "$");
+						
+						//覆写配置
+						if(sTarget.equals("override"))
+						{
+							//override
+						}
+						//本配置指向
+						else if(sTarget.equals("this"))
+						{
+							
+						}
+						
+						sKeyString=StringUtils.substringAfter(sKeyString, "$");
+						
+						
+					}
+					
 					
 					// String
 					// sValueString=pJarConfiguration.getString(sKeyString);

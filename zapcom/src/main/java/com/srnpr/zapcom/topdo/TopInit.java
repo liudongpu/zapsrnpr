@@ -1,8 +1,12 @@
 package com.srnpr.zapcom.topdo;
 
+import org.apache.commons.lang.ClassUtils;
+import org.apache.commons.lang.StringUtils;
+
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.baseface.IBaseCache;
 import com.srnpr.zapcom.baseface.IBaseInit;
+import com.srnpr.zapcom.basemodel.MStringMap;
 
 /**
  * 初始化类
@@ -16,9 +20,10 @@ public class TopInit extends BaseClass implements IBaseInit {
 	 * 
 	 * @see com.srnpr.zapcom.baseface.IBaseInit#init()
 	 */
-	public void init() {
+	public synchronized void init() {
 
 		initTop();
+		initClass();
 
 	}
 
@@ -35,6 +40,33 @@ public class TopInit extends BaseClass implements IBaseInit {
 
 		ConfigMap configMap = new ConfigMap();
 		configMap.refresh();
+	}
+
+	private void initClass() {
+
+		String sConfigName = "zapcom.initclass";
+
+		MStringMap mStringMap = TopUp.upConfigMap(sConfigName);
+
+		for (String sClassName : mStringMap.values()) {
+
+			if (!StringUtils.isEmpty(sClassName)) {
+				try {
+
+					Class<?> cClass = ClassUtils.getClass(sClassName);
+					if (cClass != null && cClass.getDeclaredMethods() != null) {
+						IBaseInit init = (IBaseInit) cClass.newInstance();
+						init.init();
+					}
+				} catch (Exception e) {
+
+					bLog(0, "error load " + sClassName);
+					e.printStackTrace();
+
+				}
+			}
+
+		}
 	}
 
 }

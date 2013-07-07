@@ -15,7 +15,7 @@ public class TestLog extends TestBase {
 		
 		TopUp topUp=new TopUp();
 		
-		bLog(0, topUp.upConfigMap("zapcom.init").get("zapcom"));
+		//bLog(0, topUp.upConfigMap("zapcom.init").get("zapcom"));
 		
 		
 	}
