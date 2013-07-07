@@ -1,6 +1,6 @@
 package com.srnpr.zapcom.topdo;
 
-public class TopConst {
+ class TopConst {
 
 	
 	public static String CONST_TOP_ZAPDIR=null;

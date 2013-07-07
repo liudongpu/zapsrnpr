@@ -61,7 +61,7 @@ public class TopDir extends TopBase {
 	/**
 	 * 获取临时文件夹路径
 	 * 
-	 * @param sTempDir
+	 * @param sTempDir 临时目录的子文件夹
 	 * @return
 	 */
 	public String upTempDir(String sTempDir) {

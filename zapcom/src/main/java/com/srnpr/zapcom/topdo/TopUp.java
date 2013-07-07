@@ -1,5 +1,7 @@
 package com.srnpr.zapcom.topdo;
 
+import com.srnpr.zapcom.basemodel.MStringMap;
+
 /**
  * 获取类 取该取的
  * @author srnpr
@@ -28,5 +30,13 @@ public class TopUp {
 	public static String upInfo(long lInfoId) {
 		return topInfo.upValue(lInfoId);
 	}
+	
+	
+	
+	private final static ConfigMap configMap=new ConfigMap();
+	public static MStringMap upConfigMap(String sKey) {
+		return configMap.upValue(sKey);
+	}
+	
 
 }

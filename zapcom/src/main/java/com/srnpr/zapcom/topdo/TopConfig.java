@@ -14,7 +14,7 @@ import com.srnpr.zapcom.topcall.LoadProperties;
  * @author srnpr
  * 初始化加载配置
  */
-public class TopConfig extends RootCache<String,String> implements IBaseCache {
+ class TopConfig extends RootCache<String,String> implements IBaseCache {
 
 
 	

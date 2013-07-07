@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.srnpr.zapcom.topdo.TopConfig;
+
 import com.srnpr.zapcom.topdo.TopTest;
 
 public class TestClass extends TopTest {
@@ -16,7 +16,7 @@ public class TestClass extends TopTest {
 		
 		bLog(0, bConfig("zapcom.version"));
 		
-		TopConfig tConfig=new TopConfig();
+		
 		
 		
 		

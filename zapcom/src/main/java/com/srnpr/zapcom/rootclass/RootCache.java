@@ -1,5 +1,7 @@
 package com.srnpr.zapcom.rootclass;
 
+import java.util.List;
+
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
@@ -34,6 +36,12 @@ public abstract class RootCache<K,V> extends TopBase implements IBaseCache {
 		return cache.getKeys().contains(k);
 	}
 	
+	
+	public List<K> upKeys()
+	{
+		
+		return  cache.getKeys();
+	}
 	
 	
 	@SuppressWarnings("unchecked")

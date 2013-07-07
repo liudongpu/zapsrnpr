@@ -11,7 +11,7 @@ import com.srnpr.zapcom.topcall.LoadProperties;
  * @author srnpr
  * 
  */
-public class TopInfo extends RootCache<Long, String> {
+class TopInfo extends RootCache<Long, String> {
 
 	/*
 	 * (non-Javadoc)
