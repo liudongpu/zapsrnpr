@@ -16,7 +16,7 @@ public class TestLog extends TopTest {
 		bLog(0, sConfigString);
 		bLog(0, sConfigString);
 		bLog(0, bConfig("zapcom.version"));
-		
+		bLog(0, bConfig("zapcom.target"));
 		
 		
 		bLog(0, bInfo(967901001));

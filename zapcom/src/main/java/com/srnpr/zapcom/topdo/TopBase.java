@@ -1,9 +1,10 @@
 package com.srnpr.zapcom.topdo;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class TopBase {
+public abstract class TopBase {
 
 	private Log logger = null;
 
@@ -17,9 +18,9 @@ public class TopBase {
 	
 	}
 	
-	public void bLog(Object oMessage)
+	public void bLog(int lid,Object... oMessage)
 	{
-		baseLog().info(oMessage);
+		baseLog().info("[TopBase] "+StringUtils.join(oMessage));
 	}
 	
 	

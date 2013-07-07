@@ -7,6 +7,7 @@ import java.util.Iterator;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.basemodel.MStringMap;
 import com.srnpr.zapcom.topdo.TopBase;
@@ -30,13 +31,25 @@ public class LoadProperties extends TopBase {
 
 				Iterator<String> em = pConfiguration.getKeys();
 
+				String sNameSpace=StringUtils.defaultString(pConfiguration.getString("@namespace"),"");
+				
 				while (em.hasNext()) {
 					String sKeyString = em.next();
-					// String
-					// sValueString=pJarConfiguration.getString(sKeyString);
 					String sValueString = new String(pConfiguration
 							.getProperty(sKeyString).toString());
 
+					
+					if(StringUtils.isNotEmpty(sNameSpace))
+					{
+						if(!StringUtils.startsWith(sKeyString, "$")&&!StringUtils.startsWith(sKeyString, sNameSpace))
+						{
+							sKeyString=sNameSpace+"."+sKeyString;
+						}
+					}
+					
+					// String
+					// sValueString=pJarConfiguration.getString(sKeyString);
+					
 					mReturnMap.put(sKeyString, sValueString);
 
 				}

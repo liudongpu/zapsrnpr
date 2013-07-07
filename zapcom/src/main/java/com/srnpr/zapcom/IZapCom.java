@@ -1,6 +1,6 @@
 package com.srnpr.zapcom;
 
-public interface Service {
+public interface IZapCom {
 	
 	String getMessage();
 

@@ -3,6 +3,11 @@ package com.srnpr.zapcom.topdo;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+/**
+ * 初始化 加载各种配置和初始化类
+ * @author srnpr
+ *
+ */
 public class ServerletListener extends ServerletLoader implements ServletContextListener{
 
 	
@@ -20,7 +25,7 @@ public class ServerletListener extends ServerletLoader implements ServletContext
 		if (this.contextLoader == null) {
 			this.contextLoader = this;
 		}
-		this.contextLoader.Init(event.getServletContext());
+		this.contextLoader.init(event.getServletContext());
 
 	}
 	

@@ -13,7 +13,7 @@ import com.srnpr.zapcom.topdo.TopUp;
  * 
  * @author srnpr
  */
-public class BaseClass {
+public abstract class BaseClass {
 
 	private Log logger = null;
 
@@ -28,15 +28,7 @@ public class BaseClass {
 			logger = LogFactory.getLog(this.getClass());
 		}
 
-		String sLog = "";
-		if (lInfoId <1) {
-			sLog = StringUtils.join(sParms);
-		} else {
-
-			sLog = lInfoId + " " + bInfo(lInfoId, sParms);
-		}
-
-		logger.info(sLog);
+		logger.info("["+String.valueOf( lInfoId)+"] "+(lInfoId<1?StringUtils.join(sParms):bInfo(lInfoId, sParms)));
 	}
 
 	/**

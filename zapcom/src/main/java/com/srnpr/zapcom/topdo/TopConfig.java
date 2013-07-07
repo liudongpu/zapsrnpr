@@ -27,7 +27,7 @@ public class TopConfig extends RootCache<String,String> implements IBaseCache {
 		TopDir topDir=new TopDir();
 		String sTempConfigString= topDir.upTempDir("config");
 		//topDir.upZapDir();
-		bLog("refresh "+sTempConfigString);
+		bLog(0,"refresh "+sTempConfigString);
 		IoHelper ioHelper=new IoHelper();
 		ioHelper.copyResources("classpath*:META-INF/zapsrnpr/config/*.properties", sTempConfigString);
 		LoadProperties loadProperties=new LoadProperties();

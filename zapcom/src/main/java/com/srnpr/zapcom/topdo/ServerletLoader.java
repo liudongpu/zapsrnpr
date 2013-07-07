@@ -5,7 +5,7 @@ import javax.servlet.ServletContext;
 public class ServerletLoader {
 	
 	
-	public  void Init(ServletContext servletContext) {
+	public  void init(ServletContext servletContext) {
 
 		try {
 
