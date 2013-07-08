@@ -1,5 +1,7 @@
 package com.srnpr.zapweb;
 
-public class TestBase {
+import com.srnpr.zapcom.topdo.TopTest;
+
+public class TestBase extends TopTest {
 
 }

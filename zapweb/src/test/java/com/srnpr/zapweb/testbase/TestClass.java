@@ -6,8 +6,9 @@ import org.junit.Test;
 
 
 import com.srnpr.zapcom.topdo.TopTest;
+import com.srnpr.zapweb.TestBase;
 
-public class TestClass extends TopTest {
+public class TestClass extends TestBase {
 
 	@Test
 	public void testRefresh() {
