@@ -15,7 +15,7 @@ public class TestClass extends TestBase {
 		//fail("Not yet implemented");
 		
 		
-		bLog(0, bConfig("zapcom.version"));
+		bLogInfo(0, bConfig("zapcom.version"));
 		
 		
 		

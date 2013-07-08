@@ -23,12 +23,24 @@ public abstract class BaseClass {
 	 * @param sParms
 	 *            替换参数
 	 */
-	public void bLog(int lInfoId, String... sParms) {
+	public void bLogInfo(int iInfoCode, String... sParms) {
 		if (logger == null) {
 			logger = LogFactory.getLog(this.getClass());
 		}
+		logger.info(TopUp.upLogInfo(iInfoCode, sParms));
+	}
 
-		logger.info("["+String.valueOf( lInfoId)+"] "+(lInfoId<1?StringUtils.join(sParms):bInfo(lInfoId, sParms)));
+	/**
+	 * debug日志
+	 * 
+	 * @param iInfoCode
+	 * @param sParms
+	 */
+	public void bLogDebug(int iInfoCode, String... sParms) {
+		if (logger == null) {
+			logger = LogFactory.getLog(this.getClass());
+		}
+		logger.debug(TopUp.upLogInfo(iInfoCode, sParms));
 	}
 
 	/**
@@ -47,9 +59,9 @@ public abstract class BaseClass {
 	 *            拼接字符串
 	 * @return
 	 */
-	public String bInfo(long lInfoId, String... sParms) {
+	public String bInfo(long iInfoCode, String... sParms) {
 
-		return FormatHelper.formatString(TopUp.upInfo(lInfoId), sParms);
+		return FormatHelper.formatString(TopUp.upInfo(iInfoCode), sParms);
 	}
 
 }

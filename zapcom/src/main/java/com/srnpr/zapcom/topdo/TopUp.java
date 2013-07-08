@@ -1,5 +1,8 @@
 package com.srnpr.zapcom.topdo;
 
+import org.apache.commons.lang.StringUtils;
+
+import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MStringMap;
 
 /**
@@ -27,11 +30,19 @@ public class TopUp {
 	 * @param lInfoId
 	 * @return
 	 */
-	public static String upInfo(long lInfoId) {
-		return topInfo.upValue(lInfoId);
+	public static String upInfo(long iInfoCode) {
+		return topInfo.upValue(iInfoCode);
 	}
 	
-	
+	/** 格式化日志内容
+	 * @param iInfoCode
+	 * @param sParms
+	 * @return
+	 */
+	public static String upLogInfo(int iInfoCode, String... sParms)
+	{
+		return "["+String.valueOf( iInfoCode)+"] "+(iInfoCode<1?StringUtils.join(sParms):FormatHelper.formatString(upInfo(iInfoCode), sParms));
+	}
 	
 	private final static ConfigMap configMap=new ConfigMap();
 	public static MStringMap upConfigMap(String sKey) {

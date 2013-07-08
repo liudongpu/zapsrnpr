@@ -60,7 +60,7 @@ public class TopInit extends BaseClass implements IBaseInit {
 					}
 				} catch (Exception e) {
 
-					bLog(0, "error load " + sClassName);
+					bLogInfo(0, "error load " + sClassName);
 					e.printStackTrace();
 
 				}

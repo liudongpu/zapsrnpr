@@ -17,7 +17,7 @@ public class TestLog extends TestZapcom {
 		
 		//bLog(0, topUp.upConfigMap("zapcom.init").get("zapcom"));
 		
-		bLog(967920001, "a");
+		bLogInfo(967920001, "a");
 		
 	}
 

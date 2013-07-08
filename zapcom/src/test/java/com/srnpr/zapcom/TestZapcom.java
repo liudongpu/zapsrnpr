@@ -10,13 +10,11 @@ import com.srnpr.zapcom.topdo.TopTest;
 public class TestZapcom extends TopTest {
 
 	@Test
-	public void test() {
-		
-		
+	public void testFormat26() {
 		
 		String sBaseString="abcdefghijklmnopqrstuvwxyz";
 		
-		bLog(0,String.valueOf( FormatHelper.convertFormatStringNumber("zw", sBaseString)));
+		bLogInfo(0,String.valueOf( FormatHelper.convertFormatStringNumber("zw", sBaseString)));
 	}
 	
 	
