@@ -7,7 +7,7 @@ import org.junit.Test;
 import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.topdo.TopTest;
 
-public class TestBase extends TopTest {
+public class TestZapcom extends TopTest {
 
 	@Test
 	public void test() {

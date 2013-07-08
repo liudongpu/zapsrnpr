@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
-import com.srnpr.zapcom.TestBase;
+import com.srnpr.zapcom.TestZapcom;
 
-public class TestLog extends TestBase {
+public class TestLog extends TestZapcom {
 
 	@Test
 	public void test() {
@@ -17,6 +17,7 @@ public class TestLog extends TestBase {
 		
 		//bLog(0, topUp.upConfigMap("zapcom.init").get("zapcom"));
 		
+		bLog(967920001, "a");
 		
 	}
 

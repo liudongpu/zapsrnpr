@@ -18,9 +18,9 @@ public abstract class TopBase {
 	
 	}
 	
-	public void bLog(int lid,Object... oMessage)
+	public void bDebug(int lid,Object... oMessage)
 	{
-		baseLog().info("[TopBase] "+StringUtils.join(oMessage));
+		baseLog().debug("[TopBase] "+StringUtils.join(oMessage));
 	}
 	
 	
