@@ -7,7 +7,7 @@ import com.srnpr.zapcom.rootclass.RootCache;
 
 public class ConfigMap extends RootCache<String, MStringMap> {
 
-	@Override
+
 	public synchronized void refresh() {
 		
 		TopConfig tConfig=new TopConfig();

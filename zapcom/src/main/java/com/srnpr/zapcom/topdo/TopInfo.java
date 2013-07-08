@@ -13,12 +13,9 @@ import com.srnpr.zapcom.topcall.LoadProperties;
  */
 class TopInfo extends RootCache<Long, String> {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.srnpr.zapcom.rootclass.RootCache#refresh()
+	/* (non-Javadoc)
+	 * @see com.srnpr.zapcom.baseface.IBaseCache#refresh()
 	 */
-	@Override
 	public synchronized void refresh() {
 		TopDir topDir = new TopDir();
 		String sTempConfigString = topDir.upTempDir("info");

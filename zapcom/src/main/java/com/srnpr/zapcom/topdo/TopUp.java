@@ -2,6 +2,7 @@ package com.srnpr.zapcom.topdo;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.srnpr.zapcom.baseface.IBaseUp;
 import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MStringMap;
 
@@ -10,7 +11,7 @@ import com.srnpr.zapcom.basemodel.MStringMap;
  * @author srnpr
  *
  */
-public class TopUp {
+public class TopUp implements IBaseUp {
 
 	private final static TopConfig topConfig = new TopConfig();
 
@@ -39,7 +40,7 @@ public class TopUp {
 	 * @param sParms
 	 * @return
 	 */
-	public static String upLogInfo(int iInfoCode, String... sParms)
+	public static String upLogInfo(int iInfoCode, Object... sParms)
 	{
 		return "["+String.valueOf( iInfoCode)+"] "+(iInfoCode<1?StringUtils.join(sParms):FormatHelper.formatString(upInfo(iInfoCode), sParms));
 	}

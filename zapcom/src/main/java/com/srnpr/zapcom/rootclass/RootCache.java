@@ -9,53 +9,40 @@ import net.sf.ehcache.Element;
 import com.srnpr.zapcom.baseface.IBaseCache;
 import com.srnpr.zapcom.topdo.TopBase;
 
-public abstract class RootCache<K,V> extends TopBase implements IBaseCache {
+public abstract class RootCache<K, V> extends TopBase implements IBaseCache {
 
 	private Cache cache;
-	
-	public RootCache()
-	{
-		CacheDefine cDefine=new CacheDefine();
-		String sClassNameString=this.getClass().getName();
-		cache=cDefine.inCache(sClassNameString);
+
+	public RootCache() {
+		CacheDefine cDefine = new CacheDefine();
+		String sClassNameString = this.getClass().getName();
+		cache = cDefine.inCache(sClassNameString);
 	}
-	
-	
-	public abstract void refresh();
-	
-	
-	public void inElement(K k,V v)
-	{
-		
+
+	public void inElement(K k, V v) {
+
 		cache.put(new Element(k, v));
 	}
-	
-	
-	public boolean containsKey(K k)
-	{
+
+	public boolean containsKey(K k) {
 		return cache.getKeys().contains(k);
 	}
-	
-	
-	public List<K> upKeys()
-	{
-		
-		return  cache.getKeys();
+
+	public List<K> upKeys() {
+
+		return cache.getKeys();
 	}
-	
-	
+
 	@SuppressWarnings("unchecked")
-	public V upValue(K k)
-	{
-		if(cache.get(k)==null)
-		{
-			refresh();
+	public V upValue(K k) {
+		if (cache.get(k) == null) {
+			synchronized (this) {
+				refresh();
+			}
+
 		}
-		
-		return (V)cache.get(k).getObjectValue();
+
+		return (V) cache.get(k).getObjectValue();
 	}
-	
-	
-	
-	
+
 }

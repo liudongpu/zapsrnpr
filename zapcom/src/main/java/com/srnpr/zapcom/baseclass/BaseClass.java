@@ -23,7 +23,7 @@ public abstract class BaseClass {
 	 * @param sParms
 	 *            替换参数
 	 */
-	public void bLogInfo(int iInfoCode, String... sParms) {
+	public void bLogInfo(int iInfoCode, Object... sParms) {
 		if (logger == null) {
 			logger = LogFactory.getLog(this.getClass());
 		}

@@ -17,9 +17,9 @@ public class FormatHelper {
 	 * @return 返回替换后结果
 	 */
 	public static String formatString(String sBaseString,
-			String... sFromStrings) {
+			Object... sFromStrings) {
 		for (int i = 0, j = sFromStrings.length; i < j; i++) {
-			sBaseString = sBaseString.replace("{" + (i) + "}", sFromStrings[i]);
+			sBaseString = sBaseString.replace("{" + (i) + "}", sFromStrings[i].toString());
 		}
 		return sBaseString;
 
