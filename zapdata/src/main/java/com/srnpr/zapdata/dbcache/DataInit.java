@@ -14,6 +14,7 @@ public class DataInit extends BaseClass implements IBaseInit {
 			String sUser, String sPass) {
 		ComboPooledDataSource cm = new ComboPooledDataSource();
 
+
 		try {
 			cm.setDriverClass(sDrive);
 			cm.setJdbcUrl(sUrl);

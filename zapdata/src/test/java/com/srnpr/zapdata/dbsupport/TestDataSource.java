@@ -13,26 +13,12 @@ public class TestDataSource extends TestZapdata {
 	@Test
 	public void testSource() {
 		
+		bLogInfo(0, "aa");
 		
 		
 		
 		
 		
-		
-		ComboPooledDataSource cm =new  ComboPooledDataSource();
-		
-		try {
-			cm.setDriverClass("com.mysql.jdbc.Driver");
-			cm.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/zdata?useUnicode=true");
-			cm.setUser("root");
-			cm.setPassword("");
-
-		} catch (Exception e) {
-			
-		}
-		
-		
-		NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(cm);
 		
 	
 		
