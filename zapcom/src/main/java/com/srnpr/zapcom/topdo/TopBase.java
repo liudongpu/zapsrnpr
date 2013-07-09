@@ -8,19 +8,14 @@ public abstract class TopBase {
 
 	private Log logger = null;
 
-	private Log baseLog() {
-		
-		if (logger == null) {
-			
-			logger =  LogFactory.getLog(this.getClass());
-		}
-		return logger;
 	
-	}
 	
-	public void bDebug(int lid,Object... oMessage)
+	public void bLogDebug(int lid,Object... oMessage)
 	{
-		baseLog().debug("[TopBase] "+StringUtils.join(oMessage));
+		if (logger == null) {
+			logger = LogFactory.getLog(this.getClass());
+		}
+		logger.debug("[TopBase] "+StringUtils.join(oMessage));
 	}
 	
 	

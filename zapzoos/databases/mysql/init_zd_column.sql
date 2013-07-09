@@ -1,11 +1,11 @@
 
-#delete from zd_tables;
-#delete from zd_column;
+#delete from zapdata.zd_tables;
+#delete from zapdata.zd_column;
 
 
 ########  初始化表
-insert into zapdata.zd_tables (`uid`,`server_code`,`table_name`,`table_remark`)
-select replace(uuid(),'-',''),TABLE_NAME,TABLE_NAME,TABLE_COMMENT from information_schema.TABLES where TABLE_SCHEMA in
+insert into zapdata.zd_tables (`uid`,`server_name`,`table_name`,`table_remark`)
+select replace(uuid(),'-',''),TABLE_SCHEMA,TABLE_NAME,TABLE_COMMENT from information_schema.TABLES where TABLE_SCHEMA in
 (select server_name from zapdata.zd_server)
 and TABLE_NAME not in(select table_name from zapdata.zd_tables);
 

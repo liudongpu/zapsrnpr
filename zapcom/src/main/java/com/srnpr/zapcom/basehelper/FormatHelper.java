@@ -1,37 +1,45 @@
 package com.srnpr.zapcom.basehelper;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
 public class FormatHelper {
 
+	public static String joinWhereStrings(List<String> lStrings) {
+		String[] sReturns = new String[lStrings.size()];
+		for (int i = 0, j = lStrings.size(); i < j; i++) {
+			sReturns[i] = lStrings.get(i)+ "=:" +  lStrings.get(i);
+		}
 
+		return StringUtils.join(sReturns, " and ");
 
+	}
 
 	/**
-	 * @param sBaseString 输入字符串
-	 * @param sFromStrings  替换字符串组
+	 * @param sBaseString
+	 *            输入字符串
+	 * @param sFromStrings
+	 *            替换字符串组
 	 * @return 返回替换后结果
 	 */
 	public static String formatString(String sBaseString,
 			Object... sFromStrings) {
 		for (int i = 0, j = sFromStrings.length; i < j; i++) {
-			sBaseString = sBaseString.replace("{" + (i) + "}", sFromStrings[i].toString());
+			sBaseString = sBaseString.replace("{" + (i) + "}",
+					sFromStrings[i].toString());
 		}
 		return sBaseString;
 
 	}
 
-	
-
 	/**
 	 * 强制进制转换函数 用数字表示一个字符串或者反向转换
-	 * @param sInput 
+	 * 
+	 * @param sInput
 	 * @param sParam
-	 * @return 
+	 * @return
 	 */
 	public static long convertFormatStringNumber(String sInput, String sParam) {
 

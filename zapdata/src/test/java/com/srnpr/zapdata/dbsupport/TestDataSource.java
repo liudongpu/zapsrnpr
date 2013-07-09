@@ -1,25 +1,28 @@
 package com.srnpr.zapdata.dbsupport;
 
-import static org.junit.Assert.*;
+import java.util.Map;
 
 import org.junit.Test;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.srnpr.zapcom.basemodel.MSoMap;
+import com.srnpr.zapcom.topdo.TopBase;
 import com.srnpr.zapdata.TestZapdata;
+import com.srnpr.zapdata.dbdo.DbUp;
+import com.sun.org.apache.bcel.internal.classfile.FieldOrMethod;
 
-public class TestDataSource extends TestZapdata {
+public class TestDataSource extends TopBase {
 
 	@Test
 	public void testSource() {
 		
-		bLogInfo(0, "aa");
+	
 		
+
 		
-		
-		
-		
-		
+		for(Map<String, Object> mResult:DbUp.upTable("cc_cardinfo").queryList("", "", "", null, 0, 0))
+		{
+			bLogDebug(0, mResult.get("card_money").toString());
+		}
 	
 		
 	}

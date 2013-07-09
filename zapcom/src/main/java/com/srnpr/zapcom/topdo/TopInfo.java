@@ -19,7 +19,7 @@ class TopInfo extends RootCache<Long, String> {
 	public synchronized void refresh() {
 		TopDir topDir = new TopDir();
 		String sTempConfigString = topDir.upTempDir("info");
-		bDebug(0, "refresh " + sTempConfigString);
+		bLogDebug(0, "refresh " + sTempConfigString);
 		IoHelper ioHelper = new IoHelper();
 		ioHelper.copyResources(
 				"classpath*:META-INF/zapsrnpr/info/*.properties",
