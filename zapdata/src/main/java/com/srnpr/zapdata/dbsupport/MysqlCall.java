@@ -1,15 +1,11 @@
 package com.srnpr.zapdata.dbsupport;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 import com.srnpr.zapcom.basehelper.FormatHelper;
-import com.srnpr.zapcom.basemodel.MSoMap;
 import com.srnpr.zapcom.basemodel.MStringMap;
 
 public class MysqlCall extends DbCall {
@@ -75,7 +71,7 @@ public class MysqlCall extends DbCall {
 
 	public String dataInsert(MStringMap mData) {
 		String sUid = UUID.randomUUID().toString().replace("-", "");
-		if (mData.containsKey("uid")) {
+		if (!mData.containsKey("uid")) {
 			mData.put("uid", sUid);
 		}
 
