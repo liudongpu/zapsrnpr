@@ -19,10 +19,7 @@ public class TestDataSource extends TopBase {
 		
 
 		
-		for(Map<String, Object> mResult:DbUp.upTable("cc_cardinfo").queryList("", "", "", null, 0, 0))
-		{
-			bLogDebug(0, mResult.get("card_money").toString());
-		}
+	
 	
 		
 	}
