@@ -13,7 +13,7 @@ public class TestDataSource extends TopBase {
 		
 	
 		
-		DbUp.upTable("cc_cardinfo").insert("card_code","aa");
+		//DbUp.upTable("cc_cardinfo").insert("card_code","bb");
 		
 		MDataMap MDataMap=new MDataMap();
 		
@@ -25,9 +25,9 @@ public class TestDataSource extends TopBase {
 		bLogDebug(0, DbUp.upTable("cc_cardinfo").count());
 		
 		
-		MDataMap mapOneDataMap=DbUp.upTable("cc_cardinfo").one("zid","27");
+		MDataMap mapOneDataMap=DbUp.upTable("cc_cardinfo").one("card_code","bbc");
 		
-		bLogDebug(0, mapOneDataMap.get("card_code"));
+		//bLogDebug(0, mapOneDataMap.get("card_code"));
 		
 		//bLogDebug(0, DbUp.upTable("cc_cardinfo").delete());
 	}

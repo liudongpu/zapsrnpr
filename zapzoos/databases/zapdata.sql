@@ -18,6 +18,57 @@ USE `zapdata`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `za_manager`
+--
+
+DROP TABLE IF EXISTS `za_manager`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `za_manager` (
+  `zid` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` char(32) DEFAULT '',
+  `manager_name` varchar(45) DEFAULT '',
+  `manager_pass` varchar(45) DEFAULT '',
+  PRIMARY KEY (`zid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `za_manager`
+--
+
+LOCK TABLES `za_manager` WRITE;
+/*!40000 ALTER TABLE `za_manager` DISABLE KEYS */;
+/*!40000 ALTER TABLE `za_manager` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `za_role`
+--
+
+DROP TABLE IF EXISTS `za_role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `za_role` (
+  `zid` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` char(32) DEFAULT '',
+  `role_code` varchar(45) DEFAULT '' COMMENT '角色编码',
+  `role_name` varchar(45) DEFAULT '' COMMENT '角色名称',
+  `parent_code` varchar(45) DEFAULT '' COMMENT '父编码',
+  PRIMARY KEY (`zid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `za_role`
+--
+
+LOCK TABLES `za_role` WRITE;
+/*!40000 ALTER TABLE `za_role` DISABLE KEYS */;
+/*!40000 ALTER TABLE `za_role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `zd_abstract`
 --
 
@@ -66,7 +117,7 @@ CREATE TABLE `zd_column` (
   `length_scale` int(11) DEFAULT '0' COMMENT '小数点',
   `column_sort` varchar(45) DEFAULT '' COMMENT '排序',
   PRIMARY KEY (`zid`)
-) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,7 +177,7 @@ CREATE TABLE `zd_tables` (
   `table_remark` varchar(450) DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`zid`),
   UNIQUE KEY `table_name_UNIQUE` (`table_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +203,7 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-07-09 18:27:24
+-- Dump completed on 2013-07-10 18:23:45
 CREATE DATABASE  IF NOT EXISTS `cardcenter` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `cardcenter`;
 -- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
@@ -192,8 +243,9 @@ CREATE TABLE `cc_cardinfo` (
   `begin_time` char(18) DEFAULT '' COMMENT '开始使用时间',
   `finish_time` char(18) DEFAULT '' COMMENT '截止使用时间',
   `create_time` char(18) DEFAULT '' COMMENT '创建时间',
-  PRIMARY KEY (`zid`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`zid`),
+  UNIQUE KEY `card_code_UNIQUE` (`card_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,8 +254,117 @@ CREATE TABLE `cc_cardinfo` (
 
 LOCK TABLES `cc_cardinfo` WRITE;
 /*!40000 ALTER TABLE `cc_cardinfo` DISABLE KEYS */;
-INSERT INTO `cc_cardinfo` VALUES (1,'','1','','',0.00,0.00,0.00,101001002,'','',''),(2,'','','aa','',0.00,0.00,0.00,101001002,'','',''),(3,'4342cffb1c824653ae501748b4199acb','','aa','',0.00,0.00,0.00,101001002,'','',''),(4,'cbdd2bf3c14344b2b27a842480b8cb19','','aa','',0.00,0.00,0.00,101001002,'','',''),(5,'15cb239d71b643b688dc63119c8c4ca6','','aa','',0.00,0.00,0.00,101001002,'','','');
+INSERT INTO `cc_cardinfo` VALUES (27,'df490ec172dc47638f58dd0eed59133b','','aa','',0.00,0.00,0.00,101001002,'','',''),(32,'733044fee7844e50a32d8e592e5237ed','','bb','',0.00,0.00,0.00,101001002,'','','');
 /*!40000 ALTER TABLE `cc_cardinfo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cc_cardlog`
+--
+
+DROP TABLE IF EXISTS `cc_cardlog`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cc_cardlog` (
+  `zid` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` char(32) DEFAULT '',
+  `card_code` varchar(45) DEFAULT '' COMMENT '卡号',
+  `change_money` decimal(18,2) DEFAULT '0.00' COMMENT '变化金额',
+  `change_time` char(18) DEFAULT '' COMMENT '变更时间',
+  `change_people` varchar(45) DEFAULT '' COMMENT '变更人',
+  `change_source` varchar(45) DEFAULT '' COMMENT '变更原因',
+  `change_code` varchar(45) DEFAULT '' COMMENT '相关单号',
+  `change_remark` varchar(450) DEFAULT '' COMMENT '变更备注',
+  PRIMARY KEY (`zid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cc_cardlog`
+--
+
+LOCK TABLES `cc_cardlog` WRITE;
+/*!40000 ALTER TABLE `cc_cardlog` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cc_cardlog` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cc_cardtask`
+--
+
+DROP TABLE IF EXISTS `cc_cardtask`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cc_cardtask` (
+  `zid` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` char(32) DEFAULT '',
+  `task_code` varchar(45) DEFAULT '' COMMENT '任务编号',
+  `task_name` varchar(450) DEFAULT '' COMMENT '任务名称',
+  `task_remark` varchar(4500) DEFAULT '' COMMENT '备注',
+  `create_time` char(18) DEFAULT '' COMMENT '创建时间',
+  `create_user` varchar(45) DEFAULT '' COMMENT '创建人',
+  PRIMARY KEY (`zid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cc_cardtask`
+--
+
+LOCK TABLES `cc_cardtask` WRITE;
+/*!40000 ALTER TABLE `cc_cardtask` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cc_cardtask` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cc_define`
+--
+
+DROP TABLE IF EXISTS `cc_define`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cc_define` (
+  `zid` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` char(32) DEFAULT '',
+  `define_dids` varchar(30) DEFAULT '' COMMENT '定义编号',
+  `define_name` varchar(450) DEFAULT '' COMMENT '定义名称',
+  `define_note` varchar(45) DEFAULT '' COMMENT '描述',
+  `level_rank` int(11) DEFAULT '0' COMMENT '级别',
+  PRIMARY KEY (`zid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cc_define`
+--
+
+LOCK TABLES `cc_define` WRITE;
+/*!40000 ALTER TABLE `cc_define` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cc_define` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cc_tasklog`
+--
+
+DROP TABLE IF EXISTS `cc_tasklog`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cc_tasklog` (
+  `zid` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` char(32) DEFAULT NULL,
+  `task_code` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`zid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cc_tasklog`
+--
+
+LOCK TABLES `cc_tasklog` WRITE;
+/*!40000 ALTER TABLE `cc_tasklog` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cc_tasklog` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -219,4 +380,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-07-09 18:27:25
+-- Dump completed on 2013-07-10 18:23:46
