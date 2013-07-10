@@ -37,15 +37,12 @@ public class MObjMap<K, V> extends ConcurrentHashMap<K, V> {
 	@SuppressWarnings("unchecked")
 	public void inAllValues(V... vInputs)
 	{
-		
-		
+
 		for(int i=0,j=vInputs.length;i<j;i=i+2)
 		{
 			this.put((K)vInputs[i], vInputs[i+1]);
 		}
-		
-		
-		
+
 	}
 	
 	

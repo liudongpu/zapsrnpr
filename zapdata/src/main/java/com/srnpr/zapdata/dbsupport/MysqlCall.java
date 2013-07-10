@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
 import com.srnpr.zapcom.basehelper.FormatHelper;
-import com.srnpr.zapcom.basemodel.MStringMap;
+import com.srnpr.zapcom.basemodel.MDataMap;
 
 public class MysqlCall extends DbCall {
 
@@ -36,11 +36,11 @@ public class MysqlCall extends DbCall {
 	 * (non-Javadoc)
 	 * 
 	 * @see com.srnpr.zapdata.dbface.ITableCall#queryList(java.lang.String,
-	 * java.lang.String, java.lang.String,
-	 * com.srnpr.zapcom.basemodel.MStringMap, int, int)
+	 * java.lang.String, java.lang.String, com.srnpr.zapcom.basemodel.MDataMap,
+	 * int, int)
 	 */
-	public List<Map<String, Object>> queryList(String sFields, String sOrders,
-			String sWhere, MStringMap mWhereMap, int iStart, int iEnd) {
+	public List<Map<String, Object>> dataQuery(String sFields, String sOrders,
+			String sWhere, MDataMap mWhereMap, int iStart, int iEnd) {
 
 		StringBuffer sBuffer = new StringBuffer();
 		sBuffer.append("select ");
@@ -69,44 +69,44 @@ public class MysqlCall extends DbCall {
 		return dataTemplate.queryForList(sBuffer.toString(), mWhereMap);
 	}
 
-	public String dataInsert(MStringMap mData) {
+	public String dataInsert(MDataMap mDataMap) {
 		String sUid = UUID.randomUUID().toString().replace("-", "");
-		if (!mData.containsKey("uid")) {
-			mData.put("uid", sUid);
+		if (!mDataMap.containsKey("uid")) {
+			mDataMap.put("uid", sUid);
 		}
 
-		baseInsert(mData);
+		baseInsert(mDataMap);
 		return sUid;
 
 	}
 
-	public void baseInsert(MStringMap mData) {
+	public void baseInsert(MDataMap mDataMap) {
 
 		StringBuffer sSqlBuffer = new StringBuffer();
 		sSqlBuffer.append("insert into " + dataTableName + "(");
-		String[] sKey = mData.upKeys().toArray(new String[] {});
+		String[] sKey = mDataMap.upKeys().toArray(new String[] {});
 		sSqlBuffer.append(StringUtils.join(sKey, ","));
 		sSqlBuffer.append(") values(:");
 		sSqlBuffer.append(StringUtils.join(sKey, ",:"));
 		sSqlBuffer.append(")");
 
-		dataExec(sSqlBuffer.toString(), mData);
+		dataExec(sSqlBuffer.toString(), mDataMap);
 	}
 
-	public int dataExec(String sSql, MStringMap mData) {
-		return dataTemplate.update(sSql, mData);
+	public int dataExec(String sSql, MDataMap mDataMap) {
+		return dataTemplate.update(sSql, mDataMap);
 	}
 
-	public int dataUpdate(MStringMap mHashMap, String sUpdateFields,
+	public int dataUpdate(MDataMap mDataMap, String sUpdateFields,
 			String sWhereFields) {
 		StringBuffer sSqlBuffer = new StringBuffer();
 		sSqlBuffer.append("update " + dataTableName + " set ");
 
 		String[] sUpdates = StringUtils.isNotEmpty(sUpdateFields) ? sUpdateFields
-				.split(",") : mHashMap.convertKeysToStrings();
+				.split(",") : mDataMap.convertKeysToStrings();
 
 		for (int i = 0, j = sUpdates.length; i < j; i++) {
-			sUpdates[i] = sUpdates[i] + "=:" + sUpdates;
+			sUpdates[i] = sUpdates[i] + "=:" + sUpdates[i];
 		}
 
 		sSqlBuffer.append(" " + StringUtils.join(sUpdates, ",") + " ");
@@ -115,32 +115,46 @@ public class MysqlCall extends DbCall {
 			String[] sSqlWheres = sWhereFields.split(",");
 
 			for (int i = 0, j = sSqlWheres.length; i < j; i++) {
-				sSqlWheres[i] = sSqlWheres[i] + "=:" + sSqlWheres;
+				sSqlWheres[i] = sSqlWheres[i] + "=:" + sSqlWheres[i];
 			}
-			sSqlBuffer.append(" where " + StringUtils.join(sUpdates, " and ")
+			sSqlBuffer.append(" where " + StringUtils.join(sSqlWheres, " and ")
 					+ " ");
 		}
 
-		return dataExec(sSqlBuffer.toString(), mHashMap);
+		return dataExec(sSqlBuffer.toString(), mDataMap);
 	}
 
-	public int dataDelete(MStringMap mHashMap, String sWhereFields) {
+	public int dataDelete(MDataMap mDataMap, String sWhereFields) {
 
 		StringBuffer sSqlBuffer = new StringBuffer();
 
 		sSqlBuffer.append(" delete from " + dataTableName);
 
 		String[] sSqlWheres = StringUtils.isNotEmpty(sWhereFields) ? sWhereFields
-				.split(",") : mHashMap.convertKeysToStrings();
+				.split(",") : mDataMap.convertKeysToStrings();
 
 		for (int i = 0, j = sSqlWheres.length; i < j; i++) {
 			sSqlWheres[i] = sSqlWheres[i] + "=:" + sSqlWheres;
 		}
-		sSqlBuffer.append(" where " + StringUtils.join(sSqlWheres, " and ")
-				+ " ");
+		if (sSqlWheres.length > 0) {
+			sSqlBuffer.append(" where " + StringUtils.join(sSqlWheres, " and ")
+					+ " ");
+		}
 
-		return dataExec(sSqlBuffer.toString(), mHashMap);
+		return dataExec(sSqlBuffer.toString(), mDataMap);
 
+	}
+
+	public Object dataGet(String sField, MDataMap mWhereMap) {
+		Map<String, Object> rResultMap = dataQuery(sField + " as dataget", "",
+				"", mWhereMap, -1, -1).get(0);
+
+		return rResultMap.get("dataget");
+	}
+
+	public int dataCount(MDataMap mWhereMap) {
+
+		return Integer.valueOf(dataGet("count(1) ", mWhereMap).toString());
 	}
 
 }
