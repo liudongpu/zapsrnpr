@@ -5,14 +5,11 @@
 <title>zapadmin</title>
 </head>
 <body>
-
 <#include "zapmacro/zapmacro_common.ftl" />
+<#include "macro/macro_common.ftl" />
+<@m_common_html_js ["resources/lib/jquery/jquery-last.min.js","resources/lib/bootstrap/js/bootstrap.min.js"]/>
+<@m_common_html_css ["resources/lib/bootstrap/css/bootstrap.min.css"] />
 
-<@m_zapmacro_common_html_js ["s"]/>
-<@m_zapmacro_common_html_css  [""] />
-
-
-
-<P>  The time on the server is2aaaaaassaaaaaaaaaaaaddddabz ${serverTime}. </P>
+aaaa
 </body>
 </html>
