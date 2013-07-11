@@ -5,4 +5,30 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
+		
+		<!-- 设置freeMarker的配置文件路径 -->
+	<bean id="freemarkerConfiguration"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="/WEB-INF/spring/appServlet/freemarker-config.properties" />
+	</bean>
+
+
+
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id="freemarkerConfig"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<!--property name="freemarkerSettings" ref="freemarkerConfiguration"/ -->
+		
+		
+		
+		<property name="templateLoaderPath">
+			<value>/WEB-INF/ftltemplete/</value>
+		</property>
+		
+	</bean>
+
+	
+		
+		
 </beans>
