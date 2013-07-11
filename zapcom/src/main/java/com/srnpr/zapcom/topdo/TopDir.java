@@ -3,6 +3,9 @@ package com.srnpr.zapcom.topdo;
 import java.io.File;
 import java.io.IOException;
 
+import javax.servlet.ServletContextEvent;
+import javax.servlet.http.HttpServlet;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -16,6 +19,11 @@ import com.srnpr.zapcom.basehelper.IoHelper;
  */
 public class TopDir extends TopBase {
 
+	/**
+	 * 获取zapdir的路径 默认是在user主目录
+	 * 
+	 * @return
+	 */
 	private String upZapDir() {
 		if (StringUtils.isEmpty(TopConst.CONST_TOP_ZAPDIR)) {
 			String sZapDir = System.getProperty("user.home");
@@ -61,7 +69,8 @@ public class TopDir extends TopBase {
 	/**
 	 * 获取临时文件夹路径
 	 * 
-	 * @param sTempDir 临时目录的子文件夹
+	 * @param sTempDir
+	 *            临时目录的子文件夹
 	 * @return
 	 */
 	public String upTempDir(String sTempDir) {
@@ -76,5 +85,27 @@ public class TopDir extends TopBase {
 		IoHelper.createDir(sReturnString);
 		return sReturnString;
 	}
+	
+	
+	public String upServerletPath(String sSubDir)
+	{
+		
+		String sReturnString="";
+		
+		
+		
+		
+		if(StringUtils.isNotEmpty(TopConst.CONST_TOP_DIR_SERVLET))
+		{
+			sReturnString=TopConst.CONST_TOP_DIR_SERVLET+"/"+sSubDir;
+		}
+		
+		
+		return sReturnString;
+	}
+	
+	
+	
+	
 
 }

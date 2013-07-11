@@ -1,13 +1,18 @@
-
+<!DOCTYPE html>
 <html>
 <head>
-	<title>Home</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>zapadmin</title>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
 
-<P>  The time on the server is2aaaaaaaddddabz ${serverTime}. </P>
+<#include "zapmacro/zapmacro_common.ftl" />
+
+<@m_zapmacro_common_html_js ["s"]/>
+<@m_zapmacro_common_html_css  [""] />
+
+
+
+<P>  The time on the server is2aaaaaassaaaaaaaaaaaaddddabz ${serverTime}. </P>
 </body>
 </html>

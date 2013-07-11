@@ -15,7 +15,7 @@ package com.srnpr.zapcom.topdo;
 
 	
 	
-	
+	public static String CONST_TOP_DIR_SERVLET=null;
 	
 	
 }
