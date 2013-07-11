@@ -5,9 +5,12 @@ import java.io.IOException;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.basehelper.IoHelper;
@@ -27,7 +30,7 @@ public class TopDir extends TopBase {
 	private String upZapDir() {
 		if (StringUtils.isEmpty(TopConst.CONST_TOP_ZAPDIR)) {
 			String sZapDir = System.getProperty("user.home");
-			TopConst.CONST_TOP_ZAPDIR = sZapDir + "/" + "zapzoos/zapdir";
+			TopConst.CONST_TOP_ZAPDIR = sZapDir + "/" + "zapzoos/zapdir/";
 
 		}
 
@@ -45,14 +48,14 @@ public class TopDir extends TopBase {
 		String sReturnString = "";
 
 		if (StringUtils.isEmpty(TopConst.CONST_TOP_CURRENT)) {
-			TopConst.CONST_TOP_CURRENT = upZapDir() + "/default";
+			TopConst.CONST_TOP_CURRENT = upZapDir() + "/default/";
 
 		}
 
 		sReturnString = TopConst.CONST_TOP_CURRENT;
 
 		if (StringUtils.isNotEmpty(sPath)) {
-			sReturnString = sReturnString + "/" + sPath;
+			sReturnString = sReturnString  + sPath+ "/";
 		}
 
 		try {
@@ -81,31 +84,21 @@ public class TopDir extends TopBase {
 					+ TopConst.CONST_TOP_DIR_TEMP);
 		}
 
-		String sReturnString = TopConst.CONST_TOP_DIR_TEMP + "/" + sTempDir;
+		String sReturnString = TopConst.CONST_TOP_DIR_TEMP  + sTempDir+"/";
 		IoHelper.createDir(sReturnString);
 		return sReturnString;
 	}
-	
-	
-	public String upServerletPath(String sSubDir)
-	{
-		
-		String sReturnString="";
-		
-		
-		
-		
-		if(StringUtils.isNotEmpty(TopConst.CONST_TOP_DIR_SERVLET))
-		{
-			sReturnString=TopConst.CONST_TOP_DIR_SERVLET+"/"+sSubDir;
+
+	public String upServerletPath(String sSubDir) {
+
+		String sReturnString = "";
+
+		if (StringUtils.isNotEmpty(TopConst.CONST_TOP_DIR_SERVLET)) {
+			sReturnString = TopConst.CONST_TOP_DIR_SERVLET + sSubDir+"/";
+			IoHelper.createDir(sReturnString);
 		}
-		
-		
+
 		return sReturnString;
 	}
-	
-	
-	
-	
 
 }

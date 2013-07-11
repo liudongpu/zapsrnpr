@@ -29,7 +29,7 @@ import com.srnpr.zapcom.topcall.LoadProperties;
 		//topDir.upZapDir();
 		bLogDebug(0,"refresh "+sTempConfigString);
 		IoHelper ioHelper=new IoHelper();
-		ioHelper.copyResources("classpath*:META-INF/zapsrnpr/config/*.properties", sTempConfigString);
+		ioHelper.copyResources("classpath*:META-INF/zapsrnpr/config/*.properties", sTempConfigString,"/zapsrnpr/config/");
 		LoadProperties loadProperties=new LoadProperties();
 		
 		

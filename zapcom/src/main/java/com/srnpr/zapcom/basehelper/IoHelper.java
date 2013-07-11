@@ -8,6 +8,7 @@ import java.io.InputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
@@ -44,6 +45,10 @@ public class IoHelper {
 		return resources;
 	}
 
+	
+	
+	
+	
 	/**
 	 * 复制资源
 	 * 
@@ -51,24 +56,26 @@ public class IoHelper {
 	 * @param sToPath
 	 * @param sKeyName
 	 */
-	public void copyResources(String sFromClass, String sToPath) {
+	public void copyResources(String sFromClass, String sToPath, String sKeyName) {
 		try {
 			Resource[] resources = upResources(sFromClass);
 
 			for (Resource r : resources) {
 
-				String sUrlString = r.getFilename();
+				
+				String sUrlString=StringUtils.substringAfter( r.getURI().toString(), sKeyName);
 
 				InputStream inStream = r.getInputStream(); // 读入原文件
 
-				FileOutputStream fs = new FileOutputStream(
-						FilenameUtils.concat(sToPath, sUrlString));
+				new File(sToPath + sUrlString).getParentFile().mkdirs();
+				FileOutputStream fs = new FileOutputStream(sToPath + sUrlString);
 
 				IOUtils.copy(inStream, fs);
 				fs.flush();
 				fs.close();
 
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -103,6 +103,11 @@
 			<artifactId>zapweb</artifactId>
 			<version>1.0.0.1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.srnpr</groupId>
+			<artifactId>zapzero</artifactId>
+			<version>1.0.0.1</version>
+		</dependency>
 	</dependencies>
     <build>
         <plugins>

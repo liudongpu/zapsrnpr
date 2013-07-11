@@ -14,7 +14,7 @@ public class TestZapcom extends TopTest {
 		
 		String sBaseString="abcdefghijklmnopqrstuvwxyz";
 		
-		bLogInfo(0,String.valueOf( FormatHelper.convertFormatStringNumber("zd", sBaseString)));
+		bLogInfo(0,String.valueOf( FormatHelper.convertFormatStringNumber("zz", sBaseString)));
 		
 		//bLogInfo(0,String.valueOf( FormatHelper.convertFormatStringNumber(Double.valueOf("123434453169644432981977"), sBaseString)));
 		

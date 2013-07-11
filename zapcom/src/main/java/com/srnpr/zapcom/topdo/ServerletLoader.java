@@ -16,7 +16,7 @@ public class ServerletLoader {
 			
 			//servletContext.log(sTopConfigString);
 			
-			//TopConst.CONST_TOP_DIR_SERVLET=servletContext.getRealPath("");
+			TopConst.CONST_TOP_DIR_SERVLET=servletContext.getRealPath("")+"/";
 			
 			servletContext.getContextPath();
 			

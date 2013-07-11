@@ -23,7 +23,7 @@ class TopInfo extends RootCache<Long, String> {
 		IoHelper ioHelper = new IoHelper();
 		ioHelper.copyResources(
 				"classpath*:META-INF/zapsrnpr/info/*.properties",
-				sTempConfigString);
+				sTempConfigString,"/zapsrnpr/info/");
 		LoadProperties loadProperties = new LoadProperties();
 		MStringMap mStringMap = loadProperties.loadMap(sTempConfigString);
 		for (String s : mStringMap.upKeys()) {
