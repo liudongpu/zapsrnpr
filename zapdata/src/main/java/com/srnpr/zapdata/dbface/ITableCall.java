@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.srnpr.zapcom.basemodel.MDataMap;
+import com.srnpr.zapdata.dbsupport.DbTemplate;
 
 public interface ITableCall {
 
+	public DbTemplate upTemplate();
 	
 	
 	public int delete(String... sParams);

@@ -157,4 +157,9 @@ public class MysqlCall extends DbCall {
 		return Integer.valueOf(dataGet("count(1) ", mWhereMap).toString());
 	}
 
+	public DbTemplate upTemplate() {
+
+		return dataTemplate;
+	}
+
 }

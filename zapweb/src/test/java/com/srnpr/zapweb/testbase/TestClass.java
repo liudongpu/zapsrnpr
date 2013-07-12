@@ -6,6 +6,7 @@ import org.junit.Test;
 
 
 import com.srnpr.zapcom.topdo.TopTest;
+import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.TestBase;
 
 public class TestClass extends TestBase {
@@ -19,7 +20,7 @@ public class TestClass extends TestBase {
 		
 		
 		
-		
+		//DbUp.upTable("aa").
 		
 		
 	}
