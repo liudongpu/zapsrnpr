@@ -37,6 +37,10 @@ public interface ITableCall {
 	 */
 	public String insert(String... sParams);
 	
+	public List<MDataMap> queryByWhere(String... sParams);
+	
+	public List<Map<String, Object>> listByWhere(String... sParams);
+	
 	
 	public int count(String... sParams);
 

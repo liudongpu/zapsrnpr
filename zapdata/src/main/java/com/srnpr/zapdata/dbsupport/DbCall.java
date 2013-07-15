@@ -11,22 +11,18 @@ import com.srnpr.zapdata.dbface.ITableCall;
 public abstract class DbCall extends BaseClass implements ITableCall {
 
 	public String insert(String... sParams) {
-	
+
 		return dataInsert(new MDataMap(sParams));
 	}
-	
-	public int count(String... sParams)
-	{
+
+	public int count(String... sParams) {
 		return dataCount(new MDataMap(sParams));
 	}
-	
-	
-	public int delete(String... sParams)
-	{
+
+	public int delete(String... sParams) {
 		return dataDelete(new MDataMap(sParams), "");
-		
+
 	}
-	
 
 	public int update(MDataMap mDataMap) {
 
@@ -34,7 +30,7 @@ public abstract class DbCall extends BaseClass implements ITableCall {
 	}
 
 	public MDataMap one(String... sParams) {
-		
+
 		List<MDataMap> rLists = query("", "", "", new MDataMap(sParams), -1, -1);
 		if (rLists.size() > 0) {
 			return rLists.get(0);
@@ -42,6 +38,16 @@ public abstract class DbCall extends BaseClass implements ITableCall {
 			return null;
 		}
 
+	}
+	
+	public List<Map<String, Object>> listByWhere(String... sParams)
+	{
+		return dataQuery("", "", "", new MDataMap(sParams), -1, -1);
+	}
+	
+
+	public List<MDataMap> queryByWhere(String... sParams) {
+		return query("", "", "", new MDataMap(sParams), -1, -1);
 	}
 
 	public List<MDataMap> query(String sFields, String sOrders, String sWhere,

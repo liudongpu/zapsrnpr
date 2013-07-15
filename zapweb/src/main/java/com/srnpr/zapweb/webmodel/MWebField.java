@@ -3,6 +3,11 @@ package com.srnpr.zapweb.webmodel;
 public class MWebField {
 
 	private String fieldNote = "";
+	private String columnName = "";
+
+	private String sort = "";
+
+	private String fieldTypeAid = "";
 
 	public String getFieldNote() {
 		return fieldNote;
@@ -28,18 +33,14 @@ public class MWebField {
 		this.sort = sort;
 	}
 
-	public String getFieldType() {
-		return fieldType;
+	public String getFieldTypeAid() {
+		return fieldTypeAid;
 	}
 
-	public void setFieldType(String fieldType) {
-		this.fieldType = fieldType;
+	public void setFieldTypeAid(String fieldTypeAid) {
+		this.fieldTypeAid = fieldTypeAid;
 	}
 
-	private String columnName = "";
-
-	private String sort = "";
-
-	private String fieldType = "";
+	
 
 }
