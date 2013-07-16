@@ -1,6 +1,5 @@
 package com.srnpr.zapweb.webmodel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MWebPage {
@@ -13,7 +12,7 @@ public class MWebPage {
 	private String pageTemplate = "";
 	private String pageName = "";
 
-	private List<MWebField> fields = new ArrayList<MWebField>();
+	private List<MWebOperate> pageOperate;
 
 	public String getPageCode() {
 		return pageCode;
@@ -55,12 +54,12 @@ public class MWebPage {
 		this.pageName = pageName;
 	}
 
-	public List<MWebField> getFields() {
-		return fields;
+	public List<MWebOperate> getPageOperate() {
+		return pageOperate;
 	}
 
-	public void setFields(List<MWebField> fields) {
-		this.fields = fields;
+	public void setPageOperate(List<MWebOperate> pageOperate) {
+		this.pageOperate = pageOperate;
 	}
 
 }

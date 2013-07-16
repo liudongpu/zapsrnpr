@@ -119,7 +119,7 @@ replace(uuid(),'-','') as uid
 ,116015012 as operate_type_aid
 ,zwp.page_code as page_code
 ,(select page_code from zw_page where page_type_aid=116016001 and view_code=zwp.view_code) as operate_link
-,'101001001' as flag_enable
+,'1' as flag_enable
 from zw_page zwp
 where 
 (select count(1) from zw_operate where  concat(operate_name,page_code)=concat('添加',zwp.page_code))=0
@@ -139,7 +139,7 @@ replace(uuid(),'-','') as uid
 ,116015012 as operate_type_aid
 ,zwp.page_code as page_code
 ,(select page_code from zw_page where page_type_aid=116016003 and view_code=zwp.view_code) as operate_link
-,'101001001' as flag_enable
+,'1' as flag_enable
 from zw_page zwp
 where 
 (select count(1) from zw_operate where  concat(operate_name,page_code)=concat('修改',zwp.page_code))=0
@@ -159,8 +159,8 @@ replace(uuid(),'-','') as uid
 ,'删除' as operate_name
 ,116015010 as operate_type_aid
 ,zwp.page_code as page_code
-,'zenjs.zw.func_delete(this)' as operate_link
-,'101001001' as flag_enable
+,'zapjs.zw.func_delete(this)' as operate_link
+,'1' as flag_enable
 from zw_page zwp
 where 
 (select count(1) from zw_operate where  concat(operate_name,page_code)=concat('删除',zwp.page_code))=0
@@ -180,8 +180,8 @@ replace(uuid(),'-','') as uid
 ,'提交新增' as operate_name
 ,116015010 as operate_type_aid
 ,zwp.page_code as page_code
-,'zenjs.zw.func_add(this)' as operate_link
-,'101001001' as flag_enable
+,'zapjs.zw.func_add(this)' as operate_link
+,'1' as flag_enable
 from zw_page zwp
 where 
 (select count(1) from zw_operate where  concat(operate_name,page_code)=concat('提交新增',zwp.page_code))=0
@@ -201,8 +201,8 @@ replace(uuid(),'-','') as uid
 ,'提交修改' as operate_name
 ,116015010 as operate_type_aid
 ,zwp.page_code as page_code
-,'zenjs.zw.func_edit(this)' as operate_link
-,'101001001' as flag_enable
+,'zapjs.zw.func_edit(this)' as operate_link
+,'1' as flag_enable
 from zw_page zwp
 where 
 (select count(1) from zw_operate where  concat(operate_name,page_code)=concat('提交修改',zwp.page_code))=0

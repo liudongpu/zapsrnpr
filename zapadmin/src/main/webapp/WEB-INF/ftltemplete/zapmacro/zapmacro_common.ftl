@@ -30,7 +30,7 @@
 
 
 <#macro m_zapmacro_common_autofield e_pagedata>
-<form class="form-horizontal">
+
 	
 	<#list e_pagedata as e>
 		<div class="control-group">
@@ -40,16 +40,26 @@
 	    	</div>
 	  	</div>
 	</#list>
-</form>
-</#macro>
-
-<#macro m_zapmacro_common_field_run >
 
 </#macro>
 
+<#macro m_zapmacro_common_field_run e_fieldinfo>
 
+</#macro>
 
+<#macro m_zapmacro_common_web_buttons     e_list_operates >
+	<div class="control-group">
+    	<div class="controls">
+    		<#list e_list_operates as e>
+    			<@m_zapmacro_common_web_operate e/>
+    		</#list>
+    	</div>
+	</div>
+</#macro>
 
+<#macro m_zapmacro_common_web_operate e_operate>
+	<a class="btn btn-success" href="<#if e_operate.getOperateTypeAid()=="116015010">javascript:</#if>${e_operate.getOperateLink()}" >${e_operate.getOperateName()}</a>
+</#macro>
 
 
 

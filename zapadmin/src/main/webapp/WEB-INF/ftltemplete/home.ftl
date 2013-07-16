@@ -4,7 +4,7 @@
 <#include "zapmacro/zapmacro_common.ftl" />
 <#include "macro/macro_common.ftl" />
 <@m_common_html_js ["resources/lib/jquery/jquery-last.min.js","resources/lib/bootstrap/js/bootstrap.min.js"]/>
-<@m_common_html_css ["resources/lib/bootstrap/css/bootstrap.min.css","resources/css/zab_base.css"] />
+<@m_common_html_css ["resources/lib/bootstrap/css/bootstrap.min.css","resources/zapadmin/css/zab_base.css"] />
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>zapadmin</title>
@@ -60,7 +60,7 @@
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
-          <iframe src="page/page_add_v_cc_createtask" width="100%" height="100%" frameborder="0"/>
+          <iframe src="page/page_add_v_cc_createtask" width="100%" height="600px" frameborder="0"/>
         </div><!--/span-->
       </div><!--/row-->
 
