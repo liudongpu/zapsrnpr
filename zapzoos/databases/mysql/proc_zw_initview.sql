@@ -21,11 +21,11 @@ select replace(uuid(),'-','') as uid
 ,zwv.view_code as view_code
 ,zdc.column_name as column_name
 ,zdc.column_note as field_note
-,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 1000+zdc.column_sort end)  as sort_add
-,(case zdc.column_name when 'zid' then 0 else 1000+zdc.column_sort end) as sort_edit
-,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 1000+zdc.column_sort end) as sort_chart
-,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 1000+zdc.column_sort end) as sort_book
-,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 1000+zdc.column_sort end) as sort_inquery
+,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 100000+100*zdc.column_sort end)  as sort_add
+,(case zdc.column_name when 'zid' then 0 else 100000+100*zdc.column_sort end) as sort_edit
+,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 100000+100*zdc.column_sort end) as sort_chart
+,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 100000+100*zdc.column_sort end) as sort_book
+,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 100000+100*zdc.column_sort end) as sort_inquery
 ,(case zdc.column_name when 'zid' then 104005008 when 'uid' then 104005008 else 104005009 end) as field_type_aid
 from zapdata.zd_column zdc left join zw_view zwv
 on zdc.table_name=zwv.table_name

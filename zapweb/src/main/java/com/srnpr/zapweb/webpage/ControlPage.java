@@ -1,7 +1,11 @@
 package com.srnpr.zapweb.webpage;
 
+import java.util.List;
+
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapweb.webmodel.MPageData;
+import com.srnpr.zapweb.webmodel.MPageField;
+import com.srnpr.zapweb.webmodel.MWebField;
 import com.srnpr.zapweb.webmodel.MWebPage;
 
 public class ControlPage {
@@ -27,15 +31,13 @@ public class ControlPage {
 	public void setWebPage(MWebPage webPage) {
 		this.webPage = webPage;
 	}
-	
-	
-	public MPageData upChartData()
-	{
+
+	public MPageData upChartData() {
 		return pageExec.chartData(webPage.getViewCode(), reqMap);
 	}
-	
-	
 
-	
+	public List<MWebField> upAddData() {
+		return pageExec.addData(webPage.getViewCode(), reqMap);
+	}
 
 }

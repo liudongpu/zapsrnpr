@@ -40,6 +40,8 @@ public class ViewCache extends RootCache<String, MWebView> {
 							.get("field_type_aid"));
 
 					mWebField.setSort(mFieldDataMap.get(sSortField));
+					
+					mWebField.setPageFieldName("zapwebfield_"+mWebField.getColumnName());
 
 					mFields.add(mWebField);
 				}

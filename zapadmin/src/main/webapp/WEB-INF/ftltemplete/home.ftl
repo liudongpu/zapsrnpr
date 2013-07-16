@@ -60,7 +60,7 @@
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
-          <iframe src="page/page_chart_v_zw_view" width="100%" height="100%" frameborder="0"/>
+          <iframe src="page/page_add_v_cc_createtask" width="100%" height="100%" frameborder="0"/>
         </div><!--/span-->
       </div><!--/row-->
 

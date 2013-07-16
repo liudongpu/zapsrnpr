@@ -21,7 +21,7 @@ a.TABLE_NAME table_name,
 a.column_name column_name,
 (case a.IS_Nullable when 'YES' then 104014001 else 104014002 end)  null_able_aid,
 (select b.abstract_aids from zapdata.zd_abstract b where rtrim(b.abstract_value)=rtrim(a.Data_type) and left(b.abstract_aids,6)=104003) column_type_aid,
-ifnull(a.CHARACTER_MAXIMUM_LENGTH,0) column_length,
+ifnull(a.CHARACTER_MAXIMUM_LENGTH,ifnull(NUMERIC_PRECISION,0)) column_length,
 ifnull(a.NUMERIC_SCALE,0) length_scale,
 a.COLUMN_COMMENT column_note,
 a.ORDINAL_POSITION column_sort
