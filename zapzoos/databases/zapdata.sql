@@ -33,7 +33,7 @@ CREATE TABLE `zd_abstract` (
   `parent_aid` int(11) DEFAULT '0' COMMENT '父编号',
   PRIMARY KEY (`zid`),
   UNIQUE KEY `abstract_aids_UNIQUE` (`abstract_aids`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `zd_abstract` (
 
 LOCK TABLES `zd_abstract` WRITE;
 /*!40000 ALTER TABLE `zd_abstract` DISABLE KEYS */;
-INSERT INTO `zd_abstract` VALUES (1,'',104,'db','数据库定义',0),(2,'',104020,'type','数据库类型',104),(3,'',104020013,'mysql','',104020),(4,'',104014,'notnull','非空',104),(5,'',104014001,'yes','非空',104014),(6,'',104014002,'no','允许空',104014),(7,'',104003,'column_type','数据列类型',104),(8,'',104003022,'varchar','',104003),(9,'',104003003,'char','',104003),(10,'',104003009,'int','',104003),(11,'',104003004,'decimal','',104003),(12,'',104003012,'longtext','',104003),(13,'',101,'all','系统定义',0),(14,'',101001,'flag','逻辑标识',101),(15,'',101001001,'yes','是',101001),(16,'',101001002,'no','否',101001),(17,'',104005,'field_type','字段类型',104),(18,'',104005008,'hidden','隐藏域',104005),(19,'',104005019,'select','下拉框',104005),(20,'',104005003,'control','控件',104005),(21,'',104005103,'checkbox','复选框',104005),(22,'',104005009,'input','输入框',104005),(24,'',119,'system','系统定义',0),(25,'',119678,'zapadmin','zapadmin',0),(35,'',116,'page','页面',0),(36,'',116016,'pagetype','页面类型',116),(37,'',116016001,'add','添加页面',116016),(38,'',116016003,'chart','列表页面',116016),(39,'',116016005,'edit','修改页面',116016),(40,'',116015,'operate','页面操作类型',116),(41,'',116015012,'link','链接',116015),(42,'',116015010,'js','脚本',116015),(43,'',116022,'view','视图',116),(44,'',116022001,'add','添加',116022),(45,'',116022005,'edit','修改',116022),(46,'',116022002,'book','展示',116022),(47,'',116022009,'inquery','查询',116022),(48,'',116022003,'chart','列表',116022);
+INSERT INTO `zd_abstract` VALUES (1,'',104,'db','数据库定义',0),(2,'',104020,'type','数据库类型',104),(3,'',104020013,'mysql','',104020),(4,'',104014,'notnull','非空',104),(5,'',104014001,'yes','非空',104014),(6,'',104014002,'no','允许空',104014),(7,'',104003,'column_type','数据列类型',104),(8,'',104003022,'varchar','',104003),(9,'',104003003,'char','',104003),(10,'',104003009,'int','',104003),(11,'',104003004,'decimal','',104003),(12,'',104003012,'longtext','',104003),(13,'',101,'all','系统定义',0),(14,'',101001,'flag','逻辑标识',101),(15,'',101001001,'yes','是',101001),(16,'',101001002,'no','否',101001),(17,'',104005,'field_type','字段类型',104),(18,'',104005008,'hidden','隐藏域',104005),(19,'',104005019,'select','下拉框',104005),(20,'',104005003,'control','控件',104005),(21,'',104005103,'checkbox','复选框',104005),(22,'',104005009,'input','输入框',104005),(24,'',119,'system','系统定义',0),(25,'',119678,'zapadmin','zapadmin',0),(35,'',116,'page','页面',0),(36,'',116016,'pagetype','页面类型',116),(37,'',116016001,'add','添加页面',116016),(38,'',116016003,'chart','列表页面',116016),(39,'',116016005,'edit','修改页面',116016),(40,'',116015,'operate','页面操作类型',116),(41,'',116015012,'link','链接',116015),(42,'',116015010,'js','脚本',116015),(43,'',116022,'view','视图',116),(44,'',116022001,'add','添加',116022),(45,'',116022005,'edit','修改',116022),(46,'',116022002,'book','展示',116022),(47,'',116022009,'inquery','查询',116022),(48,'',116022003,'chart','列表',116022),(49,'',101002,'project define','系统定义',101),(50,'',101002677,'zapadmin','超级后台管理',101002),(51,'',101002081,'cardcenter','卡中心系统',101002);
 /*!40000 ALTER TABLE `zd_abstract` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +66,7 @@ CREATE TABLE `zd_column` (
   `length_scale` int(11) DEFAULT '0' COMMENT '小数点',
   `column_sort` varchar(45) DEFAULT '' COMMENT '排序',
   PRIMARY KEY (`zid`)
-) ENGINE=InnoDB AUTO_INCREMENT=472 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1523 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,7 +75,7 @@ CREATE TABLE `zd_column` (
 
 LOCK TABLES `zd_column` WRITE;
 /*!40000 ALTER TABLE `zd_column` DISABLE KEYS */;
-INSERT INTO `zd_column` VALUES (217,'e18783beed1011e2abe65404a6a9ac98','cardcenter','cc_cardinfo','zid','',104003009,104014002,0,0,'1'),(218,'e1878657ed1011e2abe65404a6a9ac98','cardcenter','cc_cardinfo','uid','',104003003,104014002,32,0,'2'),(219,'e1878745ed1011e2abe65404a6a9ac98','cardcenter','cc_cardinfo','card_serial','购物卡流水号',104003003,104014001,12,0,'3'),(220,'e187882fed1011e2abe65404a6a9ac98','cardcenter','cc_cardinfo','card_code','购物卡卡号',104003003,104014002,16,0,'4'),(221,'e18788eced1011e2abe65404a6a9ac98','cardcenter','cc_cardinfo','card_pass','购物卡密码',104003003,104014001,6,0,'5'),(222,'e1879798ed1011e2abe65404a6a9ac98','cardcenter','cc_cardinfo','card_money','购物卡金额',104003004,104014001,0,2,'6'),(223,'e1879876ed1011e2abe65404a6a9ac98','cardcenter','cc_cardinfo','used_money','已使用金额',104003004,104014001,0,2,'7'),(224,'e18798f1ed1011e2abe65404a6a9ac98','cardcenter','cc_cardinfo','inital_money','初始金额',104003004,104014001,0,2,'8'),(225,'e1879991ed1011e2abe65404a6a9ac98','cardcenter','cc_cardinfo','flag_active','激活标识',104003009,104014001,0,0,'9'),(226,'e1879a66ed1011e2abe65404a6a9ac98','cardcenter','cc_cardinfo','begin_time','开始使用时间',104003003,104014001,18,0,'10'),(227,'e1879b27ed1011e2abe65404a6a9ac98','cardcenter','cc_cardinfo','finish_time','截止使用时间',104003003,104014001,18,0,'11'),(228,'e1879bd0ed1011e2abe65404a6a9ac98','cardcenter','cc_cardinfo','create_time','创建时间',104003003,104014001,18,0,'12'),(229,'e1879c4fed1011e2abe65404a6a9ac98','cardcenter','cc_cardlog','zid','',104003009,104014002,0,0,'1'),(230,'e187a083ed1011e2abe65404a6a9ac98','cardcenter','cc_cardlog','uid','',104003003,104014001,32,0,'2'),(231,'e187a18ded1011e2abe65404a6a9ac98','cardcenter','cc_cardlog','card_code','卡号',104003022,104014001,45,0,'3'),(232,'e187a252ed1011e2abe65404a6a9ac98','cardcenter','cc_cardlog','change_money','变化金额',104003004,104014001,0,2,'4'),(233,'e187a320ed1011e2abe65404a6a9ac98','cardcenter','cc_cardlog','change_time','变更时间',104003003,104014001,18,0,'5'),(234,'e187a3e5ed1011e2abe65404a6a9ac98','cardcenter','cc_cardlog','change_people','变更人',104003022,104014001,45,0,'6'),(235,'e187a4a6ed1011e2abe65404a6a9ac98','cardcenter','cc_cardlog','change_source','变更原因',104003022,104014001,45,0,'7'),(236,'e187a556ed1011e2abe65404a6a9ac98','cardcenter','cc_cardlog','change_code','相关单号',104003022,104014001,45,0,'8'),(237,'e187a716ed1011e2abe65404a6a9ac98','cardcenter','cc_cardlog','change_remark','变更备注',104003022,104014001,450,0,'9'),(238,'e187a821ed1011e2abe65404a6a9ac98','cardcenter','cc_createlog','zid','',104003009,104014002,0,0,'1'),(239,'e187a8eeed1011e2abe65404a6a9ac98','cardcenter','cc_createlog','uid','',104003003,104014001,32,0,'2'),(240,'e187a9bfed1011e2abe65404a6a9ac98','cardcenter','cc_createlog','task_code','',104003022,104014001,45,0,'3'),(241,'e187aae3ed1011e2abe65404a6a9ac98','cardcenter','cc_createtask','zid','',104003009,104014002,0,0,'1'),(242,'e187abc4ed1011e2abe65404a6a9ac98','cardcenter','cc_createtask','uid','',104003003,104014001,32,0,'2'),(243,'e187ac89ed1011e2abe65404a6a9ac98','cardcenter','cc_createtask','task_code','任务编号',104003022,104014001,45,0,'3'),(244,'e187ad73ed1011e2abe65404a6a9ac98','cardcenter','cc_createtask','task_name','任务名称',104003022,104014001,450,0,'4'),(245,'e187af16ed1011e2abe65404a6a9ac98','cardcenter','cc_createtask','task_remark','备注',104003022,104014001,4500,0,'5'),(246,'e187aff4ed1011e2abe65404a6a9ac98','cardcenter','cc_createtask','create_time','创建时间',104003003,104014001,18,0,'6'),(247,'e187b0d2ed1011e2abe65404a6a9ac98','cardcenter','cc_createtask','create_user','创建人',104003022,104014001,45,0,'7'),(248,'e187b197ed1011e2abe65404a6a9ac98','cardcenter','cc_define','zid','',104003009,104014002,0,0,'1'),(249,'e187b253ed1011e2abe65404a6a9ac98','cardcenter','cc_define','uid','',104003003,104014001,32,0,'2'),(250,'e187b30ced1011e2abe65404a6a9ac98','cardcenter','cc_define','define_dids','定义编号',104003022,104014001,30,0,'3'),(251,'e187b3b9ed1011e2abe65404a6a9ac98','cardcenter','cc_define','define_name','定义名称',104003022,104014001,450,0,'4'),(252,'e187b469ed1011e2abe65404a6a9ac98','cardcenter','cc_define','define_note','描述',104003022,104014001,45,0,'5'),(253,'e187b51eed1011e2abe65404a6a9ac98','cardcenter','cc_define','level_rank','级别',104003009,104014001,0,0,'6'),(254,'e187b5caed1011e2abe65404a6a9ac98','cardcenter','cc_define','parent_did','父编号',104003022,104014001,45,0,'7'),(255,'e187b65eed1011e2abe65404a6a9ac98','cardcenter','cc_moneytype','zid','',104003009,104014002,0,0,'1'),(256,'e187b70fed1011e2abe65404a6a9ac98','cardcenter','cc_moneytype','uid','',104003003,104014001,32,0,'2'),(257,'e187b7c7ed1011e2abe65404a6a9ac98','cardcenter','cc_moneytype','moeney_type','金额类型',104003009,104014001,0,0,'3'),(258,'e187bddbed1011e2abe65404a6a9ac98','cardcenter','cc_moneytype','money_value','金额值',104003009,104014001,0,0,'4'),(259,'e187bee2ed1011e2abe65404a6a9ac98','zapdata','zd_abstract','zid','',104003009,104014002,0,0,'1'),(260,'e187bf86ed1011e2abe65404a6a9ac98','zapdata','zd_abstract','uid','',104003003,104014001,32,0,'2'),(261,'e187c060ed1011e2abe65404a6a9ac98','zapdata','zd_abstract','abstract_aids','编码',104003009,104014001,0,0,'3'),(262,'e187c1bded1011e2abe65404a6a9ac98','zapdata','zd_abstract','abstract_value','值',104003022,104014001,45,0,'4'),(263,'e187c2f5ed1011e2abe65404a6a9ac98','zapdata','zd_abstract','abstract_remark','备注',104003022,104014001,450,0,'5'),(264,'e187c3aded1011e2abe65404a6a9ac98','zapdata','zd_abstract','parent_aid','父编号',104003009,104014001,0,0,'6'),(265,'e187c46eed1011e2abe65404a6a9ac98','zapdata','zd_column','zid','',104003009,104014002,0,0,'1'),(266,'e187c533ed1011e2abe65404a6a9ac98','zapdata','zd_column','uid','',104003003,104014001,32,0,'2'),(267,'e187c62aed1011e2abe65404a6a9ac98','zapdata','zd_column','server_name','库名称',104003022,104014001,45,0,'3'),(268,'e187c6e2ed1011e2abe65404a6a9ac98','zapdata','zd_column','table_name','表名称',104003022,104014001,45,0,'4'),(269,'e187c77eed1011e2abe65404a6a9ac98','zapdata','zd_column','column_name','列名',104003022,104014001,45,0,'5'),(270,'e187c816ed1011e2abe65404a6a9ac98','zapdata','zd_column','column_note','字段描述',104003022,104014001,45,0,'6'),(271,'e187c8f4ed1011e2abe65404a6a9ac98','zapdata','zd_column','column_type_aid','列类型编号',104003009,104014001,0,0,'7'),(272,'e187ca40ed1011e2abe65404a6a9ac98','zapdata','zd_column','null_able_aid','是否允许空',104003009,104014001,0,0,'8'),(273,'e187cb01ed1011e2abe65404a6a9ac98','zapdata','zd_column','column_length','字段长度',104003009,104014001,0,0,'9'),(274,'e187cc87ed1011e2abe65404a6a9ac98','zapdata','zd_column','length_scale','小数点',104003009,104014001,0,0,'10'),(275,'e187cd48ed1011e2abe65404a6a9ac98','zapdata','zd_column','column_sort','排序',104003022,104014001,45,0,'11'),(276,'e187cdf5ed1011e2abe65404a6a9ac98','zapdata','zd_server','zid','',104003009,104014002,0,0,'1'),(277,'e187cea5ed1011e2abe65404a6a9ac98','zapdata','zd_server','uid','',104003003,104014001,32,0,'2'),(278,'e187cf87ed1011e2abe65404a6a9ac98','zapdata','zd_server','server_code','数据库编码',104003022,104014001,45,0,'3'),(279,'e187d0a6ed1011e2abe65404a6a9ac98','zapdata','zd_server','server_name','数据库名称',104003022,104014001,45,0,'4'),(280,'e187d174ed1011e2abe65404a6a9ac98','zapdata','zd_server','server_type_aid','数据库类型',104003009,104014001,0,0,'5'),(281,'e187d239ed1011e2abe65404a6a9ac98','zapdata','zd_server','jdbc_driver','驱动',104003022,104014001,450,0,'6'),(282,'e187d3d7ed1011e2abe65404a6a9ac98','zapdata','zd_server','jdbc_dburl','路径',104003022,104014001,450,0,'7'),(283,'e187d498ed1011e2abe65404a6a9ac98','zapdata','zd_server','jdbc_user','用户名',104003022,104014001,45,0,'8'),(284,'e187d541ed1011e2abe65404a6a9ac98','zapdata','zd_server','jdbc_password','密码',104003022,104014001,45,0,'9'),(285,'e187d5e9ed1011e2abe65404a6a9ac98','zapdata','zd_tables','zid','',104003009,104014002,0,0,'1'),(286,'e187d75aed1011e2abe65404a6a9ac98','zapdata','zd_tables','uid','',104003003,104014001,32,0,'2'),(287,'e187d88eed1011e2abe65404a6a9ac98','zapdata','zd_tables','server_name','数据库名称',104003022,104014001,45,0,'3'),(288,'e187d9a5ed1011e2abe65404a6a9ac98','zapdata','zd_tables','table_name','表名称',104003022,104014001,45,0,'4'),(289,'e187ddf2ed1011e2abe65404a6a9ac98','zapdata','zd_tables','table_remark','备注',104003022,104014001,450,0,'5'),(290,'e187e831ed1011e2abe65404a6a9ac98','zapdata','zw_define','zid','',104003009,104014002,0,0,'1'),(291,'e187eb0ced1011e2abe65404a6a9ac98','zapdata','zw_define','uid','',104003003,104014001,32,0,'2'),(292,'e187ec79ed1011e2abe65404a6a9ac98','zapdata','zw_define','define_dids','定义编号',104003022,104014001,30,0,'3'),(293,'e187ed80ed1011e2abe65404a6a9ac98','zapdata','zw_define','define_name','定义名称',104003022,104014001,450,0,'4'),(294,'e187ee20ed1011e2abe65404a6a9ac98','zapdata','zw_define','define_note','描述',104003022,104014001,45,0,'5'),(295,'e187eec4ed1011e2abe65404a6a9ac98','zapdata','zw_define','level_rank','级别',104003009,104014001,0,0,'6'),(296,'e187ef64ed1011e2abe65404a6a9ac98','zapdata','zw_define','parent_did','父编号',104003022,104014001,45,0,'7'),(297,'e187f004ed1011e2abe65404a6a9ac98','zapdata','zw_field','zid','',104003009,104014002,0,0,'1'),(298,'e187f0aded1011e2abe65404a6a9ac98','zapdata','zw_field','uid','',104003003,104014001,32,0,'2'),(299,'e187f144ed1011e2abe65404a6a9ac98','zapdata','zw_field','view_code','视图编号',104003022,104014001,45,0,'3'),(300,'e187f1e9ed1011e2abe65404a6a9ac98','zapdata','zw_field','column_name','数据列名',104003022,104014001,45,0,'4'),(301,'e187f291ed1011e2abe65404a6a9ac98','zapdata','zw_field','field_note','字段名称',104003022,104014001,45,0,'5'),(302,'e187f346ed1011e2abe65404a6a9ac98','zapdata','zw_field','sort_add','排序添加',104003022,104014001,45,0,'6'),(303,'e187f402ed1011e2abe65404a6a9ac98','zapdata','zw_field','sort_edit','排序修改',104003022,104014001,45,0,'7'),(304,'e187f4c3ed1011e2abe65404a6a9ac98','zapdata','zw_field','sort_chart','排序列表',104003022,104014001,45,0,'8'),(305,'e187f56ced1011e2abe65404a6a9ac98','zapdata','zw_field','sort_book','排序展示',104003022,104014001,45,0,'9'),(306,'e187f620ed1011e2abe65404a6a9ac98','zapdata','zw_field','sort_inquery','排序查询',104003022,104014001,45,0,'10'),(307,'e187f6e1ed1011e2abe65404a6a9ac98','zapdata','zw_field','field_type_aid','字段类型',104003009,104014001,0,0,'11'),(308,'e187f7afed1011e2abe65404a6a9ac98','zapdata','zw_manager','zid','',104003009,104014002,0,0,'1'),(309,'e187f87ced1011e2abe65404a6a9ac98','zapdata','zw_manager','uid','',104003003,104014001,32,0,'2'),(310,'e187f945ed1011e2abe65404a6a9ac98','zapdata','zw_manager','manager_name','',104003022,104014001,45,0,'3'),(311,'e187fa02ed1011e2abe65404a6a9ac98','zapdata','zw_manager','manager_pass','',104003022,104014001,45,0,'4'),(312,'e187faa6ed1011e2abe65404a6a9ac98','zapdata','zw_menu','zid','',104003009,104014002,0,0,'1'),(313,'e187fb4eed1011e2abe65404a6a9ac98','zapdata','zw_menu','uid','',104003003,104014001,32,0,'2'),(314,'e187fbeeed1011e2abe65404a6a9ac98','zapdata','zw_menu','menu_code','菜单编号',104003022,104014001,45,0,'3'),(315,'e187fc8eed1011e2abe65404a6a9ac98','zapdata','zw_menu','menu_name','菜单名称',104003022,104014001,45,0,'4'),(316,'e187fd4bed1011e2abe65404a6a9ac98','zapdata','zw_menu','parent_code','父编号',104003022,104014001,45,0,'5'),(317,'e187fe10ed1011e2abe65404a6a9ac98','zapdata','zw_menu','page_code','页面编号',104003022,104014001,45,0,'6'),(318,'e187fec1ed1011e2abe65404a6a9ac98','zapdata','zw_operate','zid','',104003009,104014002,0,0,'1'),(319,'e187ff7aed1011e2abe65404a6a9ac98','zapdata','zw_operate','uid','',104003003,104014001,32,0,'2'),(320,'e188003bed1011e2abe65404a6a9ac98','zapdata','zw_operate','operate_name','操作名称',104003022,104014001,45,0,'3'),(321,'e18800fced1011e2abe65404a6a9ac98','zapdata','zw_operate','operate_type_aid','操作类型',104003009,104014001,0,0,'4'),(322,'e18801c1ed1011e2abe65404a6a9ac98','zapdata','zw_operate','page_code','页面编码',104003022,104014001,450,0,'5'),(323,'e1880282ed1011e2abe65404a6a9ac98','zapdata','zw_operate','operate_link','操作链接',104003022,104014001,450,0,'6'),(324,'e188032aed1011e2abe65404a6a9ac98','zapdata','zw_operate','flag_enable','是否可用',104003009,104014001,0,0,'7'),(325,'e18803d2ed1011e2abe65404a6a9ac98','zapdata','zw_page','zid','',104003009,104014002,0,0,'1'),(326,'e1880483ed1011e2abe65404a6a9ac98','zapdata','zw_page','uid','',104003003,104014001,32,0,'2'),(327,'e1880533ed1011e2abe65404a6a9ac98','zapdata','zw_page','page_code','页面编号',104003022,104014001,45,0,'3'),(328,'e18805f4ed1011e2abe65404a6a9ac98','zapdata','zw_page','page_name','页面名称',104003022,104014001,450,0,'4'),(329,'e18806a9ed1011e2abe65404a6a9ac98','zapdata','zw_page','page_template','页面调用模板',104003022,104014001,45,0,'5'),(330,'e1880755ed1011e2abe65404a6a9ac98','zapdata','zw_page','view_code','视图编码',104003022,104014001,45,0,'6'),(331,'e1880c7bed1011e2abe65404a6a9ac98','zapdata','zw_page','page_type_aid','页面类型',104003022,104014001,45,0,'7'),(332,'e1880d75ed1011e2abe65404a6a9ac98','zapdata','zw_page','page_group','页面组',104003022,104014001,450,0,'8'),(333,'e1880e3aed1011e2abe65404a6a9ac98','zapdata','zw_role','zid','',104003009,104014002,0,0,'1'),(334,'e1880ee7ed1011e2abe65404a6a9ac98','zapdata','zw_role','uid','',104003003,104014001,32,0,'2'),(335,'e1880f87ed1011e2abe65404a6a9ac98','zapdata','zw_role','role_code','角色编码',104003022,104014001,45,0,'3'),(336,'e1881013ed1011e2abe65404a6a9ac98','zapdata','zw_role','role_name','角色名称',104003022,104014001,45,0,'4'),(337,'e1881096ed1011e2abe65404a6a9ac98','zapdata','zw_role','parent_code','父编码',104003022,104014001,45,0,'5'),(338,'e188112aed1011e2abe65404a6a9ac98','zapdata','zw_source','zid','',104003009,104014002,0,0,'1'),(339,'e18811b1ed1011e2abe65404a6a9ac98','zapdata','zw_source','uid','',104003003,104014001,32,0,'2'),(340,'e1881241ed1011e2abe65404a6a9ac98','zapdata','zw_source','source_code','数据源编编码',104003022,104014001,45,0,'3'),(341,'e18812d5ed1011e2abe65404a6a9ac98','zapdata','zw_source','source_name','数据源名称',104003022,104014001,45,0,'4'),(342,'e1881368ed1011e2abe65404a6a9ac98','zapdata','zw_view','zid','',104003009,104014002,0,0,'1'),(343,'e18813f8ed1011e2abe65404a6a9ac98','zapdata','zw_view','uid','',104003003,104014001,32,0,'2'),(344,'e18814c1ed1011e2abe65404a6a9ac98','zapdata','zw_view','view_code','视图编码',104003022,104014001,45,0,'3'),(345,'e188156eed1011e2abe65404a6a9ac98','zapdata','zw_view','view_name','试图名称',104003022,104014001,45,0,'4'),(346,'e18815f9ed1011e2abe65404a6a9ac98','zapdata','zw_view','table_name','视图表格',104003022,104014001,45,0,'5');
+INSERT INTO `zd_column` VALUES (1268,'a06671feedca11e2abe65404a6a9ac98','cardcenter','cc_agentuser','zid','',104003009,104014002,10,0,'1'),(1269,'a06673fbedca11e2abe65404a6a9ac98','cardcenter','cc_agentuser','uid','',104003003,104014001,32,0,'2'),(1270,'a0667486edca11e2abe65404a6a9ac98','cardcenter','cc_agentuser','agent_code','代理商编号',104003022,104014001,450,0,'3'),(1271,'a06674feedca11e2abe65404a6a9ac98','cardcenter','cc_agentuser','agent_name','代理商名称',104003022,104014001,450,0,'4'),(1272,'a066779fedca11e2abe65404a6a9ac98','cardcenter','cc_agentuser','flag_used','是否可用',104003009,104014001,10,0,'5'),(1273,'a066780eedca11e2abe65404a6a9ac98','cardcenter','cc_cardinfo','zid','',104003009,104014002,10,0,'1'),(1274,'a0667870edca11e2abe65404a6a9ac98','cardcenter','cc_cardinfo','uid','',104003003,104014002,32,0,'2'),(1275,'a06678cfedca11e2abe65404a6a9ac98','cardcenter','cc_cardinfo','card_serial','购物卡流水号',104003003,104014002,12,0,'3'),(1276,'a0667939edca11e2abe65404a6a9ac98','cardcenter','cc_cardinfo','card_code','购物卡卡号',104003003,104014002,16,0,'4'),(1277,'a066799cedca11e2abe65404a6a9ac98','cardcenter','cc_cardinfo','card_pass','购物卡密码',104003022,104014002,200,0,'5'),(1278,'a06679feedca11e2abe65404a6a9ac98','cardcenter','cc_cardinfo','card_money','购物卡金额',104003004,104014001,18,2,'6'),(1279,'a0667a5dedca11e2abe65404a6a9ac98','cardcenter','cc_cardinfo','used_money','已使用金额',104003004,104014001,18,2,'7'),(1280,'a0667abfedca11e2abe65404a6a9ac98','cardcenter','cc_cardinfo','inital_money','初始金额',104003004,104014001,18,2,'8'),(1281,'a0667b1eedca11e2abe65404a6a9ac98','cardcenter','cc_cardinfo','flag_active','激活标识',104003009,104014001,10,0,'9'),(1282,'a0667b80edca11e2abe65404a6a9ac98','cardcenter','cc_cardinfo','begin_time','开始使用时间',104003003,104014001,18,0,'10'),(1283,'a0667bdfedca11e2abe65404a6a9ac98','cardcenter','cc_cardinfo','finish_time','截止使用时间',104003003,104014001,18,0,'11'),(1284,'a0667c45edca11e2abe65404a6a9ac98','cardcenter','cc_cardinfo','create_time','创建时间',104003003,104014001,18,0,'12'),(1285,'a0667ca8edca11e2abe65404a6a9ac98','cardcenter','cc_cardinfo','active_time','激活时间',104003003,104014001,18,0,'13'),(1286,'a0667d0aedca11e2abe65404a6a9ac98','cardcenter','cc_cardinfo','flag_send','发放标记',104003009,104014001,10,0,'14'),(1287,'a0667d69edca11e2abe65404a6a9ac98','cardcenter','cc_cardlog','zid','',104003009,104014002,10,0,'1'),(1288,'a0667dcbedca11e2abe65404a6a9ac98','cardcenter','cc_cardlog','uid','',104003003,104014001,32,0,'2'),(1289,'a0667e2aedca11e2abe65404a6a9ac98','cardcenter','cc_cardlog','card_code','卡号',104003022,104014001,45,0,'3'),(1290,'a0667e94edca11e2abe65404a6a9ac98','cardcenter','cc_cardlog','change_money','变化金额',104003004,104014001,18,2,'4'),(1291,'a0667ef7edca11e2abe65404a6a9ac98','cardcenter','cc_cardlog','change_time','变更时间',104003003,104014001,18,0,'5'),(1292,'a0667f55edca11e2abe65404a6a9ac98','cardcenter','cc_cardlog','change_people','变更人',104003022,104014001,45,0,'6'),(1293,'a0667fb0edca11e2abe65404a6a9ac98','cardcenter','cc_cardlog','change_source','变更原因',104003022,104014001,45,0,'7'),(1294,'a0668016edca11e2abe65404a6a9ac98','cardcenter','cc_cardlog','change_code','相关单号',104003022,104014001,45,0,'8'),(1295,'a0668071edca11e2abe65404a6a9ac98','cardcenter','cc_cardlog','change_remark','变更备注',104003022,104014001,450,0,'9'),(1296,'a06680d7edca11e2abe65404a6a9ac98','cardcenter','cc_cardlog','card_money','当前金额',104003004,104014001,18,2,'10'),(1297,'a066813aedca11e2abe65404a6a9ac98','cardcenter','cc_cardlog','change_type_did','变更类型',104003022,104014001,45,0,'11'),(1298,'a0668395edca11e2abe65404a6a9ac98','cardcenter','cc_createtask','zid','',104003009,104014002,10,0,'1'),(1299,'a06683fcedca11e2abe65404a6a9ac98','cardcenter','cc_createtask','uid','',104003003,104014001,32,0,'2'),(1300,'a066845eedca11e2abe65404a6a9ac98','cardcenter','cc_createtask','task_code','任务编号',104003022,104014001,45,0,'3'),(1301,'a06684bdedca11e2abe65404a6a9ac98','cardcenter','cc_createtask','task_name','任务名称',104003022,104014001,450,0,'4'),(1302,'a066851fedca11e2abe65404a6a9ac98','cardcenter','cc_createtask','task_remark','备注',104003022,104014001,4500,0,'5'),(1303,'a066857eedca11e2abe65404a6a9ac98','cardcenter','cc_createtask','card_money','卡金额',104003004,104014001,18,2,'6'),(1304,'a06685dcedca11e2abe65404a6a9ac98','cardcenter','cc_createtask','card_number','制卡数量',104003009,104014001,10,0,'7'),(1305,'a066863fedca11e2abe65404a6a9ac98','cardcenter','cc_createtask','card_make','已生成数量',104003009,104014001,10,0,'8'),(1306,'a06686a1edca11e2abe65404a6a9ac98','cardcenter','cc_createtask','create_user','创建人',104003022,104014001,45,0,'9'),(1307,'a0668700edca11e2abe65404a6a9ac98','cardcenter','cc_createtask','create_time','创建时间',104003003,104014001,18,0,'10'),(1308,'a0668762edca11e2abe65404a6a9ac98','cardcenter','cc_createtask','serial_begin','开始流水号',104003022,104014001,12,0,'11'),(1309,'a06687c9edca11e2abe65404a6a9ac98','cardcenter','cc_createtask','serial_finish','结束流水号',104003022,104014001,12,0,'12'),(1310,'a066882bedca11e2abe65404a6a9ac98','cardcenter','cc_define','zid','',104003009,104014002,10,0,'1'),(1311,'a066888aedca11e2abe65404a6a9ac98','cardcenter','cc_define','uid','',104003003,104014001,32,0,'2'),(1312,'a06688ecedca11e2abe65404a6a9ac98','cardcenter','cc_define','define_dids','定义编号',104003022,104014001,30,0,'3'),(1313,'a066894bedca11e2abe65404a6a9ac98','cardcenter','cc_define','define_name','定义名称',104003022,104014001,450,0,'4'),(1314,'a06689b1edca11e2abe65404a6a9ac98','cardcenter','cc_define','define_note','描述',104003022,104014001,45,0,'5'),(1315,'a0668a14edca11e2abe65404a6a9ac98','cardcenter','cc_define','level_rank','级别',104003009,104014001,10,0,'6'),(1316,'a0668a6eedca11e2abe65404a6a9ac98','cardcenter','cc_define','parent_did','父编号',104003022,104014001,45,0,'7'),(1317,'a0668acdedca11e2abe65404a6a9ac98','cardcenter','cc_moneytype','zid','',104003009,104014002,10,0,'1'),(1318,'a0668b2fedca11e2abe65404a6a9ac98','cardcenter','cc_moneytype','uid','',104003003,104014001,32,0,'2'),(1319,'a0668b92edca11e2abe65404a6a9ac98','cardcenter','cc_moneytype','moeney_type','金额类型',104003009,104014001,10,0,'3'),(1320,'a0668d66edca11e2abe65404a6a9ac98','cardcenter','cc_moneytype','money_value','金额值',104003009,104014001,10,0,'4'),(1321,'a0668e1aedca11e2abe65404a6a9ac98','cardcenter','cc_sendtask','zid','',104003009,104014002,10,0,'1'),(1322,'a0668e89edca11e2abe65404a6a9ac98','cardcenter','cc_sendtask','uid','',104003003,104014001,32,0,'2'),(1323,'a0668ef8edca11e2abe65404a6a9ac98','cardcenter','cc_sendtask','serial_begin','开始流水号',104003022,104014001,45,0,'3'),(1324,'a0669294edca11e2abe65404a6a9ac98','cardcenter','cc_sendtask','serial_finish','结束流水号',104003022,104014001,45,0,'4'),(1325,'a06692f6edca11e2abe65404a6a9ac98','cardcenter','cc_sendtask','agent_code','代理商编号',104003022,104014001,45,0,'5'),(1326,'a0669359edca11e2abe65404a6a9ac98','cardcenter','cc_sendtask','create_manager','创建人',104003022,104014001,45,0,'6'),(1327,'a06693bbedca11e2abe65404a6a9ac98','cardcenter','cc_sendtask','create_time','创建时间',104003003,104014001,18,0,'7'),(1328,'a0669416edca11e2abe65404a6a9ac98','zapdata','zd_abstract','zid','',104003009,104014002,10,0,'1'),(1329,'a0669474edca11e2abe65404a6a9ac98','zapdata','zd_abstract','uid','',104003003,104014001,32,0,'2'),(1330,'a06694d2edca11e2abe65404a6a9ac98','zapdata','zd_abstract','abstract_aids','编码',104003009,104014001,10,0,'3'),(1331,'a0669535edca11e2abe65404a6a9ac98','zapdata','zd_abstract','abstract_value','值',104003022,104014001,45,0,'4'),(1332,'a0669597edca11e2abe65404a6a9ac98','zapdata','zd_abstract','abstract_remark','备注',104003022,104014001,450,0,'5'),(1333,'a06695faedca11e2abe65404a6a9ac98','zapdata','zd_abstract','parent_aid','父编号',104003009,104014001,10,0,'6'),(1334,'a0669654edca11e2abe65404a6a9ac98','zapdata','zd_column','zid','',104003009,104014002,10,0,'1'),(1335,'a06696b3edca11e2abe65404a6a9ac98','zapdata','zd_column','uid','',104003003,104014001,32,0,'2'),(1336,'a066970dedca11e2abe65404a6a9ac98','zapdata','zd_column','server_name','库名称',104003022,104014001,45,0,'3'),(1337,'a0669767edca11e2abe65404a6a9ac98','zapdata','zd_column','table_name','表名称',104003022,104014001,45,0,'4'),(1338,'a06697caedca11e2abe65404a6a9ac98','zapdata','zd_column','column_name','列名',104003022,104014001,45,0,'5'),(1339,'a066982cedca11e2abe65404a6a9ac98','zapdata','zd_column','column_note','字段描述',104003022,104014001,45,0,'6'),(1340,'a0669893edca11e2abe65404a6a9ac98','zapdata','zd_column','column_type_aid','列类型编号',104003009,104014001,10,0,'7'),(1341,'a06698f1edca11e2abe65404a6a9ac98','zapdata','zd_column','null_able_aid','是否允许空',104003009,104014001,10,0,'8'),(1342,'a0669950edca11e2abe65404a6a9ac98','zapdata','zd_column','column_length','字段长度',104003009,104014001,10,0,'9'),(1343,'a0669ab5edca11e2abe65404a6a9ac98','zapdata','zd_column','length_scale','小数点',104003009,104014001,10,0,'10'),(1344,'a0669b65edca11e2abe65404a6a9ac98','zapdata','zd_column','column_sort','排序',104003022,104014001,45,0,'11'),(1345,'a0669bd0edca11e2abe65404a6a9ac98','zapdata','zd_server','zid','',104003009,104014002,10,0,'1'),(1346,'a0669c37edca11e2abe65404a6a9ac98','zapdata','zd_server','uid','',104003003,104014001,32,0,'2'),(1347,'a0669c9dedca11e2abe65404a6a9ac98','zapdata','zd_server','server_code','数据库编码',104003022,104014001,45,0,'3'),(1348,'a0669d04edca11e2abe65404a6a9ac98','zapdata','zd_server','server_name','数据库名称',104003022,104014001,45,0,'4'),(1349,'a0669d67edca11e2abe65404a6a9ac98','zapdata','zd_server','server_type_aid','数据库类型',104003009,104014001,10,0,'5'),(1350,'a0669dc9edca11e2abe65404a6a9ac98','zapdata','zd_server','jdbc_driver','驱动',104003022,104014001,450,0,'6'),(1351,'a0669e30edca11e2abe65404a6a9ac98','zapdata','zd_server','jdbc_dburl','路径',104003022,104014001,450,0,'7'),(1352,'a0669e92edca11e2abe65404a6a9ac98','zapdata','zd_server','jdbc_user','用户名',104003022,104014001,45,0,'8'),(1353,'a0669ef5edca11e2abe65404a6a9ac98','zapdata','zd_server','jdbc_password','密码',104003022,104014001,45,0,'9'),(1354,'a0669f57edca11e2abe65404a6a9ac98','zapdata','zd_tables','zid','',104003009,104014002,10,0,'1'),(1355,'a0669fc2edca11e2abe65404a6a9ac98','zapdata','zd_tables','uid','',104003003,104014001,32,0,'2'),(1356,'a066a021edca11e2abe65404a6a9ac98','zapdata','zd_tables','server_name','数据库名称',104003022,104014001,45,0,'3'),(1357,'a066a07fedca11e2abe65404a6a9ac98','zapdata','zd_tables','table_name','表名称',104003022,104014001,45,0,'4'),(1358,'a066a5c1edca11e2abe65404a6a9ac98','zapdata','zd_tables','table_remark','备注',104003022,104014001,450,0,'5'),(1359,'a066a62cedca11e2abe65404a6a9ac98','zapdata','zw_define','zid','',104003009,104014002,10,0,'1'),(1360,'a066a68bedca11e2abe65404a6a9ac98','zapdata','zw_define','uid','',104003003,104014001,32,0,'2'),(1361,'a066a6e9edca11e2abe65404a6a9ac98','zapdata','zw_define','define_dids','定义编号',104003022,104014001,30,0,'3'),(1362,'a066a74cedca11e2abe65404a6a9ac98','zapdata','zw_define','define_name','定义名称',104003022,104014001,450,0,'4'),(1363,'a066a7aeedca11e2abe65404a6a9ac98','zapdata','zw_define','define_note','描述',104003022,104014001,45,0,'5'),(1364,'a066a80dedca11e2abe65404a6a9ac98','zapdata','zw_define','level_rank','级别',104003009,104014001,10,0,'6'),(1365,'a066a86bedca11e2abe65404a6a9ac98','zapdata','zw_define','parent_did','父编号',104003022,104014001,45,0,'7'),(1366,'a066a8c9edca11e2abe65404a6a9ac98','zapdata','zw_field','zid','',104003009,104014002,10,0,'1'),(1367,'a066a928edca11e2abe65404a6a9ac98','zapdata','zw_field','uid','',104003003,104014001,32,0,'2'),(1368,'a066a986edca11e2abe65404a6a9ac98','zapdata','zw_field','view_code','视图编号',104003022,104014001,45,0,'3'),(1369,'a066a9e9edca11e2abe65404a6a9ac98','zapdata','zw_field','column_name','数据列名',104003022,104014001,45,0,'4'),(1370,'a066aa47edca11e2abe65404a6a9ac98','zapdata','zw_field','field_note','字段名称',104003022,104014001,45,0,'5'),(1371,'a066aaaaedca11e2abe65404a6a9ac98','zapdata','zw_field','sort_add','排序添加',104003022,104014001,45,0,'6'),(1372,'a066ab08edca11e2abe65404a6a9ac98','zapdata','zw_field','sort_edit','排序修改',104003022,104014001,45,0,'7'),(1373,'a066ab62edca11e2abe65404a6a9ac98','zapdata','zw_field','sort_chart','排序列表',104003022,104014001,45,0,'8'),(1374,'a066abc1edca11e2abe65404a6a9ac98','zapdata','zw_field','sort_book','排序展示',104003022,104014001,45,0,'9'),(1375,'a066ac23edca11e2abe65404a6a9ac98','zapdata','zw_field','sort_inquery','排序查询',104003022,104014001,45,0,'10'),(1376,'a066ac86edca11e2abe65404a6a9ac98','zapdata','zw_field','field_type_aid','字段类型',104003009,104014001,10,0,'11'),(1377,'a066acecedca11e2abe65404a6a9ac98','zapdata','zw_manager','zid','',104003009,104014002,10,0,'1'),(1378,'a066ad47edca11e2abe65404a6a9ac98','zapdata','zw_manager','uid','',104003003,104014001,32,0,'2'),(1379,'a066ada9edca11e2abe65404a6a9ac98','zapdata','zw_manager','manager_name','',104003022,104014001,45,0,'3'),(1380,'a066ae08edca11e2abe65404a6a9ac98','zapdata','zw_manager','manager_pass','',104003022,104014001,45,0,'4'),(1381,'a066ae62edca11e2abe65404a6a9ac98','zapdata','zw_menu','zid','',104003009,104014002,10,0,'1'),(1382,'a066aec0edca11e2abe65404a6a9ac98','zapdata','zw_menu','uid','',104003003,104014001,32,0,'2'),(1383,'a066af23edca11e2abe65404a6a9ac98','zapdata','zw_menu','menu_code','菜单编号',104003022,104014001,45,0,'3'),(1384,'a066af81edca11e2abe65404a6a9ac98','zapdata','zw_menu','menu_name','菜单名称',104003022,104014001,45,0,'4'),(1385,'a066afe0edca11e2abe65404a6a9ac98','zapdata','zw_menu','parent_code','父编号',104003022,104014001,45,0,'5'),(1386,'a066b046edca11e2abe65404a6a9ac98','zapdata','zw_menu','page_code','页面编号',104003022,104014001,45,0,'6'),(1387,'a066b0adedca11e2abe65404a6a9ac98','zapdata','zw_operate','zid','',104003009,104014002,10,0,'1'),(1388,'a066b107edca11e2abe65404a6a9ac98','zapdata','zw_operate','uid','',104003003,104014001,32,0,'2'),(1389,'a066b166edca11e2abe65404a6a9ac98','zapdata','zw_operate','operate_name','操作名称',104003022,104014001,45,0,'3'),(1390,'a066b1d9edca11e2abe65404a6a9ac98','zapdata','zw_operate','operate_type_aid','操作类型',104003009,104014001,10,0,'4'),(1391,'a066b23fedca11e2abe65404a6a9ac98','zapdata','zw_operate','page_code','页面编码',104003022,104014001,450,0,'5'),(1392,'a066b29eedca11e2abe65404a6a9ac98','zapdata','zw_operate','operate_link','操作链接',104003022,104014001,450,0,'6'),(1393,'a066b300edca11e2abe65404a6a9ac98','zapdata','zw_operate','flag_enable','是否可用',104003009,104014001,10,0,'7'),(1394,'a066b35fedca11e2abe65404a6a9ac98','zapdata','zw_page','zid','',104003009,104014002,10,0,'1'),(1395,'a066b3c5edca11e2abe65404a6a9ac98','zapdata','zw_page','uid','',104003003,104014001,32,0,'2'),(1396,'a066b42cedca11e2abe65404a6a9ac98','zapdata','zw_page','page_code','页面编号',104003022,104014001,45,0,'3'),(1397,'a066b48aedca11e2abe65404a6a9ac98','zapdata','zw_page','page_name','页面名称',104003022,104014001,450,0,'4'),(1398,'a066b4ededca11e2abe65404a6a9ac98','zapdata','zw_page','page_template','页面调用模板',104003022,104014001,45,0,'5'),(1399,'a066b550edca11e2abe65404a6a9ac98','zapdata','zw_page','view_code','视图编码',104003022,104014001,45,0,'6'),(1400,'a066b5aeedca11e2abe65404a6a9ac98','zapdata','zw_page','page_type_aid','页面类型',104003022,104014001,45,0,'7'),(1401,'a066b610edca11e2abe65404a6a9ac98','zapdata','zw_page','page_group','页面组',104003022,104014001,450,0,'8'),(1402,'a066b973edca11e2abe65404a6a9ac98','zapdata','zw_role','zid','',104003009,104014002,10,0,'1'),(1403,'a066b9d9edca11e2abe65404a6a9ac98','zapdata','zw_role','uid','',104003003,104014001,32,0,'2'),(1404,'a066ba38edca11e2abe65404a6a9ac98','zapdata','zw_role','role_code','角色编码',104003022,104014001,45,0,'3'),(1405,'a066ba96edca11e2abe65404a6a9ac98','zapdata','zw_role','role_name','角色名称',104003022,104014001,45,0,'4'),(1406,'a066baf5edca11e2abe65404a6a9ac98','zapdata','zw_role','parent_code','父编码',104003022,104014001,45,0,'5'),(1407,'a066bb57edca11e2abe65404a6a9ac98','zapdata','zw_source','zid','',104003009,104014002,10,0,'1'),(1408,'a066bbbaedca11e2abe65404a6a9ac98','zapdata','zw_source','uid','',104003003,104014001,32,0,'2'),(1409,'a066bc14edca11e2abe65404a6a9ac98','zapdata','zw_source','source_code','数据源编编码',104003022,104014001,45,0,'3'),(1410,'a066bc6eedca11e2abe65404a6a9ac98','zapdata','zw_source','source_name','数据源名称',104003022,104014001,45,0,'4'),(1411,'a066bcd5edca11e2abe65404a6a9ac98','zapdata','zw_view','zid','',104003009,104014002,10,0,'1'),(1412,'a066bd33edca11e2abe65404a6a9ac98','zapdata','zw_view','uid','',104003003,104014001,32,0,'2'),(1413,'a066bd8eedca11e2abe65404a6a9ac98','zapdata','zw_view','view_code','视图编码',104003022,104014001,45,0,'3'),(1414,'a066bdecedca11e2abe65404a6a9ac98','zapdata','zw_view','view_name','试图名称',104003022,104014001,45,0,'4'),(1415,'a066be4aedca11e2abe65404a6a9ac98','zapdata','zw_view','table_name','视图表格',104003022,104014001,45,0,'5');
 /*!40000 ALTER TABLE `zd_column` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,7 +126,7 @@ CREATE TABLE `zd_tables` (
   `table_remark` varchar(450) DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`zid`),
   UNIQUE KEY `table_name_UNIQUE` (`table_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=187 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,7 +135,7 @@ CREATE TABLE `zd_tables` (
 
 LOCK TABLES `zd_tables` WRITE;
 /*!40000 ALTER TABLE `zd_tables` DISABLE KEYS */;
-INSERT INTO `zd_tables` VALUES (29,'e17ad317ed1011e2abe65404a6a9ac98','cardcenter','cc_cardinfo',''),(30,'e17ad504ed1011e2abe65404a6a9ac98','cardcenter','cc_cardlog',''),(31,'e17ad6f9ed1011e2abe65404a6a9ac98','cardcenter','cc_createlog',''),(32,'e17ad7ebed1011e2abe65404a6a9ac98','cardcenter','cc_createtask',''),(33,'e17ad8d1ed1011e2abe65404a6a9ac98','cardcenter','cc_define',''),(34,'e17ad9aaed1011e2abe65404a6a9ac98','cardcenter','cc_moneytype',''),(35,'e17ada8ced1011e2abe65404a6a9ac98','zapdata','zd_abstract',''),(36,'e17adb6aed1011e2abe65404a6a9ac98','zapdata','zd_column',''),(37,'e17adc43ed1011e2abe65404a6a9ac98','zapdata','zd_server',''),(38,'e17add19ed1011e2abe65404a6a9ac98','zapdata','zd_tables',''),(39,'e17addf2ed1011e2abe65404a6a9ac98','zapdata','zw_define',''),(40,'e17adec8ed1011e2abe65404a6a9ac98','zapdata','zw_field','字段表'),(41,'e17adfa6ed1011e2abe65404a6a9ac98','zapdata','zw_manager',''),(42,'e17ae07bed1011e2abe65404a6a9ac98','zapdata','zw_menu','菜单表'),(43,'e17ae159ed1011e2abe65404a6a9ac98','zapdata','zw_operate',''),(44,'e17ae22eed1011e2abe65404a6a9ac98','zapdata','zw_page',''),(45,'e17ae308ed1011e2abe65404a6a9ac98','zapdata','zw_role',''),(46,'e17ae3eaed1011e2abe65404a6a9ac98','zapdata','zw_source','数据源表'),(47,'e17ae4d4ed1011e2abe65404a6a9ac98','zapdata','zw_view','视图表');
+INSERT INTO `zd_tables` VALUES (156,'a05bd2b8edca11e2abe65404a6a9ac98','cardcenter','cc_agentuser','代理商表'),(157,'a05bd4a9edca11e2abe65404a6a9ac98','cardcenter','cc_cardinfo','卡信息表'),(158,'a05bd5d5edca11e2abe65404a6a9ac98','cardcenter','cc_cardlog','卡日志表'),(159,'a05bd6bbedca11e2abe65404a6a9ac98','cardcenter','cc_createtask','创建任务表'),(160,'a05bd798edca11e2abe65404a6a9ac98','cardcenter','cc_define','卡中心定义表'),(161,'a05bd86eedca11e2abe65404a6a9ac98','cardcenter','cc_moneytype','卡金额类型表'),(162,'a05bd948edca11e2abe65404a6a9ac98','cardcenter','cc_sendtask','购物卡发放表'),(163,'a05bda21edca11e2abe65404a6a9ac98','zapdata','zd_abstract',''),(164,'a05bdb0bedca11e2abe65404a6a9ac98','zapdata','zd_column',''),(165,'a05bdbdcedca11e2abe65404a6a9ac98','zapdata','zd_server',''),(166,'a05bdcb6edca11e2abe65404a6a9ac98','zapdata','zd_tables',''),(167,'a05bdd98edca11e2abe65404a6a9ac98','zapdata','zw_define',''),(168,'a05bde7eedca11e2abe65404a6a9ac98','zapdata','zw_field','字段表'),(169,'a05bdf57edca11e2abe65404a6a9ac98','zapdata','zw_manager',''),(170,'a05be03dedca11e2abe65404a6a9ac98','zapdata','zw_menu','菜单表'),(171,'a05be123edca11e2abe65404a6a9ac98','zapdata','zw_operate',''),(172,'a05be20dedca11e2abe65404a6a9ac98','zapdata','zw_page',''),(173,'a05be2ebedca11e2abe65404a6a9ac98','zapdata','zw_role',''),(174,'a05be4f0edca11e2abe65404a6a9ac98','zapdata','zw_source','数据源表'),(175,'a05be5ffedca11e2abe65404a6a9ac98','zapdata','zw_view','视图表');
 /*!40000 ALTER TABLE `zd_tables` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,8 +186,12 @@ CREATE TABLE `zw_field` (
   `sort_book` varchar(45) DEFAULT '' COMMENT '排序展示',
   `sort_inquery` varchar(45) DEFAULT '' COMMENT '排序查询',
   `field_type_aid` int(11) DEFAULT '104005008' COMMENT '字段类型',
+  `source_code` varchar(45) DEFAULT '' COMMENT '数据源编号',
+  `source_param` varchar(45) DEFAULT '' COMMENT '数据源参数',
+  `show_replace` varchar(450) DEFAULT '' COMMENT '展示替换',
+  `default_value` varchar(450) DEFAULT '' COMMENT '默认值',
   PRIMARY KEY (`zid`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COMMENT='字段表';
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8 COMMENT='字段表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -196,7 +200,7 @@ CREATE TABLE `zw_field` (
 
 LOCK TABLES `zw_field` WRITE;
 /*!40000 ALTER TABLE `zw_field` DISABLE KEYS */;
-INSERT INTO `zw_field` VALUES (22,'32a3ea49ecfd11e2abe65404a6a9ac98','v_zw_view','zid','','0','0','0','0','0',104005008),(23,'32a3eecaecfd11e2abe65404a6a9ac98','v_zw_view','uid','','0','1002','0','0','0',104005008),(24,'32a3f2d9ecfd11e2abe65404a6a9ac98','v_zw_view','view_code','视图编码','1003','1003','1003','1003','1003',104005009),(25,'32a3f490ecfd11e2abe65404a6a9ac98','v_zw_view','view_name','试图名称','1004','1004','1004','1004','1004',104005009),(26,'32a3f626ecfd11e2abe65404a6a9ac98','v_zw_view','table_name','视图表格','1005','1005','1005','1005','1005',104005009),(29,'f9744298ed1011e2abe65404a6a9ac98','v_zw_field','zid','','0','0','0','0','0',104005008),(30,'f974449eed1011e2abe65404a6a9ac98','v_zw_field','uid','','0','1002','0','0','0',104005008),(31,'f974458ced1011e2abe65404a6a9ac98','v_zw_field','view_code','视图编号','1003','1003','1003','1003','1003',104005009),(32,'f9744676ed1011e2abe65404a6a9ac98','v_zw_field','column_name','数据列名','1004','1004','1004','1004','1004',104005009),(33,'f974474fed1011e2abe65404a6a9ac98','v_zw_field','field_note','字段名称','1005','1005','1005','1005','1005',104005009),(34,'f9744829ed1011e2abe65404a6a9ac98','v_zw_field','sort_add','排序添加','1006','1006','1006','1006','1006',104005009),(35,'f97448faed1011e2abe65404a6a9ac98','v_zw_field','sort_edit','排序修改','1007','1007','1007','1007','1007',104005009),(36,'f97449c7ed1011e2abe65404a6a9ac98','v_zw_field','sort_chart','排序列表','1008','1008','1008','1008','1008',104005009),(37,'f9744a91ed1011e2abe65404a6a9ac98','v_zw_field','sort_book','排序展示','1009','1009','1009','1009','1009',104005009),(38,'f9744b5eed1011e2abe65404a6a9ac98','v_zw_field','sort_inquery','排序查询','1010','1010','1010','1010','1010',104005009),(39,'f9744c27ed1011e2abe65404a6a9ac98','v_zw_field','field_type_aid','字段类型','1011','1011','1011','1011','1011',104005009);
+INSERT INTO `zw_field` VALUES (59,'01a17605edcb11e2abe65404a6a9ac98','v_zw_view','zid','','0','0','0','0','0',104005008,'','','',''),(60,'01a17840edcb11e2abe65404a6a9ac98','v_zw_view','uid','','0','100200','0','0','0',104005008,'','','',''),(61,'01a17905edcb11e2abe65404a6a9ac98','v_zw_view','view_code','视图编码','100300','100300','100300','100300','100300',104005009,'','','',''),(62,'01a179b6edcb11e2abe65404a6a9ac98','v_zw_view','view_name','试图名称','100400','100400','100400','100400','100400',104005009,'','','',''),(63,'01a17a5eedcb11e2abe65404a6a9ac98','v_zw_view','table_name','视图表格','100500','100500','100500','100500','100500',104005009,'','','',''),(66,'01a36be2edcb11e2abe65404a6a9ac98','v_zw_field','zid','','0','0','0','0','0',104005008,'','','',''),(67,'01a36f0fedcb11e2abe65404a6a9ac98','v_zw_field','uid','','0','100200','0','0','0',104005008,'','','',''),(68,'01a3c689edcb11e2abe65404a6a9ac98','v_zw_field','view_code','视图编号','100300','100300','100300','100300','100300',104005009,'','','',''),(69,'01a3c89aedcb11e2abe65404a6a9ac98','v_zw_field','column_name','数据列名','100400','100400','100400','100400','100400',104005009,'','','',''),(70,'01a3c95bedcb11e2abe65404a6a9ac98','v_zw_field','field_note','字段名称','100500','100500','100500','100500','100500',104005009,'','','',''),(71,'01a3c9f7edcb11e2abe65404a6a9ac98','v_zw_field','sort_add','排序添加','100600','100600','100600','100600','100600',104005009,'','','',''),(72,'01a3ca8fedcb11e2abe65404a6a9ac98','v_zw_field','sort_edit','排序修改','100700','100700','100700','100700','100700',104005009,'','','',''),(73,'01a3cb2bedcb11e2abe65404a6a9ac98','v_zw_field','sort_chart','排序列表','100800','100800','100800','100800','100800',104005009,'','','',''),(74,'01a3cbcbedcb11e2abe65404a6a9ac98','v_zw_field','sort_book','排序展示','100900','100900','100900','100900','100900',104005009,'','','',''),(75,'01a3cd72edcb11e2abe65404a6a9ac98','v_zw_field','sort_inquery','排序查询','101000','101000','101000','101000','101000',104005009,'','','',''),(76,'01a3ce12edcb11e2abe65404a6a9ac98','v_zw_field','field_type_aid','字段类型','101100','101100','101100','101100','101100',104005009,'','','',''),(81,'01a4a3feedcb11e2abe65404a6a9ac98','v_cc_createtask','zid','','0','0','0','0','0',104005008,'','','',''),(82,'01a4a5deedcb11e2abe65404a6a9ac98','v_cc_createtask','uid','','0','100200','0','0','0',104005008,'','','',''),(83,'01a4a6a3edcb11e2abe65404a6a9ac98','v_cc_createtask','task_code','任务编号','0','100300','100300','100300','100300',104005009,'','','',''),(84,'01a4a750edcb11e2abe65404a6a9ac98','v_cc_createtask','task_name','任务名称','100400','100400','100400','100400','100400',104005009,'','','',''),(85,'01a4a7f8edcb11e2abe65404a6a9ac98','v_cc_createtask','task_remark','备注','100500','100500','100500','100500','100500',104005009,'','','',''),(86,'01a4ac61edcb11e2abe65404a6a9ac98','v_cc_createtask','card_money','卡金额','100600','100600','100600','100600','100600',104005009,'source_cc_moneytype','','',''),(87,'01a4ad5bedcb11e2abe65404a6a9ac98','v_cc_createtask','card_number','制卡数量','100700','100700','100700','100700','100700',104005009,'','','',''),(88,'01a4ae10edcb11e2abe65404a6a9ac98','v_cc_createtask','card_make','已生成数量','0','100800','100800','100800','100800',104005009,'','','',''),(89,'01a4aec0edcb11e2abe65404a6a9ac98','v_cc_createtask','create_user','创建人','0','100900','100900','100900','100900',104005009,'','','',''),(90,'01a4af58edcb11e2abe65404a6a9ac98','v_cc_createtask','create_time','创建时间','0','101000','101000','101000','101000',104005009,'','','',''),(91,'01a4aff4edcb11e2abe65404a6a9ac98','v_cc_createtask','serial_begin','开始流水号','0','101100','101100','101100','101100',104005009,'','','',''),(92,'01a4b094edcb11e2abe65404a6a9ac98','v_cc_createtask','serial_finish','结束流水号','0','101200','101200','101200','101200',104005009,'','','','');
 /*!40000 ALTER TABLE `zw_field` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -266,9 +270,10 @@ CREATE TABLE `zw_operate` (
   `operate_type_aid` int(11) DEFAULT '104005' COMMENT '操作类型',
   `page_code` varchar(450) DEFAULT '' COMMENT '页面编码',
   `operate_link` varchar(450) DEFAULT '' COMMENT '操作链接',
-  `flag_enable` int(11) DEFAULT '101001001' COMMENT '是否可用',
+  `flag_enable` int(11) DEFAULT '1' COMMENT '是否可用',
+  `operate_func` varchar(450) DEFAULT '' COMMENT '操作调用方法',
   PRIMARY KEY (`zid`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -277,7 +282,7 @@ CREATE TABLE `zw_operate` (
 
 LOCK TABLES `zw_operate` WRITE;
 /*!40000 ALTER TABLE `zw_operate` DISABLE KEYS */;
-INSERT INTO `zw_operate` VALUES (17,'f5ca23eeed0e11e2abe65404a6a9ac98','添加',116015012,'page_chart_v_zw_view','page_add_v_zw_view',101001001),(18,'f5ca7dfced0e11e2abe65404a6a9ac98','修改',116015012,'page_chart_v_zw_view','page_chart_v_zw_view',101001001),(19,'f5ca9c60ed0e11e2abe65404a6a9ac98','删除',116015010,'page_chart_v_zw_view','zenjs.zw.func_delete(this)',101001001),(20,'f5cabadced0e11e2abe65404a6a9ac98','提交新增',116015010,'page_add_v_zw_view','zenjs.zw.func_add(this)',101001001),(21,'f5cae2a5ed0e11e2abe65404a6a9ac98','提交修改',116015010,'page_edit_v_zw_view','zenjs.zw.func_edit(this)',101001001),(22,'a9381ba9ed1111e2abe65404a6a9ac98','添加',116015012,'page_chart_v_zw_field','page_add_v_zw_field',101001001),(23,'a9390830ed1111e2abe65404a6a9ac98','修改',116015012,'page_chart_v_zw_field','page_chart_v_zw_field',101001001),(24,'a93930cfed1111e2abe65404a6a9ac98','删除',116015010,'page_chart_v_zw_field','zenjs.zw.func_delete(this)',101001001),(25,'a9397224ed1111e2abe65404a6a9ac98','提交新增',116015010,'page_add_v_zw_field','zenjs.zw.func_add(this)',101001001),(26,'a939b24ded1111e2abe65404a6a9ac98','提交修改',116015010,'page_edit_v_zw_field','zenjs.zw.func_edit(this)',101001001);
+INSERT INTO `zw_operate` VALUES (62,'d8a781b7ede511e2abe65404a6a9ac98','添加',116015012,'page_chart_v_zw_view','page_add_v_zw_view',1,''),(63,'d8a85900ede511e2abe65404a6a9ac98','修改',116015012,'page_chart_v_zw_view','page_chart_v_zw_view',1,''),(64,'d8a88216ede511e2abe65404a6a9ac98','删除',116015010,'page_chart_v_zw_view','zapjs.zw.func_delete(this)',1,''),(65,'d8a8b9e8ede511e2abe65404a6a9ac98','提交新增',116015010,'page_add_v_zw_view','zapjs.zw.func_add(this)',1,''),(66,'d8a8e34fede511e2abe65404a6a9ac98','提交修改',116015010,'page_edit_v_zw_view','zapjs.zw.func_edit(this)',1,''),(67,'d8a95751ede511e2abe65404a6a9ac98','添加',116015012,'page_chart_v_zw_field','page_add_v_zw_field',1,''),(68,'d8a98a99ede511e2abe65404a6a9ac98','修改',116015012,'page_chart_v_zw_field','page_chart_v_zw_field',1,''),(69,'d8a9bbf5ede511e2abe65404a6a9ac98','删除',116015010,'page_chart_v_zw_field','zapjs.zw.func_delete(this)',1,''),(70,'d8a9eebeede511e2abe65404a6a9ac98','提交新增',116015010,'page_add_v_zw_field','zapjs.zw.func_add(this)',1,''),(71,'d8aa2e80ede511e2abe65404a6a9ac98','提交修改',116015010,'page_edit_v_zw_field','zapjs.zw.func_edit(this)',1,''),(72,'d8aac1d7ede511e2abe65404a6a9ac98','添加',116015012,'page_chart_v_cc_createtask','page_add_v_cc_createtask',1,''),(73,'d8aafd07ede511e2abe65404a6a9ac98','修改',116015012,'page_chart_v_cc_createtask','page_chart_v_cc_createtask',1,''),(74,'d8ab3597ede511e2abe65404a6a9ac98','删除',116015010,'page_chart_v_cc_createtask','zapjs.zw.func_delete(this)',1,''),(75,'d8ab6c93ede511e2abe65404a6a9ac98','提交新增',116015010,'page_add_v_cc_createtask','zapjs.zw.func_add(this)',1,''),(76,'d8aba403ede511e2abe65404a6a9ac98','提交修改',116015010,'page_edit_v_cc_createtask','zapjs.zw.func_edit(this)',1,'');
 /*!40000 ALTER TABLE `zw_operate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -297,9 +302,10 @@ CREATE TABLE `zw_page` (
   `view_code` varchar(45) DEFAULT '' COMMENT '视图编码',
   `page_type_aid` varchar(45) DEFAULT '0' COMMENT '页面类型',
   `page_group` varchar(450) DEFAULT '' COMMENT '页面组',
+  `flag_enable` int(11) DEFAULT '1' COMMENT '可用标记',
   PRIMARY KEY (`zid`),
   UNIQUE KEY `page_code_UNIQUE` (`page_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -308,7 +314,7 @@ CREATE TABLE `zw_page` (
 
 LOCK TABLES `zw_page` WRITE;
 /*!40000 ALTER TABLE `zw_page` DISABLE KEYS */;
-INSERT INTO `zw_page` VALUES (30,'3b8eb875ed1211e2abe65404a6a9ac98','page_chart_v_zw_view','系统视图-列表','chart','v_zw_view','116016003','grouppage_v_zw_view'),(31,'3b90a04eed1211e2abe65404a6a9ac98','page_add_v_zw_view','系统视图-新增','add','v_zw_view','116016001','grouppage_v_zw_view'),(32,'3b90c452ed1211e2abe65404a6a9ac98','page_edit_v_zw_view','系统视图-修改','edit','v_zw_view','116016005','grouppage_v_zw_view'),(33,'3b912b00ed1211e2abe65404a6a9ac98','page_chart_v_zw_field','字段视图-列表','chart','v_zw_field','116016003','grouppage_v_zw_field'),(34,'3b915484ed1211e2abe65404a6a9ac98','page_add_v_zw_field','字段视图-新增','add','v_zw_field','116016001','grouppage_v_zw_field'),(35,'3b9179feed1211e2abe65404a6a9ac98','page_edit_v_zw_field','字段视图-修改','edit','v_zw_field','116016005','grouppage_v_zw_field');
+INSERT INTO `zw_page` VALUES (30,'3b8eb875ed1211e2abe65404a6a9ac98','page_chart_v_zw_view','系统视图-列表','chart','v_zw_view','116016003','grouppage_v_zw_view',1),(31,'3b90a04eed1211e2abe65404a6a9ac98','page_add_v_zw_view','系统视图-新增','add','v_zw_view','116016001','grouppage_v_zw_view',1),(32,'3b90c452ed1211e2abe65404a6a9ac98','page_edit_v_zw_view','系统视图-修改','edit','v_zw_view','116016005','grouppage_v_zw_view',1),(33,'3b912b00ed1211e2abe65404a6a9ac98','page_chart_v_zw_field','字段视图-列表','chart','v_zw_field','116016003','grouppage_v_zw_field',1),(34,'3b915484ed1211e2abe65404a6a9ac98','page_add_v_zw_field','字段视图-新增','add','v_zw_field','116016001','grouppage_v_zw_field',1),(35,'3b9179feed1211e2abe65404a6a9ac98','page_edit_v_zw_field','字段视图-修改','edit','v_zw_field','116016005','grouppage_v_zw_field',1),(36,'bab86861edca11e2abe65404a6a9ac98','page_chart_v_cc_createtask','购物卡-列表','chart','v_cc_createtask','116016003','grouppage_v_cc_createtask',1),(37,'bab89a1fedca11e2abe65404a6a9ac98','page_add_v_cc_createtask','购物卡-新增','add','v_cc_createtask','116016001','grouppage_v_cc_createtask',1),(38,'bab8e360edca11e2abe65404a6a9ac98','page_edit_v_cc_createtask','购物卡-修改','edit','v_cc_createtask','116016005','grouppage_v_cc_createtask',1);
 /*!40000 ALTER TABLE `zw_page` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -351,8 +357,13 @@ CREATE TABLE `zw_source` (
   `uid` char(32) DEFAULT '',
   `source_code` varchar(45) DEFAULT '' COMMENT '数据源编编码',
   `source_name` varchar(45) DEFAULT '' COMMENT '数据源名称',
+  `source_from` varchar(45) DEFAULT '' COMMENT '数据源集合',
+  `field_text` varchar(45) DEFAULT '' COMMENT '字段名称',
+  `field_value` varchar(45) DEFAULT '' COMMENT '字段值',
+  `where_book` varchar(45) DEFAULT '' COMMENT '展示条件',
+  `where_edit` varchar(45) DEFAULT '' COMMENT '修改条件',
   PRIMARY KEY (`zid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='数据源表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='数据源表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -361,6 +372,7 @@ CREATE TABLE `zw_source` (
 
 LOCK TABLES `zw_source` WRITE;
 /*!40000 ALTER TABLE `zw_source` DISABLE KEYS */;
+INSERT INTO `zw_source` VALUES (1,'1','source_cc_moneytype','购物卡类型','cc_moneytype','money_value','money_value','','');
 /*!40000 ALTER TABLE `zw_source` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -377,8 +389,9 @@ CREATE TABLE `zw_view` (
   `view_code` varchar(45) DEFAULT '' COMMENT '视图编码',
   `view_name` varchar(45) DEFAULT '' COMMENT '试图名称',
   `table_name` varchar(45) DEFAULT '' COMMENT '视图表格',
+  `project_aid` int(11) DEFAULT '101002677' COMMENT '项目定义',
   PRIMARY KEY (`zid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='视图表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='视图表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -387,7 +400,7 @@ CREATE TABLE `zw_view` (
 
 LOCK TABLES `zw_view` WRITE;
 /*!40000 ALTER TABLE `zw_view` DISABLE KEYS */;
-INSERT INTO `zw_view` VALUES (1,'','v_zw_view','系统视图','zw_view'),(2,'','v_zw_field','字段视图','zw_field');
+INSERT INTO `zw_view` VALUES (1,'','v_zw_view','系统视图','zw_view',101002677),(2,'','v_zw_field','字段视图','zw_field',101002677),(3,'','v_cc_createtask','购物卡','cc_createtask',101002081);
 /*!40000 ALTER TABLE `zw_view` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -459,11 +472,11 @@ select replace(uuid(),'-','') as uid
 ,zwv.view_code as view_code
 ,zdc.column_name as column_name
 ,zdc.column_note as field_note
-,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 1000+zdc.column_sort end)  as sort_add
-,(case zdc.column_name when 'zid' then 0 else 1000+zdc.column_sort end) as sort_edit
-,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 1000+zdc.column_sort end) as sort_chart
-,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 1000+zdc.column_sort end) as sort_book
-,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 1000+zdc.column_sort end) as sort_inquery
+,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 100000+100*zdc.column_sort end)  as sort_add
+,(case zdc.column_name when 'zid' then 0 else 100000+100*zdc.column_sort end) as sort_edit
+,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 100000+100*zdc.column_sort end) as sort_chart
+,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 100000+100*zdc.column_sort end) as sort_book
+,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 100000+100*zdc.column_sort end) as sort_inquery
 ,(case zdc.column_name when 'zid' then 104005008 when 'uid' then 104005008 else 104005009 end) as field_type_aid
 from zapdata.zd_column zdc left join zw_view zwv
 on zdc.table_name=zwv.table_name
@@ -557,7 +570,7 @@ replace(uuid(),'-','') as uid
 ,116015012 as operate_type_aid
 ,zwp.page_code as page_code
 ,(select page_code from zw_page where page_type_aid=116016001 and view_code=zwp.view_code) as operate_link
-,'101001001' as flag_enable
+,'1' as flag_enable
 from zw_page zwp
 where 
 (select count(1) from zw_operate where  concat(operate_name,page_code)=concat('添加',zwp.page_code))=0
@@ -577,7 +590,7 @@ replace(uuid(),'-','') as uid
 ,116015012 as operate_type_aid
 ,zwp.page_code as page_code
 ,(select page_code from zw_page where page_type_aid=116016003 and view_code=zwp.view_code) as operate_link
-,'101001001' as flag_enable
+,'1' as flag_enable
 from zw_page zwp
 where 
 (select count(1) from zw_operate where  concat(operate_name,page_code)=concat('修改',zwp.page_code))=0
@@ -597,8 +610,8 @@ replace(uuid(),'-','') as uid
 ,'删除' as operate_name
 ,116015010 as operate_type_aid
 ,zwp.page_code as page_code
-,'zenjs.zw.func_delete(this)' as operate_link
-,'101001001' as flag_enable
+,'zapjs.zw.func_delete(this)' as operate_link
+,'1' as flag_enable
 from zw_page zwp
 where 
 (select count(1) from zw_operate where  concat(operate_name,page_code)=concat('删除',zwp.page_code))=0
@@ -618,8 +631,8 @@ replace(uuid(),'-','') as uid
 ,'提交新增' as operate_name
 ,116015010 as operate_type_aid
 ,zwp.page_code as page_code
-,'zenjs.zw.func_add(this)' as operate_link
-,'101001001' as flag_enable
+,'zapjs.zw.func_add(this)' as operate_link
+,'1' as flag_enable
 from zw_page zwp
 where 
 (select count(1) from zw_operate where  concat(operate_name,page_code)=concat('提交新增',zwp.page_code))=0
@@ -639,8 +652,8 @@ replace(uuid(),'-','') as uid
 ,'提交修改' as operate_name
 ,116015010 as operate_type_aid
 ,zwp.page_code as page_code
-,'zenjs.zw.func_edit(this)' as operate_link
-,'101001001' as flag_enable
+,'zapjs.zw.func_edit(this)' as operate_link
+,'1' as flag_enable
 from zw_page zwp
 where 
 (select count(1) from zw_operate where  concat(operate_name,page_code)=concat('提交修改',zwp.page_code))=0
@@ -716,7 +729,7 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-07-15 18:33:14
+-- Dump completed on 2013-07-16 16:35:13
 CREATE DATABASE  IF NOT EXISTS `cardcenter` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `cardcenter`;
 -- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
@@ -737,6 +750,32 @@ USE `cardcenter`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `cc_agentuser`
+--
+
+DROP TABLE IF EXISTS `cc_agentuser`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cc_agentuser` (
+  `zid` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` char(32) DEFAULT '',
+  `agent_code` varchar(450) DEFAULT '' COMMENT '代理商编号',
+  `agent_name` varchar(450) DEFAULT '' COMMENT '代理商名称',
+  `flag_used` int(11) DEFAULT '1' COMMENT '是否可用',
+  PRIMARY KEY (`zid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='代理商表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cc_agentuser`
+--
+
+LOCK TABLES `cc_agentuser` WRITE;
+/*!40000 ALTER TABLE `cc_agentuser` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cc_agentuser` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `cc_cardinfo`
 --
 
@@ -746,19 +785,22 @@ DROP TABLE IF EXISTS `cc_cardinfo`;
 CREATE TABLE `cc_cardinfo` (
   `zid` int(11) NOT NULL AUTO_INCREMENT,
   `uid` char(32) NOT NULL DEFAULT '',
-  `card_serial` char(12) DEFAULT '' COMMENT '购物卡流水号',
+  `card_serial` char(12) NOT NULL DEFAULT '' COMMENT '购物卡流水号',
   `card_code` char(16) NOT NULL DEFAULT '' COMMENT '购物卡卡号',
-  `card_pass` char(6) DEFAULT '' COMMENT '购物卡密码',
+  `card_pass` varchar(200) NOT NULL DEFAULT '' COMMENT '购物卡密码',
   `card_money` decimal(18,2) DEFAULT '0.00' COMMENT '购物卡金额',
   `used_money` decimal(18,2) DEFAULT '0.00' COMMENT '已使用金额',
   `inital_money` decimal(18,2) DEFAULT '0.00' COMMENT '初始金额',
-  `flag_active` int(11) DEFAULT '101001002' COMMENT '激活标识',
+  `flag_active` int(11) DEFAULT '0' COMMENT '激活标识',
   `begin_time` char(18) DEFAULT '' COMMENT '开始使用时间',
   `finish_time` char(18) DEFAULT '' COMMENT '截止使用时间',
   `create_time` char(18) DEFAULT '' COMMENT '创建时间',
+  `active_time` char(18) DEFAULT '' COMMENT '激活时间',
+  `flag_send` int(11) DEFAULT '0' COMMENT '发放标记',
   PRIMARY KEY (`zid`),
-  UNIQUE KEY `card_code_UNIQUE` (`card_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `card_code_UNIQUE` (`card_code`),
+  UNIQUE KEY `card_serial_UNIQUE` (`card_serial`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COMMENT='卡信息表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -767,7 +809,7 @@ CREATE TABLE `cc_cardinfo` (
 
 LOCK TABLES `cc_cardinfo` WRITE;
 /*!40000 ALTER TABLE `cc_cardinfo` DISABLE KEYS */;
-INSERT INTO `cc_cardinfo` VALUES (27,'df490ec172dc47638f58dd0eed59133b','','aa','',0.00,0.00,0.00,101001002,'','',''),(32,'733044fee7844e50a32d8e592e5237ed','','bb','',0.00,0.00,0.00,101001002,'','','');
+INSERT INTO `cc_cardinfo` VALUES (27,'df490ec172dc47638f58dd0eed59133b','1','aa','',0.00,0.00,0.00,0,'','','','',0),(32,'733044fee7844e50a32d8e592e5237ed','2','bb','',0.00,0.00,0.00,0,'','','','',0);
 /*!40000 ALTER TABLE `cc_cardinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -788,8 +830,10 @@ CREATE TABLE `cc_cardlog` (
   `change_source` varchar(45) DEFAULT '' COMMENT '变更原因',
   `change_code` varchar(45) DEFAULT '' COMMENT '相关单号',
   `change_remark` varchar(450) DEFAULT '' COMMENT '变更备注',
+  `card_money` decimal(18,2) DEFAULT '0.00' COMMENT '当前金额',
+  `change_type_did` varchar(45) DEFAULT '40810312' COMMENT '变更类型',
   PRIMARY KEY (`zid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='卡日志表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -799,30 +843,6 @@ CREATE TABLE `cc_cardlog` (
 LOCK TABLES `cc_cardlog` WRITE;
 /*!40000 ALTER TABLE `cc_cardlog` DISABLE KEYS */;
 /*!40000 ALTER TABLE `cc_cardlog` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cc_createlog`
---
-
-DROP TABLE IF EXISTS `cc_createlog`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cc_createlog` (
-  `zid` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` char(32) DEFAULT NULL,
-  `task_code` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`zid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cc_createlog`
---
-
-LOCK TABLES `cc_createlog` WRITE;
-/*!40000 ALTER TABLE `cc_createlog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cc_createlog` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -838,10 +858,15 @@ CREATE TABLE `cc_createtask` (
   `task_code` varchar(45) DEFAULT '' COMMENT '任务编号',
   `task_name` varchar(450) DEFAULT '' COMMENT '任务名称',
   `task_remark` varchar(4500) DEFAULT '' COMMENT '备注',
-  `create_time` char(18) DEFAULT '' COMMENT '创建时间',
+  `card_money` decimal(18,2) DEFAULT '0.00' COMMENT '卡金额',
+  `card_number` int(11) DEFAULT '0' COMMENT '制卡数量',
+  `card_make` int(11) DEFAULT '0' COMMENT '已生成数量',
   `create_user` varchar(45) DEFAULT '' COMMENT '创建人',
+  `create_time` char(18) DEFAULT '' COMMENT '创建时间',
+  `serial_begin` varchar(12) DEFAULT '' COMMENT '开始流水号',
+  `serial_finish` varchar(12) DEFAULT '' COMMENT '结束流水号',
   PRIMARY KEY (`zid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='创建任务表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -869,7 +894,7 @@ CREATE TABLE `cc_define` (
   `level_rank` int(11) DEFAULT '0' COMMENT '级别',
   `parent_did` varchar(45) DEFAULT '' COMMENT '父编号',
   PRIMARY KEY (`zid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='卡中心定义表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -878,6 +903,7 @@ CREATE TABLE `cc_define` (
 
 LOCK TABLES `cc_define` WRITE;
 /*!40000 ALTER TABLE `cc_define` DISABLE KEYS */;
+INSERT INTO `cc_define` VALUES (1,'','4081','cardcenter','',0,''),(2,'','40810312','cardlog','卡变更原因',0,''),(3,'','408103120001','create card','创建卡',0,''),(4,'','408103120002','send card','发放卡',0,''),(5,'','408103120003','active card','激活卡',0,''),(6,'','408103120004','use card','使用卡',0,''),(7,'','408103120005','lock card','锁定卡',0,'');
 /*!40000 ALTER TABLE `cc_define` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -894,7 +920,7 @@ CREATE TABLE `cc_moneytype` (
   `moeney_type` int(11) DEFAULT '0' COMMENT '金额类型',
   `money_value` int(11) DEFAULT '0' COMMENT '金额值',
   PRIMARY KEY (`zid`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='卡金额类型表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -905,6 +931,34 @@ LOCK TABLES `cc_moneytype` WRITE;
 /*!40000 ALTER TABLE `cc_moneytype` DISABLE KEYS */;
 INSERT INTO `cc_moneytype` VALUES (1,'',31,100),(2,'',32,200),(3,'',35,500),(4,'',41,1000),(5,'',42,2000),(6,'',45,5000),(7,'',51,10000),(8,'',52,20000),(9,'',55,50000);
 /*!40000 ALTER TABLE `cc_moneytype` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cc_sendtask`
+--
+
+DROP TABLE IF EXISTS `cc_sendtask`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cc_sendtask` (
+  `zid` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` char(32) DEFAULT '',
+  `serial_begin` varchar(45) DEFAULT '' COMMENT '开始流水号',
+  `serial_finish` varchar(45) DEFAULT '' COMMENT '结束流水号',
+  `agent_code` varchar(45) DEFAULT '' COMMENT '代理商编号',
+  `create_manager` varchar(45) DEFAULT '' COMMENT '创建人',
+  `create_time` char(18) DEFAULT '' COMMENT '创建时间',
+  PRIMARY KEY (`zid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='购物卡发放表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cc_sendtask`
+--
+
+LOCK TABLES `cc_sendtask` WRITE;
+/*!40000 ALTER TABLE `cc_sendtask` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cc_sendtask` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -920,4 +974,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-07-15 18:33:15
+-- Dump completed on 2013-07-16 16:35:14
