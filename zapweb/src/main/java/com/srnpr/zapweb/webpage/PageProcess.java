@@ -16,17 +16,34 @@ import com.srnpr.zapweb.webmodel.MWebResult;
  * 页面处理
  * 
  * @author srnpr
- *
+ * 
  */
 public class PageProcess implements IWebProcess {
 
-	/* (non-Javadoc)
-	 * @see com.srnpr.zapweb.webface.IWebProcess#process(java.lang.String, javax.servlet.http.HttpServletRequest)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.srnpr.zapweb.webface.IWebProcess#process(java.lang.String,
+	 * javax.servlet.http.HttpServletRequest)
 	 */
 	public ControlPage process(String sPageCode, HttpServletRequest hRequest) {
 
 		MWebPage mPage = WebUp.upPage(sPageCode);
 
+		ControlPage cPage = new ControlPage();
+
+		cPage.setReqMap(convertRequest(hRequest));
+		cPage.setWebPage(mPage);
+
+		return cPage;
+	}
+
+	/**
+	 * 转换reques的值
+	 * @param hRequest
+	 * @return
+	 */
+	public MDataMap convertRequest(HttpServletRequest hRequest) {
 		MDataMap mReqMap = new MDataMap();
 		@SuppressWarnings("unchecked")
 		Enumeration<String> eKey = hRequest.getParameterNames();
@@ -37,34 +54,22 @@ public class PageProcess implements IWebProcess {
 					StringUtils.join(hRequest.getParameterValues(string), ","));
 		}
 
-		ControlPage cPage = new ControlPage();
-
-		cPage.setReqMap(mReqMap);
-		cPage.setWebPage(mPage);
-
-		return cPage;
+		return mReqMap;
 	}
-	
 
-	
-	
 	/**
 	 * 操作调用
+	 * 
 	 * @param sPageCode
 	 * @param sTypeId
 	 * @param hRequest
 	 * @return
 	 */
-	public MWebResult func(String sPageCode,String sTypeId, HttpServletRequest hRequest)
-	{
-		MWebResult mResult=new MWebResult();
+	public MWebResult func(String sTypeId, HttpServletRequest hRequest) {
+
+		String sFuncName=WebUp.upOperate(sTypeId).getOperateFunc();
 		
-		mResult.setResultMessage("啊啊");
-		
-		return mResult;
+		return WebUp.upFunc(sFuncName).funcDo(sFuncName, convertRequest(hRequest));
 	}
-	
-	
-	
 
 }

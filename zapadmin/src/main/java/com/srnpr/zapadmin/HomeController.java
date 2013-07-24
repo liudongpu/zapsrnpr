@@ -59,12 +59,12 @@ public class HomeController {
 		return "page/default";
 	}
 	
-	@RequestMapping(value = "/func/{type}/{url}",produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value = "/func/{operateId}",produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
-	public String func(@PathVariable("type") String sType,@PathVariable("url") String sUrl, Model model,
+	public String func(@PathVariable("operateId") String sOperateId,Model model,
 			HttpServletRequest request) {
 
-		return new JsonHelper<MWebResult>().ObjToString( page_Process.func(sUrl,sType, request));
+		return new JsonHelper<MWebResult>().ObjToString( page_Process.func(sOperateId, request));
 		
 	}
 	

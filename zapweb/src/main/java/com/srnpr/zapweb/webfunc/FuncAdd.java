@@ -8,8 +8,18 @@ import com.srnpr.zapweb.webmodel.MWebResult;
 public class FuncAdd implements IWebFunc {
 
 	public MWebResult funcDo(String sOperateUid,MDataMap mDataMap) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		MWebResult mResult=new MWebResult();
+		
+		mResult.setResultMessage("添加成功");
+		
+		
+		
+		
+		
+		
+		return mResult;
+		
 	}
 
 }

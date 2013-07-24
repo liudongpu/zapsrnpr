@@ -1,7 +1,7 @@
 <#-- 添加页 -->
 <#macro m_zapmacro_common_page_add e_page>
 
-<form class="form-horizontal" >
+<form class="form-horizontal" method="POST" >
 	<@m_zapmacro_common_auto_field e_page.upAddData() />
 	<@m_zapmacro_common_auto_operate   e_page.getWebPage().getPageOperate() />
 
@@ -96,7 +96,7 @@
 <#-- 页面按钮 -->
 <#macro m_zapmacro_common_operate_button  e_operate>
 	
-	<input type="button" class="btn btn-success" onclick="${e_operate.getOperateLink()}"  value="${e_operate.getOperateName()}" />
+	<input type="button" class="btn btn-success" zapweb_attr_operate_id="${e_operate.getOperateUid()}"  onclick="${e_operate.getOperateLink()}"  value="${e_operate.getOperateName()}" />
 </#macro>
 
 <#-- 页面按钮 -->
