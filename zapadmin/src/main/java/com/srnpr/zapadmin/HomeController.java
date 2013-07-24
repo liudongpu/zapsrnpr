@@ -49,11 +49,28 @@ public class HomeController {
 	public String page(@PathVariable("url") String sUrl, Model model,
 			HttpServletRequest request) {
 
-		model.addAttribute("serverTime", "");
+		//model.addAttribute("serverTime", "");
 
 		model.addAttribute("b_page", page_Process.process(sUrl, request));
 
 		return "page/default";
 	}
+	
+	
+	@RequestMapping(value = "/func/{type}/{url}")
+	public String func(@PathVariable("type") String sType,@PathVariable("url") String sUrl, Model model,
+			HttpServletRequest request) {
+
+		//model.addAttribute("serverTime", "");
+
+		model.addAttribute("b_page", page_Process.process(sUrl, request));
+
+		return "page/default";
+	}
+	
+	
+	
+	
+	
 
 }

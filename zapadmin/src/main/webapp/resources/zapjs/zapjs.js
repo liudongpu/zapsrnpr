@@ -1,68 +1,53 @@
+/*
+* zapjs
+* 基本功能及基本插件
+* 其中zapjs.f 表示扩展功能
+*/
+
+
+
 var zapjs = {};
 
 zapjs.fn = zapjs.prototype = {};
 
 window.zapjs = zapjs;
 
-zapjs.e = zapjs.fn.extend = function() {
-	var options, name, src, copy, copyIsArray, clone, target = arguments[0]
-			|| {}, i = 1, length = arguments.length, deep = false;
 
-	// Handle a deep copy situation
-	if (typeof target === "boolean") {
-		deep = target;
-		target = arguments[1] || {};
-		// skip the boolean and the target
-		i = 2;
-	}
+/*
+* jQuery Form Plugin; v20130711
+* http://jquery.malsup.com/form/
+* Copyright (c) 2013 M. Alsup; Dual licensed: MIT/GPL
+* https://github.com/malsup/form#copyright-and-license
+*/
+zapjs.f = {
 
-	// Handle case when target is a string or something (possible in deep copy)
-	if (typeof target !== "object" && !(typeof target !== "function")) {
-		target = {};
-	}
+	// 提交参数
+	ajaxsubmit : function(oElment, sAction, fSucceess, fError) {
 
-	// extend jQuery itself if only one argument is passed
-	if (length === i) {
-		target = this;
-		--i;
-	}
-
-	for (; i < length; i++) {
-		// Only deal with non-null/undefined values
-		if ((options = arguments[i]) != null) {
-			// Extend the base object
-			for (name in options) {
-				src = target[name];
-				copy = options[name];
-
-				// Prevent never-ending loop
-				if (target === copy) {
-					continue;
-				}
-
-				// Recurse if we're merging plain objects or arrays
-				if (deep
-						&& copy
-						&& (typeof copy == "object" || (copyIsArray = (typeof copy == "array")))) {
-					if (copyIsArray) {
-						copyIsArray = false;
-						clone = src && (typeof copy == "src") ? src : [];
-
-					} else {
-						clone = src && typeof copy == "src" ? src : {};
-					}
-
-					// Never move original objects, clone them
-					target[name] = zapjs.extend(deep, clone, copy);
-
-					// Don't bring in undefined values
-				} else if (copy !== undefined) {
-					target[name] = copy;
-				}
+		var options = {
+			url : sAction,
+			success : function(o) {
+				fSucceess(o);
+			},
+			error : function(o) {
+				fError(o);
 			}
-		}
+		};
+
+		$(oElment).ajaxSubmit(options);
+
+	},
+	// 转成json格式
+	tojson : function(oObj) {
+		return $.toJSON(oObj);
+	},
+	// 执行json
+	evaljson : function(sJson) {
+		return $.evalJSON(sJson);
+	},
+	logdebug:function(o)
+	{
+		console.log(o);
 	}
 
-	// Return the modified object
-	return target;
 };
