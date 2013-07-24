@@ -12,6 +12,13 @@ import com.srnpr.zapweb.webmodel.MWebView;
 
 public class PageExec {
 
+	/**
+	 * 列表页数据
+	 * 
+	 * @param sViewCode
+	 * @param mReqMap
+	 * @return
+	 */
 	public MPageData chartData(String sViewCode, MDataMap mReqMap) {
 
 		MPageData mReturnData = new MPageData();
@@ -44,6 +51,12 @@ public class PageExec {
 
 	}
 
+	/**
+	 * 重新审查字段
+	 * 
+	 * @param inputFields
+	 * @return
+	 */
 	private List<MWebField> recheckFields(List<MWebField> inputFields) {
 		List<MWebField> listReturnFields = new ArrayList<MWebField>();
 
@@ -55,22 +68,25 @@ public class PageExec {
 		return listReturnFields;
 	}
 
+	/**
+	 * 添加页面数据
+	 * 
+	 * @param sViewCode
+	 * @param mReqMap
+	 * @return
+	 */
 	public List<MWebField> addData(String sViewCode, MDataMap mReqMap) {
 		MWebView mView = WebUp.upViewCache(sViewCode + "-116022001");
 
 		List<MWebField> listFields = recheckFields(mView.getFields());
 
-		List<MWebField> listPageFields=new ArrayList<MWebField>();
-		
-		for(MWebField mWebField:listFields)
-		{
-			MWebField mPageField=mWebField.clone();
+		List<MWebField> listPageFields = new ArrayList<MWebField>();
 
-		
+		for (MWebField mWebField : listFields) {
+			MWebField mPageField = mWebField.clone();
 			listPageFields.add(mPageField);
 		}
-		
-		
+
 		return listPageFields;
 	}
 

@@ -41,7 +41,7 @@ public class ViewCache extends RootCache<String, MWebView> {
 
 					mWebField.setSort(mFieldDataMap.get(sSortField));
 					
-					mWebField.setPageFieldName("zapwebfield_"+mWebField.getColumnName());
+					mWebField.setPageFieldName(WebConst.CONST_WEB_FIELD_NAME+mWebField.getColumnName());
 
 					mFields.add(mWebField);
 				}

@@ -1,4 +1,4 @@
-
+<#-- 列表的自动输出 -->
 <#macro m_zapmacro_common_table e_pagedata>
 
 <table  class="table">
@@ -28,25 +28,29 @@
 
 </#macro>
 
-
+<#-- 页面字段的自动输出 -->
 <#macro m_zapmacro_common_autofield e_pagedata>
-
-	
 	<#list e_pagedata as e>
 		<div class="control-group">
 	    	<label class="control-label" for="${e.getPageFieldName()}">${e.getFieldNote()}</label>
 	    	<div class="controls">
-	      		<input type="text" id="${e.getPageFieldName()}">
+	      		<input type="text" id="${e.getPageFieldName()}" name="${e.getPageFieldName()}" value="${e.getPageFieldValue()}">
 	    	</div>
 	  	</div>
 	</#list>
 
 </#macro>
 
+
+
+
 <#macro m_zapmacro_common_field_run e_fieldinfo>
 
 </#macro>
 
+
+
+<#-- 页面按钮的自动输出 -->
 <#macro m_zapmacro_common_web_buttons     e_list_operates >
 	<div class="control-group">
     	<div class="controls">
@@ -57,6 +61,8 @@
 	</div>
 </#macro>
 
+
+<#-- 页面按钮 -->
 <#macro m_zapmacro_common_web_operate e_operate>
 	<a class="btn btn-success" href="<#if e_operate.getOperateTypeAid()=="116015010">javascript:</#if>${e_operate.getOperateLink()}" >${e_operate.getOperateName()}</a>
 </#macro>

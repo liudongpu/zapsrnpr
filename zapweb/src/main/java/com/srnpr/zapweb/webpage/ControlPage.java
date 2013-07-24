@@ -9,10 +9,19 @@ import com.srnpr.zapweb.webmodel.MWebPage;
 
 public class ControlPage {
 
+	/**
+	 * 输入参数
+	 */
 	private MDataMap reqMap = new MDataMap();
 
+	/**
+	 * 页面实体
+	 */
 	private MWebPage webPage = new MWebPage();
 
+	/**
+	 * 页面操作类
+	 */
 	private final static PageExec pageExec = new PageExec();
 
 	public MDataMap getReqMap() {
@@ -31,10 +40,18 @@ public class ControlPage {
 		this.webPage = webPage;
 	}
 
+	/**
+	 * 得到列表页数据
+	 * @return
+	 */
 	public MPageData upChartData() {
 		return pageExec.chartData(webPage.getViewCode(), reqMap);
 	}
 
+	/**
+	 * 得到添加页数据
+	 * @return
+	 */
 	public List<MWebField> upAddData() {
 		return pageExec.addData(webPage.getViewCode(), reqMap);
 	}
