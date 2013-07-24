@@ -13,7 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.srnpr.zapcom.basehelper.JsonHelper;
+import com.srnpr.zapweb.webmodel.MWebResult;
 import com.srnpr.zapweb.webpage.PageProcess;
 
 /**
@@ -56,15 +59,13 @@ public class HomeController {
 		return "page/default";
 	}
 	
-	@RequestMapping(value = "/func/{type}/{url}")
+	@RequestMapping(value = "/func/{type}/{url}",produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
 	public String func(@PathVariable("type") String sType,@PathVariable("url") String sUrl, Model model,
 			HttpServletRequest request) {
 
-		//model.addAttribute("serverTime", "");
-
-		model.addAttribute("b_func", page_Process.func(sUrl,sType, request));
-
-		return "page/func";
+		return new JsonHelper<MWebResult>().ObjToString( page_Process.func(sUrl,sType, request));
+		
 	}
 	
 	

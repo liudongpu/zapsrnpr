@@ -5,7 +5,7 @@ zapjs.zw = {
 	},
 
 	func_success : function(o) {
-		alert(o);
+		//alert(o.errorCode);
 	},
 
 	func_error : function(o) {

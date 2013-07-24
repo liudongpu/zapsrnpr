@@ -2,12 +2,18 @@ package com.srnpr.zapweb.webmodel;
 
 import java.util.List;
 
+/**
+ * 
+ * 系统操作返回 默认resultCode结果为1 如果不为1则说明错误
+ * 
+ * @author srnpr
+ * 
+ */
 public class MWebResult {
 
-	
-	private int errorCode=0;
-	
-	private String resultMessage="";
+	private int resultCode = 1;
+
+	private String resultMessage = "";
 
 	public String getResultMessage() {
 		return resultMessage;
@@ -17,14 +23,6 @@ public class MWebResult {
 		this.resultMessage = resultMessage;
 	}
 
-	public int getErrorCode() {
-		return errorCode;
-	}
-
-	public void setErrorCode(int errorCode) {
-		this.errorCode = errorCode;
-	}
-	
 	public Object getResultObject() {
 		return resultObject;
 	}
@@ -41,8 +39,15 @@ public class MWebResult {
 		this.resultList = resultList;
 	}
 
+	public int getResultCode() {
+		return resultCode;
+	}
+
+	public void setResultCode(int resultCode) {
+		this.resultCode = resultCode;
+	}
+
 	private Object resultObject;
-	
-	
+
 	private List<Object> resultList;
 }
