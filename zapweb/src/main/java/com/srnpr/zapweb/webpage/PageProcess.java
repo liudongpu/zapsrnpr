@@ -10,6 +10,7 @@ import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webface.IWebProcess;
 import com.srnpr.zapweb.webmodel.MWebPage;
+import com.srnpr.zapweb.webmodel.MWebResult;
 
 public class PageProcess implements IWebProcess {
 
@@ -34,5 +35,19 @@ public class PageProcess implements IWebProcess {
 
 		return cPage;
 	}
+	
+
+	
+	
+	public MWebResult func(String sPageCode,String sTypeId, HttpServletRequest hRequest)
+	{
+		MWebResult mResult=new MWebResult();
+		
+		
+		return mResult;
+	}
+	
+	
+	
 
 }

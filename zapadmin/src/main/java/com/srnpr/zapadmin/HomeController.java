@@ -56,16 +56,15 @@ public class HomeController {
 		return "page/default";
 	}
 	
-	
 	@RequestMapping(value = "/func/{type}/{url}")
 	public String func(@PathVariable("type") String sType,@PathVariable("url") String sUrl, Model model,
 			HttpServletRequest request) {
 
 		//model.addAttribute("serverTime", "");
 
-		model.addAttribute("b_page", page_Process.process(sUrl, request));
+		model.addAttribute("b_func", page_Process.func(sUrl,sType, request));
 
-		return "page/default";
+		return "page/func";
 	}
 	
 	

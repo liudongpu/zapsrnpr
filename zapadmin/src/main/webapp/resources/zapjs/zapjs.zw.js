@@ -9,7 +9,7 @@ zapjs.zw = {
 	},
 
 	func_error : function(o) {
-		alert('错误啊');
+		alert('系统出现错误，请联系技术，谢谢！');
 
 	}
 

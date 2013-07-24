@@ -1,10 +1,8 @@
 /*
-* zapjs
-* 基本功能及基本插件
-* 其中zapjs.f 表示扩展功能
-*/
-
-
+ * zapjs
+ * 基本功能及基本插件
+ * 其中zapjs.f 表示扩展功能
+ */
 
 var zapjs = {};
 
@@ -12,17 +10,19 @@ zapjs.fn = zapjs.prototype = {};
 
 window.zapjs = zapjs;
 
-
 /*
-* jQuery Form Plugin; v20130711
-* http://jquery.malsup.com/form/
-* Copyright (c) 2013 M. Alsup; Dual licensed: MIT/GPL
-* https://github.com/malsup/form#copyright-and-license
-*/
+ * jQuery Form Plugin; v20130711 http://jquery.malsup.com/form/ Copyright (c)
+ * 2013 M. Alsup; Dual licensed: MIT/GPL
+ * https://github.com/malsup/form#copyright-and-license
+ */
 zapjs.f = {
 
 	// 提交参数
 	ajaxsubmit : function(oElment, sAction, fSucceess, fError) {
+
+		if (sAction == "") {
+
+		}
 
 		var options = {
 			url : sAction,
@@ -45,8 +45,7 @@ zapjs.f = {
 	evaljson : function(sJson) {
 		return $.evalJSON(sJson);
 	},
-	logdebug:function(o)
-	{
+	logdebug : function(o) {
 		console.log(o);
 	}
 
