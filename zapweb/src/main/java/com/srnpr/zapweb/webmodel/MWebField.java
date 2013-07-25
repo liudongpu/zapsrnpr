@@ -2,15 +2,33 @@ package com.srnpr.zapweb.webmodel;
 
 public class MWebField implements Cloneable {
 
+	/**
+	 * 字段中文名
+	 */
 	private String fieldNote = "";
+	/**
+	 * 数据库名称
+	 */
 	private String columnName = "";
 
+	/**
+	 * 排序
+	 */
 	private String sort = "";
 
+	/**
+	 * 字段类型
+	 */
 	private String fieldTypeAid = "";
 
+	/**
+	 * 字段名称
+	 */
 	private String pageFieldName = "";
 
+	/**
+	 * 页面元素值
+	 */
 	private String pageFieldValue = "";
 
 	public String getFieldNote() {

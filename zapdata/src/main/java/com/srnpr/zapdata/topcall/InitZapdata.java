@@ -7,10 +7,8 @@ import com.srnpr.zapdata.dbcache.TableCache;
 public class InitZapdata extends RootInit {
 
 	public void init() {
-		
-		TableCache tCache=new TableCache();
-		tCache.refresh();
 
+		topInitCache(new TableCache());
 	}
 
 }

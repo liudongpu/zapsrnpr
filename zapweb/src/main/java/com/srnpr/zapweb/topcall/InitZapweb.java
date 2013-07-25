@@ -2,21 +2,18 @@ package com.srnpr.zapweb.topcall;
 
 import com.srnpr.zapcom.baseface.IBaseInit;
 import com.srnpr.zapcom.rootclass.RootInit;
+import com.srnpr.zapweb.webdo.FuncCache;
+import com.srnpr.zapweb.webdo.OperateCache;
 import com.srnpr.zapweb.webdo.PageCache;
-
+import com.srnpr.zapweb.webdo.ViewCache;
 
 public class InitZapweb extends RootInit implements IBaseInit {
 
 	public void init() {
-		initCache();
+		topInitCache(new ViewCache(), new PageCache(), new OperateCache(),
+				new FuncCache());
 	}
 
-	private void initCache() {
-		
-
-		PageCache pCache = new PageCache();
-		pCache.refresh();
-
-	}
+	
 
 }

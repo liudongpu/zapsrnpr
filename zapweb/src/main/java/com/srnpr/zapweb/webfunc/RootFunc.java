@@ -17,15 +17,16 @@ public abstract class RootFunc implements IWebFunc {
 	/**
 	 * 获取Web的字段
 	 * @param mFieldMap
+	 * @param sStartField
 	 * @return
 	 */
-	public MDataMap upWebField(MDataMap mFieldMap) {
+	public MDataMap upWebField(MDataMap mFieldMap,String sStartField) {
 		MDataMap mReturn = new MDataMap();
 
 		for (String sKey : mFieldMap.upKeys()) {
-			if (StringUtils.startsWith(sKey, WebConst.CONST_WEB_FIELD_NAME)) {
+			if (StringUtils.startsWith(sKey,sStartField)) {
 				mReturn.put(StringUtils.substringAfter(sKey,
-						WebConst.CONST_WEB_FIELD_NAME), mFieldMap.get(sKey));
+						sStartField), mFieldMap.get(sKey));
 			}
 		}
 
