@@ -23,6 +23,7 @@ public class OperateCache extends RootCache<String, MWebOperate> {
 			mWebOperate.setOperateLink(mDataMap.get("operate_link"));
 			mWebOperate.setOperateName(mDataMap.get("operate_name"));
 			mWebOperate.setOperateTypeAid(mDataMap.get("operate_type_aid"));
+			mWebOperate.setPageCode(mDataMap.get("page_code"));
 			mWebOperate.setOperateUid(mDataMap.get("uid"));
 
 			this.inElement(mWebOperate.getOperateUid(), mWebOperate);

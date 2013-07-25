@@ -11,8 +11,14 @@ public class MWebPage {
 
 	private String pageTemplate = "";
 	private String pageName = "";
+	
+	private String pageTable="";
 
 	private List<MWebOperate> pageOperate;
+	
+	
+	private List<MWebField> pageFields;
+	
 
 	public String getPageCode() {
 		return pageCode;
@@ -60,6 +66,22 @@ public class MWebPage {
 
 	public void setPageOperate(List<MWebOperate> pageOperate) {
 		this.pageOperate = pageOperate;
+	}
+
+	public List<MWebField> getPageFields() {
+		return pageFields;
+	}
+
+	public void setPageFields(List<MWebField> pageFields) {
+		this.pageFields = pageFields;
+	}
+
+	public String getPageTable() {
+		return pageTable;
+	}
+
+	public void setPageTable(String pageTable) {
+		this.pageTable = pageTable;
 	}
 
 }

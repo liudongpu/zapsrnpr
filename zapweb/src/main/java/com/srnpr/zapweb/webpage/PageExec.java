@@ -8,6 +8,7 @@ import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webmodel.MPageData;
 import com.srnpr.zapweb.webmodel.MWebField;
+import com.srnpr.zapweb.webmodel.MWebPage;
 import com.srnpr.zapweb.webmodel.MWebView;
 
 public class PageExec {
@@ -15,26 +16,25 @@ public class PageExec {
 	/**
 	 * 列表页数据
 	 * 
-	 * @param sViewCode
+	 * @param webPage
 	 * @param mReqMap
 	 * @return
 	 */
-	public MPageData chartData(String sViewCode, MDataMap mReqMap) {
+	public MPageData chartData(MWebPage webPage, MDataMap mReqMap) {
 
 		MPageData mReturnData = new MPageData();
 
-		MWebView mView = WebUp.upViewCache(sViewCode + "-116022003");
-
 		List<List<String>> listData = new ArrayList<List<String>>();
 
-		List<MWebField> listFields = recheckFields(mView.getFields());
+		List<MWebField> listFields = recheckFields(webPage.getPageFields());
 		List<String> listHeader = new ArrayList<String>();
 		for (MWebField mField : listFields) {
 			listHeader.add(mField.getFieldNote());
 		}
 		mReturnData.setPageHead(listHeader);
 
-		for (MDataMap mData : DbUp.upTable(mView.getTableName()).queryByWhere()) {
+		for (MDataMap mData : DbUp.upTable(webPage.getPageTable())
+				.queryByWhere()) {
 			List<String> listEach = new ArrayList<String>();
 
 			for (MWebField mField : listFields) {
@@ -71,14 +71,13 @@ public class PageExec {
 	/**
 	 * 添加页面数据
 	 * 
-	 * @param sViewCode
+	 * @param webPage
 	 * @param mReqMap
 	 * @return
 	 */
-	public List<MWebField> addData(String sViewCode, MDataMap mReqMap) {
-		MWebView mView = WebUp.upViewCache(sViewCode + "-116022001");
+	public List<MWebField> addData(MWebPage webPage, MDataMap mReqMap) {
 
-		List<MWebField> listFields = recheckFields(mView.getFields());
+		List<MWebField> listFields = recheckFields(webPage.getPageFields());
 
 		List<MWebField> listPageFields = new ArrayList<MWebField>();
 

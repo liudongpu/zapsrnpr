@@ -44,6 +44,7 @@ INSERT INTO `zapdata`.`zw_page`
 `page_template`,
 `view_code`,
 `page_type_aid`,
+`view_type_aid`,
 `page_group`)
 select replace(uuid(),'-','') as uid
 ,concat('page_chart_',zwv.view_code) as page_code
@@ -51,6 +52,7 @@ select replace(uuid(),'-','') as uid
 ,'chart' as page_template
 ,zwv.view_code as view_code
 ,116016003 as page_type_aid
+,116022003 as view_type_aid
 ,concat('grouppage_',zwv.view_code) as page_code
 from zw_view zwv
 where 
@@ -66,6 +68,7 @@ INSERT INTO `zapdata`.`zw_page`
 `page_template`,
 `view_code`,
 `page_type_aid`,
+`view_type_aid`,
 `page_group`)
 select replace(uuid(),'-','') as uid
 ,concat('page_add_',zwv.view_code) as page_code
@@ -73,6 +76,7 @@ select replace(uuid(),'-','') as uid
 ,'add' as page_template
 ,zwv.view_code as view_code
 ,116016001 as page_type_aid
+,116022001 as view_type_aid
 ,concat('grouppage_',zwv.view_code) as page_code
 from zw_view zwv
 where 
@@ -88,6 +92,7 @@ INSERT INTO `zapdata`.`zw_page`
 `page_template`,
 `view_code`,
 `page_type_aid`,
+`view_type_aid`,
 `page_group`)
 select replace(uuid(),'-','') as uid
 ,concat('page_edit_',zwv.view_code) as page_code
@@ -95,6 +100,7 @@ select replace(uuid(),'-','') as uid
 ,'edit' as page_template
 ,zwv.view_code as view_code
 ,116016005 as page_type_aid
+,116022005 as view_type_aid
 ,concat('grouppage_',zwv.view_code) as page_code
 from zw_view zwv
 where 

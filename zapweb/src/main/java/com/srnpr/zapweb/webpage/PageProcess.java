@@ -69,7 +69,7 @@ public class PageProcess implements IWebProcess {
 
 		String sFuncName=WebUp.upOperate(sTypeId).getOperateFunc();
 		
-		return WebUp.upFunc(sFuncName).funcDo(sFuncName, convertRequest(hRequest));
+		return WebUp.upFunc(sFuncName).funcDo(sTypeId, convertRequest(hRequest));
 	}
 
 }

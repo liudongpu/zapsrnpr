@@ -45,7 +45,7 @@ public class ControlPage {
 	 * @return
 	 */
 	public MPageData upChartData() {
-		return pageExec.chartData(webPage.getViewCode(), reqMap);
+		return pageExec.chartData(webPage, reqMap);
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class ControlPage {
 	 * @return
 	 */
 	public List<MWebField> upAddData() {
-		return pageExec.addData(webPage.getViewCode(), reqMap);
+		return pageExec.addData(webPage, reqMap);
 	}
 
 }

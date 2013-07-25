@@ -16,6 +16,10 @@ public class MWebOperate {
 	private String operateUid = "";
 
 	private String operateFunc = "";
+	
+	
+	private String pageCode="";
+	
 
 	public String getOperateName() {
 		return operateName;
@@ -55,6 +59,14 @@ public class MWebOperate {
 
 	public void setOperateFunc(String operateFunc) {
 		this.operateFunc = operateFunc;
+	}
+
+	public String getPageCode() {
+		return pageCode;
+	}
+
+	public void setPageCode(String pageCode) {
+		this.pageCode = pageCode;
 	}
 
 }
