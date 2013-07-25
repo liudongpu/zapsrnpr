@@ -3,6 +3,9 @@ package com.srnpr.zapweb.webpage;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.NumberUtils;
+import org.apache.commons.lang.StringUtils;
+
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.webdo.WebUp;
@@ -23,22 +26,47 @@ public class PageExec {
 	public MPageData chartData(MWebPage webPage, MDataMap mReqMap) {
 
 		MPageData mReturnData = new MPageData();
+		
+		
+		
+		if(mReqMap.containsKey("zapweb_pagination_index"))
+		{
+			mReturnData.setPageIndex(Integer.valueOf( mReqMap.get("zapweb_pagination_index")));
+		}
+		
+		
+		
+		
+		
 
 		List<List<String>> listData = new ArrayList<List<String>>();
 
 		List<MWebField> listFields = recheckFields(webPage.getPageFields());
+
 		List<String> listHeader = new ArrayList<String>();
 		for (MWebField mField : listFields) {
 			listHeader.add(mField.getFieldNote());
 		}
 		mReturnData.setPageHead(listHeader);
 
-		for (MDataMap mData : DbUp.upTable(webPage.getPageTable())
-				.queryByWhere()) {
+		MDataMap mQueryMap = new MDataMap();
+
+		if (mReturnData.getPageCount() < 0) {
+			mReturnData.setPageCount(DbUp.upTable(webPage.getPageTable())
+					.count());
+
+			mReturnData.setPageMax((int)Math
+					.ceil((double)mReturnData.getPageCount()
+							/ (double)mReturnData.getPageSize()));
+		}
+
+		for (MDataMap mData : DbUp.upTable(webPage.getPageTable()).query("",
+				"", "", mQueryMap,
+				(mReturnData.getPageIndex() - 1) * mReturnData.getPageSize(),
+				 mReturnData.getPageSize())) {
 			List<String> listEach = new ArrayList<String>();
 
 			for (MWebField mField : listFields) {
-
 				listEach.add(mData.get(mField.getColumnName()));
 			}
 

@@ -1,2 +1,2 @@
 
-<@m_zapmacro_common_table b_page.upChartData() />
+<@m_zapmacro_common_page_chart b_page />

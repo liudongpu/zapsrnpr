@@ -24,11 +24,11 @@ public interface ITableCall {
 	 * @param sWhere
 	 * @param mWhereMap
 	 * @param iStart
-	 * @param iEnd
+	 * @param iNumber
 	 * @return
 	 */
 	public List<MDataMap> query(String sFields, String sOrders, String sWhere,
-			MDataMap mWhereMap, int iStart, int iEnd) ;
+			MDataMap mWhereMap, int iStart, int iNumber) ;
 	
 	/**
 	 * 插入数据库 默认uid代码生成   zid自动递增
@@ -59,11 +59,11 @@ public interface ITableCall {
 	 * @param sWhere
 	 * @param mWhereMap
 	 * @param iStart
-	 * @param iEnd
+	 * @param iNumber
 	 * @return
 	 */
 	public List<Map<String, Object>> dataQuery(String sFields, String sOrders,
-			String sWhere, MDataMap mWhereMap, int iStart, int iEnd);
+			String sWhere, MDataMap mWhereMap, int iStart, int iNumber);
 
 	/**
 	 * 插入数据

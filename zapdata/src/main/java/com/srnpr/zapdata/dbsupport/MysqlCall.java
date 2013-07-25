@@ -40,7 +40,7 @@ public class MysqlCall extends DbCall {
 	 * int, int)
 	 */
 	public List<Map<String, Object>> dataQuery(String sFields, String sOrders,
-			String sWhere, MDataMap mWhereMap, int iStart, int iEnd) {
+			String sWhere, MDataMap mWhereMap, int iStart, int iNumber) {
 
 		StringBuffer sBuffer = new StringBuffer();
 		sBuffer.append("select ");
@@ -65,6 +65,14 @@ public class MysqlCall extends DbCall {
 		if (StringUtils.isNotEmpty(sOrders)) {
 
 		}
+		
+		
+		if(iStart>-1&&iNumber>0)
+		{
+			sBuffer.append(" limit "+String.valueOf(iStart)+","+String.valueOf(iNumber));
+		}
+		
+		
 
 		return dataTemplate.queryForList(sBuffer.toString(), mWhereMap);
 	}

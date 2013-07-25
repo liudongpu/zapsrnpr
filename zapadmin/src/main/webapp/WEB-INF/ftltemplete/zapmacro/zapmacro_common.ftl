@@ -9,7 +9,43 @@
 
 </#macro>
 
+<#-- 列表页 -->
+<#macro m_zapmacro_common_page_chart e_page>
 
+	<@m_zapmacro_common_table e_page.upChartData() />
+	<@m_zapmacro_common_page_pagination e_page.upChartData() />
+</#macro>
+
+<#-- 分页 -->
+<#macro m_zapmacro_common_page_pagination e_pagedata>
+
+<div class="pagination">
+  <ul>
+  
+	
+	<#if (e_pagedata.getPageIndex()>1)>
+		<li><a href="?zapweb_pagination_index=${(e_pagedata.getPageIndex()-1)}">上一页</a></li>
+	<#else>
+		<li class="disabled"><a>上一页</a></li>
+	</#if>
+    
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+
+    <#if (e_pagedata.getPageIndex()<e_pagedata.getPageMax())>
+		<li><a href="?zapweb_pagination_index=${(e_pagedata.getPageIndex()+1)}">下一页</a></li>
+	<#else>
+		<li class="disabled"><a>下一页</a></li>
+	</#if>
+    
+    
+  </ul>
+</div>
+
+</#macro>
 
 <#-- 列表的自动输出 -->
 <#macro m_zapmacro_common_table e_pagedata>
@@ -37,8 +73,6 @@
 	 	</#list>
 		</tbody>
 </table>
-
-
 </#macro>
 
 <#-- 页面字段的自动输出判断 -->

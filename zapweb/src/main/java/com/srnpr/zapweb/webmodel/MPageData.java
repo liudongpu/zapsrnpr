@@ -6,11 +6,29 @@ import java.util.Map;
 
 import com.srnpr.zapcom.basemodel.MDataMap;
 
+/**
+ * @author srnpr
+ *
+ */
 public class MPageData {
 
+	/**
+	 * 数据总计
+	 */
 	private int pageCount = -1;
+	/**
+	 * 当前页
+	 */
 	private int pageIndex = 1;
-	private int pageSize = 10;
+	
+	
+	private int pageMax=-1;
+	
+	
+	/**
+	 * 每页数量
+	 */
+	private int pageSize = 2;
 	private List<List<String>> pageData = null;
 	
 	
@@ -54,6 +72,14 @@ private List<String> pageHead=new ArrayList<String>();
 
 	public void setPageHead(List<String> pageHead) {
 		this.pageHead = pageHead;
+	}
+
+	public int getPageMax() {
+		return pageMax;
+	}
+
+	public void setPageMax(int pageMax) {
+		this.pageMax = pageMax;
 	}
 
 }
