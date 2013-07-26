@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
+import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webmodel.MPageData;
 import com.srnpr.zapweb.webmodel.MWebField;
@@ -26,18 +27,17 @@ public class PageExec {
 	public MPageData chartData(MWebPage webPage, MDataMap mReqMap) {
 
 		MPageData mReturnData = new MPageData();
-		
-		
-		
-		if(mReqMap.containsKey("zapweb_pagination_index"))
-		{
-			mReturnData.setPageIndex(Integer.valueOf( mReqMap.get("zapweb_pagination_index")));
+
+		String sPaginationField = WebConst.CONST_WEB_PAGINATION_NAME;
+
+		if (mReqMap.containsKey(sPaginationField + "count")) {
+			mReturnData.setPageCount(Integer.valueOf(mReqMap
+					.get(sPaginationField + "count")));
 		}
-		
-		
-		
-		
-		
+		if (mReqMap.containsKey(sPaginationField + "index")) {
+			mReturnData.setPageIndex(Integer.valueOf(mReqMap
+					.get(sPaginationField + "index")));
+		}
 
 		List<List<String>> listData = new ArrayList<List<String>>();
 
@@ -55,15 +55,17 @@ public class PageExec {
 			mReturnData.setPageCount(DbUp.upTable(webPage.getPageTable())
 					.count());
 
-			mReturnData.setPageMax((int)Math
-					.ceil((double)mReturnData.getPageCount()
-							/ (double)mReturnData.getPageSize()));
+		}
+
+		if (mReturnData.getPageMax() < 0) {
+			mReturnData.setPageMax((int) Math.ceil((double) mReturnData
+					.getPageCount() / (double) mReturnData.getPageSize()));
 		}
 
 		for (MDataMap mData : DbUp.upTable(webPage.getPageTable()).query("",
 				"", "", mQueryMap,
 				(mReturnData.getPageIndex() - 1) * mReturnData.getPageSize(),
-				 mReturnData.getPageSize())) {
+				mReturnData.getPageSize())) {
 			List<String> listEach = new ArrayList<String>();
 
 			for (MWebField mField : listFields) {
@@ -90,7 +92,7 @@ public class PageExec {
 
 		for (MWebField mField : inputFields) {
 			if (!mField.getSort().equals("0")) {
-				listReturnFields.add(mField);
+				listReturnFields.add(mField.clone());
 			}
 		}
 		return listReturnFields;
@@ -105,16 +107,18 @@ public class PageExec {
 	 */
 	public List<MWebField> addData(MWebPage webPage, MDataMap mReqMap) {
 
-		List<MWebField> listFields = recheckFields(webPage.getPageFields());
-
-		List<MWebField> listPageFields = new ArrayList<MWebField>();
-
-		for (MWebField mWebField : listFields) {
-			MWebField mPageField = mWebField.clone();
-			listPageFields.add(mPageField);
-		}
+		List<MWebField> listPageFields = recheckFields(webPage.getPageFields());
 
 		return listPageFields;
+	}
+
+	public List<MWebField> inquireData(MWebPage webPage, MDataMap mReqMap) {
+
+		MWebView mView = WebUp.upQueryView(webPage.getViewCode());
+		List<MWebField> listFields = recheckFields(mView.getFields());
+
+		return listFields;
+
 	}
 
 }

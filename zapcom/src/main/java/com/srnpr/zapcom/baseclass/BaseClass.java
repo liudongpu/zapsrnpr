@@ -27,7 +27,7 @@ public abstract class BaseClass {
 		if (logger == null) {
 			logger = LogFactory.getLog(this.getClass());
 		}
-		logger.info(TopUp.upLogInfo(iInfoCode, sParms));
+		logger.info("["+String.valueOf( iInfoCode)+"] "+TopUp.upLogInfo(iInfoCode, sParms));
 	}
 
 	/**
@@ -40,7 +40,7 @@ public abstract class BaseClass {
 		if (logger == null) {
 			logger = LogFactory.getLog(this.getClass());
 		}
-		logger.debug(TopUp.upLogInfo(iInfoCode, sParms));
+		logger.debug("["+String.valueOf( iInfoCode)+"] "+TopUp.upLogInfo(iInfoCode, sParms));
 	}
 
 	/**

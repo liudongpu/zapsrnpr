@@ -24,6 +24,15 @@ public class WebUp {
 		return viewCache.upValue(sViewKey);
 	}
 
+	/**
+	 * 得到查询视图
+	 * @param sViewCode
+	 * @return
+	 */
+	public static MWebView upQueryView(String sViewCode) {
+		return viewCache.upValue(sViewCode + "-" + "116022009");
+	}
+
 	public static MWebPage upPage(String sKey) {
 		return pageCache.upValue(sKey);
 	}

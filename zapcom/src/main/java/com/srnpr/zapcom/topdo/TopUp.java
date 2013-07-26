@@ -42,7 +42,7 @@ public class TopUp implements IBaseUp {
 	 */
 	public static String upLogInfo(int iInfoCode, Object... sParms)
 	{
-		return "["+String.valueOf( iInfoCode)+"] "+(iInfoCode<1?StringUtils.join(sParms):FormatHelper.formatString(upInfo(iInfoCode), sParms));
+		return (iInfoCode<1?StringUtils.join(sParms):FormatHelper.formatString(upInfo(iInfoCode), sParms));
 	}
 	
 	private final static ConfigMap configMap=new ConfigMap();

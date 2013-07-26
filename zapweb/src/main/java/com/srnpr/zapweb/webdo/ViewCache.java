@@ -36,6 +36,8 @@ public class ViewCache extends RootCache<String, MWebView> {
 					MWebField mWebField = new MWebField();
 					mWebField.setColumnName(mFieldDataMap.get("column_name"));
 					mWebField.setFieldNote(mFieldDataMap.get("field_note"));
+					mWebField.setQueryTypeAid(mFieldDataMap.get("query_type_aid"));
+					mWebField.setRegexValue(mFieldDataMap.get("regex_value"));
 					mWebField.setFieldTypeAid(mFieldDataMap
 							.get("field_type_aid"));
 

@@ -32,6 +32,14 @@ public class PageProcess implements IWebProcess {
 
 		ControlPage cPage = new ControlPage();
 
+		// 设置连接
+		if (StringUtils.isEmpty(hRequest.getQueryString())) {
+			cPage.setPageUrl(hRequest.getRequestURL().toString());
+		} else {
+			cPage.setPageUrl(hRequest.getRequestURL().toString() + "?"
+					+ hRequest.getQueryString());
+		}
+
 		cPage.setReqMap(convertRequest(hRequest));
 		cPage.setWebPage(mPage);
 
@@ -40,6 +48,7 @@ public class PageProcess implements IWebProcess {
 
 	/**
 	 * 转换reques的值
+	 * 
 	 * @param hRequest
 	 * @return
 	 */
@@ -67,9 +76,10 @@ public class PageProcess implements IWebProcess {
 	 */
 	public MWebResult func(String sTypeId, HttpServletRequest hRequest) {
 
-		String sFuncName=WebUp.upOperate(sTypeId).getOperateFunc();
-		
-		return WebUp.upFunc(sFuncName).funcDo(sTypeId, convertRequest(hRequest));
+		String sFuncName = WebUp.upOperate(sTypeId).getOperateFunc();
+
+		return WebUp.upFunc(sFuncName)
+				.funcDo(sTypeId, convertRequest(hRequest));
 	}
 
 }

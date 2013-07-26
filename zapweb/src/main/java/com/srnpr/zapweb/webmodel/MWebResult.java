@@ -2,6 +2,8 @@ package com.srnpr.zapweb.webmodel;
 
 import java.util.List;
 
+import com.srnpr.zapcom.topdo.TopUp;
+
 /**
  * 
  * 系统操作返回 默认resultCode结果为1 如果不为1则说明错误
@@ -50,4 +52,17 @@ public class MWebResult {
 	private Object resultObject;
 
 	private List<Object> resultList;
+	
+	
+	public boolean upFlagTrue()
+	{
+		return resultCode==1;
+	}
+	
+	public void inErrorMessage(int iErrorCode,String sParms)
+	{
+		resultCode=iErrorCode;
+		resultMessage =TopUp.upLogInfo(iErrorCode, sParms);
+	}
+	
 }

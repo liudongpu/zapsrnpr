@@ -2,6 +2,7 @@ package com.srnpr.zapweb.webfunc;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webface.IWebFunc;
@@ -12,7 +13,7 @@ import com.srnpr.zapweb.webface.IWebFunc;
  * @author srnpr
  * 
  */
-public abstract class RootFunc implements IWebFunc {
+public abstract class RootFunc extends BaseClass implements IWebFunc {
 
 	/**
 	 * 获取Web的字段
