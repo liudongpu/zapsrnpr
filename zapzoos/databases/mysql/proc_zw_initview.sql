@@ -49,7 +49,7 @@ INSERT INTO `zapdata`.`zw_page`
 select replace(uuid(),'-','') as uid
 ,concat('page_chart_',zwv.view_code) as page_code
 ,concat(zwv.view_name,'-列表') as page_name
-,'chart' as page_template
+,'../zappage/chart' as page_template
 ,zwv.view_code as view_code
 ,116016003 as page_type_aid
 ,116022003 as view_type_aid
@@ -73,7 +73,7 @@ INSERT INTO `zapdata`.`zw_page`
 select replace(uuid(),'-','') as uid
 ,concat('page_add_',zwv.view_code) as page_code
 ,concat(zwv.view_name,'-新增') as page_name
-,'add' as page_template
+,'../zappage/add' as page_template
 ,zwv.view_code as view_code
 ,116016001 as page_type_aid
 ,116022001 as view_type_aid
@@ -97,7 +97,7 @@ INSERT INTO `zapdata`.`zw_page`
 select replace(uuid(),'-','') as uid
 ,concat('page_edit_',zwv.view_code) as page_code
 ,concat(zwv.view_name,'-修改') as page_name
-,'edit' as page_template
+,'../zappage/edit' as page_template
 ,zwv.view_code as view_code
 ,116016005 as page_type_aid
 ,116022005 as view_type_aid
