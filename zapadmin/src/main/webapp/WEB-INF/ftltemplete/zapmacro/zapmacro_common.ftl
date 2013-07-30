@@ -2,7 +2,7 @@
 <#macro m_zapmacro_common_page_add e_page>
 
 <form class="form-horizontal" method="POST" >
-	<@m_zapmacro_common_auto_field e_page.upAddData()   e_page  />
+	<@m_zapmacro_common_auto_list  e_page.upAddData()   e_page  />
 	<@m_zapmacro_common_auto_operate   e_page.getWebPage().getPageOperate()  "116001016" />
 
 </form>
@@ -29,7 +29,7 @@
 
 
 
-<#-- 页面字段的自动输出判断 -->
+<#--查询的自动输出判断 -->
 <#macro m_zapmacro_common_auto_inquire e_page>
 	<#list e_page.upInquireData() as e>
 	
@@ -41,7 +41,7 @@
 	  	<#elseif  e.getFieldTypeAid()=="104005019">
 	  		
 	  	<#else>
-	  		<@m_zapmacro_common_field_text e/>
+	  		<@m_zapmacro_common_auto_field e e_page/>
 	  		
 	  	</#if>
 	  	
@@ -70,7 +70,9 @@
     <#if (min<1)><#local min=1></#if>
     
 	<#list min..max as e>
+		<#if (e>0)>
 		<li <#if e==e_pagedata.getPageIndex()> class="active"</#if> ><a href="<@m_zapmacro_common_page_pagination_href  e_page  e_pagedata   e/>">${e}</a></li>
+		</#if>
 	</#list>
 
     <#if (e_pagedata.getPageIndex()<e_pagedata.getPageMax())>
@@ -119,22 +121,28 @@ ${e_page.upReplaceUrl("",["zapweb_pagination_count="+(e_pagedata.getPageCount())
 </table>
 </#macro>
 
+
 <#-- 页面字段的自动输出判断 -->
-<#macro m_zapmacro_common_auto_field e_pagedata   e_page>
+<#macro m_zapmacro_common_auto_list e_pagedata   e_page>
 	<#list e_pagedata as e>
 		
-	  	<#if e.getFieldTypeAid()=="104005008">
-	  		<@m_zapmacro_common_field_hidden e/>
-	  	<#elseif  e.getFieldTypeAid()=="104005019">
-	  		<@m_zapmacro_common_field_select  e  e_page/>
-	  		<#elseif  e.getFieldTypeAid()=="104005020">
-	  		<@m_zapmacro_common_field_textarea  e />
-	  	<#else>
-	  		<@m_zapmacro_common_field_text e/>
-	  	</#if>
+	  	<@m_zapmacro_common_auto_field e e_page/>
 	  	
 	</#list>
+</#macro>
 
+<#-- 页面字段的自动输出判断 -->
+<#macro m_zapmacro_common_auto_field e_field   e_page>
+	
+		<#if e_field.getFieldTypeAid()=="104005008">
+	  		<@m_zapmacro_common_field_hidden e_field/>
+	  	<#elseif  e_field.getFieldTypeAid()=="104005019">
+	  		<@m_zapmacro_common_field_select  e_field  e_page/>
+	  		<#elseif  e_field.getFieldTypeAid()=="104005020">
+	  		<@m_zapmacro_common_field_textarea  e_field />
+	  	<#else>
+	  		<@m_zapmacro_common_field_text e_field/>
+	  	</#if>
 </#macro>
 
 

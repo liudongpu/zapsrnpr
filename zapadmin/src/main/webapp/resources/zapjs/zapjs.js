@@ -11,7 +11,7 @@ zapjs.fn = zapjs.prototype = {};
 window.zapjs = zapjs;
 
 /*
- *f
+ * f
  */
 zapjs.f = {
 
@@ -21,7 +21,6 @@ zapjs.f = {
 		if (sAction == "") {
 
 		}
-
 		var options = {
 			url : sAction,
 			success : function(o) {
@@ -45,6 +44,46 @@ zapjs.f = {
 	},
 	logdebug : function(o) {
 		console.log(o);
+	},
+	upurl:function()
+	{
+		return window.location.href;
+	},
+	
+	tourl:function(sUrl)
+	{
+		location.href=sUrl;
+	},
+	
+	// url替换 如果没有的话会自动添加
+	urlreplace : function(sUrl, sKey, sValue) {
+		if (sUrl == "") {
+			sUrl = zapjs.f.upurl();
+		}
+		if (sUrl.indexOf('?') < 1) {
+			sUrl = sUrl + "?";
+		}
+
+		var sParams = sUrl.split('?')[1].split('&');
+		var bFlagCon = false;
+
+		var sAddStr = sKey + "=" + sValue;
+
+		for ( var i = 0, j = sParams.length; i < j; i++) {
+
+			var sKv = sParams[i].split("=");
+			if (sKv[0] == sKey) {
+				bFlagCon = true;
+				sParams[i] = sAddStr;
+				break;
+			}
+		}
+
+		if (!bFlagCon) {
+			sParams.push(sAddStr);
+		}
+
+		return sUrl.split('?')[0]+"?"+sParams.join("&");
 	}
 
 };
