@@ -16,7 +16,7 @@ public abstract class DbCall extends BaseClass implements ITableCall {
 	}
 
 	public int count(String... sParams) {
-		return dataCount(new MDataMap(sParams));
+		return dataCount("",new MDataMap(sParams));
 	}
 
 	public int delete(String... sParams) {

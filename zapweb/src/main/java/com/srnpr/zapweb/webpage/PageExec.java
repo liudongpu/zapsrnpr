@@ -41,7 +41,8 @@ public class PageExec {
 
 		List<List<String>> listData = new ArrayList<List<String>>();
 
-		List<MWebField> listFields = recheckFields(webPage.getPageFields());
+		List<MWebField> listFields = recheckFields(webPage.getPageFields(),
+				mReqMap);
 
 		List<String> listHeader = new ArrayList<String>();
 		for (MWebField mField : listFields) {
@@ -50,10 +51,28 @@ public class PageExec {
 		mReturnData.setPageHead(listHeader);
 
 		MDataMap mQueryMap = new MDataMap();
+		String sWhere = "";
+
+		if (mReqMap.size() > 0) {
+
+			ArrayList<String> aWhereStrings = new ArrayList<String>();
+
+			for (MWebField mField : inquireData(webPage, mReqMap)) {
+				if (StringUtils.isNotEmpty(mField.getPageFieldValue())) {
+					aWhereStrings.add(" "+mField.getColumnName()+" like :"+mField.getColumnName());
+					mQueryMap.put(mField.getColumnName(), "%"+mField.getPageFieldValue()+"%");
+				}
+			}
+
+			if (aWhereStrings.size() > 0) {
+				sWhere = StringUtils.join(aWhereStrings, " and ");
+			}
+
+		}
 
 		if (mReturnData.getPageCount() < 0) {
 			mReturnData.setPageCount(DbUp.upTable(webPage.getPageTable())
-					.count());
+					.dataCount(sWhere, mQueryMap));
 
 		}
 
@@ -63,7 +82,7 @@ public class PageExec {
 		}
 
 		for (MDataMap mData : DbUp.upTable(webPage.getPageTable()).query("",
-				"", "", mQueryMap,
+				"", sWhere, mQueryMap,
 				(mReturnData.getPageIndex() - 1) * mReturnData.getPageSize(),
 				mReturnData.getPageSize())) {
 			List<String> listEach = new ArrayList<String>();
@@ -87,14 +106,25 @@ public class PageExec {
 	 * @param inputFields
 	 * @return
 	 */
-	private List<MWebField> recheckFields(List<MWebField> inputFields) {
+	private List<MWebField> recheckFields(List<MWebField> inputFields,
+			MDataMap mReqMap) {
 		List<MWebField> listReturnFields = new ArrayList<MWebField>();
 
 		for (MWebField mField : inputFields) {
 			if (!mField.getSort().equals("0")) {
-				listReturnFields.add(mField.clone());
+
+				MWebField mCloneField = mField.clone();
+
+				if (mReqMap.containsKey(mCloneField.getPageFieldName())) {
+					mCloneField.setPageFieldValue(mReqMap.get(mCloneField
+							.getPageFieldName()));
+				}
+
+				listReturnFields.add(mCloneField);
+
 			}
 		}
+
 		return listReturnFields;
 	}
 
@@ -107,7 +137,8 @@ public class PageExec {
 	 */
 	public List<MWebField> addData(MWebPage webPage, MDataMap mReqMap) {
 
-		List<MWebField> listPageFields = recheckFields(webPage.getPageFields());
+		List<MWebField> listPageFields = recheckFields(webPage.getPageFields(),
+				mReqMap);
 
 		return listPageFields;
 	}
@@ -115,7 +146,7 @@ public class PageExec {
 	public List<MWebField> inquireData(MWebPage webPage, MDataMap mReqMap) {
 
 		MWebView mView = WebUp.upQueryView(webPage.getViewCode());
-		List<MWebField> listFields = recheckFields(mView.getFields());
+		List<MWebField> listFields = recheckFields(mView.getFields(), mReqMap);
 
 		return listFields;
 

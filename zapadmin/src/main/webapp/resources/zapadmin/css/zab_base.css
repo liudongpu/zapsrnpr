@@ -5,15 +5,7 @@
 }
 
 
-.zab_page_common_inquire  label
-{
-		float:left;
-		min-width:150px;
-}
-.zab_page_common_inquire  .controls
-{display:inline;
-	float:left;
-}
+
 .control-group
 {
 	clear:both;

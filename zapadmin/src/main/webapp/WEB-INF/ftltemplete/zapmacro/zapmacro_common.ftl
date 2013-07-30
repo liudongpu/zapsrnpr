@@ -2,8 +2,8 @@
 <#macro m_zapmacro_common_page_add e_page>
 
 <form class="form-horizontal" method="POST" >
-	<@m_zapmacro_common_auto_field e_page.upAddData() />
-	<@m_zapmacro_common_auto_operate   e_page.getWebPage().getPageOperate() />
+	<@m_zapmacro_common_auto_field e_page.upAddData()  />
+	<@m_zapmacro_common_auto_operate   e_page.getWebPage().getPageOperate()  "116001016" />
 
 </form>
 
@@ -21,8 +21,10 @@
 
 <#-- 查询区域 -->
 <#macro m_zapmacro_common_page_inquire e_page>
-
-<@m_zapmacro_common_auto_inquire e_page />
+	<form class="form-horizontal" method="POST" >
+		<@m_zapmacro_common_auto_inquire e_page />
+		<@m_zapmacro_common_auto_operate   e_page.getWebPage().getPageOperate() "116001009" />
+	</form>
 </#macro>
 
 
@@ -30,8 +32,7 @@
 <#-- 页面字段的自动输出判断 -->
 <#macro m_zapmacro_common_auto_inquire e_page>
 	<#list e_page.upInquireData() as e>
-		
-		
+	
 		<#if e.getQueryTypeAid()=="104009002">
 			<@m_zapmacro_common_field_between e  e_page/>
 		
@@ -172,17 +173,19 @@ ${e_page.upReplaceUrl("",["zapweb_pagination_count="+(e_pagedata.getPageCount())
 
 
 <#-- 页面按钮的自动输出 -->
-<#macro m_zapmacro_common_auto_operate     e_list_operates >
+<#macro m_zapmacro_common_auto_operate     e_list_operates  e_area_type>
 	<div class="control-group">
     	<div class="controls">
     		<#list e_list_operates as e>
-    			<#if e.getOperateTypeAid()=="116015010">
-    				<@m_zapmacro_common_operate_button e/>
-    			<#else>
-    				<@m_zapmacro_common_operate_link e/>
-    			</#if>
+    			<#if e.getAreaTypeAid()==e_area_type>
     		
-    			
+	    			<#if e.getOperateTypeAid()=="116015010">
+	    				<@m_zapmacro_common_operate_button e/>
+	    			<#else>
+	    				<@m_zapmacro_common_operate_link e/>
+	    			</#if>
+    		
+    			</#if>
     		</#list>
     	</div>
 	</div>

@@ -31,14 +31,10 @@ public class PageCache extends RootCache<String, MWebPage> {
 			for (MDataMap mOperateDataMap : DbUp.upTable("zw_operate")
 					.queryByWhere("flag_enable", "1", "page_code",
 							mWebPage.getPageCode())) {
-				MWebOperate mOperate = new MWebOperate();
-
-				mOperate.setOperateName(mOperateDataMap.get("operate_name"));
-				mOperate.setOperateLink(mOperateDataMap.get("operate_link"));
-				mOperate.setOperateTypeAid(mOperateDataMap
-						.get("operate_type_aid"));
-				mOperate.setOperateUid(mOperateDataMap.get("uid"));
-				mOperate.setOperateFunc(mOperateDataMap.get("operate_func"));
+				
+				
+				MWebOperate mOperate=WebUp.upOperate(mOperateDataMap.get("uid")).clone();
+				
 
 				listOperates.add(mOperate);
 			}

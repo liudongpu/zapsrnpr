@@ -153,16 +153,16 @@ public class MysqlCall extends DbCall {
 
 	}
 
-	public Object dataGet(String sField, MDataMap mWhereMap) {
+	public Object dataGet(String sField,String sWhere, MDataMap mWhereMap) {
 		Map<String, Object> rResultMap = dataQuery(sField + " as dataget", "",
-				"", mWhereMap, -1, -1).get(0);
+				sWhere, mWhereMap, -1, -1).get(0);
 
 		return rResultMap.get("dataget");
 	}
 
-	public int dataCount(MDataMap mWhereMap) {
+	public int dataCount(String sWhere,MDataMap mWhereMap) {
 
-		return Integer.valueOf(dataGet("count(1) ", mWhereMap).toString());
+		return Integer.valueOf(dataGet("count(1) ",sWhere, mWhereMap).toString());
 	}
 
 	public DbTemplate upTemplate() {

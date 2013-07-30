@@ -83,7 +83,13 @@ public interface ITableCall {
 	public int dataExec(String sSql, MDataMap mDataMap);
 
 	
-	public int dataCount(MDataMap mWhereMap);
+	/**
+	 * 查询
+	 * @param sWhere
+	 * @param mWhereMap
+	 * @return
+	 */
+	public int dataCount(String sWhere,MDataMap mWhereMap);
 	
 	
 	/**

@@ -5,7 +5,7 @@ package com.srnpr.zapweb.webmodel;
  * @author srnpr
  *
  */
-public class MWebOperate {
+public class MWebOperate implements Cloneable {
 
 	private String operateName = "";
 
@@ -19,6 +19,8 @@ public class MWebOperate {
 	
 	
 	private String pageCode="";
+	
+	private String areaTypeAid="";
 	
 
 	public String getOperateName() {
@@ -69,4 +71,25 @@ public class MWebOperate {
 		this.pageCode = pageCode;
 	}
 
+	public String getAreaTypeAid() {
+		return areaTypeAid;
+	}
+
+	public void setAreaTypeAid(String areaTypeAid) {
+		this.areaTypeAid = areaTypeAid;
+	}
+
+	
+	public MWebOperate clone() {
+
+		MWebOperate o = null;
+		try {
+			o = (MWebOperate) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return o;
+	}
+	
+	
 }
