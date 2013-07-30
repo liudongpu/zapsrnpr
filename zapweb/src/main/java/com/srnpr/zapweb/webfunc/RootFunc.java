@@ -50,6 +50,7 @@ public abstract class RootFunc extends BaseClass implements IWebFunc {
 
 		if (StringUtils.isNotEmpty(sRegexValue)) {
 
+			//校验如果是+号开始 则判断是否允许为空
 			if (sRegexValue.startsWith("+")) {
 				if (StringUtils.isEmpty(sValue)) {
 					iReturn = 969905003;
@@ -58,7 +59,7 @@ public abstract class RootFunc extends BaseClass implements IWebFunc {
 				}
 			}
 
-			if (iReturn == 0 && StringUtils.isNotEmpty(sRegexValue)) {
+			if (iReturn == 1 && StringUtils.isNotEmpty(sRegexValue)) {
 				if (!sValue.matches(sRegexValue)) {
 					iReturn = 969905002;
 

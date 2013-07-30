@@ -11,4 +11,7 @@ public class WebConst {
 	public final static String CONST_WEB_PAGINATION_NAME="zapweb_pagination_";
 	
 	
+	public final static String  CONST_WEB_FIELD_AFTER="_zapweb_after_";
+	
+	
 }

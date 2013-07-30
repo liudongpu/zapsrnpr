@@ -113,6 +113,11 @@ public class ControlPage {
 		this.pageUrl = pageUrl;
 	}
 
+	/**
+	 * 获取数据源
+	 * @param mField
+	 * @return
+	 */
 	public List<MKvdModel> upDataSource(MWebField mField) {
 
 		MKvdList mReturnList = new MKvdList();
@@ -134,5 +139,21 @@ public class ControlPage {
 
 		return mReturnList.getChildList();
 	}
+	
+	
+	/**
+	 * 获取请求值
+	 * @param sKey
+	 * @return
+	 */
+	public String upReqValue(String sKey)
+	{
+		return reqMap.get(sKey);
+	}
+	
+	
+	
+	
+	
 
 }

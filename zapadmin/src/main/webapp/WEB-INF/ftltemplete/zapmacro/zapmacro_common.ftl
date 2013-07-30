@@ -162,7 +162,7 @@ ${e_page.upReplaceUrl("",["zapweb_pagination_count="+(e_pagedata.getPageCount())
 </#macro>
 
 
-<#-- 字段：输入框 -->
+<#-- 字段：长为本框 -->
 <#macro m_zapmacro_common_field_textarea e_field>
 	<div class="control-group">
 	    	<label class="control-label" for="${e_field.getPageFieldName()}">${e_field.getFieldNote()}</label>
@@ -203,12 +203,12 @@ ${e_page.upReplaceUrl("",["zapweb_pagination_count="+(e_pagedata.getPageCount())
 <#-- 字段：文本范围 -->
 <#macro m_zapmacro_common_field_between e_field  e_page>
 	<div class="control-group">
-	    	<label class="control-label" for="${e_field.getPageFieldName()}_from">${e_field.getFieldNote()}</label>
+	    	<label class="control-label" for="${e_field.getPageFieldName()}_zapweb_after_between_from">${e_field.getFieldNote()}</label>
 	    	<div class="controls">
 	    		从
-	      		<input type="text" id="${e_field.getPageFieldName()}_from" name="${e_field.getPageFieldName()}_from" value="${e_field.getPageFieldValue()}">
+	      		<input type="text" id="${e_field.getPageFieldName()}_zapweb_after_between_from" name="${e_field.getPageFieldName()}_zapweb_after_between_from" value="${e_page.upReqValue(e_field.getPageFieldName()+"_zapweb_after_between_from")?default("")}">
 	      		到
-	      		<input type="text" id="${e_field.getPageFieldName()}_from" name="${e_field.getPageFieldName()}_from" value="${e_field.getPageFieldValue()}">
+	      		<input type="text" id="${e_field.getPageFieldName()}_zapweb_after_between_to" name="${e_field.getPageFieldName()}_zapweb_after_between_to" value="${e_page.upReqValue(e_field.getPageFieldName()+"_zapweb_after_between_to")?default("")}">
 	      		
 	      		
 	    	</div>

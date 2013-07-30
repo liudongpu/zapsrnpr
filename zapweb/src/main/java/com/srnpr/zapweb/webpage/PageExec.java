@@ -53,15 +53,65 @@ public class PageExec {
 		MDataMap mQueryMap = new MDataMap();
 		String sWhere = "";
 
+		// 开始加载查询条件判断
 		if (mReqMap.size() > 0) {
 
 			ArrayList<String> aWhereStrings = new ArrayList<String>();
 
 			for (MWebField mField : inquireData(webPage, mReqMap)) {
-				if (StringUtils.isNotEmpty(mField.getPageFieldValue())) {
-					aWhereStrings.add(" "+mField.getColumnName()+" like :"+mField.getColumnName());
-					mQueryMap.put(mField.getColumnName(), "%"+mField.getPageFieldValue()+"%");
+
+				switch (Integer.parseInt(mField.getQueryTypeAid())) {
+				case 104009002:
+
+					if (StringUtils.isNotEmpty(mReqMap.get(mField
+							.getPageFieldName()
+							+ WebConst.CONST_WEB_FIELD_AFTER + "between_from"))) {
+
+						aWhereStrings.add(mField.getColumnName() + ">=:"
+								+ mField.getColumnName()
+								+ WebConst.CONST_WEB_FIELD_AFTER
+								+ "between_from");
+						mQueryMap.put(mField.getColumnName()
+								+ WebConst.CONST_WEB_FIELD_AFTER
+								+ "between_from", mReqMap.get(mField
+										.getPageFieldName()
+										+ WebConst.CONST_WEB_FIELD_AFTER + "between_from"));
+
+					}
+					
+					
+					if (StringUtils.isNotEmpty(mReqMap.get(mField
+							.getPageFieldName()
+							+ WebConst.CONST_WEB_FIELD_AFTER + "between_to"))) {
+
+						aWhereStrings.add(mField.getColumnName() + "<=:"
+								+ mField.getColumnName()
+								+ WebConst.CONST_WEB_FIELD_AFTER
+								+ "between_to");
+						mQueryMap.put(mField.getColumnName()
+								+ WebConst.CONST_WEB_FIELD_AFTER
+								+ "between_to", mReqMap.get(mField
+										.getPageFieldName()
+										+ WebConst.CONST_WEB_FIELD_AFTER + "between_to"));
+
+					}
+					
+					
+
+					break;
+
+				default:
+
+					if (StringUtils.isNotEmpty(mField.getPageFieldValue())) {
+						aWhereStrings.add(" " + mField.getColumnName()
+								+ " like :" + mField.getColumnName());
+						mQueryMap.put(mField.getColumnName(),
+								"%" + mField.getPageFieldValue() + "%");
+					}
+
+					break;
 				}
+
 			}
 
 			if (aWhereStrings.size() > 0) {
@@ -70,6 +120,7 @@ public class PageExec {
 
 		}
 
+		// 判断如果没有请求则重新统计数量
 		if (mReturnData.getPageCount() < 0) {
 			mReturnData.setPageCount(DbUp.upTable(webPage.getPageTable())
 					.dataCount(sWhere, mQueryMap));
