@@ -206,9 +206,9 @@ ${e_page.upReplaceUrl("",["zapweb_pagination_count="+(e_pagedata.getPageCount())
 	    	<label class="control-label" for="${e_field.getPageFieldName()}_zapweb_after_between_from">${e_field.getFieldNote()}</label>
 	    	<div class="controls">
 	    		从
-	      		<input type="text" id="${e_field.getPageFieldName()}_zapweb_after_between_from" name="${e_field.getPageFieldName()}_zapweb_after_between_from" value="${e_page.upReqValue(e_field.getPageFieldName()+"_zapweb_after_between_from")?default("")}">
+	      		<input type="text" <#if e_field.getFieldTypeAid()=="104005004">  onClick="WdatePicker({maxDate:'#F{$dp.$D(\'${e_field.getPageFieldName()}_zapweb_after_between_to\',{d:-1});}'})"  </#if>   id="${e_field.getPageFieldName()}_zapweb_after_between_from" name="${e_field.getPageFieldName()}_zapweb_after_between_from" value="${e_page.upReqValue(e_field.getPageFieldName()+"_zapweb_after_between_from")?default("")}">
 	      		到
-	      		<input type="text" id="${e_field.getPageFieldName()}_zapweb_after_between_to" name="${e_field.getPageFieldName()}_zapweb_after_between_to" value="${e_page.upReqValue(e_field.getPageFieldName()+"_zapweb_after_between_to")?default("")}">
+	      		<input type="text" <#if e_field.getFieldTypeAid()=="104005004">  onClick="WdatePicker({minDate:'#F{$dp.$D(\'${e_field.getPageFieldName()}_zapweb_after_between_from\',{d:1});}'})"</#if>  id="${e_field.getPageFieldName()}_zapweb_after_between_to" name="${e_field.getPageFieldName()}_zapweb_after_between_to" value="${e_page.upReqValue(e_field.getPageFieldName()+"_zapweb_after_between_to")?default("")}">
 	      		
 	      		
 	    	</div>
