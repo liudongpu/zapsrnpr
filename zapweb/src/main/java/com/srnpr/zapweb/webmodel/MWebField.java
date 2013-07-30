@@ -45,6 +45,19 @@ public class MWebField implements Cloneable {
 	private String queryTypeAid="";
 	
 	
+	/**
+	 * 数据源编码
+	 */
+	private String sourceCode="";
+	
+	/**
+	 * 数据源参数
+	 */
+	private String sourceParam="";
+	
+	
+	
+	
 	public String getFieldNote() {
 		return fieldNote;
 	}
@@ -118,6 +131,22 @@ public class MWebField implements Cloneable {
 
 	public void setQueryTypeAid(String queryTypeAid) {
 		this.queryTypeAid = queryTypeAid;
+	}
+
+	public String getSourceCode() {
+		return sourceCode;
+	}
+
+	public void setSourceCode(String sourceCode) {
+		this.sourceCode = sourceCode;
+	}
+
+	public String getSourceParam() {
+		return sourceParam;
+	}
+
+	public void setSourceParam(String sourceParam) {
+		this.sourceParam = sourceParam;
 	}
 
 }

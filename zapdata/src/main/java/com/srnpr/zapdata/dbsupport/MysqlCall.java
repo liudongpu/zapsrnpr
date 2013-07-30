@@ -64,6 +64,8 @@ public class MysqlCall extends DbCall {
 
 		if (StringUtils.isNotEmpty(sOrders)) {
 
+			sBuffer.append(" order by "+sOrders);
+			
 		}
 		
 		

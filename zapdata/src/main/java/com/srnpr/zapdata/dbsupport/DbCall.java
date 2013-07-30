@@ -16,7 +16,7 @@ public abstract class DbCall extends BaseClass implements ITableCall {
 	}
 
 	public int count(String... sParams) {
-		return dataCount("",new MDataMap(sParams));
+		return dataCount("", new MDataMap(sParams));
 	}
 
 	public int delete(String... sParams) {
@@ -39,12 +39,15 @@ public abstract class DbCall extends BaseClass implements ITableCall {
 		}
 
 	}
-	
-	public List<Map<String, Object>> listByWhere(String... sParams)
-	{
+
+	public List<Map<String, Object>> listByWhere(String... sParams) {
 		return dataQuery("", "", "", new MDataMap(sParams), -1, -1);
 	}
-	
+
+	public List<MDataMap> queryAll(String sFields, String sOrders,
+			String sWhere, MDataMap mWhereMap) {
+		return query(sFields, sOrders, sWhere, mWhereMap, -1, -1);
+	}
 
 	public List<MDataMap> queryByWhere(String... sParams) {
 		return query("", "", "", new MDataMap(sParams), -1, -1);

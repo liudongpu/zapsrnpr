@@ -3,6 +3,7 @@ package com.srnpr.zapweb.webdo;
 import com.srnpr.zapweb.webface.IWebFunc;
 import com.srnpr.zapweb.webmodel.MWebOperate;
 import com.srnpr.zapweb.webmodel.MWebPage;
+import com.srnpr.zapweb.webmodel.MWebSource;
 import com.srnpr.zapweb.webmodel.MWebView;
 
 public class WebUp {
@@ -14,6 +15,8 @@ public class WebUp {
 	private final static OperateCache operateCache = new OperateCache();
 
 	private final static FuncCache funcCache = new FuncCache();
+	
+	private final static SourceCache sourceCache = new SourceCache();
 
 	/**
 	 * @param sViewKey
@@ -45,4 +48,11 @@ public class WebUp {
 		return operateCache.upValue(sKey);
 	}
 
+	
+	public static MWebSource upSource(String sKey)
+	{
+		return sourceCache.upValue(sKey);
+	}
+	
+	
 }

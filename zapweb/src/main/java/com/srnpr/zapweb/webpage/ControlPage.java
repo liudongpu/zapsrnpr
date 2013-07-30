@@ -1,13 +1,19 @@
 package com.srnpr.zapweb.webpage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.basemodel.MDataMap;
+import com.srnpr.zapcom.basemodel.MKvdList;
+import com.srnpr.zapcom.basemodel.MKvdModel;
+import com.srnpr.zapdata.dbdo.DbUp;
+import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webmodel.MPageData;
 import com.srnpr.zapweb.webmodel.MWebField;
 import com.srnpr.zapweb.webmodel.MWebPage;
+import com.srnpr.zapweb.webmodel.MWebSource;
 
 public class ControlPage {
 
@@ -67,6 +73,7 @@ public class ControlPage {
 
 	/**
 	 * 查询区域
+	 * 
 	 * @return
 	 */
 	public List<MWebField> upInquireData() {
@@ -104,6 +111,28 @@ public class ControlPage {
 
 	public void setPageUrl(String pageUrl) {
 		this.pageUrl = pageUrl;
+	}
+
+	public List<MKvdModel> upDataSource(MWebField mField) {
+
+		MKvdList mReturnList = new MKvdList();
+
+		MWebSource mSource = WebUp.upSource(mField.getSourceCode());
+
+		MDataMap mWhereMap = new MDataMap();
+
+		for (MDataMap mDataMap : DbUp.upTable(mSource.getSourceFrom())
+				.queryAll(
+						mSource.getFieldText() + " as fieldText, "
+								+ mSource.getFieldValue() + " as fieldValue",
+						mSource.getFieldSort(), "", mWhereMap)) {
+
+			mReturnList.inElement(mDataMap.get("fieldText"),
+					mDataMap.get("fieldValue"));
+
+		}
+
+		return mReturnList.getChildList();
 	}
 
 }

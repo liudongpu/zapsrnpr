@@ -2,7 +2,7 @@
 <#macro m_zapmacro_common_page_add e_page>
 
 <form class="form-horizontal" method="POST" >
-	<@m_zapmacro_common_auto_field e_page.upAddData()  />
+	<@m_zapmacro_common_auto_field e_page.upAddData()   e_page  />
 	<@m_zapmacro_common_auto_operate   e_page.getWebPage().getPageOperate()  "116001016" />
 
 </form>
@@ -120,13 +120,15 @@ ${e_page.upReplaceUrl("",["zapweb_pagination_count="+(e_pagedata.getPageCount())
 </#macro>
 
 <#-- 页面字段的自动输出判断 -->
-<#macro m_zapmacro_common_auto_field e_pagedata>
+<#macro m_zapmacro_common_auto_field e_pagedata   e_page>
 	<#list e_pagedata as e>
 		
 	  	<#if e.getFieldTypeAid()=="104005008">
 	  		<@m_zapmacro_common_field_hidden e/>
 	  	<#elseif  e.getFieldTypeAid()=="104005019">
-	  		
+	  		<@m_zapmacro_common_field_select  e  e_page/>
+	  		<#elseif  e.getFieldTypeAid()=="104005020">
+	  		<@m_zapmacro_common_field_textarea  e />
 	  	<#else>
 	  		<@m_zapmacro_common_field_text e/>
 	  	</#if>
@@ -150,6 +152,44 @@ ${e_page.upReplaceUrl("",["zapweb_pagination_count="+(e_pagedata.getPageCount())
 	    	</div>
 	  </div>
 </#macro>
+
+
+<#-- 字段：输入框 -->
+<#macro m_zapmacro_common_field_textarea e_field>
+	<div class="control-group">
+	    	<label class="control-label" for="${e_field.getPageFieldName()}">${e_field.getFieldNote()}</label>
+	    	<div class="controls">
+	    		<textarea id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}">${e_field.getPageFieldValue()}</textarea>
+	    	
+	    	</div>
+	  </div>
+</#macro>
+
+
+
+
+<#-- 字段：下拉框 -->
+<#macro m_zapmacro_common_field_select e_field  e_page>
+	<div class="control-group">
+	    	<label class="control-label" for="${e_field.getPageFieldName()}">${e_field.getFieldNote()}</label>
+	    	<div class="controls">
+	      		<select name="${e_field.getPageFieldName()}" id="${e_field.getPageFieldName()}">
+	      			<#list e_page.upDataSource(e_field) as e_key>
+						<option value="${e_key.getV()}">${e_key.getK()}</option>
+					</#list>
+	      		</select>
+	    	</div>
+	  </div>
+
+
+
+	
+</#macro>
+
+
+
+
+
 
 
 <#-- 字段：文本范围 -->

@@ -31,19 +31,28 @@ public class ViewCache extends RootCache<String, MWebView> {
 						+ mViewTypeDataMap.get("abstract_value");
 
 				List<MWebField> mFields = new ArrayList<MWebField>();
+
+				MDataMap mFiledQuery = new MDataMap();
+				mFiledQuery.put("view_code", mWebView.getViewCode());
+
 				for (MDataMap mFieldDataMap : DbUp.upTable("zw_field")
-						.queryByWhere("view_code", mWebView.getViewCode())) {
+						.queryAll("", sSortField, "", mFiledQuery)) {
 					MWebField mWebField = new MWebField();
 					mWebField.setColumnName(mFieldDataMap.get("column_name"));
 					mWebField.setFieldNote(mFieldDataMap.get("field_note"));
-					mWebField.setQueryTypeAid(mFieldDataMap.get("query_type_aid"));
+					mWebField.setQueryTypeAid(mFieldDataMap
+							.get("query_type_aid"));
 					mWebField.setRegexValue(mFieldDataMap.get("regex_value"));
 					mWebField.setFieldTypeAid(mFieldDataMap
 							.get("field_type_aid"));
 
 					mWebField.setSort(mFieldDataMap.get(sSortField));
-					
-					mWebField.setPageFieldName(WebConst.CONST_WEB_FIELD_NAME+mWebField.getColumnName());
+
+					mWebField.setSourceCode(mFieldDataMap.get("source_code"));
+					mWebField.setSourceParam(mFieldDataMap.get("source_param"));
+
+					mWebField.setPageFieldName(WebConst.CONST_WEB_FIELD_NAME
+							+ mWebField.getColumnName());
 
 					mFields.add(mWebField);
 				}

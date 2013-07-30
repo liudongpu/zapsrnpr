@@ -44,32 +44,20 @@ public class FuncAdd extends RootFunc {
 
 				String sValue = mAddMaps.get(mField.getColumnName());
 
-				if (StringUtils.isNotEmpty(mField.getRegexValue())) {
+				int iReturn = recheckInputField(mField.getRegexValue(), sValue);
 
-					if (mField.getRegexValue().startsWith("+")) {
-						if (StringUtils.isEmpty(sValue)) {
-							mResult.inErrorMessage(969905003,
-									mField.getFieldNote());
-							break;
-						}
-					}
-
-					if (!sValue.matches(mField.getRegexValue())) {
-						mResult.inErrorMessage(969905002, mField.getFieldNote());
-						break;
-					}
+				if (iReturn != 1) {
+					mResult.inErrorMessage(iReturn, mField.getFieldNote());
+					break;
 				}
+
 				mInsertMap.put(mField.getColumnName(), sValue);
 			}
 		}
 
 		if (mResult.upFlagTrue()) {
-
 			DbUp.upTable(mPage.getPageTable()).dataInsert(mInsertMap);
-
 		}
-
-		// mResult.setResultMessage("添加成功");
 
 		if (mResult.upFlagTrue()) {
 			mResult.setResultMessage(bInfo(969909001));

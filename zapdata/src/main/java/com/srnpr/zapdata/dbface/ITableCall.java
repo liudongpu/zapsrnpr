@@ -30,6 +30,19 @@ public interface ITableCall {
 	public List<MDataMap> query(String sFields, String sOrders, String sWhere,
 			MDataMap mWhereMap, int iStart, int iNumber) ;
 	
+	
+	/**
+	 * 查询所有结果集
+	 * @param sFields
+	 * @param sOrders
+	 * @param sWhere
+	 * @param mWhereMap
+	 * @return
+	 */
+	public List<MDataMap> queryAll(String sFields, String sOrders, String sWhere,
+			MDataMap mWhereMap) ;
+	
+	
 	/**
 	 * 插入数据库 默认uid代码生成   zid自动递增
 	 * @param sParams
