@@ -30,15 +30,17 @@ public class TopDir extends TopBase {
 	private String upZapDir() {
 		if (StringUtils.isEmpty(TopConst.CONST_TOP_ZAPDIR)) {
 			String sZapDir = System.getProperty("user.home");
-			TopConst.CONST_TOP_ZAPDIR = sZapDir + "/" + "zapzoos/zapdir/";
-
+			//TopConst.CONST_TOP_ZAPDIR = sZapDir + "/" + "zapzoos/zapdir/";
+			
+			
+			TopConst.CONST_TOP_ZAPDIR=upServerletPath("");
 		}
 
 		return TopConst.CONST_TOP_ZAPDIR;
 	}
 
 	/**
-	 * 获取当前zapsrnpr文件夹路径 默认为用户主目录+/zapsrnpr/zapzoos/zapdir/default
+	 * 获取当前zapsrnpr文件夹路径 默认为upZapDir()+/zapsrnpr/zapzoos/zapdir/default
 	 * 
 	 * @param sPath
 	 * @return
@@ -89,6 +91,11 @@ public class TopDir extends TopBase {
 		return sReturnString;
 	}
 
+	/**
+	 * 获取程序路径
+	 * @param sSubDir
+	 * @return
+	 */
 	public String upServerletPath(String sSubDir) {
 
 		String sReturnString = "";
