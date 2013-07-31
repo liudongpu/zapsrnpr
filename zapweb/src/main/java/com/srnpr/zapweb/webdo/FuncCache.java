@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.rootclass.RootCache;
+import com.srnpr.zapcom.topdo.TopUp;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.webface.IWebFunc;
 
@@ -17,8 +18,10 @@ import com.srnpr.zapweb.webface.IWebFunc;
 public class FuncCache extends RootCache<String, IWebFunc> {
 
 	public synchronized void refresh() {
-		for (MDataMap mDataMap : DbUp.upTable("zw_operate").queryByWhere(
-				"flag_enable", "1")) {
+		
+		
+		
+		for (MDataMap mDataMap :DbUp.upTable("zw_operate").queryAll(" distinct operate_func as operate_func ", "", " operate_func!='' and   flag_enable=1 and page_code in (select page_code from zw_page where project_aid in("+TopUp.upConfig("zapcom.projectid")+") )", new MDataMap())) {
 
 			if (StringUtils.isNotEmpty(mDataMap.get("operate_func"))) {
 
