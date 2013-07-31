@@ -14,6 +14,11 @@ import com.srnpr.zapcom.topdo.TopBase;
 
 public class LoadProperties extends TopBase {
 
+	/**
+	 * 加载属性配置
+	 * @param sDir
+	 * @return
+	 */
 	public MStringMap loadMap(String sDir) {
 
 		MStringMap mReturnMap = new MStringMap();

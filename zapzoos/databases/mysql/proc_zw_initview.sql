@@ -45,7 +45,8 @@ INSERT INTO `zapdata`.`zw_page`
 `view_code`,
 `page_type_aid`,
 `view_type_aid`,
-`page_group`)
+`page_group`,
+`project_aid`)
 select replace(uuid(),'-','') as uid
 ,concat('page_chart_',zwv.view_code) as page_code
 ,concat(zwv.view_name,'-列表') as page_name
@@ -54,6 +55,7 @@ select replace(uuid(),'-','') as uid
 ,116016003 as page_type_aid
 ,116022003 as view_type_aid
 ,concat('grouppage_',zwv.view_code) as page_code
+,project_aid
 from zw_view zwv
 where 
 (select count(1) from zapdata.zw_page where page_code=concat('page_chart_',zwv.view_code))=0
@@ -69,7 +71,8 @@ INSERT INTO `zapdata`.`zw_page`
 `view_code`,
 `page_type_aid`,
 `view_type_aid`,
-`page_group`)
+`page_group`,
+`project_aid`)
 select replace(uuid(),'-','') as uid
 ,concat('page_add_',zwv.view_code) as page_code
 ,concat(zwv.view_name,'-新增') as page_name
@@ -78,6 +81,7 @@ select replace(uuid(),'-','') as uid
 ,116016001 as page_type_aid
 ,116022001 as view_type_aid
 ,concat('grouppage_',zwv.view_code) as page_code
+,project_aid
 from zw_view zwv
 where 
 (select count(1) from zapdata.zw_page where page_code=concat('page_add_',zwv.view_code))=0
@@ -93,7 +97,8 @@ INSERT INTO `zapdata`.`zw_page`
 `view_code`,
 `page_type_aid`,
 `view_type_aid`,
-`page_group`)
+`page_group`,
+`project_aid`)
 select replace(uuid(),'-','') as uid
 ,concat('page_edit_',zwv.view_code) as page_code
 ,concat(zwv.view_name,'-修改') as page_name
@@ -102,6 +107,7 @@ select replace(uuid(),'-','') as uid
 ,116016005 as page_type_aid
 ,116022005 as view_type_aid
 ,concat('grouppage_',zwv.view_code) as page_code
+,project_aid
 from zw_view zwv
 where 
 (select count(1) from zapdata.zw_page where page_code=concat('page_edit_',zwv.view_code))=0

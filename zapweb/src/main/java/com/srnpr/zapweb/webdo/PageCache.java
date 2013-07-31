@@ -3,6 +3,8 @@ package com.srnpr.zapweb.webdo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.rootclass.RootCache;
 import com.srnpr.zapdata.dbdo.DbUp;
@@ -31,26 +33,28 @@ public class PageCache extends RootCache<String, MWebPage> {
 			for (MDataMap mOperateDataMap : DbUp.upTable("zw_operate")
 					.queryByWhere("flag_enable", "1", "page_code",
 							mWebPage.getPageCode())) {
-				
-				
-				MWebOperate mOperate=WebUp.upOperate(mOperateDataMap.get("uid")).clone();
-				
+
+				MWebOperate mOperate = WebUp.upOperate(
+						mOperateDataMap.get("uid")).clone();
 
 				listOperates.add(mOperate);
 			}
 
 			mWebPage.setPageOperate(listOperates);
 
-			MWebView mView = WebUp.upViewCache(mWebPage.getViewCode() + "-"
-					+ mPageDataMap.get("view_type_aid"));
+			if (StringUtils.isNotEmpty(mWebPage.getViewCode())) {
 
-			mWebPage.setPageTable(mView.getTableName());
-			// 设置字段
-			List<MWebField> listFields = new ArrayList<MWebField>();
-			for (MWebField mField : mView.getFields()) {
-				listFields.add(mField.clone());
+				MWebView mView = WebUp.upViewCache(mWebPage.getViewCode() + "-"
+						+ mPageDataMap.get("view_type_aid"));
+
+				mWebPage.setPageTable(mView.getTableName());
+				// 设置字段
+				List<MWebField> listFields = new ArrayList<MWebField>();
+				for (MWebField mField : mView.getFields()) {
+					listFields.add(mField.clone());
+				}
+				mWebPage.setPageFields(listFields);
 			}
-			mWebPage.setPageFields(listFields);
 
 			super.inElement(mWebPage.getPageCode(), mWebPage);
 
