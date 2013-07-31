@@ -13,9 +13,23 @@ import com.srnpr.zapcom.topdo.TopUp;
  */
 public class MWebResult {
 
+	/**
+	 * 操作标记  默认为1  不为1则表示错误
+	 */
 	private int resultCode = 1;
 
+	/**
+	 * 返回消息
+	 */
 	private String resultMessage = "";
+	
+	
+	/**
+	 * 结果类型  默认为空  否则参照
+	 */
+	private String resultType="";
+	
+
 
 	public String getResultMessage() {
 		return resultMessage;
@@ -49,8 +63,14 @@ public class MWebResult {
 		this.resultCode = resultCode;
 	}
 
+	/**
+	 * 操作结果
+	 */
 	private Object resultObject;
 
+	/**
+	 * 操作列表
+	 */
 	private List<Object> resultList;
 	
 	
@@ -64,5 +84,15 @@ public class MWebResult {
 		resultCode=iErrorCode;
 		resultMessage =TopUp.upLogInfo(iErrorCode, sParms);
 	}
+
+	public String getResultType() {
+		return resultType;
+	}
+
+	public void setResultType(String resultType) {
+		this.resultType = resultType;
+	}
+
+	
 	
 }
