@@ -6,8 +6,9 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 import com.srnpr.zapcom.TestZapcom;
+import com.srnpr.zapcom.baseclass.BaseClass;
 
-public class TestLog extends TestZapcom {
+public class TestLog extends BaseClass {
 
 	@Test
 	public void test() {
@@ -17,8 +18,10 @@ public class TestLog extends TestZapcom {
 		
 		//bLog(0, topUp.upConfigMap("zapcom.init").get("zapcom"));
 		
-		bLogInfo(967920001, "a");
+		//bLogInfo(967920001, "a");
 		
+		bLogInfo(0,bInfo(967920001, "aaaa"));
+	
 	}
 
 }

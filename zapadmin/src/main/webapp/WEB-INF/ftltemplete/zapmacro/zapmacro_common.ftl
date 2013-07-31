@@ -201,7 +201,7 @@ ${e_page.upReplaceUrl("",["zapweb_pagination_count="+(e_pagedata.getPageCount())
 
 
 <#-- 字段：文本范围 -->
-<#macro m_zapmacro_common_field_between e_field  e_page>
+<#macro m_zapmacro_common_field_between e_field  e_page >
 	<div class="control-group">
 	    	<label class="control-label" for="${e_field.getPageFieldName()}_zapweb_after_between_from">${e_field.getFieldNote()}</label>
 	    	<div class="controls">
