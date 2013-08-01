@@ -132,7 +132,7 @@ public class PageExec {
 					.getPageCount() / (double) mReturnData.getPageSize()));
 		}
 
-		for (MDataMap mData : DbUp.upTable(webPage.getPageTable()).query("",
+		for (MDataMap mData : DbUp.upTable(webPage.getPageTable()).query("-zid",
 				"", sWhere, mQueryMap,
 				(mReturnData.getPageIndex() - 1) * mReturnData.getPageSize(),
 				mReturnData.getPageSize())) {
