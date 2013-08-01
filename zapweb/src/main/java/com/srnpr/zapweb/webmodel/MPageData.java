@@ -28,7 +28,7 @@ public class MPageData {
 	/**
 	 * 每页数量
 	 */
-	private int pageSize = 2;
+	private int pageSize = 10;
 	private List<List<String>> pageData = null;
 	
 	
