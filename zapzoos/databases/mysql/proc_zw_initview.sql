@@ -25,7 +25,8 @@ select replace(uuid(),'-','') as uid
 ,(case zdc.column_name when 'zid' then 0 else 100000+100*zdc.column_sort end) as sort_edit
 ,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 100000+100*zdc.column_sort end) as sort_chart
 ,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 100000+100*zdc.column_sort end) as sort_book
-,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 100000+100*zdc.column_sort end) as sort_inquery
+#,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 100000+100*zdc.column_sort end) as sort_inquery
+,0 as sort_inquery
 ,(case zdc.column_name when 'zid' then 104005008 when 'uid' then 104005008 else 104005009 end) as field_type_aid
 from zapdata.zd_column zdc left join zw_view zwv
 on zdc.table_name=zwv.table_name

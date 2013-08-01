@@ -70,5 +70,20 @@ public abstract class RootFunc extends BaseClass implements IWebFunc {
 		return iReturn;
 
 	}
+	
+	
+	
+	/**
+	 * 重新组装输入字段
+	 * @param sColumnName
+	 * @return
+	 */
+	public String upWebFiledName(String sColumnName)
+	{
+		return WebConst.CONST_WEB_FIELD_NAME+sColumnName;
+	}
+	
+	
+	
 
 }
