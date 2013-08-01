@@ -55,7 +55,12 @@ public class MysqlCall extends DbCall {
 		sBuffer.append(" from " + dataTableName);
 
 		// 加载条件判断
-		if (mWhereMap != null && mWhereMap.size() > 0) {
+
+		if (StringUtils.isNotEmpty(sWhere)) {
+			sBuffer.append(" where " + sWhere);
+		}
+
+		else if (mWhereMap != null && mWhereMap.size() > 0) {
 			sBuffer.append(" where "
 					+ (StringUtils.isEmpty(sWhere) ? FormatHelper
 							.joinWhereStrings(mWhereMap.upKeys()) : sWhere)
@@ -64,17 +69,14 @@ public class MysqlCall extends DbCall {
 
 		if (StringUtils.isNotEmpty(sOrders)) {
 
-			sBuffer.append(" order by "+sOrders);
-			
+			sBuffer.append(" order by " + sOrders);
+
 		}
-		
-		
-		if(iStart>-1&&iNumber>0)
-		{
-			sBuffer.append(" limit "+String.valueOf(iStart)+","+String.valueOf(iNumber));
+
+		if (iStart > -1 && iNumber > 0) {
+			sBuffer.append(" limit " + String.valueOf(iStart) + ","
+					+ String.valueOf(iNumber));
 		}
-		
-		
 
 		return dataTemplate.queryForList(sBuffer.toString(), mWhereMap);
 	}
@@ -155,16 +157,17 @@ public class MysqlCall extends DbCall {
 
 	}
 
-	public Object dataGet(String sField,String sWhere, MDataMap mWhereMap) {
+	public Object dataGet(String sField, String sWhere, MDataMap mWhereMap) {
 		Map<String, Object> rResultMap = dataQuery(sField + " as dataget", "",
 				sWhere, mWhereMap, -1, -1).get(0);
 
 		return rResultMap.get("dataget");
 	}
 
-	public int dataCount(String sWhere,MDataMap mWhereMap) {
+	public int dataCount(String sWhere, MDataMap mWhereMap) {
 
-		return Integer.valueOf(dataGet("count(1) ",sWhere, mWhereMap).toString());
+		return Integer.valueOf(dataGet("count(1) ", sWhere, mWhereMap)
+				.toString());
 	}
 
 	public DbTemplate upTemplate() {

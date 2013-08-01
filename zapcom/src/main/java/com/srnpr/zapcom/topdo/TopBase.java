@@ -15,8 +15,17 @@ public abstract class TopBase {
 		if (logger == null) {
 			logger = LogFactory.getLog(this.getClass());
 		}
-		logger.debug("[TopBase] "+StringUtils.join(oMessage));
+		logger.debug("[TopBase-"+String.valueOf(lid)+"] "+StringUtils.join(oMessage));
 	}
+	
+	public void bLogInfo(int lid,Object... oMessage)
+	{
+		if (logger == null) {
+			logger = LogFactory.getLog(this.getClass());
+		}
+		logger.info("[TopBase-"+String.valueOf(lid)+"] "+StringUtils.join(oMessage));
+	}
+	
 	
 	
 }

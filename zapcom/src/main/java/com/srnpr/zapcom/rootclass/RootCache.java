@@ -28,8 +28,8 @@ public abstract class RootCache<K, V> extends TopBase implements IBaseCache {
 		return cache.getKeys().contains(k);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<K> upKeys() {
-
 		return cache.getKeys();
 	}
 

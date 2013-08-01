@@ -45,7 +45,14 @@ public class TopUp implements IBaseUp {
 		return (iInfoCode<1?StringUtils.join(sParms):FormatHelper.formatString(upInfo(iInfoCode), sParms));
 	}
 	
+	/**
+	 * 配置
+	 */
 	private final static ConfigMap configMap=new ConfigMap();
+	/**
+	 * @param sKey
+	 * @return
+	 */
 	public static MStringMap upConfigMap(String sKey) {
 		return configMap.upValue(sKey);
 	}

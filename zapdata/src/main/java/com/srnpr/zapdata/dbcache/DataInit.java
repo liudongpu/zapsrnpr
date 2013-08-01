@@ -20,6 +20,12 @@ public class DataInit extends BaseClass implements IBaseInit {
 			cm.setJdbcUrl(sUrl);
 			cm.setUser(sUser);
 			cm.setPassword(sPass);
+			//设置连接池的测试连接
+			cm.setIdleConnectionTestPeriod(120);
+			cm.setMinPoolSize(5);
+			cm.setMaxPoolSize(100);
+			
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();

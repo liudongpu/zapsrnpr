@@ -17,6 +17,9 @@ import com.srnpr.zapweb.webface.IWebFunc;
  */
 public class FuncCache extends RootCache<String, IWebFunc> {
 
+	/* (non-Javadoc)
+	 * @see com.srnpr.zapcom.baseface.IBaseCache#refresh()
+	 */
 	public synchronized void refresh() {
 		
 		
@@ -26,7 +29,7 @@ public class FuncCache extends RootCache<String, IWebFunc> {
 			if (StringUtils.isNotEmpty(mDataMap.get("operate_func"))) {
 
 				try {
-
+									
 					Class<?> cClass = ClassUtils.getClass(mDataMap
 							.get("operate_func"));
 					if (cClass != null && cClass.getDeclaredMethods() != null) {
@@ -36,7 +39,8 @@ public class FuncCache extends RootCache<String, IWebFunc> {
 					}
 				} catch (Exception e) {
 
-					bLogDebug(969905001, mDataMap.get("operate_func"));
+					bLogInfo(969905001, mDataMap.get("operate_func"));
+
 					e.printStackTrace();
 
 				}
