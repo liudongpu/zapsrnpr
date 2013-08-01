@@ -1,5 +1,9 @@
 package com.srnpr.zapcom.topdo;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -22,9 +26,23 @@ public class TopInit extends BaseClass implements IBaseInit {
 	 */
 	public synchronized void init() {
 
+		initDelete();
 		initTop();
 		initClass();
 
+	}
+
+	/**
+	 * 初始化删除操作
+	 */
+	private void initDelete() {
+		String sZapDirString = new TopDir().upTempDir("");
+		try {
+			FileUtils.deleteDirectory(new File(sZapDirString));
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
 	}
 
 	/**

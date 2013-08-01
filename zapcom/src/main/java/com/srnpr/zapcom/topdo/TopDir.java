@@ -29,11 +29,15 @@ public class TopDir extends TopBase {
 	 */
 	private String upZapDir() {
 		if (StringUtils.isEmpty(TopConst.CONST_TOP_ZAPDIR)) {
-			String sZapDir = System.getProperty("user.home");
+			
 			//TopConst.CONST_TOP_ZAPDIR = sZapDir + "/" + "zapzoos/zapdir/";
 			
-			
-			TopConst.CONST_TOP_ZAPDIR=upServerletPath("");
+			String sZapDir=upServerletPath("");
+			if(StringUtils.isEmpty(sZapDir))
+			{
+				 sZapDir = System.getProperty("user.home");
+			}
+			TopConst.CONST_TOP_ZAPDIR=sZapDir;
 		}
 
 		return TopConst.CONST_TOP_ZAPDIR;
@@ -100,6 +104,8 @@ public class TopDir extends TopBase {
 
 		String sReturnString = "";
 
+	
+		
 		if (StringUtils.isNotEmpty(TopConst.CONST_TOP_DIR_SERVLET)) {
 			sReturnString = TopConst.CONST_TOP_DIR_SERVLET + sSubDir+"/";
 			IoHelper.createDir(sReturnString);
