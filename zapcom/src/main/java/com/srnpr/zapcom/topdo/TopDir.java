@@ -37,7 +37,7 @@ public class TopDir extends TopBase {
 			{
 				 sZapDir = System.getProperty("user.home");
 			}
-			TopConst.CONST_TOP_ZAPDIR=sZapDir;
+			TopConst.CONST_TOP_ZAPDIR=sZapDir+ "/" + "zapzoos/zapdir/";
 		}
 
 		return TopConst.CONST_TOP_ZAPDIR;

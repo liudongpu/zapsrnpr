@@ -2,6 +2,11 @@ package com.srnpr.zapweb.webmethod;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
@@ -13,6 +18,10 @@ import com.srnpr.zapweb.webface.IWebMethod;
  * 
  * @author srnpr
  * 
+ */
+/**
+ * @author srnpr
+ *
  */
 public abstract class RootMethod extends BaseClass implements IWebMethod {
 
@@ -31,11 +40,39 @@ public abstract class RootMethod extends BaseClass implements IWebMethod {
 				new MDataMap(sPrams));
 
 	}
-	
-	
-	
-	
-	
-	
+
+	/**
+	 * 插入session
+	 * @param sKey
+	 * @param oValue
+	 */
+	public void inSession(String sKey, Object oValue) {
+		HttpServletRequest hRequest = ((ServletRequestAttributes) RequestContextHolder
+				.getRequestAttributes()).getRequest();
+
+		if (hRequest != null) {
+			hRequest.getSession().setAttribute(sKey, oValue);
+
+		}
+	}
+
+
+	/**
+	 * 获取session
+	 * @param sKey
+	 * @return
+	 */
+	public Object upSession(String sKey) {
+		Object oReturnObject = null;
+		HttpServletRequest hRequest = ((ServletRequestAttributes) RequestContextHolder
+				.getRequestAttributes()).getRequest();
+
+		if (hRequest != null) {
+
+			oReturnObject = hRequest.getSession().getAttribute(sKey);
+
+		}
+		return oReturnObject;
+	}
 
 }
