@@ -1,10 +1,12 @@
 package com.srnpr.zapcom.topdo;
 
+import com.srnpr.zapcom.baseface.IBaseConst;
+
  /**
  * @author srnpr
  *
  */
-class TopConst {
+class TopConst implements IBaseConst {
 
 	
 	/**
