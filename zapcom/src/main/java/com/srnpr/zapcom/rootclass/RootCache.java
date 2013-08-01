@@ -42,7 +42,13 @@ public abstract class RootCache<K, V> extends TopBase implements IBaseCache {
 
 		}
 
-		return (V) cache.get(k).getObjectValue();
+		if (containsKey(k)) {
+			return (V) cache.get(k).getObjectValue();
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 }

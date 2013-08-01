@@ -1,5 +1,9 @@
 package com.srnpr.zapweb.webdo;
 
+import org.apache.commons.lang.StringUtils;
+
+import com.srnpr.zapcom.topdo.TopUp;
+import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.webface.IWebFunc;
 import com.srnpr.zapweb.webmodel.MWebOperate;
 import com.srnpr.zapweb.webmodel.MWebPage;
@@ -52,6 +56,18 @@ public class WebUp {
 	public static MWebSource upSource(String sKey)
 	{
 		return sourceCache.upValue(sKey);
+	}
+	
+	
+	
+	public static String upProjectId()
+	{
+		String sProject=TopUp.upConfig("zapcom.projectid");
+		if(StringUtils.isEmpty(sProject))
+		{
+			sProject="101002677";
+		}
+		return sProject;
 	}
 	
 	

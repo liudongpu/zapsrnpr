@@ -24,7 +24,7 @@ public class FuncCache extends RootCache<String, IWebFunc> {
 		
 		
 		
-		for (MDataMap mDataMap :DbUp.upTable("zw_operate").queryAll(" distinct operate_func as operate_func ", "", " operate_func!='' and   flag_enable=1 and page_code in (select page_code from zw_page where project_aid in("+TopUp.upConfig("zapcom.projectid")+") )", new MDataMap())) {
+		for (MDataMap mDataMap :DbUp.upTable("zw_operate").queryAll(" distinct operate_func as operate_func ", "", " operate_func!='' and   flag_enable=1 and page_code in (select page_code from zw_page where project_aid in("+WebUp.upProjectId()+") )", new MDataMap())) {
 
 			if (StringUtils.isNotEmpty(mDataMap.get("operate_func"))) {
 
