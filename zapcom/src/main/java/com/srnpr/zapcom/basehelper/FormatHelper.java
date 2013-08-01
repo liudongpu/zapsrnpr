@@ -1,6 +1,8 @@
 package com.srnpr.zapcom.basehelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -10,7 +12,7 @@ public class FormatHelper {
 	public static String joinWhereStrings(List<String> lStrings) {
 		String[] sReturns = new String[lStrings.size()];
 		for (int i = 0, j = lStrings.size(); i < j; i++) {
-			sReturns[i] = lStrings.get(i)+ "=:" +  lStrings.get(i);
+			sReturns[i] = lStrings.get(i) + "=:" + lStrings.get(i);
 		}
 
 		return StringUtils.join(sReturns, " and ");
@@ -97,6 +99,27 @@ public class FormatHelper {
 		}
 
 		return sBuffer.toString();
+	}
+
+	/**
+	 * 获取当前时间
+	 * 
+	 * @return
+	 */
+	public static String upDateTime() {
+		return upDateTime(new Date(), "yyyy-MM-dd HH:mm:ss");
+	}
+
+	/**
+	 * 时间格式化
+	 * 
+	 * @param dDate
+	 * @param sPattern
+	 * @return
+	 */
+	public static String upDateTime(Date dDate, String sPattern) {
+		SimpleDateFormat sFormat = new SimpleDateFormat(sPattern);
+		return sFormat.format(dDate);
 	}
 
 }

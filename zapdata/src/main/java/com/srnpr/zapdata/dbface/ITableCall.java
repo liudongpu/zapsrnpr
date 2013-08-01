@@ -32,6 +32,16 @@ public interface ITableCall {
 	
 	
 	/**
+	 * 获取值
+	 * @param sField
+	 * @param sWhere
+	 * @param mWhereMap
+	 * @return
+	 */
+	public Object dataGet(String sField, String sWhere, MDataMap mWhereMap) ;
+	
+	
+	/**
 	 * 查询所有结果集
 	 * @param sFields
 	 * @param sOrders

@@ -78,7 +78,7 @@ public abstract class RootFunc extends BaseClass implements IWebFunc {
 	 * @param sColumnName
 	 * @return
 	 */
-	public String upWebFiledName(String sColumnName)
+	public String upFiledName(String sColumnName)
 	{
 		return WebConst.CONST_WEB_FIELD_NAME+sColumnName;
 	}
