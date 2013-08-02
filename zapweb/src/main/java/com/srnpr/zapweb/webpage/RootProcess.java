@@ -1,5 +1,6 @@
 package com.srnpr.zapweb.webpage;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,13 @@ public class RootProcess implements IWebProcess {
 	 */
 	public ControlPage process(String sPageCode, HttpServletRequest hRequest) {
 
+		try {
+			hRequest.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+		
+			e.printStackTrace();
+		}
+		
 		MWebPage mPage = WebUp.upPage(sPageCode);
 
 		ControlPage cPage = new ControlPage();
