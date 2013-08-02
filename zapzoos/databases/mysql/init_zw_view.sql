@@ -1,1 +1,1 @@
-call proc_zw_allview();
+call zapdata.proc_zw_allview();

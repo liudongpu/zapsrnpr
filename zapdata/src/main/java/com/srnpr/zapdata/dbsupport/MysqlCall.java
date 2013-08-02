@@ -78,7 +78,28 @@ public class MysqlCall extends DbCall {
 					+ String.valueOf(iNumber));
 		}
 
-		return dataTemplate.queryForList(sBuffer.toString(), mWhereMap);
+		return dataSqlList(sBuffer.toString(), mWhereMap);
+	}
+	
+	
+	public Map<String, Object> dataSqlOne(String sSql, MDataMap mWhereMap)
+	{
+		List<Map<String, Object>> listResult=dataSqlList(sSql, mWhereMap);
+		
+		if(listResult.size()>0)
+		{
+			return listResult.get(0);
+		}
+		else
+		{
+			return null;
+		}
+		
+	}
+	
+
+	public List<Map<String, Object>> dataSqlList(String sSql, MDataMap mWhereMap) {
+		return dataTemplate.queryForList(sSql, mWhereMap);
 	}
 
 	public String dataInsert(MDataMap mDataMap) {
@@ -107,6 +128,7 @@ public class MysqlCall extends DbCall {
 
 	public int dataExec(String sSql, MDataMap mDataMap) {
 		return dataTemplate.update(sSql, mDataMap);
+
 	}
 
 	public int dataUpdate(MDataMap mDataMap, String sUpdateFields,

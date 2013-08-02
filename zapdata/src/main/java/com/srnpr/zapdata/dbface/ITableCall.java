@@ -10,7 +10,29 @@ public interface ITableCall {
 
 	public DbTemplate upTemplate();
 	
+	/**
+	 * 获取list结果
+	 * @param sSql
+	 * @param mWhereMap
+	 * @return
+	 */
+	public List<Map<String, Object>> dataSqlList(String sSql, MDataMap mWhereMap);
 	
+	
+	/**
+	 * 获取执行sql
+	 * @param sSql
+	 * @param mWhereMap
+	 * @return
+	 */
+	public Map<String, Object> dataSqlOne(String sSql, MDataMap mWhereMap);
+	
+	
+	/**
+	 * 删除
+	 * @param sParams
+	 * @return
+	 */
 	public int delete(String... sParams);
 	/**
 	 * 得到一条记录 如果返回多条错误
