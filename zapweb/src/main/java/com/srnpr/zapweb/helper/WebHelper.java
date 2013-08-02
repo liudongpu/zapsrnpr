@@ -5,7 +5,7 @@ import java.util.Map;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
 
-public class WebDataHelper {
+public class WebHelper {
 
 	public static String upCode(String sCodeStart) {
 
