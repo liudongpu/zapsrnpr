@@ -38,20 +38,19 @@ end if;
 
  if(p_date!=p_now) then
 
- update zw_webcode set now_number=min_number where code_start=p_code_start;
+ update zw_webcode set now_number=min_number where zid=p_code_start;
 
 end if;
 
-
+start transaction; 
 set p_return=(select now_number from zw_webcode zwwc  where zwwc.code_start=p_code_start for update);
 set p_return=p_return+1;
 update zw_webcode set now_number=p_return where code_start=p_code_start;
 
-
-
-
+commit;
 
 select concat(p_code_start,p_now,p_return) as webcode;
+
 
 
 end
