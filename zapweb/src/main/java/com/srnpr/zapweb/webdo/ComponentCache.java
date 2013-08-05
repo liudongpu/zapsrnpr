@@ -18,13 +18,15 @@ public class ComponentCache extends RootCache<String, IWebComponent> {
 	 */
 	public synchronized void refresh() {
 
+		String sComString="";
+		
 		for (MDataMap mDataMap : DbUp
 				.upTable("zw_field")
 				.queryAll(
 						" distinct source_code as source_code ",
 						"",
 						" source_code!='' and   field_type_aid=104005003 and view_code in (select view_code from zw_view where project_aid in("
-								+ WebUp.upProjectId() + ") )", new MDataMap())) {
+								+ WebUp.upProjectId() + " ))", new MDataMap())) {
 
 			if (StringUtils.isNotEmpty(mDataMap.get("source_code"))) {
 

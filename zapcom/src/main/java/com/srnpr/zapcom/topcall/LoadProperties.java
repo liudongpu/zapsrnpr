@@ -40,9 +40,10 @@ public class LoadProperties extends TopBase {
 				
 				while (em.hasNext()) {
 					String sKeyString = em.next();
-					String sValueString = new String(pConfiguration
-							.getProperty(sKeyString).toString());
+					//String sValueString = new String(pConfiguration.getString(sKeyString).toString());
 
+				
+					String sValueString = StringUtils.join(pConfiguration.getStringArray(sKeyString),",");
 					
 					if(StringUtils.isNotEmpty(sNameSpace))
 					{

@@ -5,7 +5,6 @@ import com.srnpr.zapweb.webmodel.MWebField;
 
 public interface IWebComponent {
 
-	public String upListData( MWebField mField,  MDataMap mInputData);
-	
-	
+	public String upListText(MWebField mWebField, MDataMap mDataMap);
+
 }

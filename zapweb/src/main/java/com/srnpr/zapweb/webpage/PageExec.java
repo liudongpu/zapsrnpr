@@ -71,32 +71,34 @@ public class PageExec {
 								+ mField.getColumnName()
 								+ WebConst.CONST_WEB_FIELD_AFTER
 								+ "between_from");
-						mQueryMap.put(mField.getColumnName()
-								+ WebConst.CONST_WEB_FIELD_AFTER
-								+ "between_from", mReqMap.get(mField
-										.getPageFieldName()
-										+ WebConst.CONST_WEB_FIELD_AFTER + "between_from"));
+						mQueryMap.put(
+								mField.getColumnName()
+										+ WebConst.CONST_WEB_FIELD_AFTER
+										+ "between_from",
+								mReqMap.get(mField.getPageFieldName()
+										+ WebConst.CONST_WEB_FIELD_AFTER
+										+ "between_from"));
 
 					}
-					
-					
+
 					if (StringUtils.isNotEmpty(mReqMap.get(mField
 							.getPageFieldName()
 							+ WebConst.CONST_WEB_FIELD_AFTER + "between_to"))) {
 
-						aWhereStrings.add(mField.getColumnName() + "<=:"
-								+ mField.getColumnName()
-								+ WebConst.CONST_WEB_FIELD_AFTER
-								+ "between_to");
-						mQueryMap.put(mField.getColumnName()
-								+ WebConst.CONST_WEB_FIELD_AFTER
-								+ "between_to", mReqMap.get(mField
-										.getPageFieldName()
-										+ WebConst.CONST_WEB_FIELD_AFTER + "between_to"));
+						aWhereStrings
+								.add(mField.getColumnName() + "<=:"
+										+ mField.getColumnName()
+										+ WebConst.CONST_WEB_FIELD_AFTER
+										+ "between_to");
+						mQueryMap.put(
+								mField.getColumnName()
+										+ WebConst.CONST_WEB_FIELD_AFTER
+										+ "between_to",
+								mReqMap.get(mField.getPageFieldName()
+										+ WebConst.CONST_WEB_FIELD_AFTER
+										+ "between_to"));
 
 					}
-					
-					
 
 					break;
 
@@ -132,8 +134,7 @@ public class PageExec {
 					.getPageCount() / (double) mReturnData.getPageSize()));
 		}
 
-		
-		//开始加载数据
+		// 开始加载数据
 		for (MDataMap mData : DbUp.upTable(webPage.getPageTable()).query("",
 				"-zid", sWhere, mQueryMap,
 				(mReturnData.getPageIndex() - 1) * mReturnData.getPageSize(),
@@ -141,7 +142,16 @@ public class PageExec {
 			List<String> listEach = new ArrayList<String>();
 
 			for (MWebField mField : listFields) {
-				listEach.add(mData.get(mField.getColumnName()));
+
+				// 判断如果是组件则重新输出文字
+				if (mField.getFieldTypeAid().equals("104005003")) {
+
+					listEach.add(WebUp.upComponent(mField.getSourceCode())
+							.upListText(mField, mData));
+				} else {
+					listEach.add(mData.get(mField.getColumnName()));
+				}
+
 			}
 
 			listData.add(listEach);
