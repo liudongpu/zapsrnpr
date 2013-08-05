@@ -136,6 +136,8 @@ ${e_page.upReplaceUrl("",["zapweb_pagination_count="+(e_pagedata.getPageCount())
 	
 		<#if e_field.getFieldTypeAid()=="104005008">
 	  		<@m_zapmacro_common_field_hidden e_field/>
+	  		<#elseif  e_field.getFieldTypeAid()=="104005001">
+	  		  <#-- 内部处理  不输出 -->
 	  		<#elseif  e_field.getFieldTypeAid()=="104005003">
 	  		<@m_zapmacro_common_field_component  e_field  e_page/>
 	  	<#elseif  e_field.getFieldTypeAid()=="104005019">
