@@ -132,6 +132,8 @@ public class PageExec {
 					.getPageCount() / (double) mReturnData.getPageSize()));
 		}
 
+		
+		//开始加载数据
 		for (MDataMap mData : DbUp.upTable(webPage.getPageTable()).query("",
 				"-zid", sWhere, mQueryMap,
 				(mReturnData.getPageIndex() - 1) * mReturnData.getPageSize(),

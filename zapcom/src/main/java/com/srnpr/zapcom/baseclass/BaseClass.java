@@ -27,7 +27,24 @@ public abstract class BaseClass {
 		if (logger == null) {
 			logger = LogFactory.getLog(this.getClass());
 		}
-		logger.info("["+String.valueOf( iInfoCode)+"] "+TopUp.upLogInfo(iInfoCode, sParms));
+		logger.info("[" + String.valueOf(iInfoCode) + "] "
+				+ TopUp.upLogInfo(iInfoCode, sParms));
+	}
+
+	/**
+	 * 错误日志
+	 * 
+	 * @param lInfoId
+	 *            默认请写0 否则读取配置文件
+	 * @param sParms
+	 *            替换参数
+	 */
+	public void bLogError(int iInfoCode, Object... sParms) {
+		if (logger == null) {
+			logger = LogFactory.getLog(this.getClass());
+		}
+		logger.error("[" + String.valueOf(iInfoCode) + "] "
+				+ TopUp.upLogInfo(iInfoCode, sParms));
 	}
 
 	/**
@@ -40,7 +57,8 @@ public abstract class BaseClass {
 		if (logger == null) {
 			logger = LogFactory.getLog(this.getClass());
 		}
-		logger.debug("["+String.valueOf( iInfoCode)+"] "+TopUp.upLogInfo(iInfoCode, sParms));
+		logger.debug("[" + String.valueOf(iInfoCode) + "] "
+				+ TopUp.upLogInfo(iInfoCode, sParms));
 	}
 
 	/**

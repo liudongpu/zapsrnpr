@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.topdo.TopUp;
 import com.srnpr.zapdata.dbdo.DbUp;
+import com.srnpr.zapweb.webface.IWebComponent;
 import com.srnpr.zapweb.webface.IWebFunc;
 import com.srnpr.zapweb.webmodel.MWebOperate;
 import com.srnpr.zapweb.webmodel.MWebPage;
@@ -19,8 +20,10 @@ public class WebUp {
 	private final static OperateCache operateCache = new OperateCache();
 
 	private final static FuncCache funcCache = new FuncCache();
-	
+
 	private final static SourceCache sourceCache = new SourceCache();
+
+	private final static ComponentCache componentCache = new ComponentCache();
 
 	/**
 	 * @param sViewKey
@@ -33,6 +36,7 @@ public class WebUp {
 
 	/**
 	 * 得到查询视图
+	 * 
 	 * @param sViewCode
 	 * @return
 	 */
@@ -52,23 +56,25 @@ public class WebUp {
 		return operateCache.upValue(sKey);
 	}
 
-	
-	public static MWebSource upSource(String sKey)
-	{
+	public static MWebSource upSource(String sKey) {
 		return sourceCache.upValue(sKey);
 	}
-	
-	
-	
-	public static String upProjectId()
-	{
-		String sProject=TopUp.upConfig("zapcom.projectid");
-		if(StringUtils.isEmpty(sProject))
-		{
-			sProject="101002677";
+
+	/**
+	 * 获取组件
+	 * @param sKey
+	 * @return
+	 */
+	public static IWebComponent upComponent(String sKey) {
+		return componentCache.upValue(sKey);
+	}
+
+	public static String upProjectId() {
+		String sProject = TopUp.upConfig("zapcom.projectid");
+		if (StringUtils.isEmpty(sProject)) {
+			sProject = "101002677";
 		}
 		return sProject;
 	}
-	
-	
+
 }

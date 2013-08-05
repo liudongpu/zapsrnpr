@@ -8,24 +8,46 @@ public abstract class TopBase {
 
 	private Log logger = null;
 
-	
-	
-	public void bLogDebug(int lid,Object... oMessage)
-	{
+	/**
+	 * 调试日志
+	 * 
+	 * @param lid
+	 * @param oMessage
+	 */
+	public void bLogDebug(int lid, Object... oMessage) {
 		if (logger == null) {
 			logger = LogFactory.getLog(this.getClass());
 		}
-		logger.debug("[TopBase-"+String.valueOf(lid)+"] "+StringUtils.join(oMessage));
+		logger.debug("[TopBase-" + String.valueOf(lid) + "] "
+				+ StringUtils.join(oMessage));
 	}
-	
-	public void bLogInfo(int lid,Object... oMessage)
-	{
+
+	/**
+	 * 正常日志
+	 * 
+	 * @param lid
+	 * @param oMessage
+	 */
+	public void bLogInfo(int lid, Object... oMessage) {
 		if (logger == null) {
 			logger = LogFactory.getLog(this.getClass());
 		}
-		logger.info("[TopBase-"+String.valueOf(lid)+"] "+StringUtils.join(oMessage));
+		logger.info("[TopBase-" + String.valueOf(lid) + "] "
+				+ StringUtils.join(oMessage));
 	}
-	
-	
-	
+
+	/**
+	 * 错误日志
+	 * 
+	 * @param lid
+	 * @param oMessage
+	 */
+	public void bLogError(int lid, Object... oMessage) {
+		if (logger == null) {
+			logger = LogFactory.getLog(this.getClass());
+		}
+		logger.error("[TopBase-" + String.valueOf(lid) + "] "
+				+ StringUtils.join(oMessage));
+	}
+
 }
