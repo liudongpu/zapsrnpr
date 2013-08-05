@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.basemodel.MKvdList;
 import com.srnpr.zapcom.basemodel.MKvdModel;
@@ -125,12 +126,18 @@ public class ControlPage {
 		MWebSource mSource = WebUp.upSource(mField.getSourceCode());
 
 		MDataMap mWhereMap = new MDataMap();
+		String sWhereString="";
+		
+		if(StringUtils.isNotEmpty(mSource.getWhereEdit()))
+		{
+			sWhereString=FormatHelper.formatString(mSource.getWhereEdit(), mField.getSourceParam());
+		}
 
 		for (MDataMap mDataMap : DbUp.upTable(mSource.getSourceFrom())
 				.queryAll(
 						mSource.getFieldText() + " as fieldText, "
 								+ mSource.getFieldValue() + " as fieldValue",
-						mSource.getFieldSort(), "", mWhereMap)) {
+						mSource.getFieldSort(), sWhereString, mWhereMap)) {
 
 			mReturnList.inElement(mDataMap.get("fieldText"),
 					mDataMap.get("fieldValue"));
