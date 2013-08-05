@@ -31,33 +31,31 @@ public class MWebField implements Cloneable {
 	 */
 	private String pageFieldValue = "";
 
-	
 	/**
 	 * 正则表达式
 	 */
-	private String regexValue="";
-	
-	
-	
+	private String regexValue = "";
+
 	/**
 	 * 查询类型
 	 */
-	private String queryTypeAid="";
-	
-	
+	private String queryTypeAid = "";
+
 	/**
 	 * 数据源编码
 	 */
-	private String sourceCode="";
-	
+	private String sourceCode = "";
+
 	/**
 	 * 数据源参数
 	 */
-	private String sourceParam="";
-	
-	
-	
-	
+	private String sourceParam = "";
+
+	/**
+	 * 默认值 创建时调用该逻辑判断
+	 */
+	private String defaultValue = "";
+
 	public String getFieldNote() {
 		return fieldNote;
 	}
@@ -147,6 +145,14 @@ public class MWebField implements Cloneable {
 
 	public void setSourceParam(String sourceParam) {
 		this.sourceParam = sourceParam;
+	}
+
+	public String getDefaultValue() {
+		return defaultValue;
+	}
+
+	public void setDefaultValue(String defaultValue) {
+		this.defaultValue = defaultValue;
 	}
 
 }

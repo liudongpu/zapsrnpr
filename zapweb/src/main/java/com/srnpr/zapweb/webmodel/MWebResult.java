@@ -79,7 +79,7 @@ public class MWebResult {
 		return resultCode==1;
 	}
 	
-	public void inErrorMessage(int iErrorCode,String sParms)
+	public void inErrorMessage(int iErrorCode,String... sParms)
 	{
 		resultCode=iErrorCode;
 		resultMessage =TopUp.upLogInfo(iErrorCode, sParms);

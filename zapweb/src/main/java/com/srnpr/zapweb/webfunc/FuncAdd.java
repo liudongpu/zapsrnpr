@@ -2,8 +2,10 @@ package com.srnpr.zapweb.webfunc;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
+import com.srnpr.zapweb.helper.WebHelper;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webface.IWebFunc;
@@ -27,12 +29,6 @@ public class FuncAdd extends RootFunc {
 	 * @see com.srnpr.zapweb.webface.IWebFunc#funcDo(java.lang.String,
 	 * com.srnpr.zapcom.basemodel.MDataMap)
 	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.srnpr.zapweb.webface.IWebFunc#funcDo(java.lang.String,
-	 * com.srnpr.zapcom.basemodel.MDataMap)
-	 */
 	public MWebResult funcDo(String sOperateUid, MDataMap mDataMap) {
 
 		MWebResult mResult = new MWebResult();
@@ -48,6 +44,7 @@ public class FuncAdd extends RootFunc {
 		// 定义组件判断标记
 		boolean bFlagComponent = false;
 
+		// 循环所有结构
 		for (MWebField mField : mPage.getPageFields()) {
 
 			if (mField.getFieldTypeAid().equals("104005003")) {
@@ -58,6 +55,7 @@ public class FuncAdd extends RootFunc {
 
 				String sValue = mAddMaps.get(mField.getColumnName());
 
+				// 重新校验字段是否正确
 				int iReturn = recheckInputField(mField.getRegexValue(), sValue);
 
 				if (iReturn != 1) {
@@ -67,6 +65,61 @@ public class FuncAdd extends RootFunc {
 
 				mInsertMap.put(mField.getColumnName(), sValue);
 			}
+
+			// 如果默认值不为空 则进行各种校验
+			if (StringUtils.isNotEmpty(mField.getDefaultValue())) {
+
+				String sDefaultValue = mField.getDefaultValue();
+				if (StringUtils.isNotEmpty(sDefaultValue)) {
+					String sValue = "";
+
+					if (sDefaultValue.startsWith("@")) {
+						String sKeyString = StringUtils.substringBetween(
+								sDefaultValue, "@", "$");
+
+						String sRightString = StringUtils.substringAfter(
+								sDefaultValue, "$");
+
+						// 当前时间
+						if (sKeyString.equals("datenow")) {
+							sValue = FormatHelper.upDateTime();
+						}
+						// 系统编号
+						else if (sKeyString.equals("code")) {
+							sValue = WebHelper.upCode(sRightString);
+						} else if (sKeyString.equals("uid")) {
+							// sValue = ;
+						}
+						// 特殊判断是否是唯一校验
+						else if (sKeyString.equals("unique")) {
+
+							int iCount = DbUp.upTable(mPage.getPageTable())
+									.count(mField.getColumnName(),
+											mInsertMap.get(mField
+													.getColumnName()));
+							if (iCount > 0) {
+								mResult.inErrorMessage(969905004,
+										mField.getFieldNote());
+							}
+
+						}
+
+					} else {
+						sValue = sDefaultValue;
+					}
+
+					if (StringUtils.isNotEmpty(sValue)) {
+						mDataMap.put(
+								WebConst.CONST_WEB_FIELD_NAME
+										+ mField.getColumnName(), sValue);
+
+						mInsertMap.put(mField.getColumnName(), sValue);
+					}
+
+				}
+
+			}
+
 		}
 
 		if (mResult.upFlagTrue()) {

@@ -26,13 +26,7 @@ public class ComponentCheckbox extends RootComponent {
 	private MDataMap componentMap = new MDataMap();
 
 	public ComponentCheckbox() {
-		componentMap.inAllValues("component_in_table", "cc_userrole",
-				"component_in_field_Key", "user_name",
-				"component_in_field_value", "role_code", "component_key_field",
-				"uid", "component_show_table", "cc_roleinfo",
-				"component_show_field_text", "role_name",
-				"component_show_field_value", "role_code",
-				"component_key_field", "user_name");
+		
 	}
 
 	public String upListText(MWebField mWebField, MDataMap mDataMap) {

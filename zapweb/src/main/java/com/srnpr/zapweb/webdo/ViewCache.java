@@ -17,19 +17,13 @@ public class ViewCache extends RootCache<String, MWebView> {
 
 			for (MDataMap mViewTypeDataMap : DbUp.upTable("zd_abstract")
 					.queryByWhere("parent_aid", "116022")) {
-				
-				
-				
-				
 
 				String sViewType = mViewTypeDataMap.get("abstract_aids");
 
-				if(sViewType.equals("116022014"))
-				{
+				if (sViewType.equals("116022014")) {
 					continue;
 				}
-				
-				
+
 				MWebView mWebView = new MWebView();
 				mWebView.setViewCode(mViewDataMap.get("view_code"));
 				mWebView.setViewName(mViewDataMap.get("view_name"));
@@ -57,6 +51,8 @@ public class ViewCache extends RootCache<String, MWebView> {
 							.get("field_type_aid"));
 
 					mWebField.setSort(mFieldDataMap.get(sSortField));
+					mWebField.setDefaultValue(mFieldDataMap
+							.get("default_value"));
 
 					mWebField.setSourceCode(mFieldDataMap.get("source_code"));
 					mWebField.setSourceParam(mFieldDataMap.get("source_param"));
