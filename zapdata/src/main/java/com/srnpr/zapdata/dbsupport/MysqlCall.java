@@ -69,7 +69,16 @@ public class MysqlCall extends DbCall {
 
 		if (StringUtils.isNotEmpty(sOrders)) {
 
-			sBuffer.append(" order by " + sOrders);
+			String[] sOrderStrings=sOrders.split(",");
+			for(int i=0,j=sOrderStrings.length;i<j;i++)
+			{
+				if(StringUtils.startsWith(sOrderStrings[i], "-"))
+				{
+					sOrderStrings[i]=StringUtils.substringAfter(sOrderStrings[i], "-")+" desc ";
+				}
+			}
+
+			sBuffer.append(" order by " + StringUtils.join(sOrderStrings,",")+" ");
 
 		}
 
@@ -80,23 +89,17 @@ public class MysqlCall extends DbCall {
 
 		return dataSqlList(sBuffer.toString(), mWhereMap);
 	}
-	
-	
-	public Map<String, Object> dataSqlOne(String sSql, MDataMap mWhereMap)
-	{
-		List<Map<String, Object>> listResult=dataSqlList(sSql, mWhereMap);
-		
-		if(listResult.size()>0)
-		{
+
+	public Map<String, Object> dataSqlOne(String sSql, MDataMap mWhereMap) {
+		List<Map<String, Object>> listResult = dataSqlList(sSql, mWhereMap);
+
+		if (listResult.size() > 0) {
 			return listResult.get(0);
-		}
-		else
-		{
+		} else {
 			return null;
 		}
-		
+
 	}
-	
 
 	public List<Map<String, Object>> dataSqlList(String sSql, MDataMap mWhereMap) {
 		return dataTemplate.queryForList(sSql, mWhereMap);
@@ -158,21 +161,28 @@ public class MysqlCall extends DbCall {
 		return dataExec(sSqlBuffer.toString(), mDataMap);
 	}
 
-	public int dataDelete(MDataMap mDataMap, String sWhereFields) {
+	public int dataDelete(String sDeleteSql, MDataMap mDataMap,
+			String sWhereFields) {
 
 		StringBuffer sSqlBuffer = new StringBuffer();
 
 		sSqlBuffer.append(" delete from " + dataTableName);
 
-		String[] sSqlWheres = StringUtils.isNotEmpty(sWhereFields) ? sWhereFields
-				.split(",") : mDataMap.convertKeysToStrings();
+		if (StringUtils.isEmpty(sDeleteSql)) {
 
-		for (int i = 0, j = sSqlWheres.length; i < j; i++) {
-			sSqlWheres[i] = sSqlWheres[i] + "=:" + sSqlWheres;
-		}
-		if (sSqlWheres.length > 0) {
-			sSqlBuffer.append(" where " + StringUtils.join(sSqlWheres, " and ")
-					+ " ");
+			String[] sSqlWheres = StringUtils.isNotEmpty(sWhereFields) ? sWhereFields
+					.split(",") : mDataMap.convertKeysToStrings();
+
+			for (int i = 0, j = sSqlWheres.length; i < j; i++) {
+				sSqlWheres[i] = sSqlWheres[i] + "=:" + sSqlWheres[i];
+			}
+			if (sSqlWheres.length > 0) {
+				sSqlBuffer.append(" where "
+						+ StringUtils.join(sSqlWheres, " and ") + " ");
+			}
+		} else {
+
+			sSqlBuffer.append(" where " + sDeleteSql);
 		}
 
 		return dataExec(sSqlBuffer.toString(), mDataMap);

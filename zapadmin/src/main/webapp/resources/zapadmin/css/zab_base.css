@@ -10,3 +10,9 @@
 {
 	clear:both;
 }
+
+.control-group .controls label
+{
+	display:inline;
+}
+

@@ -203,6 +203,15 @@ public class PageExec {
 		List<MWebField> listPageFields = recheckFields(webPage.getPageFields(),
 				mReqMap);
 
+		for (MWebField mField : listPageFields) {
+			// 判断如果是组件则重新输出文字
+			if (mField.getFieldTypeAid().equals("104005003")) {
+				mField.setPageFieldValue(WebUp.upComponent(
+						mField.getSourceCode()).upAddText(mField, mReqMap));
+
+			}
+		}
+
 		return listPageFields;
 	}
 

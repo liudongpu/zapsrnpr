@@ -27,6 +27,12 @@ public class FuncAdd extends RootFunc {
 	 * @see com.srnpr.zapweb.webface.IWebFunc#funcDo(java.lang.String,
 	 * com.srnpr.zapcom.basemodel.MDataMap)
 	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.srnpr.zapweb.webface.IWebFunc#funcDo(java.lang.String,
+	 * com.srnpr.zapcom.basemodel.MDataMap)
+	 */
 	public MWebResult funcDo(String sOperateUid, MDataMap mDataMap) {
 
 		MWebResult mResult = new MWebResult();
@@ -39,7 +45,15 @@ public class FuncAdd extends RootFunc {
 
 		MDataMap mInsertMap = new MDataMap();
 
+		// 定义组件判断标记
+		boolean bFlagComponent = false;
+
 		for (MWebField mField : mPage.getPageFields()) {
+
+			if (mField.getFieldTypeAid().equals("104005003")) {
+				bFlagComponent = true;
+			}
+
 			if (mAddMaps.containsKey(mField.getColumnName())) {
 
 				String sValue = mAddMaps.get(mField.getColumnName());
@@ -57,6 +71,20 @@ public class FuncAdd extends RootFunc {
 
 		if (mResult.upFlagTrue()) {
 			DbUp.upTable(mPage.getPageTable()).dataInsert(mInsertMap);
+
+			if (bFlagComponent) {
+
+				for (MWebField mField : mPage.getPageFields()) {
+					if (mField.getFieldTypeAid().equals("104005003")) {
+
+						WebUp.upComponent(mField.getSourceCode()).inAdd(mField,
+								mDataMap);
+
+					}
+				}
+
+			}
+
 		}
 
 		if (mResult.upFlagTrue()) {

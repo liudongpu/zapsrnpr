@@ -7,8 +7,17 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * 转换帮助类
+ * @author srnpr
+ *
+ */
 public class FormatHelper {
 
+	/**联合查询条件
+	 * @param lStrings
+	 * @return
+	 */
 	public static String joinWhereStrings(List<String> lStrings) {
 		String[] sReturns = new String[lStrings.size()];
 		for (int i = 0, j = lStrings.size(); i < j; i++) {

@@ -12,5 +12,7 @@ public class WebConst implements IBaseConst {
 	public final static String CONST_WEB_PAGINATION_NAME = "zapweb_pagination_";
 
 	public final static String CONST_WEB_FIELD_AFTER = "_zapweb_after_";
+	
+	public final static String CONST_WEB_FIELD_COMPONENT="zapweb_component_";
 
 }

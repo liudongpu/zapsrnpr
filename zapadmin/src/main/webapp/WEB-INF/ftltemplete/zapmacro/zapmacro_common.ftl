@@ -136,6 +136,8 @@ ${e_page.upReplaceUrl("",["zapweb_pagination_count="+(e_pagedata.getPageCount())
 	
 		<#if e_field.getFieldTypeAid()=="104005008">
 	  		<@m_zapmacro_common_field_hidden e_field/>
+	  		<#elseif  e_field.getFieldTypeAid()=="104005003">
+	  		<@m_zapmacro_common_field_component  e_field  e_page/>
 	  	<#elseif  e_field.getFieldTypeAid()=="104005019">
 	  		<@m_zapmacro_common_field_select  e_field  e_page/>
 	  		<#elseif  e_field.getFieldTypeAid()=="104005020">
@@ -150,6 +152,19 @@ ${e_page.upReplaceUrl("",["zapweb_pagination_count="+(e_pagedata.getPageCount())
 <#macro m_zapmacro_common_field_hidden e_field>
 	<input type="hidden" id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}" value="${e_field.getPageFieldValue()}" />
 </#macro>
+
+
+<#-- 字段：组件框 -->
+<#macro m_zapmacro_common_field_component e_field e_page>
+	<div class="control-group">
+	    	<label class="control-label">${e_field.getFieldNote()}</label>
+	    	<div class="controls">
+	      		${e_field.getPageFieldValue()}
+	    	</div>
+	  </div>
+</#macro>
+
+
 
 <#-- 字段：输入框 -->
 <#macro m_zapmacro_common_field_text e_field>

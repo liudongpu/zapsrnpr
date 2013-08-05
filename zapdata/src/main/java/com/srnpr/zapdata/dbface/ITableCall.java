@@ -144,7 +144,7 @@ public interface ITableCall {
 	 * @param sWhereFields
 	 * @return
 	 */
-	public int dataDelete(MDataMap mDataMap, String sWhereFields);
+	public int dataDelete(String sDeleteSql,MDataMap mDataMap, String sWhereFields);
 
 	/**
 	 * 更新数据

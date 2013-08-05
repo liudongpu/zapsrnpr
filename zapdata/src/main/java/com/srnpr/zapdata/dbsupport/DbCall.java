@@ -20,7 +20,7 @@ public abstract class DbCall extends BaseClass implements ITableCall {
 	}
 
 	public int delete(String... sParams) {
-		return dataDelete(new MDataMap(sParams), "");
+		return dataDelete("",new MDataMap(sParams), "");
 
 	}
 
