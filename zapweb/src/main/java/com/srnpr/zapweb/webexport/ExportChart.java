@@ -15,4 +15,12 @@ import com.srnpr.zapweb.webpage.PageExec;
 
 public class ExportChart extends RootExport {
 
+	public void export(String sOperateId, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		exportExcel(sOperateId, request, response);
+
+		doExport();
+	}
+
 }

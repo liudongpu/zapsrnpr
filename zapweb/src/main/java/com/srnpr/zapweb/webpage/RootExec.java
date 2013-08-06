@@ -17,6 +17,7 @@ import com.srnpr.zapweb.webmodel.MPageData;
 import com.srnpr.zapweb.webmodel.MWebField;
 import com.srnpr.zapweb.webmodel.MWebOperate;
 import com.srnpr.zapweb.webmodel.MWebPage;
+import com.srnpr.zapweb.webmodel.MWebSource;
 import com.srnpr.zapweb.webmodel.MWebView;
 import com.sun.org.apache.bcel.internal.generic.LSTORE;
 
@@ -59,11 +60,14 @@ public class RootExec extends BaseClass {
 				mReqMap);
 
 		List<MWebOperate> listOperates = null;
+		// 定义列表中显示的按钮列
 		String sOperateArea = "116001003";
 
-		if (mOptionMap.containsKey("optionExport")&&mOptionMap.get("optionExport").equals("1")) {
+		if (mOptionMap.containsKey("optionExport")
+				&& mOptionMap.get("optionExport").equals("1")) {
 			sOperateArea = "";
 			mReturnData.setPageSize(-1);
+			mReturnData.setPageCount(1);
 
 		}
 
@@ -199,6 +203,8 @@ public class RootExec extends BaseClass {
 
 					listEach.add(WebUp.upComponent(mField.getSourceCode())
 							.upListText(mField, mData));
+				} else if (mField.getFieldTypeAid().equals("104005019")) {
+
 				} else {
 					listEach.add(mData.get(mField.getColumnName()));
 				}
@@ -213,6 +219,55 @@ public class RootExec extends BaseClass {
 
 			listData.add(listEach);
 
+		}
+
+		
+		
+		
+		//重新加载输出字段
+		for (int i = 0, j = listFields.size(); i < j; i++) {
+			if (listFields.get(i).getFieldTypeAid().equals("104005019")) {
+				MWebSource mSource = WebUp.upSource(listFields.get(i)
+						.getSourceCode());
+
+				List<String> listSqlSub = new ArrayList<String>();
+
+				for (List<String> listSub : listData) {
+					listSqlSub.add("" + listSub.get(i) + "");
+				}
+
+				List<MDataMap> listResultDataMaps = DbUp.upTable(
+						mSource.getSourceFrom()).queryAll(
+						mSource.getFieldText() + " as field_text,"
+								+ mSource.getFieldValue() + " as field_value ",
+						"",
+						" instr(:field_list,concat("
+								+ mSource.getFieldValue() + ",','))>0  ",
+						new MDataMap("field_list", StringUtils.join(listSqlSub,
+								",")));
+
+				MDataMap mKeyMap = new MDataMap();
+				for (MDataMap mMap : listResultDataMaps) {
+					mKeyMap.put(mMap.get("field_value"), mMap.get("field_text"));
+				}
+
+				for (int n = 0, m = listData.size(); n < m; n++) {
+					
+					String sNowString=listData.get(n).get(i);
+					if(mKeyMap.containsKey(sNowString))
+					{
+						sNowString=mKeyMap.get(sNowString);
+					}
+					else
+					{
+						sNowString="";
+					}
+					
+					
+					listData.get(n).set(i,sNowString );
+				}
+
+			}
 		}
 
 		mReturnData.setPageData(listData);

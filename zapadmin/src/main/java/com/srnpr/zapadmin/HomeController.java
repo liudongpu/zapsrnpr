@@ -66,7 +66,7 @@ public class HomeController {
 			HttpServletRequest request, HttpServletResponse response) {
 
 		
-		new ExportChart().exportExcel(sOperateId, request, response);
+		new ExportChart().export(sOperateId, request, response);
 		
 		
 		return null;
