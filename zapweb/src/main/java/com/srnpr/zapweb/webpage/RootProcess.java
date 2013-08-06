@@ -14,7 +14,7 @@ import com.srnpr.zapweb.webmodel.MWebPage;
 import com.srnpr.zapweb.webmodel.MWebResult;
 
 /**
- * 页面处理
+ * 页面处理  该类为页面处理类  返回控制页面操作
  * @author srnpr
  *
  */

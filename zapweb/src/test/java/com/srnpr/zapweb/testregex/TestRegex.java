@@ -122,11 +122,22 @@ String aString="11";
 	@Test
 	public void sTest()
 	{
-		JsonHelper<MWebResult> jRet=new JsonHelper<MWebResult>();
+
+		Pattern p=Pattern.compile("\\[@(.+?)\\$(.*?)\\]");
+		  String u="../export/page_chart_v_export_cc_cardinfo?zapweb_field_uid=[@this$][@this2$]";
+		  Matcher m=p.matcher(u);
 		
-		MWebResult mResult=new MWebResult();
 		
-		bLogInfo(0,jRet.ObjToString(mResult));
+		  while(m.find()){
+		   bLogInfo(0, m.group(0));
+		   bLogInfo(0, m.group(1));
+		   bLogInfo(0, m.group(2));
+		  }
+		/*
+		  for(int i=1;i<= m.groupCount();i++){  
+			  bLogInfo(0 ,m.group(i).toString()); 
+			} 
+		  */
 	}
 	
 	
