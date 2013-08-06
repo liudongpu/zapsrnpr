@@ -136,13 +136,15 @@ ${e_page.upReplaceUrl("",["zapweb_pagination_count="+(e_pagedata.getPageCount())
 	
 		<#if e_field.getFieldTypeAid()=="104005008">
 	  		<@m_zapmacro_common_field_hidden e_field/>
-	  		<#elseif  e_field.getFieldTypeAid()=="104005001">
+	  	<#elseif  e_field.getFieldTypeAid()=="104005001">
 	  		  <#-- 内部处理  不输出 -->
-	  		<#elseif  e_field.getFieldTypeAid()=="104005003">
+	  	<#elseif  e_field.getFieldTypeAid()=="104005003">
 	  		<@m_zapmacro_common_field_component  e_field  e_page/>
+	  	<#elseif  e_field.getFieldTypeAid()=="104005004">
+	  		<@m_zapmacro_common_field_date  e_field />
 	  	<#elseif  e_field.getFieldTypeAid()=="104005019">
 	  		<@m_zapmacro_common_field_select  e_field  e_page/>
-	  		<#elseif  e_field.getFieldTypeAid()=="104005020">
+	  	<#elseif  e_field.getFieldTypeAid()=="104005020">
 	  		<@m_zapmacro_common_field_textarea  e_field />
 	  	<#else>
 	  		<@m_zapmacro_common_field_text e_field/>
@@ -162,6 +164,16 @@ ${e_page.upReplaceUrl("",["zapweb_pagination_count="+(e_pagedata.getPageCount())
 	    	<label class="control-label">${e_field.getFieldNote()}</label>
 	    	<div class="controls">
 	      		${e_field.getPageFieldValue()}
+	    	</div>
+	  </div>
+</#macro>
+
+<#-- 字段：日期 -->
+<#macro m_zapmacro_common_field_date e_field>
+	<div class="control-group">
+	    	<label class="control-label" for="${e_field.getPageFieldName()}">${e_field.getFieldNote()}</label>
+	    	<div class="controls">
+	      		<input type="text"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}" value="${e_field.getPageFieldValue()}">
 	    	</div>
 	  </div>
 </#macro>
