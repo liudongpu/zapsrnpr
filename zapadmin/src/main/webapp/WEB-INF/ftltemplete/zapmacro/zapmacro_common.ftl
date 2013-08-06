@@ -112,7 +112,7 @@ ${e_page.upReplaceUrl("",["zapweb_pagination_count="+(e_pagedata.getPageCount())
 			<tr>
 	  		 <#list e_list as e>
 	      		<td>
-	      			${e}
+	      			${e?default("")}
 	      		</td>
 	      	</#list>
 	      	</tr>
