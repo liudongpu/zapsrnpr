@@ -15,19 +15,4 @@ import com.srnpr.zapweb.webpage.PageExec;
 
 public class ExportChart extends RootExport {
 
-	public void exportExcel(String sOperateId, HttpServletRequest request,
-			HttpServletResponse response) {
-
-		MWebPage mPage = WebUp.upPage(sOperateId);
-
-		MDataMap mReqMap = convertRequest(request);
-
-		PageExec pExec = new PageExec();
-
-		MPageData mPageData= pExec.chartData(mPage, mReqMap);
-
-		exportExcelFile(mPageData, response);
-
-	}
-
 }

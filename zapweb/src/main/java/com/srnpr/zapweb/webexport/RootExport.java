@@ -16,31 +16,61 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.srnpr.zapcom.basehelper.FormatHelper;
+import com.srnpr.zapcom.basemodel.MDataMap;
+import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webmodel.MPageData;
+import com.srnpr.zapweb.webmodel.MWebPage;
+import com.srnpr.zapweb.webpage.PageExec;
 import com.srnpr.zapweb.webpage.RootProcess;
 
-public class RootExport extends RootProcess {
+public abstract class RootExport extends RootProcess {
 
 	/**
 	 * 导出文件名
 	 */
 	private String exportName = "";
 
-	public void exportExcelFile(MPageData mPageData, HttpServletResponse hResponse) {
+	private MPageData pageData = new MPageData();
+
+	private HttpServletResponse httpServletResponse = null;
+
+	public void exportExcel(String sOperateId, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		MWebPage mPage = WebUp.upPage(sOperateId);
+
+		MDataMap mReqMap = convertRequest(request);
+
+		PageExec pExec = new PageExec();
+
+		MDataMap mOptionMap = new MDataMap("optionExport", "1");
+
+		pageData = pExec.upChartData(mPage, mReqMap, mOptionMap);
+
+		httpServletResponse = response;
+	}
+
+	public void doExport() {
+
+		exportExcelFile(pageData, httpServletResponse);
+	}
+
+	public void exportExcelFile(MPageData mPageData,
+			HttpServletResponse hResponse) {
 
 		if (StringUtils.isEmpty(exportName)) {
-			exportName ="export-"+ FormatHelper.upDateTime(new Date(),
-					"yyyy-MM-dd-HH-mm-ss");
+			exportName = "export-"
+					+ FormatHelper
+							.upDateTime(new Date(), "yyyy-MM-dd-HH-mm-ss");
 		}
-		
-		hResponse.setContentType("application/binary;charset=ISO8859_1");  
+
+		hResponse.setContentType("application/binary;charset=ISO8859_1");
 		try {
-			exportName=new String(exportName.getBytes(),"ISO8859_1");
+			exportName = new String(exportName.getBytes(), "ISO8859_1");
 		} catch (UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
 
 		hResponse.setHeader("Content-disposition", "attachment; filename="
 				+ exportName + ".xls");// 组装附件名称和格式
@@ -96,6 +126,14 @@ public class RootExport extends RootProcess {
 
 	public void setExportName(String exportName) {
 		this.exportName = exportName;
+	}
+
+	public MPageData getPageData() {
+		return pageData;
+	}
+
+	public void setPageData(MPageData pageData) {
+		this.pageData = pageData;
 	}
 
 }

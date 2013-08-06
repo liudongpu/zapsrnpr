@@ -30,7 +30,7 @@ public class RootExec extends BaseClass {
 	 * @param mReqMap
 	 *            输入参数
 	 * @param mOptionMap
-	 *            设置参数
+	 *            设置参数 操作类型： optionExport 如果为1则标记为导出
 	 * @return
 	 */
 	public MPageData upChartData(MWebPage webPage, MDataMap mReqMap,
@@ -60,6 +60,12 @@ public class RootExec extends BaseClass {
 
 		List<MWebOperate> listOperates = null;
 		String sOperateArea = "116001003";
+
+		if (mOptionMap.containsKey("optionExport")&&mOptionMap.get("optionExport").equals("1")) {
+			sOperateArea = "";
+			mReturnData.setPageSize(-1);
+
+		}
 
 		if (StringUtils.isNotEmpty(sOperateArea)) {
 			listOperates = recheckOperates(webPage.getPageOperate(),
@@ -134,14 +140,25 @@ public class RootExec extends BaseClass {
 
 					break;
 
-				// 默认走like查询
-				default:
+				// 如果是like查询
+				case 104009012:
 
 					if (StringUtils.isNotEmpty(mField.getPageFieldValue())) {
 						aWhereStrings.add(" " + mField.getColumnName()
 								+ " like :" + mField.getColumnName());
 						mQueryMap.put(mField.getColumnName(),
 								"%" + mField.getPageFieldValue() + "%");
+					}
+					break;
+
+				// 默认走like查询
+				default:
+
+					if (StringUtils.isNotEmpty(mField.getPageFieldValue())) {
+						aWhereStrings.add(" " + mField.getColumnName() + " = :"
+								+ mField.getColumnName());
+						mQueryMap.put(mField.getColumnName(),
+								mField.getPageFieldValue());
 					}
 
 					break;
@@ -235,8 +252,9 @@ public class RootExec extends BaseClass {
 		}
 
 		if (mWebOperate.getOperateTypeAid().equals("116015012")) {
-			sReturn = FormatHelper.formatString(bConfig("zapweb.html_linkblank"),
-					sReturn, mWebOperate.getOperateName());
+			sReturn = FormatHelper.formatString(
+					bConfig("zapweb.html_linkblank"), sReturn,
+					mWebOperate.getOperateName());
 		}
 
 		return sReturn;
