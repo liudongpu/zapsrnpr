@@ -11,6 +11,7 @@ import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
+import com.srnpr.zapweb.helper.WebHelper;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webmodel.MPageData;
@@ -71,6 +72,7 @@ public class RootExec extends BaseClass {
 
 		}
 
+		// 判断是否初始化列表页的附加按钮列
 		if (StringUtils.isNotEmpty(sOperateArea)) {
 			listOperates = recheckOperates(webPage.getPageOperate(),
 					sOperateArea);
@@ -209,6 +211,7 @@ public class RootExec extends BaseClass {
 
 			}
 
+			// 判断是否是加载附加按钮列
 			if (StringUtils.isNotEmpty(sOperateArea)) {
 				for (MWebOperate mWebOperate : listOperates) {
 					listEach.add(reloadOperateText(mWebOperate, mData));
@@ -219,10 +222,7 @@ public class RootExec extends BaseClass {
 
 		}
 
-		
-		
-		
-		//重新加载输出字段
+		// 重新加载输出字段 判断加载替换显示等操作
 		for (int i = 0, j = listFields.size(); i < j; i++) {
 			if (listFields.get(i).getFieldTypeAid().equals("104005019")) {
 				MWebSource mSource = WebUp.upSource(listFields.get(i)
@@ -239,8 +239,8 @@ public class RootExec extends BaseClass {
 						mSource.getFieldText() + " as field_text,"
 								+ mSource.getFieldValue() + " as field_value ",
 						"",
-						" instr(:field_list,concat("
-								+ mSource.getFieldValue() + ",','))>0  ",
+						" instr(:field_list,concat(" + mSource.getFieldValue()
+								+ ",','))>0  ",
 						new MDataMap("field_list", StringUtils.join(listSqlSub,
 								",")));
 
@@ -250,19 +250,15 @@ public class RootExec extends BaseClass {
 				}
 
 				for (int n = 0, m = listData.size(); n < m; n++) {
-					
-					String sNowString=listData.get(n).get(i);
-					if(mKeyMap.containsKey(sNowString))
-					{
-						sNowString=mKeyMap.get(sNowString);
+
+					String sNowString = listData.get(n).get(i);
+					if (mKeyMap.containsKey(sNowString)) {
+						sNowString = mKeyMap.get(sNowString);
+					} else {
+						sNowString = "";
 					}
-					else
-					{
-						sNowString="";
-					}
-					
-					
-					listData.get(n).set(i,sNowString );
+
+					listData.get(n).set(i, sNowString);
 				}
 
 			}
@@ -304,10 +300,13 @@ public class RootExec extends BaseClass {
 
 		}
 
+		// 如果是链接 则输出链接
 		if (mWebOperate.getOperateTypeAid().equals("116015012")) {
-			sReturn = FormatHelper.formatString(
+			
+			sReturn = WebHelper.checkUrl(FormatHelper.formatString(
 					bConfig("zapweb.html_linkblank"), sReturn,
-					mWebOperate.getOperateName());
+					mWebOperate.getOperateName()));
+
 		}
 
 		return sReturn;
