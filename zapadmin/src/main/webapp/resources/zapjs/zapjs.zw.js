@@ -5,11 +5,10 @@
 
 zapjs.zw = {
 
-		modal_show:function(oSet)
-		{
-			top.zapjs.f.modal(oSet);
-		},
-		
+	modal_show : function(oSet) {
+		top.zapjs.f.modal(oSet);
+	},
+
 	func_add : function(oElm) {
 		zapjs.f.ajaxsubmit($(oElm).parents("form"), "../func/"
 				+ $(oElm).attr('zapweb_attr_operate_id'),
@@ -22,12 +21,19 @@ zapjs.zw = {
 			eval(o.resultObject);
 			break;
 		default:
-			//alert(o.resultMessage);
-			zapjs.zw.modal_show({content:o.resultMessage});
+			// alert(o.resultMessage);
+			zapjs.zw.modal_show({
+				content : o.resultMessage
+			});
 			break;
 		}
 
 	},
+
+	func_export : function() {
+		zapjs.f.tourl(zapjs.f.upurl().replace("/page/","/export/"));
+	},
+
 	func_error : function(o) {
 		alert('系统出现错误，请联系技术，谢谢！');
 	},

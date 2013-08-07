@@ -21,7 +21,7 @@
 
 <#-- 查询区域 -->
 <#macro m_zapmacro_common_page_inquire e_page>
-	<form class="form-horizontal" method="POST" >
+	<form class="form-horizontal" method="POST" action="../export/page_chart_v_cc_cardinfo" >
 		<@m_zapmacro_common_auto_inquire e_page />
 		<@m_zapmacro_common_auto_operate   e_page.getWebPage().getPageOperate() "116001009" />
 	</form>
