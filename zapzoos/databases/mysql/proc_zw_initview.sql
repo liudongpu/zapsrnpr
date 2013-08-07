@@ -4,6 +4,13 @@ CREATE PROCEDURE `proc_zw_initview`(in p_view_code varchar(100))
 begin
 
 
+declare p_exit int;
+set p_exit=(select count(1) from zw_field where view_code=p_view_code);
+
+
+
+
+
 INSERT INTO `zw_field`
 (
 `uid`,
@@ -23,10 +30,10 @@ select replace(uuid(),'-','') as uid
 ,zdc.column_name as field_name
 ,zdc.column_name as column_name
 ,zdc.column_note as field_note
-,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 100000+100*zdc.column_sort end)  as sort_add
-,(case zdc.column_name when 'zid' then 0 else 100000+100*zdc.column_sort end) as sort_edit
-,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 100000+100*zdc.column_sort end) as sort_chart
-,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 100000+100*zdc.column_sort end) as sort_book
+,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else ( case p_exit when 0 then 100000+100*zdc.column_sort else 0 end) end)  as sort_add
+,(case zdc.column_name when 'zid' then 0 else ( case p_exit when 0 then 100000+100*zdc.column_sort else 0 end) end) as sort_edit
+,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else ( case p_exit when 0 then 100000+100*zdc.column_sort else 0 end) end) as sort_chart
+,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else ( case p_exit when 0 then 100000+100*zdc.column_sort else 0 end) end) as sort_book
 #,(case zdc.column_name when 'zid' then 0 when 'uid' then 0 else 100000+100*zdc.column_sort end) as sort_inquery
 ,0 as sort_inquery
 ,(case zdc.column_name when 'zid' then 104005008 when 'uid' then 104005008 else 104005009 end) as field_type_aid

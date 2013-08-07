@@ -203,8 +203,6 @@ public class RootExec extends BaseClass {
 
 					listEach.add(WebUp.upComponent(mField.getSourceCode())
 							.upListText(mField, mData));
-				} else if (mField.getFieldTypeAid().equals("104005019")) {
-
 				} else {
 					listEach.add(mData.get(mField.getColumnName()));
 				}
