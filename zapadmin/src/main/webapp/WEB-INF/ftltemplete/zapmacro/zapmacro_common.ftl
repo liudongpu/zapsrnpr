@@ -232,12 +232,12 @@ ${e_page.upReplaceUrl("",["zapweb_pagination_count="+(e_pagedata.getPageCount())
 <#-- 字段：文本范围 -->
 <#macro m_zapmacro_common_field_between e_field  e_page >
 	<div class="control-group">
-	    	<label class="control-label" for="${e_field.getPageFieldName()}_zapweb_after_between_from">${e_field.getFieldNote()}</label>
+	    	<label class="control-label" for=" ${e_page.upConst("126022001",e_field.getPageFieldName(),"between_from")}">${e_field.getFieldNote()}</label>
 	    	<div class="controls">
 	    		从
-	      		<input type="text" <#if e_field.getFieldTypeAid()=="104005004">  onClick="WdatePicker({maxDate:'#F{$dp.$D(\'${e_field.getPageFieldName()}_zapweb_after_between_to\',{d:-1});}'})"  </#if>   id="${e_field.getPageFieldName()}_zapweb_after_between_from" name="${e_field.getPageFieldName()}_zapweb_after_between_from" value="${e_page.upReqValue(e_field.getPageFieldName()+"_zapweb_after_between_from")?default("")}">
+	      		<input type="text" <#if e_field.getFieldTypeAid()=="104005004">  onClick="WdatePicker({maxDate:'#F{$dp.$D(\'${e_page.upConst("126022001",e_field.getPageFieldName(),"between_to")}\',{d:-1});}'})"  </#if>   id="${e_page.upConst("126022001",e_field.getPageFieldName(),"between_from")}" name="${e_page.upConst("126022001",e_field.getPageFieldName(),"between_from")}" value="${e_page.upReqValue(e_page.upConst("126022001",e_field.getPageFieldName(),"between_from"))?default("")}">
 	      		到
-	      		<input type="text" <#if e_field.getFieldTypeAid()=="104005004">  onClick="WdatePicker({minDate:'#F{$dp.$D(\'${e_field.getPageFieldName()}_zapweb_after_between_from\',{d:1});}'})"</#if>  id="${e_field.getPageFieldName()}_zapweb_after_between_to" name="${e_field.getPageFieldName()}_zapweb_after_between_to" value="${e_page.upReqValue(e_field.getPageFieldName()+"_zapweb_after_between_to")?default("")}">
+	      		<input type="text" <#if e_field.getFieldTypeAid()=="104005004">  onClick="WdatePicker({minDate:'#F{$dp.$D(\'${e_page.upConst("126022001",e_field.getPageFieldName(),"between_from")}\',{d:1});}'})"</#if>  id="${e_page.upConst("126022001",e_field.getPageFieldName(),"between_to")}" name="${e_page.upConst("126022001",e_field.getPageFieldName(),"between_to")}" value="${e_page.upReqValue(e_page.upConst("126022001",e_field.getPageFieldName(),"between_to"))?default("")}">
 	      		
 	      		
 	    	</div>

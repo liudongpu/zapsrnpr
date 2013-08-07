@@ -14,7 +14,7 @@ import com.srnpr.zapweb.webface.IWebMethod;
 
 /**
  * 
- * 页面调用函数类 该类一向为静态传递给页面调用
+ * 页面调用函数类 该类一向传递给页面调用
  * 
  * @author srnpr
  * 

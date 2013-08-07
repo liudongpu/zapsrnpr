@@ -10,6 +10,7 @@ import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.basemodel.MKvdList;
 import com.srnpr.zapcom.basemodel.MKvdModel;
 import com.srnpr.zapdata.dbdo.DbUp;
+import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webmodel.MPageData;
 import com.srnpr.zapweb.webmodel.MWebField;
@@ -159,7 +160,20 @@ public class ControlPage {
 	}
 	
 	
-	
+	public String upConst(String sType,String... sParams)
+	{
+		String sReturn="";
+		if(sType.equals("126022006"))
+		{
+			sReturn=WebConst.CONST_WEB_FIELD_NAME+sParams[0];
+		}
+		else if(sType.equals("126022001"))
+		{
+			sReturn=sParams[0]+WebConst.CONST_WEB_FIELD_AFTER+sParams[1];
+		}
+		
+		return sReturn;
+	}
 	
 	
 
