@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>Home2</title>
+<style>
+
+
+</style>
+
+<script
+	src="http://ajax.googleapis.com/ajax/libs/dojo/1.9.1/dojo/dojo.js"></script>
+
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.9.1/dijit/themes/claro/claro.css" type="text/css" />
+</head>
+<body class="claro">
+
+	<div id="chartOne" style="width: 90%; height: 440px;"></div>
+<div id="chartTwo" style="width: 300px; height: 300px;"></div>
+<div id="legendTwo"></div>
+	<script>
+		require([ "dojox/charting/action2d/Tooltip" ,"dojox/charting/action2d/Magnify","dojox/charting/Chart", "dojox/charting/axis2d/Default",
+				"dojox/charting/plot2d/ClusteredColumns",
+				"dojox/charting/themes/Wetland",  "dojox/charting/widget/Legend","dojo/ready"
+				], function(Tooltip,Magnify,Chart, Default,
+				StackedAreas, Wetland,Legend, ready ) {
+			ready(function() {
+
+				var str = [ 11, 33 ];
+
+				var c = new Chart("chartOne", {
+					title : "Production(Quantity)"
+				});
+				c.addPlot("default", {
+					type : StackedAreas,
+					tension : 0,
+					seriesWidth : -10
+				}).addAxis("x", {
+					fixLower : "major",
+
+					font : "normal normal bold 10pt Tahoma",//X轴值的大小，字体等
+
+					labels : [ {
+						value : 1,
+						text : "1月"
+					}, {
+						value : 2,
+						text : "2月"
+					},//定义X轴值
+					{
+						value : 3,
+						text : "3月"
+					}, {
+						value : 4,
+						text : "4月"
+					}, {
+						value : 5,
+						text : "5月"
+					}, {
+						value : 6,
+						text : "6月"
+					}, {
+						value : 7,
+						text : "7月"
+					}, {
+						value : 8,
+						text : "8月"
+					}, //定义X轴值
+					{
+						value : 9,
+						text : "9月"
+					}, {
+						value : 10,
+						text : "10月"
+					}, {
+						value : 11,
+						text : "11月"
+					}, {
+						value : 12,
+						text : "12月"
+					} ],
+					fixUpper : "major"
+				}).addAxis("y", {
+					vertical : true,
+					title : "签单额",//Y轴提示词
+					fixLower : "major",
+					fixUpper : "major",
+					min : 0
+				}).setTheme(Wetland).addSeries("销售额",
+						[ 1, 2, 0, 0.5, 1.5, 1, 2.8, 0.4 ]).addSeries(
+						"激活金额", [ 2.6, 1.8, 0, 2, 1, 1.4, 0.7, 2 ])
+						.addSeries("Series D", [ 0,8,8,8,8,8,8,8 ]);
+				
+				
+				var tip = new Tooltip(c, "default");
+				 
+				// Create the magnifier
+			   // var mag = new Magnify(c,"default");
+				c.render();
+				
+				var legendTwo = new Legend({chart: c}, "legendTwo");
+			});
+			
+			
+			
+			
+		});
+
+		
+		
+		require(["dojox/charting/Chart", "dojox/charting/plot2d/Pie", "dojox/charting/action2d/Highlight",
+		         "dojox/charting/action2d/MoveSlice" , "dojox/charting/action2d/Tooltip",
+		         "dojox/charting/themes/MiamiNice", "dojox/charting/widget/Legend", "dojo/ready"],
+		  function(Chart, Pie, Highlight, MoveSlice, Tooltip, MiamiNice, Legend, ready){
+		  ready(function(){
+		    var chartTwo = new Chart("chartTwo");
+		    chartTwo.setTheme(MiamiNice)
+		     .addPlot("default", {
+		        type: Pie,
+		        font: "normal normal 11pt Tahoma",
+		        fontColor: "black",
+		        labelOffset: -30,
+		        radius: 80
+		    }).addSeries("Series A", [
+		        {y: 4, text: "Red",   stroke: "black", tooltip: "Red is 50%"},
+		        {y: 2, text: "Green", stroke: "black", tooltip: "Green is 25%"},
+		        {y: 1, text: "Blue",  stroke: "black", tooltip: "I am feeling Blue!"},
+		        {y: 1, text: "Other", stroke: "black", tooltip: "Mighty <strong>strong</strong><br>With two lines!"}
+		    ]);
+		    var anim_a = new MoveSlice(chartTwo, "default");
+		    var anim_b = new Highlight(chartTwo, "default");
+		    var anim_c = new Tooltip(chartTwo, "default");
+		    chartTwo.render();
+		   // var legendTwo = new Legend({chart: chartTwo}, "legendTwo");
+		  });
+		});
+		
+	</script>
+
+
+
+</body>
+</html>
