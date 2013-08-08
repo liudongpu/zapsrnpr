@@ -95,10 +95,10 @@ zapjs.f = {
 
 			}
 
-			aFuncHtml.push('<a  class="btn" data-dismiss="modal" onclick="'
+			aFuncHtml.push('<a  class="btn btn-primary" data-dismiss="modal" onclick="'
 					+ s.cancelfunc + '" aria-hidden="true">关闭</a>');
 
-			$('#zen_page_model_box .modal-footer').html(aFuncHtml.join(''));
+			$('#zapjs_f_id_modal_box .modal-footer').html(aFuncHtml.join(''));
 
 		}
 
