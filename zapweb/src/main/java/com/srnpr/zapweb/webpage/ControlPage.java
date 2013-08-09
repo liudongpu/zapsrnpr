@@ -72,6 +72,19 @@ public class ControlPage {
 	public List<MWebField> upAddData() {
 		return pageExec.addData(webPage, reqMap);
 	}
+	
+	
+	
+	/**
+	 * 得到修改页数据
+	 * 
+	 * @return
+	 */
+	public List<MWebField> upEditData() {
+		return pageExec.editData(webPage, reqMap);
+	}
+	
+	
 
 	/**
 	 * 查询区域

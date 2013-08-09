@@ -7,8 +7,11 @@ import org.apache.commons.lang.StringUtils;
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapweb.webdo.WebConst;
+import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webface.IWebFunc;
 import com.srnpr.zapweb.webmodel.MWebField;
+import com.srnpr.zapweb.webmodel.MWebPage;
+import com.srnpr.zapweb.webmodel.MWebResult;
 
 /**
  * 调用基类
@@ -18,28 +21,55 @@ import com.srnpr.zapweb.webmodel.MWebField;
  */
 public abstract class RootFunc extends BaseClass implements IWebFunc {
 
+	
+	
+	public MDataMap upFieldMap(MDataMap mDataMap)
+	{
+		
+		return mDataMap.upSubMap(WebConst.CONST_WEB_FIELD_NAME);
+		
+	}
+	
+	
+	
 	/**
-	 * 获取Web的字段 根据开始标记
+	 * 重新检查输入字段  注意mFieldMap为格式化之后的 
 	 * 
+	 * @param mResult
+	 * @param sOperateUid
 	 * @param mFieldMap
-	 * @param sStartField
 	 * @return
 	 */
-	public MDataMap upWebField(MDataMap mFieldMap, String sStartField) {
-		MDataMap mReturn = new MDataMap();
+	public MWebResult recheckMapField(MWebResult mResult, String sOperateUid,
+			MDataMap mFieldMap) {
+		MWebPage mPage = WebUp.upPage(WebUp.upOperate(sOperateUid)
+				.getPageCode());
 
-		for (String sKey : mFieldMap.upKeys()) {
-			if (StringUtils.startsWith(sKey, sStartField)) {
-				mReturn.put(StringUtils.substringAfter(sKey, sStartField),
-						mFieldMap.get(sKey));
+		
+		// 循环所有结构
+		for (MWebField mField : mPage.getPageFields()) {
+
+			if (mFieldMap.containsKey(mField.getFieldName())) {
+				String sValue = mFieldMap.get(mField.getFieldName());
+
+				// 重新校验字段是否正确
+				int iReturn = recheckInputField(mField.getRegexValue(), sValue);
+
+				if (iReturn != 1) {
+					mResult.inErrorMessage(iReturn, mField.getFieldNote());
+					break;
+				}
 			}
+
 		}
 
-		return mReturn;
+		return mResult;
+
 	}
 
 	/**
 	 * 字段验证
+	 * 
 	 * @param sRegexValue
 	 * @param sValue
 	 * @return
@@ -50,7 +80,7 @@ public abstract class RootFunc extends BaseClass implements IWebFunc {
 
 		if (StringUtils.isNotEmpty(sRegexValue)) {
 
-			//校验如果是+号开始 则判断是否允许为空
+			// 校验如果是+号开始 则判断是否允许为空
 			if (sRegexValue.startsWith("+")) {
 				if (StringUtils.isEmpty(sValue)) {
 					iReturn = 969905003;
@@ -70,20 +100,15 @@ public abstract class RootFunc extends BaseClass implements IWebFunc {
 		return iReturn;
 
 	}
-	
-	
-	
+
 	/**
 	 * 重新组装输入字段
+	 * 
 	 * @param sColumnName
 	 * @return
 	 */
-	public String upFiledName(String sColumnName)
-	{
-		return WebConst.CONST_WEB_FIELD_NAME+sColumnName;
+	public String upFiledName(String sColumnName) {
+		return WebConst.CONST_WEB_FIELD_NAME + sColumnName;
 	}
-	
-	
-	
 
 }

@@ -20,7 +20,7 @@ public abstract class DbCall extends BaseClass implements ITableCall {
 	}
 
 	public int delete(String... sParams) {
-		return dataDelete("",new MDataMap(sParams), "");
+		return dataDelete("", new MDataMap(sParams), "");
 
 	}
 
@@ -31,7 +31,15 @@ public abstract class DbCall extends BaseClass implements ITableCall {
 
 	public MDataMap one(String... sParams) {
 
-		List<MDataMap> rLists = query("", "", "", new MDataMap(sParams), -1, -1);
+		return oneWhere("", "", "", sParams);
+
+	}
+
+	public MDataMap oneWhere(String sFields, String sOrders, String sWhere,
+			String... sParams) {
+		List<MDataMap> rLists = queryAll(sFields, sOrders, sWhere,
+				new MDataMap(sParams));
+
 		if (rLists.size() > 0) {
 			return rLists.get(0);
 		} else {

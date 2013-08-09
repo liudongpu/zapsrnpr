@@ -16,19 +16,32 @@ import com.srnpr.zapweb.webmodel.MWebField;
 import com.srnpr.zapweb.webmodel.MWebResult;
 import com.srnpr.zapweb.webmodel.MWebSource;
 
+/**
+ * 组件-多选框 该组件适用于跨表结构体
+ * 
+ * @author srnpr
+ * 
+ */
 public class ComponentCheckbox extends RootComponent {
 
 	/**
-	 * 需要初始化参数 component_show_table,component_show_field_text,
+	 * 需要初始化参数 component_show_table:显示内容表格,component_show_field_text,
 	 * component_show_field_value,component_show_join,component_in_field_Key
 	 * ,component_in_field_value ,component_in_table,component_key_field
 	 */
 	private MDataMap componentMap = new MDataMap();
 
 	public ComponentCheckbox() {
-		
+
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.srnpr.zapweb.webface.IWebComponent#upListText(com.srnpr.zapweb.webmodel
+	 * .MWebField, com.srnpr.zapcom.basemodel.MDataMap)
+	 */
 	public String upListText(MWebField mWebField, MDataMap mDataMap) {
 
 		String sKey = mDataMap.get(componentMap.get("component_key_field"));
@@ -65,8 +78,27 @@ public class ComponentCheckbox extends RootComponent {
 		return StringUtils.join(listReturnList, sShowJoin);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.srnpr.zapweb.webface.IWebComponent#upAddText(com.srnpr.zapweb.webmodel
+	 * .MWebField, com.srnpr.zapcom.basemodel.MDataMap)
+	 */
 	public String upAddText(MWebField mField, MDataMap mDataMap) {
 
+		return upShowText(mField, mDataMap);
+
+	}
+
+	/**
+	 * 获取展示时输出内容
+	 * 
+	 * @param mField
+	 * @param mDataMap
+	 * @return
+	 */
+	private String upShowText(MWebField mField, MDataMap mDataMap) {
 		List<String> listReturnList = new ArrayList<String>();
 
 		String sHtmlCheckbox = bConfig("zapweb.html_checkbox");
@@ -90,14 +122,27 @@ public class ComponentCheckbox extends RootComponent {
 		}
 
 		return StringUtils.join(listReturnList, "");
-
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.srnpr.zapweb.webface.IWebComponent#upEditText(com.srnpr.zapweb.webmodel
+	 * .MWebField, com.srnpr.zapcom.basemodel.MDataMap)
+	 */
 	public String upEditText(MWebField mWebField, MDataMap mDataMap) {
 		return null;
 	}
 
-	public MWebResult inUpdatDb(MWebField mWebField, MDataMap mDataMap) {
+	/**
+	 * 数据库执行操作
+	 * 
+	 * @param mWebField
+	 * @param mDataMap
+	 * @return
+	 */
+	private MWebResult inUpdatDb(MWebField mWebField, MDataMap mDataMap) {
 
 		MWebResult mReturnResult = new MWebResult();
 
@@ -151,8 +196,15 @@ public class ComponentCheckbox extends RootComponent {
 		return inUpdatDb(mWebField, mDataMap);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.srnpr.zapweb.webface.IWebComponent#inEdit(com.srnpr.zapweb.webmodel
+	 * .MWebField, com.srnpr.zapcom.basemodel.MDataMap)
+	 */
 	public MWebResult inEdit(MWebField mWebField, MDataMap mDataMap) {
-		return null;
+		return inUpdatDb(mWebField, mDataMap);
 	}
 
 	public MDataMap getComponentMap() {

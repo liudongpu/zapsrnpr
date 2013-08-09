@@ -7,28 +7,49 @@ import com.srnpr.zapweb.webmodel.MWebResult;
 public interface IWebComponent {
 
 	/**
-	 * 获取列表显示
+	 * 获取列表显示内容
+	 * 
 	 * @param mWebField
 	 * @param mDataMap
 	 * @return
 	 */
 	public String upListText(MWebField mWebField, MDataMap mDataMap);
-	
-	
+
 	/**
 	 * 获取插入页面字符串
+	 * 
 	 * @param mField
 	 * @param mDataMap
 	 * @return
 	 */
-	public String upAddText(MWebField mField,MDataMap mDataMap);
-	
+	public String upAddText(MWebField mField, MDataMap mDataMap);
+
 	/**
-	 * 执行添加时调用
+	 * 执行添加逻辑时调用
+	 * 
 	 * @param mWebField
 	 * @param mDataMap
 	 * @return
 	 */
 	public MWebResult inAdd(MWebField mWebField, MDataMap mDataMap);
+
+	/**
+	 * 执行修改逻辑时调用
+	 * 
+	 * @param mWebField
+	 * @param mDataMap
+	 * @return
+	 */
+	public MWebResult inEdit(MWebField mWebField, MDataMap mDataMap);
+
+	/**
+	 * 
+	 * 获取修改时展示内容
+	 * 
+	 * @param mWebField
+	 * @param mDataMap
+	 * @return
+	 */
+	public String upEditText(MWebField mWebField, MDataMap mDataMap);
 
 }

@@ -14,6 +14,13 @@ zapjs.zw = {
 				+ $(oElm).attr('zapweb_attr_operate_id'),
 				zapjs.zw.func_success, zapjs.zw.func_error);
 	},
+	
+	func_edit : function(oElm) {
+		zapjs.f.ajaxsubmit($(oElm).parents("form"), "../func/"
+				+ $(oElm).attr('zapweb_attr_operate_id'),
+				zapjs.zw.func_success, zapjs.zw.func_error);
+	},
+	
 	func_success : function(o) {
 
 		switch (o.resultType) {

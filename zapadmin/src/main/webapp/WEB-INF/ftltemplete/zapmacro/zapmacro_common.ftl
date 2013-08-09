@@ -1,14 +1,21 @@
 <#-- 添加页 -->
 <#macro m_zapmacro_common_page_add e_page>
-
 <form class="form-horizontal" method="POST" >
 	<@m_zapmacro_common_auto_list  e_page.upAddData()   e_page  />
 	<@m_zapmacro_common_auto_operate   e_page.getWebPage().getPageOperate()  "116001016" />
-
 </form>
-
-
 </#macro>
+
+
+<#-- 修改页 -->
+<#macro m_zapmacro_common_page_edit e_page>
+<form class="form-horizontal" method="POST" >
+	<@m_zapmacro_common_auto_list  e_page.upEditData()   e_page  />
+	<@m_zapmacro_common_auto_operate   e_page.getWebPage().getPageOperate()  "116001016" />
+</form>
+</#macro>
+
+
 
 <#-- 列表页 -->
 <#macro m_zapmacro_common_page_chart e_page>

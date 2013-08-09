@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.basehelper.FormatHelper;
+import com.srnpr.zapcom.basehelper.MapHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.helper.WebHelper;
@@ -25,7 +26,7 @@ import com.sun.org.apache.bcel.internal.generic.LSTORE;
 public class RootExec extends BaseClass {
 
 	/**
-	 * 获取页面数据类
+	 * 获取页面数据方法 该方法为统一获取数据方法 根据不同应用场景传入不同设置参数
 	 * 
 	 * @param webPage
 	 *            页面
@@ -41,16 +42,19 @@ public class RootExec extends BaseClass {
 		// 返回参数
 		MPageData mReturnData = new MPageData();
 
-		// 获取分页标记字段
-		String sPaginationField = WebConst.CONST_WEB_PAGINATION_NAME;
+		/********** 开始处理分页输入参数逻辑 ********************************/
+		{
+			MDataMap mPaginationMap = mReqMap
+					.upSubMap(WebConst.CONST_WEB_PAGINATION_NAME);
 
-		if (mReqMap.containsKey(sPaginationField + "count")) {
-			mReturnData.setPageCount(Integer.valueOf(mReqMap
-					.get(sPaginationField + "count")));
-		}
-		if (mReqMap.containsKey(sPaginationField + "index")) {
-			mReturnData.setPageIndex(Integer.valueOf(mReqMap
-					.get(sPaginationField + "index")));
+			if (mPaginationMap.containsKey("count")) {
+				mReturnData.setPageCount(Integer.valueOf(mPaginationMap
+						.get("count")));
+			}
+			if (mPaginationMap.containsKey("index")) {
+				mReturnData.setPageIndex(Integer.valueOf(mPaginationMap
+						.get("index")));
+			}
 		}
 
 		// 数据
@@ -64,12 +68,17 @@ public class RootExec extends BaseClass {
 		// 定义列表中显示的按钮列
 		String sOperateArea = "116001003";
 
-		if (mOptionMap.containsKey("optionExport")
-				&& mOptionMap.get("optionExport").equals("1")) {
-			sOperateArea = "";
-			mReturnData.setPageSize(-1);
-			mReturnData.setPageCount(1);
+		/********** 开始根据输入参数重置各种设置 ********************************/
+		{
 
+			// 判断如果是导出操作 则设置各种数据条件
+			if (mOptionMap.containsKey("optionExport")
+					&& mOptionMap.get("optionExport").equals("1")) {
+				sOperateArea = "";
+				mReturnData.setPageSize(-1);
+				mReturnData.setPageCount(1);
+
+			}
 		}
 
 		// 判断是否初始化列表页的附加按钮列
@@ -78,189 +87,215 @@ public class RootExec extends BaseClass {
 					sOperateArea);
 		}
 
-		List<String> listHeader = new ArrayList<String>();
-		for (MWebField mField : listFields) {
-			listHeader.add(mField.getFieldNote());
-		}
+		/********** 开始处理表头 ********************************/
+		{
 
-		if (StringUtils.isNotEmpty(sOperateArea)) {
-
-			for (MWebOperate mWebOperate : listOperates) {
-				listHeader.add(mWebOperate.getOperateName());
+			List<String> listHeader = new ArrayList<String>();
+			for (MWebField mField : listFields) {
+				listHeader.add(mField.getFieldNote());
 			}
-		}
 
-		mReturnData.setPageHead(listHeader);
+			if (StringUtils.isNotEmpty(sOperateArea)) {
+
+				for (MWebOperate mWebOperate : listOperates) {
+					listHeader.add(mWebOperate.getOperateName());
+				}
+			}
+
+			mReturnData.setPageHead(listHeader);
+		}
 
 		MDataMap mQueryMap = new MDataMap();
 		String sWhere = "";
 
-		// 开始加载查询条件判断
-		if (mReqMap.size() > 0) {
+		/********** 开始处理查询输入 ********************************/
+		{
 
-			ArrayList<String> aWhereStrings = new ArrayList<String>();
+			// 开始加载查询条件判断
+			if (mReqMap.size() > 0) {
 
-			for (MWebField mField : upInquireData(webPage, mReqMap)) {
+				ArrayList<String> aWhereStrings = new ArrayList<String>();
 
-				switch (Integer.parseInt(mField.getQueryTypeAid())) {
+				for (MWebField mField : upInquireData(webPage, mReqMap)) {
 
-				// 如果是范围查询
-				case 104009002:
+					switch (Integer.parseInt(mField.getQueryTypeAid())) {
 
-					if (StringUtils.isNotEmpty(mReqMap.get(mField
-							.getPageFieldName()
-							+ WebConst.CONST_WEB_FIELD_AFTER + "between_from"))) {
+					// 如果是范围查询
+					case 104009002:
 
-						aWhereStrings.add(mField.getColumnName() + ">=:"
-								+ mField.getColumnName()
+						if (StringUtils.isNotEmpty(mReqMap.get(mField
+								.getPageFieldName()
 								+ WebConst.CONST_WEB_FIELD_AFTER
-								+ "between_from");
-						mQueryMap.put(
-								mField.getColumnName()
-										+ WebConst.CONST_WEB_FIELD_AFTER
-										+ "between_from",
-								mReqMap.get(mField.getPageFieldName()
-										+ WebConst.CONST_WEB_FIELD_AFTER
-										+ "between_from"));
+								+ "between_from"))) {
 
+							aWhereStrings.add(mField.getColumnName() + ">=:"
+									+ mField.getColumnName()
+									+ WebConst.CONST_WEB_FIELD_AFTER
+									+ "between_from");
+							mQueryMap.put(
+									mField.getColumnName()
+											+ WebConst.CONST_WEB_FIELD_AFTER
+											+ "between_from",
+									mReqMap.get(mField.getPageFieldName()
+											+ WebConst.CONST_WEB_FIELD_AFTER
+											+ "between_from"));
+
+						}
+
+						if (StringUtils
+								.isNotEmpty(mReqMap.get(mField
+										.getPageFieldName()
+										+ WebConst.CONST_WEB_FIELD_AFTER
+										+ "between_to"))) {
+
+							aWhereStrings.add(mField.getColumnName() + "<=:"
+									+ mField.getColumnName()
+									+ WebConst.CONST_WEB_FIELD_AFTER
+									+ "between_to");
+							mQueryMap.put(
+									mField.getColumnName()
+											+ WebConst.CONST_WEB_FIELD_AFTER
+											+ "between_to",
+									mReqMap.get(mField.getPageFieldName()
+											+ WebConst.CONST_WEB_FIELD_AFTER
+											+ "between_to"));
+
+						}
+
+						break;
+
+					// 如果是like查询
+					case 104009012:
+
+						if (StringUtils.isNotEmpty(mField.getPageFieldValue())) {
+							aWhereStrings.add(" " + mField.getColumnName()
+									+ " like :" + mField.getColumnName());
+							mQueryMap.put(mField.getColumnName(),
+									"%" + mField.getPageFieldValue() + "%");
+						}
+						break;
+
+					// 默认走等于
+					default:
+
+						if (StringUtils.isNotEmpty(mField.getPageFieldValue())) {
+							aWhereStrings.add(" " + mField.getColumnName()
+									+ " = :" + mField.getColumnName());
+							mQueryMap.put(mField.getColumnName(),
+									mField.getPageFieldValue());
+						}
+
+						break;
 					}
 
-					if (StringUtils.isNotEmpty(mReqMap.get(mField
-							.getPageFieldName()
-							+ WebConst.CONST_WEB_FIELD_AFTER + "between_to"))) {
+				}
 
-						aWhereStrings
-								.add(mField.getColumnName() + "<=:"
-										+ mField.getColumnName()
-										+ WebConst.CONST_WEB_FIELD_AFTER
-										+ "between_to");
-						mQueryMap.put(
-								mField.getColumnName()
-										+ WebConst.CONST_WEB_FIELD_AFTER
-										+ "between_to",
-								mReqMap.get(mField.getPageFieldName()
-										+ WebConst.CONST_WEB_FIELD_AFTER
-										+ "between_to"));
-
-					}
-
-					break;
-
-				// 如果是like查询
-				case 104009012:
-
-					if (StringUtils.isNotEmpty(mField.getPageFieldValue())) {
-						aWhereStrings.add(" " + mField.getColumnName()
-								+ " like :" + mField.getColumnName());
-						mQueryMap.put(mField.getColumnName(),
-								"%" + mField.getPageFieldValue() + "%");
-					}
-					break;
-
-				// 默认走like查询
-				default:
-
-					if (StringUtils.isNotEmpty(mField.getPageFieldValue())) {
-						aWhereStrings.add(" " + mField.getColumnName() + " = :"
-								+ mField.getColumnName());
-						mQueryMap.put(mField.getColumnName(),
-								mField.getPageFieldValue());
-					}
-
-					break;
+				if (aWhereStrings.size() > 0) {
+					sWhere = StringUtils.join(aWhereStrings, " and ");
 				}
 
 			}
-
-			if (aWhereStrings.size() > 0) {
-				sWhere = StringUtils.join(aWhereStrings, " and ");
-			}
-
 		}
 
-		// 判断如果没有请求则重新统计数量
-		if (mReturnData.getPageCount() < 0) {
-			mReturnData.setPageCount(DbUp.upTable(webPage.getPageTable())
-					.dataCount(sWhere, mQueryMap));
+		/********** 开始统计数据 ********************************/
+		{
 
-		}
-
-		// 判断最大数量是否有
-		if (mReturnData.getPageMax() < 0) {
-			mReturnData.setPageMax((int) Math.ceil((double) mReturnData
-					.getPageCount() / (double) mReturnData.getPageSize()));
-		}
-
-		// 开始加载数据
-		for (MDataMap mData : DbUp.upTable(webPage.getPageTable()).query("",
-				"-zid", sWhere, mQueryMap,
-				(mReturnData.getPageIndex() - 1) * mReturnData.getPageSize(),
-				mReturnData.getPageSize())) {
-			List<String> listEach = new ArrayList<String>();
-
-			for (MWebField mField : listFields) {
-
-				// 判断如果是组件则重新输出文字
-				if (mField.getFieldTypeAid().equals("104005003")) {
-
-					listEach.add(WebUp.upComponent(mField.getSourceCode())
-							.upListText(mField, mData));
-				} else {
-					listEach.add(mData.get(mField.getColumnName()));
-				}
+			// 判断如果没有请求则重新统计数量
+			if (mReturnData.getPageCount() < 0) {
+				mReturnData.setPageCount(DbUp.upTable(webPage.getPageTable())
+						.dataCount(sWhere, mQueryMap));
 
 			}
 
-			// 判断是否是加载附加按钮列
-			if (StringUtils.isNotEmpty(sOperateArea)) {
-				for (MWebOperate mWebOperate : listOperates) {
-					listEach.add(reloadOperateText(mWebOperate, mData));
-				}
+			// 判断最大数量是否有
+			if (mReturnData.getPageMax() < 0) {
+				mReturnData.setPageMax((int) Math.ceil((double) mReturnData
+						.getPageCount() / (double) mReturnData.getPageSize()));
 			}
-
-			listData.add(listEach);
-
 		}
 
-		// 重新加载输出字段 判断加载替换显示等操作
-		for (int i = 0, j = listFields.size(); i < j; i++) {
-			if (listFields.get(i).getFieldTypeAid().equals("104005019")) {
-				MWebSource mSource = WebUp.upSource(listFields.get(i)
-						.getSourceCode());
+		/********** 开始处理数据 ********************************/
+		{
 
-				List<String> listSqlSub = new ArrayList<String>();
+			// 开始加载数据
+			for (MDataMap mData : DbUp.upTable(webPage.getPageTable()).query(
+					WebHelper.upFieldSql(webPage.getPageFields()),
+					"-zid",
+					sWhere,
+					mQueryMap,
+					(mReturnData.getPageIndex() - 1)
+							* mReturnData.getPageSize(),
+					mReturnData.getPageSize())) {
+				List<String> listEach = new ArrayList<String>();
 
-				for (List<String> listSub : listData) {
-					listSqlSub.add("" + listSub.get(i) + "");
-				}
+				for (MWebField mField : listFields) {
 
-				List<MDataMap> listResultDataMaps = DbUp.upTable(
-						mSource.getSourceFrom()).queryAll(
-						mSource.getFieldText() + " as field_text,"
-								+ mSource.getFieldValue() + " as field_value ",
-						"",
-						" instr(:field_list,concat(" + mSource.getFieldValue()
-								+ ",','))>0  ",
-						new MDataMap("field_list", StringUtils.join(listSqlSub,
-								",")));
-
-				MDataMap mKeyMap = new MDataMap();
-				for (MDataMap mMap : listResultDataMaps) {
-					mKeyMap.put(mMap.get("field_value"), mMap.get("field_text"));
-				}
-
-				for (int n = 0, m = listData.size(); n < m; n++) {
-
-					String sNowString = listData.get(n).get(i);
-					if (mKeyMap.containsKey(sNowString)) {
-						sNowString = mKeyMap.get(sNowString);
+					// 判断如果是组件则重新输出文字
+					if (mField.getFieldTypeAid().equals("104005003")) {
+						listEach.add(WebUp.upComponent(mField.getSourceCode())
+								.upListText(mField, mData));
 					} else {
-						sNowString = "";
+						listEach.add(mData.get(mField.getColumnName()));
 					}
 
-					listData.get(n).set(i, sNowString);
 				}
 
+				// 判断是否是加载附加按钮列
+				if (StringUtils.isNotEmpty(sOperateArea)) {
+					for (MWebOperate mWebOperate : listOperates) {
+						listEach.add(reloadOperateText(mWebOperate, mData));
+					}
+				}
+
+				listData.add(listEach);
+
+			}
+		}
+
+		/********** 根据规则重新处理数据 ********************************/
+		{
+			// 重新加载输出字段 判断加载替换显示等操作
+			for (int i = 0, j = listFields.size(); i < j; i++) {
+				if (listFields.get(i).getFieldTypeAid().equals("104005019")) {
+					MWebSource mSource = WebUp.upSource(listFields.get(i)
+							.getSourceCode());
+
+					List<String> listSqlSub = new ArrayList<String>();
+
+					for (List<String> listSub : listData) {
+						listSqlSub.add("" + listSub.get(i) + "");
+					}
+
+					List<MDataMap> listResultDataMaps = DbUp.upTable(
+							mSource.getSourceFrom()).queryAll(
+							mSource.getFieldText() + " as field_text,"
+									+ mSource.getFieldValue()
+									+ " as field_value ",
+							"",
+							" instr(:field_list,concat("
+									+ mSource.getFieldValue() + ",','))>0  ",
+							new MDataMap("field_list", StringUtils.join(
+									listSqlSub, ",")));
+
+					MDataMap mKeyMap = new MDataMap();
+					for (MDataMap mMap : listResultDataMaps) {
+						mKeyMap.put(mMap.get("field_value"),
+								mMap.get("field_text"));
+					}
+
+					for (int n = 0, m = listData.size(); n < m; n++) {
+
+						String sNowString = listData.get(n).get(i);
+						if (mKeyMap.containsKey(sNowString)) {
+							sNowString = mKeyMap.get(sNowString);
+						} else {
+							sNowString = "";
+						}
+
+						listData.get(n).set(i, sNowString);
+					}
+
+				}
 			}
 		}
 
@@ -302,7 +337,7 @@ public class RootExec extends BaseClass {
 
 		// 如果是链接 则输出链接
 		if (mWebOperate.getOperateTypeAid().equals("116015012")) {
-			
+
 			sReturn = WebHelper.checkUrl(FormatHelper.formatString(
 					bConfig("zapweb.html_linkblank"), sReturn,
 					mWebOperate.getOperateName()));
