@@ -347,7 +347,7 @@ public class RootExec extends BaseClass {
 		else if (mWebOperate.getOperateTypeAid().equals("116015008")) {
 
 			sReturn = WebHelper.checkUrl(FormatHelper.formatString(
-					bConfig("zapweb.html_linkblank"), sReturn,
+					bConfig("zapweb.html_linkbhref"), sReturn,
 					mWebOperate.getOperateName()));
 
 		}
