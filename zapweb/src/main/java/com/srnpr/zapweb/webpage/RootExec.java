@@ -343,6 +343,14 @@ public class RootExec extends BaseClass {
 					mWebOperate.getOperateName()));
 
 		}
+		// 如果是链接 则输出链接
+		else if (mWebOperate.getOperateTypeAid().equals("116015008")) {
+
+			sReturn = WebHelper.checkUrl(FormatHelper.formatString(
+					bConfig("zapweb.html_linkblank"), sReturn,
+					mWebOperate.getOperateName()));
+
+		}
 
 		return sReturn;
 	}

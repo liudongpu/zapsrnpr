@@ -45,31 +45,6 @@ and zwv.view_code=p_view_code;
 
 
 
-#chart
-INSERT INTO `zapdata`.`zw_page`
-(
-`uid`,
-`page_code`,
-`page_name`,
-`page_template`,
-`view_code`,
-`page_type_aid`,
-`view_type_aid`,
-`page_group`,
-`project_aid`)
-select replace(uuid(),'-','') as uid
-,concat('page_chart_',zwv.view_code) as page_code
-,concat(zwv.view_name,'-列表') as page_name
-,'../zappage/chart' as page_template
-,zwv.view_code as view_code
-,116016003 as page_type_aid
-,116022003 as view_type_aid
-,concat('grouppage_',zwv.view_code) as page_code
-,project_aid
-from zw_view zwv
-where 
-(select count(1) from zapdata.zw_page where page_code=concat('page_chart_',zwv.view_code))=0
-and zwv.view_code=p_view_code;
 
 #add
 INSERT INTO `zapdata`.`zw_page`
@@ -84,44 +59,22 @@ INSERT INTO `zapdata`.`zw_page`
 `page_group`,
 `project_aid`)
 select replace(uuid(),'-','') as uid
-,concat('page_add_',zwv.view_code) as page_code
-,concat(zwv.view_name,'-新增') as page_name
-,'../zappage/add' as page_template
+,concat(zwd.define_two,zwv.view_code) as page_code
+,concat(zwv.view_name,zwd.define_one) as page_name
+,zwd.define_three as page_template
 ,zwv.view_code as view_code
-,116016001 as page_type_aid
-,116022001 as view_type_aid
+,zwd.define_four as page_type_aid
+,zwd.define_five as view_type_aid
 ,concat('grouppage_',zwv.view_code) as page_code
 ,project_aid
 from zw_view zwv
-where 
-(select count(1) from zapdata.zw_page where page_code=concat('page_add_',zwv.view_code))=0
-and zwv.view_code=p_view_code;
+join zw_define zwd
+on zwd.define_dids in('469916161601','469916161603','469916161605')
+where
 
-#edit
-INSERT INTO `zapdata`.`zw_page`
-(
-`uid`,
-`page_code`,
-`page_name`,
-`page_template`,
-`view_code`,
-`page_type_aid`,
-`view_type_aid`,
-`page_group`,
-`project_aid`)
-select replace(uuid(),'-','') as uid
-,concat('page_edit_',zwv.view_code) as page_code
-,concat(zwv.view_name,'-修改') as page_name
-,'../zappage/edit' as page_template
-,zwv.view_code as view_code
-,116016005 as page_type_aid
-,116022005 as view_type_aid
-,concat('grouppage_',zwv.view_code) as page_code
-,project_aid
-from zw_view zwv
-where 
-(select count(1) from zapdata.zw_page where page_code=concat('page_edit_',zwv.view_code))=0
-and zwv.view_code=p_view_code;
+(select count(1) from zapdata.zw_page where page_code=concat(zwd.define_two,zwv.view_code))=0 and  
+zwv.view_code=p_view_code;
+
 
 
 
@@ -136,146 +89,33 @@ INSERT INTO zw_operate
 `operate_link`,
 `flag_enable`,
 `operate_func`,
-`area_type_aid`)
+`area_type_aid`,
+`init_type_did`)
 select
 replace(uuid(),'-','') as uid
-,'添加' as operate_name
-,116015012 as operate_type_aid
+,zwd.define_note as operate_name
+,zwd.define_one as operate_type_aid
 ,zwp.page_code as page_code
-,(select page_code from zw_page where page_type_aid=116016001 and view_code=zwp.view_code) as operate_link
-,'1' as flag_enable
-,'' as operate_func
-,116001020 as area_type_aid
-from zw_page zwp
-where 
-(select count(1) from zw_operate where  concat(operate_name,page_code)=concat('添加',zwp.page_code))=0
-and zwp.page_type_aid=116016003 and  zwp.view_code=p_view_code;
-
-INSERT INTO zw_operate
-(
-`uid`,
-`operate_name`,
-`operate_type_aid`,
-`page_code`,
-`operate_link`,
-`flag_enable`,
-`operate_func`,
-`area_type_aid`)
-select
-replace(uuid(),'-','') as uid
-,'修改' as operate_name
-,116015012 as operate_type_aid
-,zwp.page_code as page_code
-,(select page_code from zw_page where page_type_aid=116016003 and view_code=zwp.view_code) as operate_link
+,
+	(case zwd.define_dids 
+	when 469916151601 then (select page_code from zw_page where page_type_aid=116016001 and view_code=zwp.view_code) 
+	when 469916151605 then concat((select page_code from zw_page where page_type_aid=116016005 and view_code=zwp.view_code),'?zw_f_uid=[@this$uid]')
+	else zwd.define_five end)
+ as operate_link
 ,'0' as flag_enable
-,'' as operate_func
-,116001003 as area_type_aid
-from zw_page zwp
-where 
-(select count(1) from zw_operate where  concat(operate_name,page_code)=concat('修改',zwp.page_code))=0
-and zwp.page_type_aid=116016003 and  zwp.view_code=p_view_code;
+,zwd.define_four as operate_func
+,zwd.define_three as area_type_aid
+,zwd.define_dids as init_type_did
 
+from zw_page zwp 
+ join zw_define zwd
+on zwp.page_type_aid=zwd.define_two
 
-INSERT INTO zw_operate
-(
-`uid`,
-`operate_name`,
-`operate_type_aid`,
-`page_code`,
-`operate_link`,
-`flag_enable`,
-`operate_func`,
-`area_type_aid`)
-select
-replace(uuid(),'-','') as uid
-,'删除' as operate_name
-,116015010 as operate_type_aid
-,zwp.page_code as page_code
-,'zapjs.zw.func_delete(this)' as operate_link
-,'0' as flag_enable
-,'com.srnpr.zapweb.webfunc.FuncDelete' as operate_func
-,116001003 as area_type_aid
-from zw_page zwp
-where 
-(select count(1) from zw_operate where  concat(operate_name,page_code)=concat('删除',zwp.page_code))=0
-and zwp.page_type_aid=116016003 and  zwp.view_code=p_view_code;
+where
 
+(select count(1) from zw_operate zwo where concat(zwo.init_type_did,zwo.page_code)=concat(zwd.define_dids,zwp.page_code))=0 
+and zwp.view_code=p_view_code;
 
-INSERT INTO zw_operate
-(
-`uid`,
-`operate_name`,
-`operate_type_aid`,
-`page_code`,
-`operate_link`,
-`flag_enable`,
-`operate_func`,
-`area_type_aid`)
-select
-replace(uuid(),'-','') as uid
-,'查询' as operate_name
-,116015010 as operate_type_aid
-,zwp.page_code as page_code
-,'zapjs.zw.func_inquire(this)' as operate_link
-,'0' as flag_enable
-,'' as operate_func
-,116001009 as area_type_aid
-from zw_page zwp
-where 
-(select count(1) from zw_operate where  concat(operate_name,page_code)=concat('查询',zwp.page_code))=0
-and zwp.page_type_aid=116016003 and  zwp.view_code=p_view_code;
-
-
-
-
-INSERT INTO zw_operate
-(
-`uid`,
-`operate_name`,
-`operate_type_aid`,
-`page_code`,
-`operate_link`,
-`flag_enable`,
-`operate_func`,
-`area_type_aid`)
-select
-replace(uuid(),'-','') as uid
-,'提交新增' as operate_name
-,116015010 as operate_type_aid
-,zwp.page_code as page_code
-,'zapjs.zw.func_add(this)' as operate_link
-,'0' as flag_enable
-,'com.srnpr.zapweb.webfunc.FuncAdd' as operate_func
-,116001016 as area_type_aid
-from zw_page zwp
-where 
-(select count(1) from zw_operate where  concat(operate_name,page_code)=concat('提交新增',zwp.page_code))=0
-and zwp.page_type_aid=116016001 and  zwp.view_code=p_view_code;
-
-
-INSERT INTO zw_operate
-(
-`uid`,
-`operate_name`,
-`operate_type_aid`,
-`page_code`,
-`operate_link`,
-`flag_enable`,
-`operate_func`,
-`area_type_aid`)
-select
-replace(uuid(),'-','') as uid
-,'提交修改' as operate_name
-,116015010 as operate_type_aid
-,zwp.page_code as page_code
-,'zapjs.zw.func_edit(this)' as operate_link
-,'0' as flag_enable
-,'com.srnpr.zapweb.webfunc.FuncEdit' as operate_func
-,116001016 as area_type_aid
-from zw_page zwp
-where 
-(select count(1) from zw_operate where  concat(operate_name,page_code)=concat('提交修改',zwp.page_code))=0
-and zwp.page_type_aid=116016005 and  zwp.view_code=p_view_code;
 
 
 
