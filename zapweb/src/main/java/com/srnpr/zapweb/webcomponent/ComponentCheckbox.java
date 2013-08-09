@@ -104,6 +104,21 @@ public class ComponentCheckbox extends RootComponent {
 		String sHtmlCheckbox = bConfig("zapweb.html_checkbox");
 
 		int iStep = 0;
+		String sValueString = "";
+
+		MDataMap mExitDataMap = new MDataMap();
+
+		if (mDataMap.containsKey(componentMap.get("component_key_field"))) {
+			for (MDataMap mIn : DbUp.upTable(
+					componentMap.get("component_in_table")).queryByWhere(
+					componentMap.get("component_in_field_Key"),
+					mDataMap.get(componentMap.get("component_key_field")))) {
+				mExitDataMap.put(
+						mIn.get(componentMap.get("component_in_field_value")),
+						mIn.get(componentMap.get("component_in_field_Key")));
+			}
+
+		}
 
 		for (MDataMap mShow : DbUp.upTable(
 				componentMap.get("component_show_table")).queryByWhere()) {
@@ -115,7 +130,7 @@ public class ComponentCheckbox extends RootComponent {
 					upFieldName(mField.getColumnName()),
 					mShow.get(componentMap.get("component_show_field_value")),
 					mShow.get(componentMap.get("component_show_field_text")),
-					""));
+					mExitDataMap.containsKey(mShow.get(componentMap.get("component_show_field_value")))?" checked=\"checked\" ":""));
 
 			iStep++;
 
@@ -132,7 +147,7 @@ public class ComponentCheckbox extends RootComponent {
 	 * .MWebField, com.srnpr.zapcom.basemodel.MDataMap)
 	 */
 	public String upEditText(MWebField mWebField, MDataMap mDataMap) {
-		return null;
+		return upShowText(mWebField, mDataMap);
 	}
 
 	/**

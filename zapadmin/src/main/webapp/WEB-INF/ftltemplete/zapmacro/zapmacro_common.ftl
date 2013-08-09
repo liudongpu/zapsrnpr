@@ -171,7 +171,7 @@ ${e_page.upReplaceUrl("",["zapweb_pagination_count="+(e_pagedata.getPageCount())
 	<div class="control-group">
 	    	<label class="control-label">${e_field.getFieldNote()}</label>
 	    	<div class="controls">
-	      		${e_field.getPageFieldValue()}
+	      		${e_field.getPageFieldValue()?default("")}
 	    	</div>
 	  </div>
 </#macro>
