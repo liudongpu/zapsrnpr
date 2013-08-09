@@ -183,6 +183,9 @@ public class ControlPage {
 		else if(sType.equals("126022001"))
 		{
 			sReturn=sParams[0]+WebConst.CONST_WEB_FIELD_AFTER+sParams[1];
+		}else if(sType.equals("126022016"))
+		{
+			sReturn=WebConst.CONST_WEB_PAGINATION_NAME+sParams[0];
 		}
 		
 		return sReturn;

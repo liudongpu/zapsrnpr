@@ -91,12 +91,13 @@
     
     
   </ul>
+	共${e_pagedata.getPageCount()}条
 </div>
 
 </#macro>
 
 <#macro m_zapmacro_common_page_pagination_href  e_page  e_pagedata  e_pageindex>
-${e_page.upReplaceUrl("",["zapweb_pagination_count="+(e_pagedata.getPageCount()),"zapweb_pagination_index="+(e_pageindex)])}
+${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.getPageCount()),(e_page.upConst("126022016","index="))+(e_pageindex)])}
 </#macro>
 
 
