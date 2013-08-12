@@ -37,5 +37,17 @@ public abstract class TopTest extends BaseClass {
 			
 		}
 	}
+	
+	
+	/**
+	 * 输出日志  该类仅用于测试调用  无其他用途
+	 * @param oParams
+	 */
+	public void bTest(Object... oParams)
+	{
+		bLogInfo(0, oParams);
+	}
+	
+	
 
 }

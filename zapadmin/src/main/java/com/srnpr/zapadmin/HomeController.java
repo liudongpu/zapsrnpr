@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.srnpr.cardcenter.webprocess.WebMethod;
 import com.srnpr.zapcom.basehelper.JsonHelper;
 import com.srnpr.zapweb.webexport.ExportChart;
 import com.srnpr.zapweb.webmodel.MWebResult;
@@ -29,13 +30,15 @@ import com.srnpr.zapweb.webpage.PageProcess;
 public class HomeController {
 
 	private static final PageProcess page_Process = new PageProcess();
+	private static final WebMethod web_method=new WebMethod();
 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-
+		
+		model.addAttribute("b_method",web_method);
 		return "home";
 	}
 
@@ -47,6 +50,8 @@ public class HomeController {
 
 		model.addAttribute("b_page", page_Process.process(sUrl, request));
 
+		model.addAttribute("b_method",web_method);
+		
 		return "page/default";
 	}
 

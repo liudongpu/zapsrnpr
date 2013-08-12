@@ -38,6 +38,7 @@ zapjs.zw = {
 	},
 
 	func_export : function() {
+	
 		zapjs.f.tourl(zapjs.f.upurl().replace("/page/","/export/"));
 	},
 

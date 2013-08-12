@@ -91,7 +91,7 @@
     
     
   </ul>
-	共${e_pagedata.getPageCount()}条
+	<span class="pagination_label">共${e_pagedata.getPageCount()}条</span>
 </div>
 
 </#macro>
