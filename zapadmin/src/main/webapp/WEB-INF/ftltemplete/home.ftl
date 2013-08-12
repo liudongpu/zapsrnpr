@@ -3,7 +3,7 @@
 <head>
 <#include "zapmacro/zapmacro_common.ftl" />
 <#include "macro/macro_common.ftl" />
-<@m_common_html_js ["resources/lib/jquery/jquery-last.min.js","resources/lib/bootstrap/js/bootstrap.min.js","resources/zapjs/zapjs.js","resources/zapadmin/js/zapadmin.js"]/>
+<@m_common_html_js ["resources/lib/jquery/jquery-last.min.js","resources/lib/bootstrap/js/bootstrap.min.js","resources/zapjs/zapjs.js","resources/zapjs/zapjs.zw.js","resources/zapadmin/js/zapadmin.js"]/>
 <@m_common_html_css ["resources/lib/bootstrap/css/bootstrap.min.css","resources/zapadmin/css/zab_base.css","resources/zapweb/css/w.css"] />
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -28,6 +28,7 @@
           <a class="brand" href="">超级管理后台</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
+            <a href="javascript:zapjs.zw.func_do('f99848c8f8c011e29b7a000c298b20x')">刷新缓存</a>
               Logged in as <a href="#" class="navbar-link">Username</a>
             </p>
             <ul class="nav">

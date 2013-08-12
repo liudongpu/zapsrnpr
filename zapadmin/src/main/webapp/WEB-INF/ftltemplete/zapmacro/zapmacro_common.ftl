@@ -229,7 +229,7 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 	    	<div class="controls">
 	      		<select name="${e_field.getPageFieldName()}" id="${e_field.getPageFieldName()}">
 	      			<#list e_page.upDataSource(e_field) as e_key>
-						<option value="${e_key.getV()}">${e_key.getK()}</option>
+						<option value="${e_key.getV()}" <#if  e_field.getPageFieldValue()==e_key.getV()> selected="selected" </#if>>${e_key.getK()}</option>
 					</#list>
 	      		</select>
 	    	</div>

@@ -282,7 +282,7 @@ public class RootExec extends BaseClass {
 							" instr(:field_list,concat("
 									+ mSource.getFieldValue() + ",','))>0  ",
 							new MDataMap("field_list", StringUtils.join(
-									listSqlSub, ",")));
+									listSqlSub, ",")+","));
 
 					MDataMap mKeyMap = new MDataMap();
 					for (MDataMap mMap : listResultDataMaps) {

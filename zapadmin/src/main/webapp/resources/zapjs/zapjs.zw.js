@@ -9,18 +9,31 @@ zapjs.zw = {
 		top.zapjs.f.modal(oSet);
 	},
 
+	// 添加函数调用
 	func_add : function(oElm) {
-		zapjs.f.ajaxsubmit($(oElm).parents("form"), "../func/"
-				+ $(oElm).attr('zapweb_attr_operate_id'),
-				zapjs.zw.func_success, zapjs.zw.func_error);
+		zapjs.zw.func_call(oElm);
 	},
-	
+
+	// 修改函数调用
 	func_edit : function(oElm) {
+
+		zapjs.zw.func_call(oElm);
+
+	},
+
+	// 提交操作
+	func_call : function(oElm) {
 		zapjs.f.ajaxsubmit($(oElm).parents("form"), "../func/"
 				+ $(oElm).attr('zapweb_attr_operate_id'),
 				zapjs.zw.func_success, zapjs.zw.func_error);
 	},
-	
+
+	func_do : function(sOperate) {
+		$.getJSON("func/" + sOperate, function(data) {
+			zapjs.zw.func_success(data);
+		});
+	},
+
 	func_success : function(o) {
 
 		switch (o.resultType) {
@@ -38,8 +51,8 @@ zapjs.zw = {
 	},
 
 	func_export : function() {
-	
-		zapjs.f.tourl(zapjs.f.upurl().replace("/page/","/export/"));
+
+		zapjs.f.tourl(zapjs.f.upurl().replace("/page/", "/export/"));
 	},
 
 	func_error : function(o) {
