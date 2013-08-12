@@ -55,7 +55,7 @@ zapjs.zw = {
 	url_inquire : function(sQueryString) {
 		var sSplit = sQueryString.split('&');
 
-		var sUrl = zapjs.f.upurl().split('?')[0];
+		var sUrl = zapjs.f.upurl();
 
 		for ( var i = 0, j = sSplit.length; i < j; i++) {
 			var sEq = sSplit[i].split('=');

@@ -1,0 +1,16 @@
+/*通用定义样式*/
+.w_display {
+	display: none;
+}
+
+.w_clear {
+	clear: both;
+}
+
+.w_h_40 {
+	height: 40px;
+}
+
+.w_h_20 {
+	height: 20px;
+}

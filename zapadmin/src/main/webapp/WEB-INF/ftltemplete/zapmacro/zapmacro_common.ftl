@@ -23,8 +23,12 @@
 	<div class="zab_page_common_inquire">
 	<@m_zapmacro_common_page_inquire e_page />
 	</div>
-	<@m_zapmacro_common_table e_page.upChartData() />
-	<@m_zapmacro_common_page_pagination e_page  e_page.upChartData() />
+	<hr/>
+	
+	<#local e_pagedata=e_page.upChartData()>
+	
+	<@m_zapmacro_common_table e_pagedata />
+	<@m_zapmacro_common_page_pagination e_page  e_pagedata />
 </#macro>
 
 <#-- 查询区域 -->
@@ -43,7 +47,8 @@
 	
 		<#if e.getQueryTypeAid()=="104009002">
 			<@m_zapmacro_common_field_between e  e_page/>
-		
+		<#elseif e.getQueryTypeAid()=="104009001">
+			<#-- url专用  不显示 -->
 	  	<#elseif e.getFieldTypeAid()=="104005008">
 	  		
 	  	<#elseif  e.getFieldTypeAid()=="104005019">
@@ -64,6 +69,8 @@
 <#macro m_zapmacro_common_page_pagination e_page  e_pagedata>
 
 <div class="pagination">
+
+	<#if (e_pagedata.getPageSize()>0)>
   <ul>
 	<#if (e_pagedata.getPageIndex()>1)>
 		<li><a href="<@m_zapmacro_common_page_pagination_href  e_page  e_pagedata   e_pagedata.getPageIndex()-1/>">上一页</a></li>
@@ -88,9 +95,10 @@
 	<#else>
 		<li class="disabled"><a>下一页</a></li>
 	</#if>
-    
-    
   </ul>
+  </#if>
+  
+  
 	<span class="pagination_label">共${e_pagedata.getPageCount()}条</span>
 </div>
 
@@ -105,7 +113,7 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 <#-- 列表的自动输出 -->
 <#macro m_zapmacro_common_table e_pagedata>
 
-<table  class="table">
+<table  class="table  table-condensed table-striped table-bordered table-hover">
 	<thead>
 	    <tr>
 	        <#list e_pagedata.getPageHead() as e_list>

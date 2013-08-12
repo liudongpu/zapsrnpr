@@ -55,6 +55,13 @@ public class RootExec extends BaseClass {
 				mReturnData.setPageIndex(Integer.valueOf(mPaginationMap
 						.get("index")));
 			}
+			
+			if (mPaginationMap.containsKey("size")) {
+				mReturnData.setPageSize(Integer.valueOf(mPaginationMap
+						.get("size")));
+			}
+			
+			
 		}
 
 		// 数据
