@@ -8,6 +8,13 @@
 
 <@m_common_html_css ["../resources/lib/bootstrap/css/bootstrap.min.css","../resources/zapadmin/css/zab_base.css","../resources/zapweb/css/w.css"] />
 <@m_common_html_js ["../resources/zapjs/zapjs.js","../resources/zapjs/zapjs.zw.js"]/>
+
+<!--[if lte IE 6]> 
+<@m_common_html_css ["../resources/lib/bootstrap/css/bootstrap.min.css"] />
+<![endif]-->
+
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>zapadmin</title>
 </head>

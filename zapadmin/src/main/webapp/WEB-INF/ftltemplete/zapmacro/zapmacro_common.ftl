@@ -286,11 +286,9 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 			<#list e_list_operates as e>
     			<#if e.getAreaTypeAid()==e_area_type>
     		
-	    			<#if e.getOperateTypeAid()=="116015010">
-	    				<@m_zapmacro_common_operate_button e  e_style_css/>
-	    			<#else>
-	    				<@m_zapmacro_common_operate_link e  e_style_css/>
-	    			</#if>
+	    			<a class="${e_style_css}" zapweb_attr_operate_id="${e.getOperateUid()}"  href="<#if e.getOperateTypeAid()=="116015010">javascript:</#if>${e.getOperateLink()}" >
+    	
+    		${e.getOperateName()}</a>
     		
     			</#if>
     		</#list>
