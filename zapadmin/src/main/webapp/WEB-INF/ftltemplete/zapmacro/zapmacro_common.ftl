@@ -21,7 +21,7 @@
 <#macro m_zapmacro_common_page_chart e_page>
 
 	<div class="zw_page_common_inquire">
-	<@m_zapmacro_common_page_inquire e_page />
+		<@m_zapmacro_common_page_inquire e_page />
 	</div>
 	<hr/>
 	
@@ -51,10 +51,9 @@
 			<@m_zapmacro_common_field_between e  e_page/>
 		<#elseif e.getQueryTypeAid()=="104009001">
 			<#-- url专用  不显示 -->
-	  	<#elseif e.getFieldTypeAid()=="104005008">
-	  		
+
 	  	<#elseif  e.getFieldTypeAid()=="104005019">
-	  		
+	  		<@m_zapmacro_common_field_select  e  e_page "请选择"/>
 	  	<#else>
 	  		<@m_zapmacro_common_auto_field e e_page/>
 	  		
@@ -162,7 +161,7 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 	  	<#elseif  e_field.getFieldTypeAid()=="104005004">
 	  		<@m_zapmacro_common_field_date  e_field />
 	  	<#elseif  e_field.getFieldTypeAid()=="104005019">
-	  		<@m_zapmacro_common_field_select  e_field  e_page/>
+	  		<@m_zapmacro_common_field_select  e_field  e_page ""/>
 	  	<#elseif  e_field.getFieldTypeAid()=="104005020">
 	  		<@m_zapmacro_common_field_textarea  e_field />
 	  	<#else>
@@ -224,13 +223,17 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 
 
 
-<#-- 字段：下拉框 -->
-<#macro m_zapmacro_common_field_select e_field  e_page>
+<#-- 字段：下拉框            e_text_select:是否显示请选择       -->
+<#macro m_zapmacro_common_field_select   e_field    e_page    e_text_select="">
 	<div class="control-group">
 	    	<label class="control-label" for="${e_field.getPageFieldName()}">${e_field.getFieldNote()}</label>
 	    	<div class="controls">
 	      		<select name="${e_field.getPageFieldName()}" id="${e_field.getPageFieldName()}">
+	      			<#if e_text_select!="">
+	      					<option value="">${e_text_select}</option>
+	      				</#if>
 	      			<#list e_page.upDataSource(e_field) as e_key>
+
 						<option value="${e_key.getV()}" <#if  e_field.getPageFieldValue()==e_key.getV()> selected="selected" </#if>>${e_key.getK()}</option>
 					</#list>
 	      		</select>

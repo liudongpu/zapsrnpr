@@ -72,12 +72,14 @@ zapjs.zw = {
 
 		for ( var i = 0, j = sSplit.length; i < j; i++) {
 			var sEq = sSplit[i].split('=');
-			if (sEq[1] != "") {
+			if (sEq[1] != ""||sUrl.indexOf(sEq[0])>-1) {
 				sUrl = zapjs.f.urlreplace(sUrl, sEq[0], sEq[1]);
 			}
 
 		}
-
+		
+		sUrl=zapjs.f.urlreplace(sUrl, zapjs.c.web_paginaion+'index','');
+		sUrl=zapjs.f.urlreplace(sUrl, zapjs.c.web_paginaion+'count','');
 		return sUrl;
 
 	}

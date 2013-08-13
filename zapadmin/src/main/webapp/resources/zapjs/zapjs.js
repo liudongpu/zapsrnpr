@@ -11,7 +11,11 @@ zapjs.fn = zapjs.prototype = {};
 window.zapjs = zapjs;
 
 // 配置
-zapjs.c = {};
+zapjs.c = {
+		
+		web_paginaion:'zw_p_'
+		
+};
 
 /*
  * f
@@ -59,8 +63,8 @@ zapjs.f = {
 	modal : function(options) {
 
 		var defaults = {
-			title:'提示消息',
-			content:'',
+			title : '提示消息',
+			content : '',
 			flagbutton : true,
 			oktext : '确认',
 			canceltext : '取消',
@@ -75,7 +79,6 @@ zapjs.f = {
 					+ s.title
 					+ '</h3></div><div class="modal-body">'
 					+ '<p>'
-					+ s.content
 					+ '</p>'
 					+ '</div>'
 					+ '<div class="modal-footer">' + '</div></div>';
@@ -95,8 +98,9 @@ zapjs.f = {
 
 			}
 
-			aFuncHtml.push('<a  class="btn btn-primary" data-dismiss="modal" onclick="'
-					+ s.cancelfunc + '" aria-hidden="true">关闭</a>');
+			aFuncHtml
+					.push('<a  class="btn btn-primary" data-dismiss="modal" onclick="'
+							+ s.cancelfunc + '" aria-hidden="true">关闭</a>');
 
 			$('#zapjs_f_id_modal_box .modal-footer').html(aFuncHtml.join(''));
 
@@ -106,7 +110,7 @@ zapjs.f = {
 
 	},
 
-	// url替换 如果没有的话会自动添加
+	// url替换 如果没有的话会自动添加 如果值为空则自动删除
 	urlreplace : function(sUrl, sKey, sValue) {
 		if (sUrl == "") {
 			sUrl = zapjs.f.upurl();
@@ -116,7 +120,7 @@ zapjs.f = {
 		}
 
 		var sParams = sUrl.split('?')[1].split('&');
-		var bFlagCon = false;
+		var bFlagCon = -1;
 
 		var sAddStr = sKey + "=" + sValue;
 
@@ -124,14 +128,16 @@ zapjs.f = {
 
 			var sKv = sParams[i].split("=");
 			if (sKv[0] == sKey) {
-				bFlagCon = true;
+				bFlagCon = i;
 				sParams[i] = sAddStr;
 				break;
 			}
 		}
 
-		if (!bFlagCon) {
+		if (bFlagCon == -1 && sValue != "") {
 			sParams.push(sAddStr);
+		} else if (bFlagCon > -1 && sValue == "") {
+			sParams.splice(bFlagCon,1);
 		}
 
 		return sUrl.split('?')[0] + "?" + sParams.join("&");
