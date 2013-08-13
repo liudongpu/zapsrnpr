@@ -275,31 +275,51 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 <#macro m_zapmacro_common_auto_operate     e_list_operates  e_area_type>
 	<div class="control-group">
     	<div class="controls">
-    		<#list e_list_operates as e>
-    			<#if e.getAreaTypeAid()==e_area_type>
-    		
-	    			<#if e.getOperateTypeAid()=="116015010">
-	    				<@m_zapmacro_common_operate_button e/>
-	    			<#else>
-	    				<@m_zapmacro_common_operate_link e/>
-	    			</#if>
-    		
-    			</#if>
-    		</#list>
+    		<@m_zapmacro_common_show_operate e_list_operates  e_area_type "btn  btn-success" />
     	</div>
 	</div>
 </#macro>
 
+<#-- 按钮显示 -->
+<#macro m_zapmacro_common_show_operate     e_list_operates  e_area_type  e_style_css >
+
+			<#list e_list_operates as e>
+    			<#if e.getAreaTypeAid()==e_area_type>
+    		
+	    			<#if e.getOperateTypeAid()=="116015010">
+	    				<@m_zapmacro_common_operate_button e  e_style_css/>
+	    			<#else>
+	    				<@m_zapmacro_common_operate_link e  e_style_css/>
+	    			</#if>
+    		
+    			</#if>
+    		</#list>
+
+</#macro>
+
+
+<#-- 工具栏按钮 -->
+<#macro m_zapmacro_common_set_operate     e_list_operates  e_area_type  e_style_css >
+			<#list e_list_operates as e>
+    			<#if e.getAreaTypeAid()==e_area_type>
+
+    		<a class="${e_style_css}" zapweb_attr_operate_id="${e.getOperateUid()}"  href="<#if e.getOperateTypeAid()=="116015010">javascript:</#if>${e.getOperateLink()}" >
+    		<#if e.getOperateName()=="添加"><i class="icon-pencil"></i></#if>
+    		${e.getOperateName()}</a>&nbsp;&nbsp;
+    			</#if>
+    		</#list>
+</#macro>
+
 
 <#-- 页面按钮 -->
-<#macro m_zapmacro_common_operate_button  e_operate>
+<#macro m_zapmacro_common_operate_button  e_operate  e_style_css>
 	
-	<input type="button" class="btn btn-success" zapweb_attr_operate_id="${e_operate.getOperateUid()}"  onclick="${e_operate.getOperateLink()}"  value="${e_operate.getOperateName()}" />
+	<input type="button" class="${e_style_css}" zapweb_attr_operate_id="${e_operate.getOperateUid()}"  onclick="${e_operate.getOperateLink()}"  value="${e_operate.getOperateName()}" />
 </#macro>
 
 <#-- 页面按钮 -->
-<#macro m_zapmacro_common_operate_link  e_operate>
-	<a class="btn btn-success" href="${e_operate.getOperateLink()}" >${e_operate.getOperateName()}</a>
+<#macro m_zapmacro_common_operate_link  e_operate  e_style_css>
+	<a class="${e_style_css}" href="${e_operate.getOperateLink()}" >${e_operate.getOperateName()}</a>
 </#macro>
 
 
