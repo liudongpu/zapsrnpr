@@ -39,9 +39,9 @@ var zapadmin = {
 	
 		if (this.temp.iframe_urls.length > 0) {
 			var sUrl=this.temp.iframe_urls[this.temp.iframe_urls.length-1];
-			
+			this.temp.iframe_urls.pop();
 			 document.getElementById(zapjs.c.main_iframe).contentWindow.document.location.href=sUrl;
-				this.temp.iframe_urls.pop();
+			
 		}
 
 	},

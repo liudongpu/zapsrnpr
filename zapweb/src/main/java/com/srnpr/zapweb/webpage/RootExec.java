@@ -263,6 +263,8 @@ public class RootExec extends BaseClass {
 		{
 			// 重新加载输出字段 判断加载替换显示等操作
 			for (int i = 0, j = listFields.size(); i < j; i++) {
+				
+				//如果是下拉框
 				if (listFields.get(i).getFieldTypeAid().equals("104005019")) {
 					MWebSource mSource = WebUp.upSource(listFields.get(i)
 							.getSourceCode());

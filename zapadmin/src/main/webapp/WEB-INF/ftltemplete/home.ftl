@@ -76,7 +76,7 @@
 						<#elseif el['menu_code']?length==20>
 						<li class="c_header">+&nbsp;${el["menu_name"]}</li> <#elseif
 						el['menu_code']?length==24>
-						<li><a  href="${el['menu_link']}" onclick="zapadmin.menu_click(this)" target="main_iframe">${el["menu_name"]}</a></li>
+						<li <#if el_index==2>class="c_active"</#if>><a  href="${el['menu_link']}" onclick="zapadmin.menu_click(this)" target="main_iframe">${el["menu_name"]}</a></li>
 						</#if> </#list>
 					</ul>
 				</div>
