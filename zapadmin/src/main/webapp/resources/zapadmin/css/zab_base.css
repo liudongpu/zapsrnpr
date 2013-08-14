@@ -2,6 +2,8 @@ body {
 	font-family: "Microsoft Yahei", Verdana, Simsun, "Segoe UI Light",
 		"Segoe UI Web Light", "Segoe UI Web Regular", "Segoe UI",
 		"Segoe UI Symbol", "HelveticaNeue-Light", "Helvetica Neue", Arial;
+		
+		font-size:12px;
 }
 
 .control-group {
@@ -38,27 +40,23 @@ body {
 	background-color: #008A17;
 	color: #fff;
 	height: 40px;
-	font-size:14px;
-}
-.zab_home_home_top .c_site
-{
-	width:190px;
-	text-indent:30px;
+	font-size: 14px;
 }
 
-.zab_home_home_top .c_nav li a
-{
-	display:inline-block;
-	padding:0px 15px 0px 15px;
-	
+.zab_home_home_top .c_site {
+	width: 190px;
+	text-indent: 30px;
+	font-size:16px;
 }
 
-.zab_home_home_top .c_nav li.c_active a
-{
-	background-color:#006a11;
+.zab_home_home_top .c_nav li a {
+	display: inline-block;
+	padding: 0px 15px 0px 15px;
 }
 
-
+.zab_home_home_top .c_nav li.c_active a {
+	background-color: #006a11;
+}
 
 .zab_home_home_top,.zab_home_home_top li {
 	line-height: 40px;
@@ -68,13 +66,10 @@ body {
 	color: #fff;
 }
 
-.zab_home_home_top .c_right
-{
-	margin-right:20px;
-	font-size:12px;
+.zab_home_home_top .c_right {
+	margin-right: 20px;
+	font-size: 12px;
 }
-
-
 
 .zab_home_home_left {
 	background-color: #F0F0F0;
@@ -87,10 +82,27 @@ body {
 
 .zab_home_home_left .c_title {
 	font-size: 24px;
-	text-indent: 20px;
+	text-indent: 10px;
 	color: #444;
 	height: 40px;
 	line-height: 40px;
+}
+
+.zab_home_home_left .c_box {
+	padding: 10px 10px 0px 10px;
+}
+
+.zab_home_home_left .c_box input {
+	width: 140px;
+}
+
+.zab_home_home_left .c_bottom {
+	position: absolute;
+	bottom: 0px;
+	height: 30px;
+	text-align: center;
+	color:#999;
+	width:100%;
 }
 
 .zab_home_home_left .w_ullist li {
@@ -111,7 +123,8 @@ body {
 	color: #444;
 }
 
-.zab_home_home_left .w_ullist li.c_active   a,.zab_home_home_left .w_ullist li.c_active   a:hover{
+.zab_home_home_left .w_ullist li.c_active   a,.zab_home_home_left .w_ullist li.c_active   a:hover
+	{
 	background-color: #cdcdcd;
 }
 
@@ -127,7 +140,6 @@ body {
 	bottom: 0px;
 	min-width: 500px;
 	min-height: 400px;
-	
 }
 
 .zab_home_home_main {
@@ -140,7 +152,7 @@ body {
 
 .zab_page_default_body {
 	width: 97%;
-	margin-left:2%;
+	margin-left: 2%;
 }
 
 .zw_page_common_data .pagination_label {

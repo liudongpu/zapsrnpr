@@ -61,7 +61,7 @@ zapjs.zw = {
 	func_inquire : function(oElm) {
 
 		var queryString = $(oElm).parents("form").formSerialize();
-
+	
 		zapjs.f.tourl(this.url_inquire(queryString));
 		// $(oElm).parents("form").submit();
 	},

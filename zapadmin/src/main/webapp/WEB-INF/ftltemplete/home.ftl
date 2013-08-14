@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="zab_home_home_html">
 <head>
 <#include "zapmacro/zapmacro_common.ftl" /> <#include
 "macro/macro_common.ftl" /> <@m_common_html_js
@@ -7,6 +7,11 @@
 <@m_common_html_css
 ["resources/lib/bootstrap/css/bootstrap.min.css","resources/zapadmin/css/zab_base.css","resources/zapweb/css/w.css"]
 />
+
+
+<!--[if lte IE 7]> 
+<@m_common_html_css ["resources/zapadmin/hack/zab_base_ie6.css"] />
+<![endif]-->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>zapadmin</title>
@@ -50,8 +55,14 @@
 		<div class="zab_home_home_main">
 
 			<div class=" zab_home_home_left ">
+			
+				<div class="c_box w_display">
+				<input type="text" placeholder="快捷码">
+				</div>
+			
 				<div>
-					<ul><#list home_menu as el > <#if el['menu_code']?length==16>
+					<ul>
+					<#list home_menu as el > <#if el['menu_code']?length==16>
 					</ul>
 				</div>
 				
@@ -69,7 +80,7 @@
 				</div>
 
 
-
+				<div class="c_bottom">CopyRight 2013</div>
 
 			</div>
 			<div class="zab_home_home_right">

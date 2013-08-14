@@ -1,0 +1,54 @@
+
+.zab_home_home_right 
+{
+	width:expression((document.body.clientWidth -180)+"px" );
+
+}
+
+.zab_home_home_main,.zab_home_home_left,.zab_home_home_right
+{
+	height:expression((document.body.clientHeight -40)+"px" );
+}
+
+.zab_page_default_body
+{
+	width:96%;
+}
+
+
+.zab_home_home_html
+{
+	overflow:hidden;
+}
+
+
+.pagination li
+{
+	float:left;
+}
+
+a.btn-link
+{
+	background-color:#fff;
+}
+
+input.btn
+{
+	width:100px;
+}
+
+
+
+.zw_page_common_data .pagination li a
+{
+	padding:0px 10px 0px 10px;
+}
+
+.zw_page_common_data .pagination li.active
+{
+	background-color:#fff ;
+}
+.pagination li.active a
+{
+	background-color:#ebebeb ;
+}
