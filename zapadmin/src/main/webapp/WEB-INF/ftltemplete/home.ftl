@@ -42,9 +42,11 @@
 
 
 			<div class="w_right c_right">
+			<a href="javascript:zapadmin.back_url()"><i class="icon-user  icon-white"></i></a>&nbsp;
+			
 				<a
-					href="javascript:zapjs.zw.func_do('f99848c8f8c011e29b7a000c298b20x')"><i class="icon-refresh  icon-white"></i></a>
-		管理员
+					href="javascript:zapjs.zw.func_do('f99848c8f8c011e29b7a000c298b20x')">
+		管理员</a>
 			</div>
 
 
@@ -85,7 +87,7 @@
 			</div>
 			<div class="zab_home_home_right">
 				<iframe src="page/page_chart_v_zw_view" id="main_iframe"
-					name="main_iframe" width="100%" height="100%" frameborder="0"
+					name="main_iframe" width="100%" height="100%" frameborder="0" onload="zapadmin.load_complate(this)"
 					 />
 			</div>
 		</div>

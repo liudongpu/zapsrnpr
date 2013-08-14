@@ -13,7 +13,8 @@ window.zapjs = zapjs;
 // 配置
 zapjs.c = {
 		
-		web_paginaion:'zw_p_'
+		web_paginaion:'zw_p_',
+		main_iframe:'main_iframe'
 		
 };
 
