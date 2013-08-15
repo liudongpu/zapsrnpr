@@ -15,11 +15,16 @@ public class FuncRefreshCache extends RootFunc {
 	 * @see com.srnpr.zapweb.webface.IWebFunc#funcDo(java.lang.String, com.srnpr.zapcom.basemodel.MDataMap)
 	 */
 	public MWebResult funcDo(String sOperateUid, MDataMap mDataMap) {
+		MWebResult mResult=new MWebResult();
+		
 		
 		
 		new InitZapweb().init();
 		
-		return new MWebResult();
+		
+		mResult.setResultMessage(bInfo(969909002));
+		
+		return mResult;
 	}
 
 }
