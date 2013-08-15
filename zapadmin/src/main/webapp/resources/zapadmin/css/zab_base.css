@@ -3,7 +3,7 @@ body {
 		"Segoe UI Web Light", "Segoe UI Web Regular", "Segoe UI",
 		"Segoe UI Symbol", "HelveticaNeue-Light", "Helvetica Neue", Arial;
 		
-		font-size:12px;
+		font-size:13px;
 }
 
 .control-group {
@@ -159,3 +159,27 @@ body {
 	float: right;
 	margin-right: 30px;
 }
+
+
+
+
+
+
+.zw_page_common_data table tr th
+{
+	text-align:center;
+	line-height:30px;
+	
+}
+
+.zw_page_common_data table tr td
+{
+	text-indent:3px;
+	line-height:25px;
+}
+
+
+
+
+
+
