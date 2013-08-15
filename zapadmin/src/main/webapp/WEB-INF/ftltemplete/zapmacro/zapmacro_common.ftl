@@ -303,7 +303,7 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 			<#list e_list_operates as e>
     			<#if e.getAreaTypeAid()==e_area_type>
 
-    		<a class="${e_style_css}" zapweb_attr_operate_id="${e.getOperateUid()}"  href="<#if e.getOperateTypeAid()=="116015010">javascript:</#if>${e.getOperateLink()}" >
+    		<a class="${e_style_css}" zapweb_attr_operate_id="${e.getOperateUid()}"  <#if e.getOperateTypeAid()=="116015010"> href="javascript:" onclick="${e.getOperateLink()}" <#else> href="${e.getOperateLink()}" </#if> >
     		<#if e.getOperateName()=="添加"><i class="icon-pencil"></i></#if>
     		${e.getOperateName()}</a>&nbsp;&nbsp;
     			</#if>

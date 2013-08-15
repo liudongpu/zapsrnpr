@@ -28,7 +28,13 @@ zapjs.zw = {
 				zapjs.zw.func_success, zapjs.zw.func_error);
 	},
 
-	func_do : function(sOperate) {
+	func_do : function(oElm,sOperate) {
+		
+		if(!sOperate)
+			{
+			sOperate= $(oElm).attr('zapweb_attr_operate_id');
+			}
+	
 		$.getJSON("../func/" + sOperate, function(data) {
 			zapjs.zw.func_success(data);
 		});

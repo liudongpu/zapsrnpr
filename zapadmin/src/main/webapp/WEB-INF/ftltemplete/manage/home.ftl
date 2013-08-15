@@ -38,7 +38,7 @@
 			<a href="javascript:zapadmin.back_url()"><i class="icon-user  icon-white"></i></a>&nbsp;
 			
 				<a
-					href="javascript:zapjs.zw.func_do('f99848c8f8c011e29b7a000c298b20x')">
+					href="javascript:zapjs.zw.func_do(this,'f99848c8f8c011e29b7a000c298b20x')">
 		管理员</a>
 			</div>
 
