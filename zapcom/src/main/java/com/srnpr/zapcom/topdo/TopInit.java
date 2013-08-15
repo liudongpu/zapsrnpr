@@ -11,13 +11,14 @@ import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.baseface.IBaseCache;
 import com.srnpr.zapcom.baseface.IBaseInit;
 import com.srnpr.zapcom.basemodel.MStringMap;
+import com.srnpr.zapcom.rootclass.RootInit;
 
 /**
  * 初始化类
  * 
  * @author srnpr
  */
-public class TopInit extends BaseClass implements IBaseInit {
+public class TopInit extends RootInit implements IBaseInit {
 
 	/*
 	 * (non-Javadoc)
@@ -50,14 +51,9 @@ public class TopInit extends BaseClass implements IBaseInit {
 	 */
 	private void initTop() {
 
-		TopConfig tConfig = new TopConfig();
-		tConfig.refresh();
-
-		TopInfo tInfo = new TopInfo();
-		tInfo.refresh();
-
-		ConfigMap configMap = new ConfigMap();
-		configMap.refresh();
+	
+		
+		topInitCache(new TopConfig(),new TopInfo(),new TopInfo());
 	}
 
 	private void initClass() {
