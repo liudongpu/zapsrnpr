@@ -29,7 +29,7 @@ zapjs.zw = {
 	},
 
 	func_do : function(sOperate) {
-		$.getJSON("func/" + sOperate, function(data) {
+		$.getJSON("../func/" + sOperate, function(data) {
 			zapjs.zw.func_success(data);
 		});
 	},

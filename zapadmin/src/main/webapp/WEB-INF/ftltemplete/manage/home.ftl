@@ -1,19 +1,12 @@
 <!DOCTYPE html>
 <html class="zab_home_home_html">
 <head>
-<#include "zapmacro/zapmacro_common.ftl" /> <#include
-"macro/macro_common.ftl" /> <@m_common_html_js
-["resources/lib/jquery/jquery-last.min.js","resources/lib/bootstrap/js/bootstrap.min.js","resources/zapjs/zapjs.js","resources/zapjs/zapjs.zw.js","resources/zapadmin/js/zapadmin.js"]/>
-<@m_common_html_css
-["resources/lib/bootstrap/css/bootstrap.min.css","resources/zapadmin/css/zab_base.css","resources/zapweb/css/w.css"]
-/>
+<#include "../zapmacro/zapmacro_common.ftl" /> <#include
+"../macro/macro_common.ftl" /> 
 
 
-<!--[if lte IE 7]> 
-<@m_common_html_css ["resources/zapadmin/hack/zab_base_ie6.css"] />
-<![endif]-->
+<@m_common_html_head />
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>zapadmin</title>
 
 </head>
@@ -76,7 +69,7 @@
 						<#elseif el['menu_code']?length==20>
 						<li class="c_header">+&nbsp;${el["menu_name"]}</li> <#elseif
 						el['menu_code']?length==24>
-						<li <#if el_index==2>class="c_active"</#if>><a  href="${el['menu_link']}" onclick="zapadmin.menu_click(this)" target="main_iframe">${el["menu_name"]}</a></li>
+						<li <#if el_index==2>class="c_active"</#if>><a  href="../${el['menu_link']}" onclick="zapadmin.menu_click(this)" target="main_iframe">${el["menu_name"]}</a></li>
 						</#if> </#list>
 					</ul>
 				</div>
@@ -86,7 +79,7 @@
 
 			</div>
 			<div class="zab_home_home_right">
-				<iframe src="page/page_zapadmin_index_center" id="main_iframe"
+				<iframe src="../page/page_zapadmin_index_center" id="main_iframe"
 					name="main_iframe" width="100%" height="100%" frameborder="0" onload="zapadmin.load_complate(this)"
 					 />
 			</div>
