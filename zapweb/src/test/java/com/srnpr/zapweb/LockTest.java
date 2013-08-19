@@ -21,11 +21,12 @@ public class LockTest extends TopTest {
 	@Before
 	public void testLock() {
 		uid = WebHelper.addLock("abc,cba", 10);
+		System.out.println(uid);
 	}
 	
 	@Test
 	public void testUnLock() {
-		System.out.print(WebHelper.unLock(uid));
+		System.out.println(WebHelper.unLock(uid));
 	}
 
 }

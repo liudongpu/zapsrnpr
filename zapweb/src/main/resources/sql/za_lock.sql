@@ -30,7 +30,7 @@ BEGIN
 	DECLARE t_error_not_exist int default 0; 
 	/** 如果出现sql异常，则将t_error设置为1后继续执行后面的操作 */ 
 	DECLARE continue handler for sqlexception set t_error=1; -- 出错处理 
-
+	SET outFlag=2;
 
 	-- 加锁
 	IF lockflag =1 THEN
