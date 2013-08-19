@@ -7,6 +7,24 @@
 </#macro>
 
 
+<#-- 查看页 -->
+<#macro m_zapmacro_common_page_book e_page>
+<form class="form-horizontal" method="POST" >
+
+	
+	<#list e_page.upBookData()  as e>
+		
+	  	<@m_zapmacro_common_book_field e e_page/>
+	  	
+	</#list>
+	
+	
+</form>
+</#macro>
+
+
+
+
 <#-- 修改页 -->
 <#macro m_zapmacro_common_page_edit e_page>
 <form class="form-horizontal" method="POST" >
@@ -17,38 +35,7 @@
 
 
 
-<#--树页 -->
-<#macro m_zapmacro_common_page_tree e_page  e_step=4>
 
-<#local e_pagedata=e_page.upChartData().getPageData()>
-
-<#local e_last=e_pagedata[0][0]?length/e_step >
-
-<ul class="easyui-tree" id="zw_page_common_tree" >
-
-	<#list e_pagedata as e_list>
-		<#local e_now=e_list[0]?length/e_step >
-		<#if (e_now>e_last)>
-			  </span><ul>
-		</#if>
-		<#if (e_now<e_last)>
-			</span>
-			<#list 1..(e_last-e_now) as a></li></ul></#list>
-		</#if>
-		<#if (e_list_index>0)&&(e_now==e_last)></span></li></#if>
-		<li  onclick="zapadmin_tree.tree_select(this)"  ${e_page.upConst("126022005","tree_key=")}><span ${e_page.upConst("126022005","tree_key=")}"${e_list[0]}" >${e_list[1]}
-		<#local e_last=e_now>
-	</#list>
-		</span>
-			<#list 0..(e_last-e_pagedata[0][0]?length/e_step) as a></li></ul></#list>
-	
-
-
-
-
-
-
-</#macro>
 
 <#-- 列表页 -->
 <#macro m_zapmacro_common_page_chart e_page>
@@ -201,6 +188,29 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 	  		<@m_zapmacro_common_field_text e_field/>
 	  	</#if>
 </#macro>
+
+
+
+<#-- 显示页的自动输出判断 -->
+<#macro m_zapmacro_common_book_field e_field   e_page>
+	
+	
+	  		<@m_zapmacro_common_field_show e_field e_page/>
+	  	
+</#macro>
+
+
+<#-- 字段：组件框 -->
+<#macro m_zapmacro_common_field_show e_field e_page>
+	<div class="control-group">
+	    	<label class="control-label">${e_field.getFieldNote()}</label>
+	    	<div class="controls">
+	      		${e_field.getPageFieldValue()?default("")}
+	    	</div>
+	  </div>
+</#macro>
+
+
 
 
 <#-- 字段：隐藏域 -->

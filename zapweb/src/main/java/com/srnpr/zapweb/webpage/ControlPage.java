@@ -83,6 +83,14 @@ public class ControlPage {
 	public List<MWebField> upEditData() {
 		return pageExec.editData(webPage, reqMap);
 	}
+	/**
+	 * 得到修改页数据
+	 * 
+	 * @return
+	 */
+	public List<MWebField> upBookData() {
+		return pageExec.bookData(webPage, reqMap);
+	}
 	
 	
 

@@ -64,6 +64,10 @@ var zapadmin = {
 	menu_click : function(eTarget) {
 		$('.zab_home_home_left .c_active').removeClass('c_active');
 		$(eTarget).parent('li').addClass('c_active');
+	},
+	model_message:function(sContent)
+	{
+		zapjs.zw.modal_show({content:sContent});
 	}
 	
 	

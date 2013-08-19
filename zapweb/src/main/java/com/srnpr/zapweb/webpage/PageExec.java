@@ -65,6 +65,55 @@ public class PageExec extends RootExec {
 		return listPageFields;
 	}
 
+	
+	
+	/**
+	 * 修改页面数据
+	 * 
+	 * @param mWebPage
+	 * @param mReqMap
+	 * @return
+	 */
+	public List<MWebField> bookData(MWebPage mWebPage, MDataMap mReqMap) {
+
+		List<MWebField> listPageFields = recheckFields(
+				mWebPage.getPageFields(), mReqMap);
+
+		String sEditKeyString = WebConst.CONST_WEB_FIELD_NAME + "uid";
+
+		String sUid = mReqMap.containsKey(sEditKeyString) ? mReqMap
+				.get(sEditKeyString) : "";
+
+		if (StringUtils.isNotEmpty(sUid)) {
+
+			MDataMap mEditDataMap = DbUp.upTable(mWebPage.getPageTable())
+					.oneWhere(WebHelper.upFieldSql(listPageFields), "", "",
+							"uid", sUid);
+
+			for (MWebField mField : listPageFields) {
+				// 判断如果是组件则重新输出文字
+				if (mField.getFieldTypeAid().equals("104005003")) {
+					mField.setPageFieldValue(WebUp.upComponent(
+							mField.getSourceCode()).upListText(mField,
+							mEditDataMap));
+				} else {
+
+					if (mEditDataMap.containsKey(mField.getFieldName())) {
+
+						mField.setPageFieldValue(mEditDataMap.get(mField
+								.getFieldName()));
+					}
+
+				}
+			}
+
+		}
+
+		return listPageFields;
+	}
+	
+	
+	
 	/**
 	 * 修改页面数据
 	 * 
