@@ -17,6 +17,39 @@
 
 
 
+<#--树页 -->
+<#macro m_zapmacro_common_page_tree e_page  e_step=4>
+
+<#local e_pagedata=e_page.upChartData().getPageData()>
+
+<#local e_last=e_pagedata[0][0]?length/e_step >
+
+<ul class="easyui-tree">
+
+	<#list e_pagedata as e_list>
+		<#local e_now=e_list[0]?length/e_step >
+		<#if (e_now>e_last)>
+			  </span><ul>
+		</#if>
+		<#if (e_now<e_last)>
+			</span>
+			<#list 1..(e_last-e_now) as a></li></ul></#list>
+		</#if>
+		<#if (e_list_index>0)&&(e_now==e_last)></span></li></#if>
+		<li><span ${e_page.upConst("126022005","tree_key=")}"${e_list[0]}">${e_list[1]}
+		<#local e_last=e_now>
+	</#list>
+		</span>
+			<#list 0..(e_last-e_pagedata[0][0]?length/e_step) as a></li></ul></#list>
+	
+
+
+
+
+
+
+</#macro>
+
 <#-- 列表页 -->
 <#macro m_zapmacro_common_page_chart e_page>
 

@@ -27,6 +27,8 @@ public class PageCache extends RootCache<String, MWebPage> {
 			mWebPage.setPageTemplate(mPageDataMap.get("page_template"));
 			mWebPage.setPageTypeAid(mPageDataMap.get("page_type_aid"));
 			mWebPage.setViewCode(mPageDataMap.get("view_code"));
+			mWebPage.setDataScope(mPageDataMap.get("data_scope"));
+			//mWebPage.setDataSort(mPageDataMap.get("data_sort"));
 
 			// 设置操作按钮
 			List<MWebOperate> listOperates = new ArrayList<MWebOperate>();

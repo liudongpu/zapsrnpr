@@ -45,10 +45,7 @@ public class HomeController {
 	@RequestMapping(value = "/manage/{url}")
 	public String manage(@PathVariable("url") String sUrl, Model model,
 			HttpServletRequest request) {
-
-	
 		model.addAttribute("b_method",web_method);
-		
 		return "manage/"+sUrl;
 	}
 	
@@ -57,13 +54,8 @@ public class HomeController {
 	@RequestMapping(value = "/page/{url}")
 	public String page(@PathVariable("url") String sUrl, Model model,
 			HttpServletRequest request) {
-
-		// model.addAttribute("serverTime", "");
-
 		model.addAttribute("b_page", page_Process.process(sUrl, request));
-
 		model.addAttribute("b_method",web_method);
-		
 		return "page/default";
 	}
 

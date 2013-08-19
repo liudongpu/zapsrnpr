@@ -23,8 +23,8 @@
 
 <#macro m_common_html_head   >
 
-	<@m_common_html_js ["../resources/lib/jquery/jquery-last.min.js","../resources/lib/datepicker/WdatePicker.js","../resources/lib/jquery/jquery-plugins-zap.min.js","../resources/lib/bootstrap/js/bootstrap.min.js"]/>
-	<@m_common_html_css ["../resources/lib/bootstrap/css/bootstrap.min.css","../resources/zapadmin/css/zab_base.css","../resources/zapweb/css/w.css"] />
+	<@m_common_html_js ["../resources/lib/jquery/jquery-last.min.js","../resources/lib/datepicker/WdatePicker.js","../resources/lib/jquery/jquery-plugins-zap.min.js","../resources/lib/bootstrap/js/bootstrap.min.js","../resources/lib/easyui/jquery.easyui.min.js"]/>
+	<@m_common_html_css ["../resources/lib/bootstrap/css/bootstrap.min.css","../resources/lib/easyui/themes/bootstrap/easyui.css","../resources/zapadmin/css/zab_base.css","../resources/zapweb/css/w.css"] />
 	<@m_common_html_js ["../resources/zapjs/zapjs.js","../resources/zapjs/zapjs.zw.js","../resources/zapadmin/js/zapadmin.js"]/>
 
 	<!--[if lte IE 7]> 

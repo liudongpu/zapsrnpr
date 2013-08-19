@@ -9,12 +9,15 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * 转换帮助类
+ * 
  * @author srnpr
- *
+ * 
  */
 public class FormatHelper {
 
-	/**联合查询条件
+	/**
+	 * 联合查询条件
+	 * 
 	 * @param lStrings
 	 * @return
 	 */
@@ -129,6 +132,25 @@ public class FormatHelper {
 	public static String upDateTime(Date dDate, String sPattern) {
 		SimpleDateFormat sFormat = new SimpleDateFormat(sPattern);
 		return sFormat.format(dDate);
+	}
+
+	/**
+	 * 获取url结构表示出来的字符串参数 a=b&c=d 表示为[a,b,c,d]
+	 * @param sUrl
+	 * @return
+	 */
+	public static String[] upUrlStrings(String sUrl) {
+		ArrayList<String> aList = new ArrayList<String>();
+		if (sUrl.indexOf("?") > -1) {
+			sUrl = sUrl.substring(sUrl.indexOf("?"));
+		}
+		for (String sIn : sUrl.split("&")) {
+			aList.add(StringUtils.substringBefore(sIn, "="));
+
+			aList.add(StringUtils.substringAfter(sIn, "="));
+		}
+
+		return aList.toArray(new String[] {});
 	}
 
 }

@@ -42,26 +42,35 @@ public class RootExec extends BaseClass {
 		// 返回参数
 		MPageData mReturnData = new MPageData();
 
+		String sSortString = "-zid";
+
 		/********** 开始处理分页输入参数逻辑 ********************************/
 		{
 			MDataMap mPaginationMap = mReqMap
 					.upSubMap(WebConst.CONST_WEB_PAGINATION_NAME);
 
-			if (mPaginationMap.containsKey("count")) {
-				mReturnData.setPageCount(Integer.valueOf(mPaginationMap
-						.get("count")));
+			if (mPaginationMap != null && mPaginationMap.size() > 0) {
+
+				if (mPaginationMap.containsKey("count")) {
+					mReturnData.setPageCount(Integer.valueOf(mPaginationMap
+							.get("count")));
+				}
+				if (mPaginationMap.containsKey("index")) {
+					mReturnData.setPageIndex(Integer.valueOf(mPaginationMap
+							.get("index")));
+				}
+
+				if (mPaginationMap.containsKey("size")) {
+					mReturnData.setPageSize(Integer.valueOf(mPaginationMap
+							.get("size")));
+				}
+
+				if (mPaginationMap.containsKey("sort")) {
+					sSortString = mPaginationMap.get("sort");
+				}
+
 			}
-			if (mPaginationMap.containsKey("index")) {
-				mReturnData.setPageIndex(Integer.valueOf(mPaginationMap
-						.get("index")));
-			}
-			
-			if (mPaginationMap.containsKey("size")) {
-				mReturnData.setPageSize(Integer.valueOf(mPaginationMap
-						.get("size")));
-			}
-			
-			
+
 		}
 
 		// 数据
@@ -181,6 +190,15 @@ public class RootExec extends BaseClass {
 									"%" + mField.getPageFieldValue() + "%");
 						}
 						break;
+					// 起始于
+					case 104009019:
+						if (StringUtils.isNotEmpty(mField.getPageFieldValue())) {
+							aWhereStrings.add(" " + mField.getColumnName()
+									+ " like :" + mField.getColumnName());
+							mQueryMap.put(mField.getColumnName(),
+									"%" + mField.getPageFieldValue());
+						}
+						break;
 
 					// 默认走等于
 					default:
@@ -227,7 +245,7 @@ public class RootExec extends BaseClass {
 			// 开始加载数据
 			for (MDataMap mData : DbUp.upTable(webPage.getPageTable()).query(
 					WebHelper.upFieldSql(webPage.getPageFields()),
-					"-zid",
+					sSortString,
 					sWhere,
 					mQueryMap,
 					(mReturnData.getPageIndex() - 1)
@@ -263,8 +281,8 @@ public class RootExec extends BaseClass {
 		{
 			// 重新加载输出字段 判断加载替换显示等操作
 			for (int i = 0, j = listFields.size(); i < j; i++) {
-				
-				//如果是下拉框
+
+				// 如果是下拉框
 				if (listFields.get(i).getFieldTypeAid().equals("104005019")) {
 					MWebSource mSource = WebUp.upSource(listFields.get(i)
 							.getSourceCode());
@@ -284,7 +302,7 @@ public class RootExec extends BaseClass {
 							" instr(:field_list,concat("
 									+ mSource.getFieldValue() + ",','))>0  ",
 							new MDataMap("field_list", StringUtils.join(
-									listSqlSub, ",")+","));
+									listSqlSub, ",") + ","));
 
 					MDataMap mKeyMap = new MDataMap();
 					for (MDataMap mMap : listResultDataMaps) {

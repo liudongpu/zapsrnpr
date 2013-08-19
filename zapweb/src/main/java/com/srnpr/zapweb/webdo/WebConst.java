@@ -24,5 +24,18 @@ public class WebConst implements IBaseConst {
 	 * 组件定义   126022003
 	 */
 	public final static String CONST_WEB_FIELD_COMPONENT="zw_c_";
+	
+	/**
+	 * 扩展定义 126022005
+	 */
+	public final static String CONST_WEB_FIELD_EXTEND="zw_e_";
+	
+	
+	/**
+	 * 设置定义 126022019
+	 */
+	public final static String CONST_WEB_FIELD_SET="zw_s_";
+	
+	
 
 }

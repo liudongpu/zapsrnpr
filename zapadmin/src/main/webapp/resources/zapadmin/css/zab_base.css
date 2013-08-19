@@ -179,6 +179,17 @@ body {
 }
 
 
+.zw_page_tree_left
+{
+	width:30%;
+	float:left;
+}
+.zw_page_tree_right
+{
+	width:65%;
+	float:right;
+}
+
 
 
 

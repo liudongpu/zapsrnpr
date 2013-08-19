@@ -13,6 +13,11 @@ public class MWebPage {
 	private String pageName = "";
 	
 	private String pageTable="";
+	
+	private String dataScope="";
+	
+	
+	
 
 	private List<MWebOperate> pageOperate;
 	
@@ -83,5 +88,15 @@ public class MWebPage {
 	public void setPageTable(String pageTable) {
 		this.pageTable = pageTable;
 	}
+
+	public String getDataScope() {
+		return dataScope;
+	}
+
+	public void setDataScope(String dataScope) {
+		this.dataScope = dataScope;
+	}
+
+	
 
 }

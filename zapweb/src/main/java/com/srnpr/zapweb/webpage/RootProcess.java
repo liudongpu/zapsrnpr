@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webface.IWebProcess;
@@ -14,9 +15,10 @@ import com.srnpr.zapweb.webmodel.MWebPage;
 import com.srnpr.zapweb.webmodel.MWebResult;
 
 /**
- * 页面处理  该类为页面处理类  返回控制页面操作
+ * 页面处理 该类为页面处理类 返回控制页面操作
+ * 
  * @author srnpr
- *
+ * 
  */
 public class RootProcess implements IWebProcess {
 	/*
@@ -30,10 +32,10 @@ public class RootProcess implements IWebProcess {
 		try {
 			hRequest.setCharacterEncoding("UTF-8");
 		} catch (UnsupportedEncodingException e) {
-		
+
 			e.printStackTrace();
 		}
-		
+
 		MWebPage mPage = WebUp.upPage(sPageCode);
 
 		ControlPage cPage = new ControlPage();
@@ -46,7 +48,10 @@ public class RootProcess implements IWebProcess {
 					+ hRequest.getQueryString());
 		}
 
-		cPage.setReqMap(convertRequest(hRequest));
+		MDataMap mReqMap = convertRequest(hRequest);
+		mReqMap.inAllValues(FormatHelper.upUrlStrings(mPage.getDataScope()));
+
+		cPage.setReqMap(mReqMap);
 		cPage.setWebPage(mPage);
 
 		return cPage;
