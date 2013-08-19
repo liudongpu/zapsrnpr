@@ -64,12 +64,6 @@ var zapadmin = {
 	menu_click : function(eTarget) {
 		$('.zab_home_home_left .c_active').removeClass('c_active');
 		$(eTarget).parent('li').addClass('c_active');
-	},
-	tree_add:function(oTag,sUrl)
-	{
-		$.get(
-				sUrl,function(result){  $('#zw_page_tree_right').html(result); }		
-		);
 	}
 	
 	

@@ -43,6 +43,10 @@ public class RootExec extends BaseClass {
 		MPageData mReturnData = new MPageData();
 
 		String sSortString = "-zid";
+		
+		
+		mReqMap.inAllValues(FormatHelper.upUrlStrings(webPage.getDataScope()));
+
 
 		/********** 开始处理分页输入参数逻辑 ********************************/
 		{

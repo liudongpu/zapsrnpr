@@ -24,7 +24,7 @@
 
 <#local e_last=e_pagedata[0][0]?length/e_step >
 
-<ul class="easyui-tree">
+<ul class="easyui-tree" id="zw_page_common_tree" >
 
 	<#list e_pagedata as e_list>
 		<#local e_now=e_list[0]?length/e_step >
@@ -36,7 +36,7 @@
 			<#list 1..(e_last-e_now) as a></li></ul></#list>
 		</#if>
 		<#if (e_list_index>0)&&(e_now==e_last)></span></li></#if>
-		<li><span ${e_page.upConst("126022005","tree_key=")}"${e_list[0]}">${e_list[1]}
+		<li  onclick="zapadmin_tree.tree_select(this)"  ${e_page.upConst("126022005","tree_key=")}><span ${e_page.upConst("126022005","tree_key=")}"${e_list[0]}" >${e_list[1]}
 		<#local e_last=e_now>
 	</#list>
 		</span>
@@ -356,6 +356,15 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 </#macro>
 
 
+
+<#-- 转换map输出 -->
+<#macro m_zapmacro_common_format_map_hidden  e_map e_key_left="">
+
+<#list e_map?keys as e_key>
+<input type="hidden" name="${e_key_left}${e_key}" id="${e_key_left}${e_key}" value="${e_map[e_key]}"    />
+</#list>
+
+</#macro>
 
 
 
