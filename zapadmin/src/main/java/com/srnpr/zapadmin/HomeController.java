@@ -58,6 +58,17 @@ public class HomeController {
 		model.addAttribute("b_method",web_method);
 		return "page/default";
 	}
+	
+	
+	@RequestMapping(value = "/show/{url}")
+	public String show(@PathVariable("url") String sUrl, Model model,
+			HttpServletRequest request) {
+		model.addAttribute("b_page", page_Process.process(sUrl, request));
+		model.addAttribute("b_method",web_method);
+		return "page/show";
+	}
+	
+	
 
 	@RequestMapping(value = "/func/{operateId}", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
