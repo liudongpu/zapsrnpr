@@ -200,12 +200,12 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 </#macro>
 
 
-<#-- 字段：组件框 -->
+<#-- 字段：显示专用 -->
 <#macro m_zapmacro_common_field_show e_field e_page>
 	<div class="control-group">
-	    	<label class="control-label">${e_field.getFieldNote()}</label>
+	    	<label class="control-label">${e_field.getFieldNote()}：</label>
 	    	<div class="controls">
-	      		${e_field.getPageFieldValue()?default("")}
+	      		<div class="control_book">${e_field.getPageFieldValue()?default("")}</div>
 	    	</div>
 	  </div>
 </#macro>

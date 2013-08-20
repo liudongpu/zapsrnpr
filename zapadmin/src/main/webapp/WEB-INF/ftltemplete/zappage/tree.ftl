@@ -12,10 +12,10 @@
 <@m_zapmacro_common_set_operate   b_page.getWebPage().getPageOperate() "116001016"  "btn btn-small" />
   
 
-	
+	<div class="zw_page_tree_box">
 	
 	<ul class="easyui-tree" id="zw_page_common_tree" ></ul>
-	
+	</div>
 </div>
 
 
