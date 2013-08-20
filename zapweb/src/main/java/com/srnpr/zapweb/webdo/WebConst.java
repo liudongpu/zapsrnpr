@@ -26,13 +26,13 @@ public class WebConst implements IBaseConst {
 	public final static String CONST_WEB_FIELD_COMPONENT="zw_c_";
 	
 	/**
-	 * 扩展定义 126022005
+	 * 扩展定义 126022005  常用于页面元素的字段的扩展
 	 */
 	public final static String CONST_WEB_FIELD_EXTEND="zw_e_";
 	
 	
 	/**
-	 * 设置定义 126022019
+	 * 设置定义 126022019  常用于设置各种属性 url用 或者url的设置参数
 	 */
 	public final static String CONST_WEB_FIELD_SET="zw_s_";
 	

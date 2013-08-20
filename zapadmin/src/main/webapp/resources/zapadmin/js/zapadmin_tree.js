@@ -77,6 +77,31 @@ var zapadmin_tree = {
 		}
 	},
 
+	tree_delete : function(oTag) {
+		var node = $('#zw_page_common_tree').tree('getSelected');
+		if (node) {
+
+			var bFlag = false;
+			var sId = node.id;
+
+			var oData = zapadmin_tree.temp.data;
+			for ( var i = 0, j = oData.length; i < j; i++) {
+				if (oData[i][2] == sId) {
+					bFlag = true;
+				}
+			}
+
+			if (bFlag) {
+				zapadmin.model_message('有子节点不允许删除！');
+			} else {
+				zapjs.zw.func_delete(oTag, node.attributes.uid);
+			}
+
+		} else {
+			zapadmin.model_message('请选择后在进行操作！');
+		}
+	},
+
 	tree_add : function(oTag) {
 
 		var node = $('#zw_page_common_tree').tree('getSelected');

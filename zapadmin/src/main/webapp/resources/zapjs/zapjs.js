@@ -14,6 +14,7 @@ window.zapjs = zapjs;
 zapjs.c = {
 		
 		web_paginaion:'zw_p_',
+		web_field:'zw_f_',
 		main_iframe:'main_iframe'
 		
 };

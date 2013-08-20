@@ -10,13 +10,13 @@
 <title>zapadmin</title>
 
 </head>
-<body class="zab_home_home_body">
+<body class="  easyui-layout">
 
-	<div class="zab_home_home_box">
+	
 	
 		<#assign home_menu=b_method.upDataQuery("za_menu","menu_code","left(menu_code,13)='4699031300010'")>
 
-		<div class="zab_home_home_top">
+		<div  region="north" class="zab_home_home_top">
 			<div class="w_left c_site">
 				<a href=""><i class="icon-home  icon-white"></i>&nbsp;超级管理后台</a>
 
@@ -47,9 +47,9 @@
 
 		</div>
 
-		<div class="zab_home_home_main">
+	
 
-			<div class=" zab_home_home_left ">
+			<div  region="west" border="false"    class=" zab_home_home_left  ">
 			
 				<div class="c_box w_display">
 				<input type="text" placeholder="快捷码">
@@ -78,7 +78,7 @@
 				<div class="c_bottom">CopyRight 2013</div>
 
 			</div>
-			<div class="zab_home_home_right">
+			<div  region="center" border="false" class="zab_home_home_right">
 				<iframe src="../page/page_zapadmin_index_center" id="main_iframe"
 					name="main_iframe" width="100%" height="100%" frameborder="0" onload="zapadmin.load_complate(this)"
 					 />
@@ -87,8 +87,8 @@
 
 
 
-	</div>
+	
 
-	</div>
+	
 </body>
 </html>

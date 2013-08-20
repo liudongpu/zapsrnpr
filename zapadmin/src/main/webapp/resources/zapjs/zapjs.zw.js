@@ -21,6 +21,13 @@ zapjs.zw = {
 
 	},
 
+	// 删除函数调用
+	func_delete : function(oElm, sUid) {
+
+		zapjs.zw.func_do(oElm, null, {zw_f_uid:sUid});
+
+	},
+
 	// 提交操作
 	func_call : function(oElm) {
 		zapjs.f.ajaxsubmit($(oElm).parents("form"), "../func/"
@@ -28,14 +35,17 @@ zapjs.zw = {
 				zapjs.zw.func_success, zapjs.zw.func_error);
 	},
 
-	func_do : function(oElm,sOperate) {
-		
-		if(!sOperate)
-			{
-			sOperate= $(oElm).attr('zapweb_attr_operate_id');
-			}
-	
-		$.getJSON("../func/" + sOperate, function(data) {
+	func_do : function(oElm, sOperate, data) {
+
+		if (!sOperate) {
+			sOperate = $(oElm).attr('zapweb_attr_operate_id');
+		}
+
+		if (!data) {
+			data = {};
+		}
+
+		$.getJSON("../func/" + sOperate, data, function(data) {
 			zapjs.zw.func_success(data);
 		});
 	},
@@ -67,7 +77,7 @@ zapjs.zw = {
 	func_inquire : function(oElm) {
 
 		var queryString = $(oElm).parents("form").formSerialize();
-	
+
 		zapjs.f.tourl(this.url_inquire(queryString));
 		// $(oElm).parents("form").submit();
 	},
@@ -78,14 +88,14 @@ zapjs.zw = {
 
 		for ( var i = 0, j = sSplit.length; i < j; i++) {
 			var sEq = sSplit[i].split('=');
-			if (sEq[1] != ""||sUrl.indexOf(sEq[0])>-1) {
+			if (sEq[1] != "" || sUrl.indexOf(sEq[0]) > -1) {
 				sUrl = zapjs.f.urlreplace(sUrl, sEq[0], sEq[1]);
 			}
 
 		}
-		
-		sUrl=zapjs.f.urlreplace(sUrl, zapjs.c.web_paginaion+'index','');
-		sUrl=zapjs.f.urlreplace(sUrl, zapjs.c.web_paginaion+'count','');
+
+		sUrl = zapjs.f.urlreplace(sUrl, zapjs.c.web_paginaion + 'index', '');
+		sUrl = zapjs.f.urlreplace(sUrl, zapjs.c.web_paginaion + 'count', '');
 		return sUrl;
 
 	}
