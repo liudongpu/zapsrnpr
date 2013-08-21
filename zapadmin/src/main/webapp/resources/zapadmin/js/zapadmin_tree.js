@@ -1,4 +1,3 @@
-define([],function(){
 
 var zapadmin_tree = {
 	temp : {
@@ -19,38 +18,56 @@ var zapadmin_tree = {
 
 	},
 
-	tree_show : function(oData) {
-		/*
-		var x = [];
-		var step = [];
-		var iStart = oData[0][0].length / zapadmin_tree.temp.step;
-		x.push({
-			id : oData[0][0],
-			text : oData[0][1],
-			attributes : {
-				uid : oData[0][3]
-			}
-		});
-		step[0] = x[0];
-		for ( var i = 1, j = oData.length; i < j; i++) {
-			var oEvery = oData[i];
-			var iDept = oEvery[0].length / zapadmin_tree.temp.step - iStart;
-			if (!step[iDept - 1].hasOwnProperty("children")) {
-				step[iDept - 1].children = [];
-			}
-			if (step[iDept - 1].children) {
-				step[iDept - 1].children.push({
-					id : oEvery[0],
-					text : oEvery[1],
-					attributes : {
-						uid : oEvery[3]
-					}
-				});
-			}
-			step[iDept] = step[iDept - 1].children[step[iDept - 1].children.length - 1];
+	tree_window : function(sElm) {
 
-		}*/
-		var x=zapadmin.tree_data(oData);
+		var sData = zapjs.zw.upExtend(sElm, 'data');
+
+		$.get(sData, function(result) {
+			
+			var x = zapadmin.tree_data(result,$('#'+sElm).val());
+			$('#' + sElm + '_tree_ul').tree({
+				data : x,
+				checkbox : true,
+				lines : true
+
+			});
+		});
+
+	},
+	init_window : function(sElm) {
+
+		$('#'+sElm).after('<span id="'+sElm+'_span_show"></span>');
+		
+	},
+
+	tree_select : function(sElm) {
+
+		var nodes = $('#' + sElm + '_tree_ul').tree('getChecked');
+		var s = '';
+		
+		var aLi=[];
+		
+		for ( var i = 0; i < nodes.length; i++) {
+	
+			if (!nodes[i].target.nextSibling) {
+				if (s != '')
+					s += ',';
+				s += nodes[i].id;
+				aLi.push('<li>'+nodes[i].text+'</li>');
+			}
+		}
+		
+		$('#'+sElm).val(s);
+		
+		$('#'+sElm+'_span_show').html('<ul>'+aLi.join('')+'</ul>');
+	
+
+		zapadmin.window_close();
+	},
+
+	tree_show : function(oData) {
+
+		var x = zapadmin.tree_data(oData);
 
 		$('#zw_page_common_tree').tree(
 				{
@@ -146,6 +163,8 @@ var zapadmin_tree = {
 
 };
 
-return zapadmin_tree;
-
-});
+if (typeof define === "function" && define.amd) {
+	define("zapadmin/js/zapadmin_tree", [ "zapadmin/js/zapadmin" ], function() {
+		return zapadmin_tree;
+	});
+}

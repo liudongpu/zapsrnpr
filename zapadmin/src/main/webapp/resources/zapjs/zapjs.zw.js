@@ -98,6 +98,21 @@ zapjs.zw = {
 		sUrl = zapjs.f.urlreplace(sUrl, zapjs.c.web_paginaion + 'count', '');
 		return sUrl;
 
+	},
+	
+	upExtend:function(sId,sStart)
+	{
+		return $('#'+sId).attr(zapjs.c.web_extend+sStart);
 	}
+	
+	
 
 };
+
+
+
+if ( typeof define === "function" && define.amd  ) {
+    define( "zapjs/zapjs.zw", ["zapjs/zapjs"], function () { return zapjs.zw; } );
+}
+
+

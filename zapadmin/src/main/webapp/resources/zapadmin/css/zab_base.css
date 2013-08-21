@@ -159,6 +159,17 @@ html
 	margin-left: 2%;
 }
 
+
+.zab_page_windowtree_buttons
+{
+	margin:30px;
+	text-align:center;
+}
+
+
+
+
+
 .zw_page_common_data .pagination_label {
 	float: right;
 	margin-right: 30px;

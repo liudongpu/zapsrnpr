@@ -15,6 +15,7 @@ zapjs.c = {
 
 	web_paginaion : 'zw_p_',
 	web_field : 'zw_f_',
+	web_extend:'zw_e_',
 	main_iframe : 'main_iframe'
 
 };
@@ -73,10 +74,20 @@ zapjs.f = {
 			content : '',
 			width : 600,
 			height : 400,
-			title : '请选择'
+			title : '请选择',
+			close:false
 		};
 
 		var s = $.extend({}, defaults, options || {});
+		
+		if(s.close)
+			{
+			
+			$('#' + s.id).window('close');
+			
+			return ;
+			}
+		
 
 		if (!zapjs.f.exist(s.id)) {
 
@@ -94,7 +105,8 @@ zapjs.f = {
 		$('#' + s.id).window({
 			width : s.width,
 			height : s.height,
-			modal : true
+			modal : true,
+			closed:false
 		});
 
 		if (s.url) {
@@ -188,3 +200,9 @@ zapjs.f = {
 	}
 
 };
+
+if ( typeof define === "function" && define.amd  ) {
+    define( "zapjs/zapjs", [], function () { return zapjs; } );
+}
+
+

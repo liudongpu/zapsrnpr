@@ -1,20 +1,11 @@
 
 
-
 <div class="w_left zw_page_tree_left">
 
 
-
-<script>
-
-require(["zapadmin/js/zapadmin_tree"],function(zapadmin_tree)
-{
-	zapadmin_tree.tree_init();
-}
+<@m_common_html_script "require(['zapadmin/js/zapadmin_tree'],function(a){a.tree_init();});" />
 
 
-);
-</script>
 
 
 

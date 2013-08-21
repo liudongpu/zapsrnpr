@@ -46,8 +46,17 @@ var zapadmin = {
 
 	},
 
-	tree_data : function(oData) {
+	tree_data : function(oData,sValues) {
 
+		if(!sValues)
+			{
+			sValues='';
+			}
+		else
+			{
+			sValues=','+sValues+',';
+			}
+		
 		var x = [];
 		var step = [];
 
@@ -62,6 +71,14 @@ var zapadmin = {
 					uid : oEvery[3]
 				}
 			};
+			
+			if(sValues.indexOf(','+oThis.id+',')>-1)
+				{
+					oThis.checked=true;
+					
+				}
+			
+			
 			if (n == 0) {
 				x.push(oThis);
 				step[0] = x[0];
@@ -124,11 +141,23 @@ var zapadmin = {
 	{
 		zapadmin.window_show({url:sUrl});
 	},
+	window_close:function()
+	{
+		zapadmin.window_show({close:true});
+	},
 
 	window_open : function(options) {
 
-		this.window_url('../show/page_tree_v_za_role');
+		//this.window_url('../show/page_tree_v_za_role');
 
 	}
 
 };
+
+
+
+if ( typeof define === "function" && define.amd  ) {
+    define( "zapadmin/js/zapadmin", ["zapjs/zapjs.zw"], function () { return zapadmin; } );
+}
+
+
