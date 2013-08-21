@@ -230,4 +230,9 @@ public class ComponentCheckbox extends RootComponent {
 		this.componentMap = componentMap;
 	}
 
+	public MWebResult inDelete(MWebField mWebField, MDataMap mDataMap) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

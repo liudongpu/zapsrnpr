@@ -18,11 +18,11 @@ public interface IWebComponent {
 	/**
 	 * 获取插入页面字符串
 	 * 
-	 * @param mField
+	 * @param mWebField
 	 * @param mDataMap
 	 * @return
 	 */
-	public String upAddText(MWebField mField, MDataMap mDataMap);
+	public String upAddText(MWebField mWebField, MDataMap mDataMap);
 
 	/**
 	 * 执行添加逻辑时调用
@@ -41,6 +41,19 @@ public interface IWebComponent {
 	 * @return
 	 */
 	public MWebResult inEdit(MWebField mWebField, MDataMap mDataMap);
+	
+	
+	
+	/**
+	 * 执行删除逻辑时调用
+	 * 
+	 * @param mWebField
+	 * @param mDataMap
+	 * @return
+	 */
+	public MWebResult inDelete(MWebField mWebField, MDataMap mDataMap);
+	
+	
 
 	/**
 	 * 
