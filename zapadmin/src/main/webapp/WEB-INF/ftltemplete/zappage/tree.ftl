@@ -1,10 +1,22 @@
 
-<@m_common_html_js ["zapadmin/js/zapadmin_tree.js"] />
+
 
 <div class="w_left zw_page_tree_left">
 
 
-<@m_common_html_script "$(document).ready(function(){zapadmin_tree.tree_init()});" />
+
+<script>
+
+require(["zapadmin/js/zapadmin_tree"],function(zapadmin_tree)
+{
+	zapadmin_tree.tree_init();
+}
+
+
+);
+</script>
+
+
 
 
 <@m_zapmacro_common_format_map_hidden  b_page.getReqMap() "zw_page_tree_" />

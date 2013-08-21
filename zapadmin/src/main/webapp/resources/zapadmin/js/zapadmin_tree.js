@@ -1,3 +1,5 @@
+define([],function(){
+
 var zapadmin_tree = {
 	temp : {
 		step : 4,
@@ -143,3 +145,7 @@ var zapadmin_tree = {
 	}
 
 };
+
+return zapadmin_tree;
+
+});

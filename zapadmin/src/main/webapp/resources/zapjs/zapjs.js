@@ -70,30 +70,36 @@ zapjs.f = {
 	window_box : function(options) {
 		var defaults = {
 			id : 'zapjs_f_id_window_box',
-			content:'',
-			width:600,
-			height:400,
-			title:'请选择'
+			content : '',
+			width : 600,
+			height : 400,
+			title : '请选择'
 		};
-		
-		
+
 		var s = $.extend({}, defaults, options || {});
 
 		if (!zapjs.f.exist(s.id)) {
 
-			var sText = '<div id="' + s.id + '"  class="easyui-window" title="'+s.title+'"  data-options="iconCls:\'icon-save\',modal:true"></div>';
+			var sText = '<div id="'
+					+ s.id
+					+ '"  class="easyui-window" title="'
+					+ s.title
+					+ '"  data-options="iconCls:\'icon-save\',modal:true"></div>';
 
 			$(document.body).append(sText);
 		}
-		
-		$('#'+s.id).html(s.content);
-		
-		
-		$('#'+s.id).window({
-		    width:s.width,
-		    height:s.height,
-		    modal:true
+
+		$('#' + s.id).html(s.content);
+
+		$('#' + s.id).window({
+			width : s.width,
+			height : s.height,
+			modal : true
 		});
+
+		if (s.url) {
+			$('#' + s.id).window('refresh', s.url);
+		}
 
 	},
 

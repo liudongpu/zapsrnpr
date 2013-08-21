@@ -118,12 +118,16 @@ var zapadmin = {
 	},
 
 	window_show : function(options) {
-
+		zapjs.f.window_box(options);
+	},
+	window_url:function(sUrl)
+	{
+		zapadmin.window_show({url:sUrl});
 	},
 
 	window_open : function(options) {
 
-		zapjs.f.window_box();
+		this.window_url('../show/page_tree_v_za_role');
 
 	}
 
