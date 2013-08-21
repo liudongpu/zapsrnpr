@@ -102,7 +102,7 @@ replace(uuid(),'-','') as uid
 	when 469916151605 then concat((select page_code from zw_page where page_type_aid=116016005 and view_code=zwp.view_code),'?zw_f_uid=[@this$uid]')
 	else zwd.define_five end)
  as operate_link
-,'0' as flag_enable
+,zwd.define_six as flag_enable
 ,zwd.define_four as operate_func
 ,zwd.define_three as area_type_aid
 ,zwd.define_dids as init_type_did

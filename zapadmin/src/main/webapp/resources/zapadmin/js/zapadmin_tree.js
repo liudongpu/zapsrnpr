@@ -8,7 +8,7 @@ var zapadmin_tree = {
 
 		zapadmin_tree.temp.step = $('#zw_page_tree_zw_s_step').val();
 
-		$.get("../jsonchart/page_chart_v_za_menu", function(result) {
+		$.get($('#zw_page_tree_zw_s_jsonchart').val(), function(result) {
 
 			zapadmin_tree.temp.data = result;
 
