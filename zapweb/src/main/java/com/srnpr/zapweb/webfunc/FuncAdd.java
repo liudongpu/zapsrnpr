@@ -55,7 +55,7 @@ public class FuncAdd extends RootFunc {
 					bFlagComponent = true;
 				}
 
-				if (mAddMaps.containsKey(mField.getFieldName())) {
+				if (mAddMaps.containsKey(mField.getFieldName())&&StringUtils.isNotEmpty(mField.getColumnName())) {
 
 					String sValue = mAddMaps.get(mField.getFieldName());
 

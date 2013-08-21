@@ -12,11 +12,11 @@ window.zapjs = zapjs;
 
 // 配置
 zapjs.c = {
-		
-		web_paginaion:'zw_p_',
-		web_field:'zw_f_',
-		main_iframe:'main_iframe'
-		
+
+	web_paginaion : 'zw_p_',
+	web_field : 'zw_f_',
+	main_iframe : 'main_iframe'
+
 };
 
 /*
@@ -62,6 +62,41 @@ zapjs.f = {
 		location.href = sUrl;
 	},
 
+	exist : function(sId) {
+		return document.getElementById(sId) ? true : false;
+
+	},
+
+	window_box : function(options) {
+		var defaults = {
+			id : 'zapjs_f_id_window_box',
+			content:'',
+			width:600,
+			height:400,
+			title:'请选择'
+		};
+		
+		
+		var s = $.extend({}, defaults, options || {});
+
+		if (!zapjs.f.exist(s.id)) {
+
+			var sText = '<div id="' + s.id + '"  class="easyui-window" title="'+s.title+'"  data-options="iconCls:\'icon-save\',modal:true"></div>';
+
+			$(document.body).append(sText);
+		}
+		
+		$('#'+s.id).html(s.content);
+		
+		
+		$('#'+s.id).window({
+		    width:s.width,
+		    height:s.height,
+		    modal:true
+		});
+
+	},
+
 	modal : function(options) {
 
 		var defaults = {
@@ -83,7 +118,8 @@ zapjs.f = {
 					+ '<p>'
 					+ '</p>'
 					+ '</div>'
-					+ '<div class="modal-footer">' + '</div></div>';
+					+ '<div class="modal-footer">'
+					+ '</div></div>';
 			$(document.body).append(sModel);
 
 		}
@@ -139,7 +175,7 @@ zapjs.f = {
 		if (bFlagCon == -1 && sValue != "") {
 			sParams.push(sAddStr);
 		} else if (bFlagCon > -1 && sValue == "") {
-			sParams.splice(bFlagCon,1);
+			sParams.splice(bFlagCon, 1);
 		}
 
 		return sUrl.split('?')[0] + "?" + sParams.join("&");

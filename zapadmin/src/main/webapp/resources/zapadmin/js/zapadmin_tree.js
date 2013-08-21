@@ -18,7 +18,7 @@ var zapadmin_tree = {
 	},
 
 	tree_show : function(oData) {
-
+		/*
 		var x = [];
 		var step = [];
 		var iStart = oData[0][0].length / zapadmin_tree.temp.step;
@@ -47,7 +47,8 @@ var zapadmin_tree = {
 			}
 			step[iDept] = step[iDept - 1].children[step[iDept - 1].children.length - 1];
 
-		}
+		}*/
+		var x=zapadmin.tree_data(oData);
 
 		$('#zw_page_common_tree').tree(
 				{

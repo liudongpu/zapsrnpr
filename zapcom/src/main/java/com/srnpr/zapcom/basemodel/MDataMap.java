@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.srnpr.zapcom.basehelper.FormatHelper;
+
 public class MDataMap extends MObjMap<String, String> implements
 		Map<String, String> {
 	/**
@@ -35,6 +37,14 @@ public class MDataMap extends MObjMap<String, String> implements
 		return mReturn;
 	}
 
+	public MDataMap inUrlParams(String sParams)
+	{
+		this.inAllValues(FormatHelper.upUrlStrings(sParams));
+		return this;
+	}
+	
+	
+	
 	public MDataMap() {
 
 	}
