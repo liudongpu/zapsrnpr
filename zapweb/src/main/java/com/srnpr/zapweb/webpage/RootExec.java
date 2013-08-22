@@ -17,6 +17,7 @@ import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webmodel.MPageData;
 import com.srnpr.zapweb.webmodel.MWebField;
+import com.srnpr.zapweb.webmodel.MWebHtml;
 import com.srnpr.zapweb.webmodel.MWebOperate;
 import com.srnpr.zapweb.webmodel.MWebPage;
 import com.srnpr.zapweb.webmodel.MWebSource;
@@ -380,6 +381,10 @@ public class RootExec extends BaseClass {
 			sReturn = WebHelper.checkUrl(FormatHelper.formatString(
 					bConfig("zapweb.html_linkbhref"), sReturn,
 					mWebOperate.getOperateName()));
+
+		}else if (mWebOperate.getOperateTypeAid().equals("116015010")) {
+
+			sReturn = new MWebHtml("button").inAttributes("onclick",sReturn,"class","btn btn-small","value",mWebOperate.getOperateName()).upString();
 
 		}
 
