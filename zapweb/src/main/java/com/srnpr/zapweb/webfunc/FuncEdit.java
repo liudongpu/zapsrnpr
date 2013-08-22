@@ -65,7 +65,7 @@ public class FuncEdit extends RootFunc {
 				for (MWebField mField : mPage.getPageFields()) {
 					if (mField.getFieldTypeAid().equals("104005003")) {
 
-						WebUp.upComponent(mField.getSourceCode()).inAdd(mField,
+						WebUp.upComponent(mField.getSourceCode()).inEdit(mField,
 								mDataMap);
 
 					}

@@ -36,7 +36,7 @@ var zapadmin_tree = {
 	},
 	init_window : function(sElm) {
 
-		$('#'+sElm).after('<span id="'+sElm+'_span_show"></span>');
+		//$('#'+sElm).after('<span id="'+sElm+'_span_show"></span>');
 		
 	},
 
@@ -59,7 +59,7 @@ var zapadmin_tree = {
 		
 		$('#'+sElm).val(s);
 		
-		$('#'+sElm+'_span_show').html('<ul>'+aLi.join('')+'</ul>');
+		$('#'+sElm).next('ul').html(aLi.join(''));
 	
 
 		zapadmin.window_close();
