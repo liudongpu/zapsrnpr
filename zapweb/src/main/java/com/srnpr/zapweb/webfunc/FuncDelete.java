@@ -4,6 +4,7 @@ import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webdo.WebUp;
+import com.srnpr.zapweb.webmodel.MWebField;
 import com.srnpr.zapweb.webmodel.MWebOperate;
 import com.srnpr.zapweb.webmodel.MWebPage;
 import com.srnpr.zapweb.webmodel.MWebResult;
@@ -21,6 +22,19 @@ public class FuncDelete extends RootFunc {
 
 		if (mResult.upFlagTrue()) {
 			if (mDelMaps.containsKey("uid")) {
+				
+				
+
+				// 循环所有结构
+				for (MWebField mField : mPage.getPageFields()) {
+
+					if (mField.getFieldTypeAid().equals("104005003")) {
+						
+					}
+				}
+				
+				
+				
 
 				DbUp.upTable(mPage.getPageTable()).delete("uid",
 						mDelMaps.get("uid"));

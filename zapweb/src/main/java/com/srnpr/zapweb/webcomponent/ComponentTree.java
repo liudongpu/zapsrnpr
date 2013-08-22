@@ -73,7 +73,7 @@ public class ComponentTree extends RootComponent {
 						+ "data", mSetMap.get("data"));
 
 		// 修改模式
-		if (iType == 5) {
+		if (iType == 5||iType==1) {
 
 			mBaseDivHtml.addChild("button", "id", mWebField.getPageFieldName()
 					+ "_select", "class", "btn btn-small", "onclick",

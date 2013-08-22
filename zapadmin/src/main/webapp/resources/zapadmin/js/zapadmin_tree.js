@@ -59,7 +59,7 @@ var zapadmin_tree = {
 		
 		$('#'+sElm).val(s);
 	
-		$('#'+sElm).nextAll('span').html(aLi.join(''));
+		$('#'+sElm).nextAll('span').html(aLi.join(','));
 	
 
 		zapadmin.window_close();
