@@ -57,6 +57,13 @@ public class ComponentTree extends RootComponent {
 		return mBaseDivHtml.upString();
 	}
 
+	/**
+	 * 实际执行操作
+	 * @param mWebField
+	 * @param mDataMap
+	 * @param iType
+	 * @return
+	 */
 	private MWebResult inDo(MWebField mWebField, MDataMap mDataMap, int iType) {
 		MWebResult mResult = new MWebResult();
 

@@ -58,8 +58,8 @@ var zapadmin_tree = {
 		}
 		
 		$('#'+sElm).val(s);
-		
-		$('#'+sElm).next('ul').html(aLi.join(''));
+	
+		$('#'+sElm).nextAll('ul').html(aLi.join(''));
 	
 
 		zapadmin.window_close();
