@@ -53,13 +53,13 @@ var zapadmin_tree = {
 				if (s != '')
 					s += ',';
 				s += nodes[i].id;
-				aLi.push('<li>'+nodes[i].text+'</li>');
+				aLi.push(nodes[i].text);
 			}
 		}
 		
 		$('#'+sElm).val(s);
 	
-		$('#'+sElm).nextAll('ul').html(aLi.join(''));
+		$('#'+sElm).nextAll('span').html(aLi.join(''));
 	
 
 		zapadmin.window_close();
