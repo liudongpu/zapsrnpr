@@ -14,7 +14,7 @@
 
 	
 	
-		<#assign home_menu=b_method.upDataQuery("za_menu","menu_code","left(menu_code,13)='4699031300010'")>
+		<#assign home_menu=b_method.upDataQuery("za_menu","menu_code","left(menu_code,13)='4677031300010'")>
 
 		<div  region="north" class="zab_home_home_top">
 			<div class="w_left c_site">
@@ -27,7 +27,7 @@
 				<ul class="w_ul">
 					<li class="c_active"><a href=""
 						onclick="zapadmin.top_menu(this)">后台首页</a></li> <#list home_menu as el
-					> <#if el['parent_menu']=='469903130001'>
+					> <#if el['parent_menu']=='467703130001'>
 					<li><a href="#" onclick="zapadmin.top_menu(this,${el['menu_code']})">${el['menu_name']}</a></li>
 					</#if> </#list>
 				</ul>
