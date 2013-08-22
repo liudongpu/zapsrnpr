@@ -24,11 +24,22 @@ public class FuncDelete extends RootFunc {
 			if (mDelMaps.containsKey("uid")) {
 				
 				
+				MDataMap mThisMap=null;
+				
 
 				// 循环所有结构
 				for (MWebField mField : mPage.getPageFields()) {
 
 					if (mField.getFieldTypeAid().equals("104005003")) {
+						
+						if(mThisMap==null)
+						{
+							mThisMap=DbUp.upTable(mPage.getPageTable()).one("uid",mDelMaps.get("uid"));
+						}
+						
+						
+						WebUp.upComponent(mField.getSourceCode()).inDelete(mField,
+								mThisMap);
 						
 					}
 				}

@@ -132,12 +132,12 @@ public class ComponentTree extends RootComponent {
 	}
 
 	public MWebResult inAdd(MWebField mWebField, MDataMap mDataMap) {
-		return inDo(mWebField, mDataMap, 1);
+		return inDo(mWebField, mDataMap.upSubMap(WebConst.CONST_WEB_FIELD_NAME), 1);
 	}
 
 	public MWebResult inEdit(MWebField mWebField, MDataMap mDataMap) {
 
-		return inDo(mWebField, mDataMap, 5);
+		return inDo(mWebField, mDataMap.upSubMap(WebConst.CONST_WEB_FIELD_NAME), 5);
 	}
 
 	public String upEditText(MWebField mWebField, MDataMap mDataMap) {
