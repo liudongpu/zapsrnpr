@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Basic ComboBox - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/lib/easyui/themes/bootstrap/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/lib/easyui/themes/icon.css">
+
+    <script type="text/javascript" src="../../resources/lib/jquery/jquery-last.min.js"></script>
+    <script type="text/javascript" src="../../resources/lib/easyui/jquery.easyui.min.js"></script>
+    
+    <script type="text/javascript">
+    
+    var data1 = 
+    [{
+        "id":1,
+        "text":"text1"
+    },{
+        "id":2,
+        "text":"text2"
+    },{
+        "id":3,
+        "text":"text3"
+    },{
+        "id":4,
+        "text":"text4"
+    },{
+        "id":5,
+        "text":"text5"
+    }];
+
+	var data2=
+    [{
+        "id":21,
+        "text":"text1child"
+    },{
+        "id":22,
+        "text":"text2child"
+    },{
+        "id":23,
+        "text":"text3child"
+    },{
+        "id":24,
+        "text":"text4child"
+    },{
+        "id":25,
+        "text":"text5child"
+    }];
+	
+	var data3=
+	    [{
+	        "id":31,
+	        "text":"text1childchild"
+	    },{
+	        "id":32,
+	        "text":"text2childchild"
+	    },{
+	        "id":33,
+	        "text":"text3childchild"
+	    },{
+	        "id":34,
+	        "text":"text4childchild"
+	    },{
+	        "id":35,
+	        "text":"text5childchild"
+	    }];
+	
+	var dataForSearch=[];
+	
+	$(document).ready(function(){
+		
+			dataForSearch.push({"id":"",text:"查询"})
+			
+			$.each(data1,function(i,n){
+				dataForSearch.push(n);
+			})
+    		
+    	
+    		$('#cc').combobox({
+	   	        data:dataForSearch,
+	   	        valueField:'id',
+	   	        textField:'text',
+	   	        onSelect:valueSelect
+	   	    });
+    		
+    		$($('#cc').next().children()[0]).blur( function () { 
+      			
+    			var valueC = $("input[name='dept']").val();
+    			var exist = false;
+    			
+    			
+    			$.each($('#cc').combobox("getData"),function(i,n){
+    				if(valueC == n.id)
+    					exist = true;
+    			})
+    			
+    			if(!exist)
+    			{
+    				 $(this).val("");
+    				 $("input[name='dept']").val("");
+    				 $('#cc2').combobox("clear");
+    			}
+    			else
+    			{
+    				valueSelect();
+    			}
+          	});
+    	   
+  
+       	
+      	 
+      	//$("input[autocomplete='off']").blur( function () { alert("Hello World!"); } );
+    	/*
+      	$(".combo-text").each(function(){
+      		
+      		$(this).blur( function () { 
+      			
+    			var valueC = $(this).val();
+    			var exist = false;
+    			
+    			
+    			$.each(data1,function(i,n){
+    				if(valueC == n.text)
+    					exist = true;
+    			})
+    			
+    			if(!exist)
+    			{
+    				 $('#cc').combobox("getData");
+    			}
+          	
+          	});
+      		
+      	})*/
+      	
+    	//$(".combo-text").keypress(function(){return false;})
+    })
+    
+       function valueSelect(){
+    	
+    	
+    }
+ 
+    </script>
+    
+    
+</head>
+<body>
+    <h2>Basic ComboBox</h2>
+    <div class="demo-info" style="margin-bottom:10px">
+        <div class="demo-tip icon-tip"></div>
+        <div>Type in ComboBox to try auto complete.</div>
+    </div>
+    <input id="cc" name="dept" value="" >
+    
+   
+    <input class="easyui-combobox" data-options="
+		valueField: 'label',
+		textField: 'value',
+		data: [{
+			label: 'java',
+			value: 'Java'
+		},{
+			label: 'perl',
+			value: 'Perl'
+		},{
+			label: 'ruby',
+			value: 'Ruby'
+		}]" />
+    
+    
+    <select class="easyui-combobox" name="state" style="width:200px;">
+        <option value="AL">Alabama</option>
+        <option value="AK">Alaska</option>
+        <option value="AZ">Arizona</option>
+        <option value="AR">Arkansas</option>
+        <option value="CA">California</option>
+        <option value="CO">Colorado</option>
+        <option value="CT">Connecticut</option>
+        <option value="DE">Delaware</option>
+        <option value="FL">Florida</option>
+        <option value="GA">Georgia</option>
+        <option value="HI">Hawaii</option>
+        <option value="ID">Idaho</option>
+        <option value="IL">Illinois</option>
+        <option value="IN">Indiana</option>
+        <option value="IA">Iowa</option>
+        <option value="KS">Kansas</option>
+        <option value="KY">Kentucky</option>
+        <option value="LA">Louisiana</option>
+        <option value="ME">Maine</option>
+        <option value="MD">Maryland</option>
+        <option value="MA">Massachusetts</option>
+        <option value="MI">Michigan</option>
+        <option value="MN">Minnesota</option>
+        <option value="MS">Mississippi</option>
+        <option value="MO">Missouri</option>
+        <option value="MT">Montana</option>
+        <option value="NE">Nebraska</option>
+        <option value="NV">Nevada</option>
+        <option value="NH">New Hampshire</option>
+        <option value="NJ">New Jersey</option>
+        <option value="NM">New Mexico</option>
+        <option value="NY">New York</option>
+        <option value="NC">North Carolina</option>
+        <option value="ND">North Dakota</option>
+        <option value="OH" selected>Ohio</option>
+        <option value="OK">Oklahoma</option>
+        <option value="OR">Oregon</option>
+        <option value="PA">Pennsylvania</option>
+        <option value="RI">Rhode Island</option>
+        <option value="SC">South Carolina</option>
+        <option value="SD">South Dakota</option>
+        <option value="TN">Tennessee</option>
+        <option value="TX">Texas</option>
+        <option value="UT">Utah</option>
+        <option value="VT">Vermont</option>
+        <option value="VA">Virginia</option>
+        <option value="WA">Washington</option>
+        <option value="WV">West Virginia</option>
+        <option value="WI">Wisconsin</option>
+        <option value="WY">Wyoming</option>
+    </select>
+ 
+</body>
+</html>

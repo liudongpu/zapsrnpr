@@ -14,6 +14,11 @@ public interface IWebComponent {
 	 * @return
 	 */
 	public String upListText(MWebField mWebField, MDataMap mDataMap);
+	
+	
+	
+	public String upInquireText(MWebField mWebField, MDataMap mDataMap);
+	
 
 	/**
 	 * 获取插入页面字符串
