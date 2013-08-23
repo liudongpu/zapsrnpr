@@ -137,7 +137,11 @@ public class RootExec extends BaseClass {
 
 				ArrayList<String> aWhereStrings = new ArrayList<String>();
 
-				for (MWebField mField : upInquireData(webPage, mReqMap)) {
+				
+				MWebView mView = WebUp.upQueryView(webPage.getViewCode());
+				List<MWebField> listQuery = recheckFields(mView.getFields(), mReqMap);
+				
+				for (MWebField mField : listQuery) {
 
 					switch (Integer.parseInt(mField.getQueryTypeAid())) {
 
