@@ -205,7 +205,7 @@ public class RootExec extends BaseClass {
 							aWhereStrings.add(" " + mField.getColumnName()
 									+ " like :" + mField.getColumnName());
 							mQueryMap.put(mField.getColumnName(),
-									"%" + mField.getPageFieldValue());
+									 mField.getPageFieldValue()+"%" );
 						}
 						break;
 

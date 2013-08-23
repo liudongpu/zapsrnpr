@@ -38,6 +38,8 @@ public class ComponentMultiSelect extends RootComponent {
 
 	public String upListText(MWebField mWebField, MDataMap mDataMap) {
 		
+		System.out.println("upListText======"+mWebField.getPageFieldValue()+"======");
+		
 		MDataMap mSetMap = upSetMap(mWebField.getSourceParam());
 		
 		String id = mWebField.getPageFieldName()+"selectid";
@@ -54,23 +56,27 @@ public class ComponentMultiSelect extends RootComponent {
 		
 		
 		String showText = this.getShowText(topParentCode, tableName, fieldvaluename, fieldtextname, 
-				fieldparentname, id, name, mWebField.getPageFieldValue());
+				fieldparentname, id, name, mDataMap.get(mWebField.getFieldName()).toString());
 		
 		// return sBuilder.toString();
 		return showText;
 	}
 
 	public String upAddText(MWebField mWebField, MDataMap mDataMap) {
-		return upText(mWebField, mDataMap,2);
+		System.out.println("upAddText======"+mWebField.getPageFieldValue()+"======");
+		
+		return upText(mWebField, mDataMap,2,mWebField.getPageFieldValue());
 	}
 
 	public MWebResult inAdd(MWebField mWebField, MDataMap mDataMap) {
 		// TODO Auto-generated method stub
+		System.out.println("inAdd======"+mWebField.getPageFieldValue()+"======");
 		return null;
 	}
 
 	public MWebResult inEdit(MWebField mWebField, MDataMap mDataMap) {
 		// TODO Auto-generated method stub
+		System.out.println("inEdit======"+mWebField.getPageFieldValue()+"======");
 		return null;
 	}
 
@@ -80,41 +86,52 @@ public class ComponentMultiSelect extends RootComponent {
 	}
 
 	public String upEditText(MWebField mWebField, MDataMap mDataMap) {
-		return upText(mWebField, mDataMap,3);
+		System.out.println("upEditText======"+mWebField.getPageFieldValue()+"======");
+		
+		String fieldName=mWebField.getPageFieldName();
+		String fieldValue = mWebField.getPageFieldValue();
+		
+		if(mDataMap.containsKey(fieldName))
+			fieldValue = mDataMap.get(mWebField.getPageFieldName()).toString();
+		else
+			if(mDataMap.containsKey(mWebField.getFieldName()))
+				fieldValue = mDataMap.get(mWebField.getFieldName()).toString();
+		
+		return upText(mWebField, mDataMap,3,fieldValue);
 	}
 	
 	@Override
 	public String upInquireText(MWebField mWebField, MDataMap mDataMap)
 	{
-		return upText(mWebField,mDataMap,1);
+		System.out.println("upInquireText======"+mWebField.getPageFieldValue()+"======");
+		return upText(mWebField,mDataMap,1,mWebField.getPageFieldValue());
 	}
 	
 
 	/*
 	 * @type 类型 1 查询，2 添加 3 修改
 	 */
-	private String upText(MWebField mWebField, MDataMap mDataMap,int type)
+	private String upText(MWebField mWebField, MDataMap mDataMap,int type,String fieldValue)
 	{
 		
 		MDataMap mSetMap = upSetMap(mWebField.getSourceParam());
 		MWebHtml mBaseDivHtml = new MWebHtml("div");
 		
 		mBaseDivHtml.addChild("hidden", "id", mWebField.getPageFieldName(),
-				"name", mWebField.getPageFieldName(), "value",
-				mWebField.getPageFieldValue());
+				"name", mWebField.getPageFieldName(), "value",fieldValue);
+		
 		String id = mWebField.getPageFieldName()+"selectid";
 		String name = mWebField.getPageFieldName()+"selectname";
 		
 		
 		String hidden2Id =mWebField.getPageFieldName()+"hidden2";
 		mBaseDivHtml.addChild("hidden", "id", hidden2Id,
-				"name", hidden2Id, "value",
-				mWebField.getPageFieldValue());
+				"name", hidden2Id, "value",fieldValue);
 		
 		
 		
 		mBaseDivHtml.addChild("text", "id", id ,
-				"name", name, "value",mWebField.getPageFieldValue(),"style","display:none;");
+				"name", name, "value",fieldValue,"style","display:none;");
 		
 	
 		
@@ -130,7 +147,14 @@ public class ComponentMultiSelect extends RootComponent {
 		boolean ismultilevel = Boolean.parseBoolean(mSetMap.get("ismultilevel"));
 		boolean iscaninput = Boolean.parseBoolean(mSetMap.get("iscaninput"));
 		String firstviewtext = mSetMap.get("firstviewtext") ;
-		boolean mustbelast = Boolean.parseBoolean(mSetMap.get("mustbelast"));
+		
+		boolean mustbelast = false;
+		
+		if(type == 1)
+			mustbelast = false;
+		else
+			mustbelast = true;
+		
 		String url= mSetMap.get("url") ;
 		
 		String parentReplaceName = WebConst.CONST_WEB_FIELD_NAME+fieldparentname;
@@ -156,7 +180,7 @@ public class ComponentMultiSelect extends RootComponent {
 		optionjson.append("}");
 		
 		String sencondHiddenValue = (mDataMap.get(hidden2Id)==null?"":mDataMap.get(hidden2Id));
-		String tempStr = mWebField.getPageFieldValue();
+		String tempStr = fieldValue;
 		if(!sencondHiddenValue.equals(""))
 			tempStr = sencondHiddenValue;
 		
