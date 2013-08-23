@@ -444,6 +444,20 @@ public class RootExec extends BaseClass {
 		MWebView mView = WebUp.upQueryView(webPage.getViewCode());
 		List<MWebField> listFields = recheckFields(mView.getFields(), mReqMap);
 
+		for (MWebField mField : listFields) {
+
+			// 判断如果是组件则重新输出文字
+			if (mField.getFieldTypeAid().equals("104005003")) {
+				
+				mField.setPageFieldValue(WebUp.upComponent(mField.getSourceCode())
+						.upInquireText(mField, mReqMap));
+				
+			} 
+
+		}
+		
+		
+		
 		return listFields;
 
 	}

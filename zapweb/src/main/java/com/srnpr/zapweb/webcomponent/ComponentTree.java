@@ -1,5 +1,8 @@
 package com.srnpr.zapweb.webcomponent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.basehelper.FormatHelper;
@@ -27,6 +30,41 @@ public class ComponentTree extends RootComponent {
 	private String upText(MWebField mWebField, MDataMap mDataMap, int iType) {
 
 		MDataMap mSetMap = upSetMap(mWebField.getSourceParam());
+
+		List<String> listShowText = new ArrayList<String>();
+
+		if (mDataMap.containsKey(mSetMap.get("source"))) {
+
+			List<String> listKeysList = new ArrayList<String>();
+
+			for (MDataMap mKeys : DbUp.upTable(mSetMap.get("table"))
+					.queryByWhere(mSetMap.get("tablekey"),
+							mDataMap.get(mSetMap.get("source")))) {
+
+				listKeysList.add(mKeys.get(mSetMap.get("tablevalue")));
+
+			}
+
+			if (listKeysList.size() > 0) {
+				mWebField
+						.setPageFieldValue(StringUtils.join(listKeysList, ","));
+
+				for (MDataMap mUp : DbUp.upTable(mSetMap.get("uptable"))
+						.queryAll(
+								"",
+								"",
+								mSetMap.get("upkey") + " in ('"
+										+ StringUtils.join(listKeysList, "','")
+										+ "')", new MDataMap())) {
+
+					listShowText.add(mUp.get(mSetMap.get("uptext")));
+
+				}
+
+			}
+
+		}
+
 		MWebHtml mBaseDivHtml = new MWebHtml("div");
 
 		mBaseDivHtml.addChild("hidden", "id", mWebField.getPageFieldName(),
@@ -35,7 +73,7 @@ public class ComponentTree extends RootComponent {
 						+ "data", mSetMap.get("data"));
 
 		// 修改模式
-		if (iType == 5) {
+		if (iType == 5||iType==1) {
 
 			mBaseDivHtml.addChild("button", "id", mWebField.getPageFieldName()
 					+ "_select", "class", "btn btn-small", "onclick",
@@ -43,11 +81,9 @@ public class ComponentTree extends RootComponent {
 							+ "?zw_s_fieldname=" + mWebField.getPageFieldName()
 							+ "')", "value", bInfo(969901001));
 		}
-		MWebHtml mUl = mBaseDivHtml.addChild("ul");
 
-		if (StringUtils.isNotEmpty(mWebField.getPageFieldValue())) {
-			mUl.addChild("li");
-		}
+		 mBaseDivHtml.addChild("span",
+				StringUtils.join(listShowText, ","));
 
 		mBaseDivHtml.addChild("script",
 				"require(['zapadmin/js/zapadmin_tree'],function(a){a.init_window('"
@@ -59,6 +95,7 @@ public class ComponentTree extends RootComponent {
 
 	/**
 	 * 实际执行操作
+	 * 
 	 * @param mWebField
 	 * @param mDataMap
 	 * @param iType
@@ -95,12 +132,12 @@ public class ComponentTree extends RootComponent {
 	}
 
 	public MWebResult inAdd(MWebField mWebField, MDataMap mDataMap) {
-		return inDo(mWebField, mDataMap, 1);
+		return inDo(mWebField, mDataMap.upSubMap(WebConst.CONST_WEB_FIELD_NAME), 1);
 	}
 
 	public MWebResult inEdit(MWebField mWebField, MDataMap mDataMap) {
 
-		return inDo(mWebField, mDataMap, 5);
+		return inDo(mWebField, mDataMap.upSubMap(WebConst.CONST_WEB_FIELD_NAME), 5);
 	}
 
 	public String upEditText(MWebField mWebField, MDataMap mDataMap) {
