@@ -17,6 +17,7 @@ import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webmodel.MPageData;
 import com.srnpr.zapweb.webmodel.MWebField;
+import com.srnpr.zapweb.webmodel.MWebHtml;
 import com.srnpr.zapweb.webmodel.MWebOperate;
 import com.srnpr.zapweb.webmodel.MWebPage;
 import com.srnpr.zapweb.webmodel.MWebSource;
@@ -381,6 +382,10 @@ public class RootExec extends BaseClass {
 					bConfig("zapweb.html_linkbhref"), sReturn,
 					mWebOperate.getOperateName()));
 
+		}else if (mWebOperate.getOperateTypeAid().equals("116015010")) {
+
+			sReturn = new MWebHtml("button").inAttributes("onclick",sReturn,"class","btn btn-small","value",mWebOperate.getOperateName()).upString();
+
 		}
 
 		return sReturn;
@@ -439,6 +444,20 @@ public class RootExec extends BaseClass {
 		MWebView mView = WebUp.upQueryView(webPage.getViewCode());
 		List<MWebField> listFields = recheckFields(mView.getFields(), mReqMap);
 
+		
+		for (MWebField mField : listFields) {
+
+			// 判断如果是组件则重新输出文字
+			if (mField.getFieldTypeAid().equals("104005003")) {
+				
+				mField.setPageFieldValue(WebUp.upComponent(mField.getSourceCode())
+						.upInquireText(mField, mReqMap));
+				
+			} 
+
+		}
+		
+		
 		return listFields;
 
 	}
