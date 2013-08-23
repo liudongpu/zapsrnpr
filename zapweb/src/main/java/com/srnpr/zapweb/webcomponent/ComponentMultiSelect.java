@@ -38,7 +38,7 @@ public class ComponentMultiSelect extends RootComponent {
 
 	public String upListText(MWebField mWebField, MDataMap mDataMap) {
 		
-		System.out.println("upListText======"+mWebField.getPageFieldValue()+"======");
+		//System.out.println("upListText======"+mWebField.getPageFieldValue()+"======");
 		
 		MDataMap mSetMap = upSetMap(mWebField.getSourceParam());
 		
@@ -63,20 +63,20 @@ public class ComponentMultiSelect extends RootComponent {
 	}
 
 	public String upAddText(MWebField mWebField, MDataMap mDataMap) {
-		System.out.println("upAddText======"+mWebField.getPageFieldValue()+"======");
+		//System.out.println("upAddText======"+mWebField.getPageFieldValue()+"======");
 		
 		return upText(mWebField, mDataMap,2,mWebField.getPageFieldValue());
 	}
 
 	public MWebResult inAdd(MWebField mWebField, MDataMap mDataMap) {
 		// TODO Auto-generated method stub
-		System.out.println("inAdd======"+mWebField.getPageFieldValue()+"======");
+		//System.out.println("inAdd======"+mWebField.getPageFieldValue()+"======");
 		return null;
 	}
 
 	public MWebResult inEdit(MWebField mWebField, MDataMap mDataMap) {
 		// TODO Auto-generated method stub
-		System.out.println("inEdit======"+mWebField.getPageFieldValue()+"======");
+		//System.out.println("inEdit======"+mWebField.getPageFieldValue()+"======");
 		return null;
 	}
 
@@ -86,7 +86,7 @@ public class ComponentMultiSelect extends RootComponent {
 	}
 
 	public String upEditText(MWebField mWebField, MDataMap mDataMap) {
-		System.out.println("upEditText======"+mWebField.getPageFieldValue()+"======");
+		//System.out.println("upEditText======"+mWebField.getPageFieldValue()+"======");
 		
 		String fieldName=mWebField.getPageFieldName();
 		String fieldValue = mWebField.getPageFieldValue();
@@ -103,7 +103,7 @@ public class ComponentMultiSelect extends RootComponent {
 	@Override
 	public String upInquireText(MWebField mWebField, MDataMap mDataMap)
 	{
-		System.out.println("upInquireText======"+mWebField.getPageFieldValue()+"======");
+		//System.out.println("upInquireText======"+mWebField.getPageFieldValue()+"======");
 		return upText(mWebField,mDataMap,1,mWebField.getPageFieldValue());
 	}
 	
