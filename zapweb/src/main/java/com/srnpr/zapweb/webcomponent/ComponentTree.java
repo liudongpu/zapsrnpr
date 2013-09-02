@@ -21,13 +21,12 @@ import com.srnpr.zapweb.webmodel.MWebResult;
  * 
  * 
  */
-public class ComponentTree extends RootComponent {
+public class ComponentTree extends RootSimpleComponent {
 
-	public String upListText(MWebField mWebField, MDataMap mDataMap) {
-		return upText(mWebField, mDataMap, 3);
-	}
-
-	private String upText(MWebField mWebField, MDataMap mDataMap, int iType) {
+	/* (non-Javadoc)
+	 * @see com.srnpr.zapweb.webcomponent.RootSimpleComponent#upText(com.srnpr.zapweb.webmodel.MWebField, com.srnpr.zapcom.basemodel.MDataMap, int)
+	 */
+	public String upText(MWebField mWebField, MDataMap mDataMap, int iType) {
 
 		MDataMap mSetMap = upSetMap(mWebField.getSourceParam());
 
@@ -73,7 +72,7 @@ public class ComponentTree extends RootComponent {
 						+ "data", mSetMap.get("data"));
 
 		// 修改模式
-		if (iType == 5||iType==1) {
+		if (iType == 5 || iType == 1) {
 
 			mBaseDivHtml.addChild("button", "id", mWebField.getPageFieldName()
 					+ "_select", "class", "btn btn-small", "onclick",
@@ -82,8 +81,7 @@ public class ComponentTree extends RootComponent {
 							+ "')", "value", bInfo(969901001));
 		}
 
-		 mBaseDivHtml.addChild("span",
-				StringUtils.join(listShowText, ","));
+		mBaseDivHtml.addChild("span", StringUtils.join(listShowText, ","));
 
 		mBaseDivHtml.addChild("script",
 				"require(['zapadmin/js/zapadmin_tree'],function(a){a.init_window('"
@@ -93,15 +91,11 @@ public class ComponentTree extends RootComponent {
 		return mBaseDivHtml.upString();
 	}
 
-	/**
-	 * 实际执行操作
-	 * 
-	 * @param mWebField
-	 * @param mDataMap
-	 * @param iType
-	 * @return
+
+	/* (non-Javadoc)
+	 * @see com.srnpr.zapweb.webcomponent.RootSimpleComponent#inDo(com.srnpr.zapweb.webmodel.MWebField, com.srnpr.zapcom.basemodel.MDataMap, int)
 	 */
-	private MWebResult inDo(MWebField mWebField, MDataMap mDataMap, int iType) {
+	public MWebResult inDo(MWebField mWebField, MDataMap mDataMap, int iType) {
 		MWebResult mResult = new MWebResult();
 
 		MDataMap mSetMap = upSetMap(mWebField.getSourceParam());
@@ -124,28 +118,6 @@ public class ComponentTree extends RootComponent {
 		}
 
 		return mResult;
-	}
-
-	public String upAddText(MWebField mWebField, MDataMap mDataMap) {
-
-		return upText(mWebField, mDataMap, 1);
-	}
-
-	public MWebResult inAdd(MWebField mWebField, MDataMap mDataMap) {
-		return inDo(mWebField, mDataMap.upSubMap(WebConst.CONST_WEB_FIELD_NAME), 1);
-	}
-
-	public MWebResult inEdit(MWebField mWebField, MDataMap mDataMap) {
-
-		return inDo(mWebField, mDataMap.upSubMap(WebConst.CONST_WEB_FIELD_NAME), 5);
-	}
-
-	public String upEditText(MWebField mWebField, MDataMap mDataMap) {
-		return upText(mWebField, mDataMap, 5);
-	}
-
-	public MWebResult inDelete(MWebField mWebField, MDataMap mDataMap) {
-		return inDo(mWebField, mDataMap, 4);
 	}
 
 }
