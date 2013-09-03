@@ -4,13 +4,13 @@
 		<wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="zapweb-1.0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/zapweb/zapweb">
+        <dependent-module archiveName="zapweb-2.0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/zapweb/zapweb">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="zapdata-1.0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/zapdata/zapdata">
+        <dependent-module archiveName="zapdata-2.0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/zapdata/zapdata">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="zapcom-1.0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/zapcom/zapcom">
+        <dependent-module archiveName="zapcom-2.0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/zapcom/zapcom">
             <dependency-type>uses</dependency-type>
         </dependent-module>
 		<property name="java-output-path" value="target/classes"/>
