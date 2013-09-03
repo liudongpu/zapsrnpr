@@ -8,12 +8,14 @@ import org.junit.Test;
 import com.srnpr.zapcom.topdo.TopTest;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.TestBase;
+import com.srnpr.zapweb.helper.WebHelper;
 
 public class TestClass extends TestBase {
 
+	
 	@Test
 	public void testRefresh() {
-		//fail("Not yet implemented");
+		/*//fail("Not yet implemented");
 		
 		
 		bLogInfo(0, bConfig("zapcom.version"));
@@ -27,6 +29,18 @@ public class TestClass extends TestBase {
 		//这个项目名称a设置为b，请操作
 		
 		//DbUp.upTable("aa").
+*/		
+		
+		
+		
+		//获取系统编码
+		//获取单据号格式
+		String sCode=WebHelper.upCode("DD");
+		bLogInfo(0, sCode);
+		//输出结果为：DD130903100009
+		
+		
+		
 		
 		
 	}
