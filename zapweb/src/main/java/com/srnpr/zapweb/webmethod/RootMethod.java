@@ -13,6 +13,7 @@ import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webface.IWebMethod;
+import com.srnpr.zapweb.webmodel.MWebField;
 import com.srnpr.zapweb.webpage.ControlPage;
 
 /**
@@ -92,6 +93,27 @@ public abstract class RootMethod extends BaseClass implements IWebMethod {
 		return cPage;
 		
 	}
+	
+	
+	
+	
+	public MWebField upFiledByFieldName(List<MWebField> listFields,String sFieldName)
+	{
+		MWebField mReturnField=null;
+		
+		for(MWebField mField:listFields)
+		{
+			if(sFieldName.equals(mField.getFieldName()))
+			{
+				mReturnField=mField.clone();
+			}
+		}
+		
+		return mReturnField;
+		
+	}
+	
+	
 	
 	
 	
