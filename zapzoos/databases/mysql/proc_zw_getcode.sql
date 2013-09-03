@@ -12,7 +12,7 @@ declare p_nowno int;
 set p_now=DATE_FORMAt(now(), '%y%m%d') ;
 
 
-#查询系统时间
+#查询系统时间  如果表中该参数不为6位则忽略该标记
 set p_date=ifnull((select a.date_apply from zw_webcode a where  a.code_start=p_code_start),'');
 
 if(p_date='')
@@ -36,9 +36,15 @@ THEN
 
 end if;
 
+#判断是否更新日期
  if(p_date!=p_now) then
 
- update zw_webcode set now_number=min_number where zid=p_code_start;
+	#如果日期标记位的长度不为6位  则直接使用该标记位作为序列参数
+	if length(p_date)!=6 then
+		set p_now='';
+	else
+		update zw_webcode set now_number=min_number,date_apply=p_now where code_start=p_code_start and flag_date=1;
+	end if;
 
 end if;
 
