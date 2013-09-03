@@ -8,9 +8,12 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
+import com.srnpr.zapcom.basehelper.MapHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
+import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webface.IWebMethod;
+import com.srnpr.zapweb.webpage.ControlPage;
 
 /**
  * 
@@ -74,5 +77,27 @@ public abstract class RootMethod extends BaseClass implements IWebMethod {
 		}
 		return oReturnObject;
 	}
+	
+	/**获取页面  该项目通常用于复合页面结构定义
+	 * @param sPageCode
+	 * @param sSetMap
+	 * @return
+	 */
+	public ControlPage upControlPage(String sPageCode,String sSetMap)
+	{
+		ControlPage cPage=new ControlPage();
+		
+		cPage.setWebPage(WebUp.upPage(sPageCode));
+		cPage.setReqMap(new MDataMap().inUrlParams(sSetMap));
+		return cPage;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 
 }
