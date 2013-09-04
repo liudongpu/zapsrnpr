@@ -1,5 +1,6 @@
 package com.srnpr.zapcom.basemodel;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Map;
 
@@ -42,6 +43,21 @@ public class MDataMap extends MObjMap<String, String> implements
 		this.inAllValues(FormatHelper.upUrlStrings(sParams));
 		return this;
 	}
+	
+	
+	public String[] upStrings()
+	{
+		ArrayList<String> aList=new ArrayList<String>();
+		for (String sKey : this.upKeys()) {
+			aList.add(sKey);
+			aList.add(this.get(sKey));
+		}
+		
+		return aList.toArray(new String[]{});
+	
+	}
+	
+	
 	
 	
 	

@@ -65,8 +65,6 @@ public class PageExec extends RootExec {
 		return listPageFields;
 	}
 
-	
-	
 	/**
 	 * 修改页面数据
 	 * 
@@ -79,41 +77,30 @@ public class PageExec extends RootExec {
 		List<MWebField> listPageFields = recheckFields(
 				mWebPage.getPageFields(), mReqMap);
 
-		String sEditKeyString = WebConst.CONST_WEB_FIELD_NAME + "uid";
+		MDataMap mEditDataMap = DbUp.upTable(mWebPage.getPageTable()).oneWhere(
+				WebHelper.upFieldSql(listPageFields), "", "",
+				mReqMap.upSubMap(WebConst.CONST_WEB_FIELD_NAME).upStrings());
 
-		String sUid = mReqMap.containsKey(sEditKeyString) ? mReqMap
-				.get(sEditKeyString) : "";
+		for (MWebField mField : listPageFields) {
+			// 判断如果是组件则重新输出文字
+			if (mField.getFieldTypeAid().equals("104005003")) {
+				mField.setPageFieldValue(WebUp.upComponent(
+						mField.getSourceCode())
+						.upListText(mField, mEditDataMap));
+			} else {
 
-		if (StringUtils.isNotEmpty(sUid)) {
+				if (mEditDataMap.containsKey(mField.getFieldName())) {
 
-			MDataMap mEditDataMap = DbUp.upTable(mWebPage.getPageTable())
-					.oneWhere(WebHelper.upFieldSql(listPageFields), "", "",
-							"uid", sUid);
-
-			for (MWebField mField : listPageFields) {
-				// 判断如果是组件则重新输出文字
-				if (mField.getFieldTypeAid().equals("104005003")) {
-					mField.setPageFieldValue(WebUp.upComponent(
-							mField.getSourceCode()).upListText(mField,
-							mEditDataMap));
-				} else {
-
-					if (mEditDataMap.containsKey(mField.getFieldName())) {
-
-						mField.setPageFieldValue(mEditDataMap.get(mField
-								.getFieldName()));
-					}
-
+					mField.setPageFieldValue(mEditDataMap.get(mField
+							.getFieldName()));
 				}
-			}
 
+			}
 		}
 
 		return listPageFields;
 	}
-	
-	
-	
+
 	/**
 	 * 修改页面数据
 	 * 

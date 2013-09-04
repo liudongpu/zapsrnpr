@@ -69,7 +69,7 @@ select replace(uuid(),'-','') as uid
 ,project_aid
 from zw_view zwv
 join zw_define zwd
-on zwd.define_dids in('469916161601','469916161603','469916161605')
+on zwd.define_dids in('469916161601','469916161602','469916161603','469916161605')
 where
 
 (select count(1) from zapdata.zw_page where page_code=concat(zwd.define_two,zwv.view_code))=0 and  
