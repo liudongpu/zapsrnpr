@@ -237,6 +237,10 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 	      		<input type="text"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}" value="${e_field.getPageFieldValue()}">
 	    	</div>
 	  </div>
+	  
+	  
+	  <@m_zapmacro_common_html_script "require(['lib/datepicker/WdatePicker'],function(a){});" />
+	  
 </#macro>
 
 
@@ -307,6 +311,9 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 	      		
 	    	</div>
 	  </div>
+	  
+	  <@m_zapmacro_common_html_script "require(['lib/datepicker/WdatePicker'],function(a){});" />
+	  
 </#macro>
 
 
@@ -377,7 +384,13 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 </#macro>
 
 
+<#macro m_zapmacro_common_html_script  e_info >
 
+	<script type="text/javascript">
+		${e_info}
+	</script>
+
+</#macro>
 
 
 
