@@ -3,6 +3,9 @@ package com.srnpr.zapweb.usermodel;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.srnpr.zapcom.basemodel.MDataMap;
+import com.srnpr.zapcom.basemodel.MObjMap;
+
 public class MUserInfo {
 
 	/**

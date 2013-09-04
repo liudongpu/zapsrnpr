@@ -47,5 +47,17 @@ public class WebConst implements IBaseConst {
 	
 	
 	
+	/**
+	 * 定义session默认的key
+	 */
+	public final static String CONST_WEB_SESSION_KEY="session:zw:";
+	
+	
+	/**
+	 * 定义用户信息session
+	 */
+	public final static String CONST_WEB_SESSION_USER="session:zw:userinfo";
+	
+	
 
 }

@@ -97,6 +97,12 @@ public abstract class RootMethod extends BaseClass implements IWebMethod {
 	
 	
 	
+	/**
+	 * 根据字段名称获取字段
+	 * @param listFields
+	 * @param sFieldName
+	 * @return
+	 */
 	public MWebField upFiledByFieldName(List<MWebField> listFields,String sFieldName)
 	{
 		MWebField mReturnField=null;
