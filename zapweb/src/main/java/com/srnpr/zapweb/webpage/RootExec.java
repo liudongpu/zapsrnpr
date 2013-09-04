@@ -44,10 +44,8 @@ public class RootExec extends BaseClass {
 		MPageData mReturnData = new MPageData();
 
 		String sSortString = "-zid";
-		
-		
-		mReqMap.inAllValues(FormatHelper.upUrlStrings(webPage.getDataScope()));
 
+		mReqMap.inAllValues(FormatHelper.upUrlStrings(webPage.getDataScope()));
 
 		/********** 开始处理分页输入参数逻辑 ********************************/
 		{
@@ -137,10 +135,10 @@ public class RootExec extends BaseClass {
 
 				ArrayList<String> aWhereStrings = new ArrayList<String>();
 
-				
 				MWebView mView = WebUp.upQueryView(webPage.getViewCode());
-				List<MWebField> listQuery = recheckFields(mView.getFields(), mReqMap);
-				
+				List<MWebField> listQuery = recheckFields(mView.getFields(),
+						mReqMap);
+
 				for (MWebField mField : listQuery) {
 
 					switch (Integer.parseInt(mField.getQueryTypeAid())) {
@@ -205,7 +203,7 @@ public class RootExec extends BaseClass {
 							aWhereStrings.add(" " + mField.getColumnName()
 									+ " like :" + mField.getColumnName());
 							mQueryMap.put(mField.getColumnName(),
-									 mField.getPageFieldValue()+"%" );
+									mField.getPageFieldValue() + "%");
 						}
 						break;
 
@@ -348,27 +346,11 @@ public class RootExec extends BaseClass {
 	 * @return
 	 */
 	public String reloadOperateText(MWebOperate mWebOperate, MDataMap mDataMap) {
-		Pattern p = Pattern.compile("\\[@(.+?)\\$(.*?)\\]");
 
 		String sReturn = mWebOperate.getOperateLink();
-		Matcher m = p.matcher(sReturn);
 
-		while (m.find()) {
-
-			String sFull = m.group(0);
-			String sKey = m.group(1);
-			String sAttr = m.group(2);
-
-			String sReplace = "";
-
-			if (sKey.equals("this")) {
-				if (mDataMap.containsKey(sAttr)) {
-					sReplace = mDataMap.get(sAttr);
-				}
-			}
-
-			sReturn = sReturn.replace(sFull, sReplace);
-
+		if (StringUtils.contains(sReturn, WebConst.CONST_WEB_SET_REPLACE)) {
+			sReturn = WebHelper.recheckReplace(sReturn, mDataMap);
 		}
 
 		// 如果是链接 则输出链接
@@ -386,9 +368,11 @@ public class RootExec extends BaseClass {
 					bConfig("zapweb.html_linkbhref"), sReturn,
 					mWebOperate.getOperateName()));
 
-		}else if (mWebOperate.getOperateTypeAid().equals("116015010")) {
+		} else if (mWebOperate.getOperateTypeAid().equals("116015010")) {
 
-			sReturn = new MWebHtml("button").inAttributes("onclick",sReturn,"class","btn btn-small","value",mWebOperate.getOperateName()).upString();
+			sReturn = new MWebHtml("button").inAttributes("onclick", sReturn,
+					"class", "btn btn-small", "value",
+					mWebOperate.getOperateName()).upString();
 
 		}
 
@@ -452,16 +436,14 @@ public class RootExec extends BaseClass {
 
 			// 判断如果是组件则重新输出文字
 			if (mField.getFieldTypeAid().equals("104005003")) {
-				
-				mField.setPageFieldValue(WebUp.upComponent(mField.getSourceCode())
-						.upInquireText(mField, mReqMap));
-				
-			} 
+
+				mField.setPageFieldValue(WebUp.upComponent(
+						mField.getSourceCode()).upInquireText(mField, mReqMap));
+
+			}
 
 		}
-		
-		
-		
+
 		return listFields;
 
 	}

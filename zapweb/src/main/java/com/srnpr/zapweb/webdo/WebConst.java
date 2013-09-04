@@ -37,5 +37,15 @@ public class WebConst implements IBaseConst {
 	public final static String CONST_WEB_FIELD_SET="zw_s_";
 	
 	
+	
+	
+	/**
+	 * 定义需要替换的规则表达式  如果字段含有该字段  则执行替换逻辑
+	 */
+	public final static String CONST_WEB_SET_REPLACE="[@";
+	
+	
+	
+	
 
 }

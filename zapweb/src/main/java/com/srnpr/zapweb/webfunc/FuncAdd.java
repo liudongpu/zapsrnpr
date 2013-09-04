@@ -55,7 +55,8 @@ public class FuncAdd extends RootFunc {
 					bFlagComponent = true;
 				}
 
-				if (mAddMaps.containsKey(mField.getFieldName())&&StringUtils.isNotEmpty(mField.getColumnName())) {
+				if (mAddMaps.containsKey(mField.getFieldName())
+						&& StringUtils.isNotEmpty(mField.getColumnName())) {
 
 					String sValue = mAddMaps.get(mField.getFieldName());
 
@@ -69,36 +70,23 @@ public class FuncAdd extends RootFunc {
 					if (StringUtils.isNotEmpty(sDefaultValue)) {
 						String sValue = "";
 
-						if (sDefaultValue.startsWith("@")) {
-							String sKeyString = StringUtils.substringBetween(
-									sDefaultValue, "@", "$");
+						if (StringUtils.contains(sDefaultValue,
+								WebConst.CONST_WEB_SET_REPLACE)) {
 
-							String sRightString = StringUtils.substringAfter(
-									sDefaultValue, "$");
+							sValue = WebHelper.recheckReplace(sDefaultValue,
+									mDataMap);
 
-							// 当前时间
-							if (sKeyString.equals("datenow")) {
-								sValue = FormatHelper.upDateTime();
-							}
-							// 系统编号
-							else if (sKeyString.equals("code")) {
-								sValue = WebHelper.upCode(sRightString);
-							} else if (sKeyString.equals("uid")) {
-								// sValue = ;
-							}
-							// 特殊判断是否是唯一校验
-							else if (sKeyString.equals("unique")) {
-
-								int iCount = DbUp.upTable(mPage.getPageTable())
-										.count(mField.getColumnName(),
-												mInsertMap.get(mField
-														.getFieldName()));
-								if (iCount > 0) {
-									mResult.inErrorMessage(969905004,
-											mField.getFieldNote());
-								}
-
-							}
+							/*
+							 * // 特殊判断是否是唯一校验 if (sKeyString.equals("unique")) {
+							 * 
+							 * int iCount = DbUp.upTable(mPage.getPageTable())
+							 * .count(mField.getColumnName(),
+							 * mInsertMap.get(mField .getFieldName())); if
+							 * (iCount > 0) { mResult.inErrorMessage(969905004,
+							 * mField.getFieldNote()); }
+							 * 
+							 * }
+							 */
 
 						} else {
 							sValue = sDefaultValue;
