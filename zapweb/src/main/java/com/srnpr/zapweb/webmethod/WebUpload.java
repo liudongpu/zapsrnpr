@@ -75,7 +75,7 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 
 							String sEditorFuncNum = request
 									.getParameter("CKEditorFuncNum");
-							sReturnString = FormatHelper.formatString("",
+							sReturnString = FormatHelper.formatString(bConfig("zapweb.editor_upload"),
 									sEditorFuncNum, mResult.getResultObject()
 											.toString(), mResult
 											.getResultMessage());

@@ -186,8 +186,10 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 	  		<@m_zapmacro_common_field_textarea  e_field />
 	  	<#elseif  e_field.getFieldTypeAid()=="104005005">
 	  		<@m_zapmacro_common_field_editor  e_field />
+	  	<#elseif  e_field.getFieldTypeAid()=="104005009">
+	  		<@m_zapmacro_common_field_text  e_field />
 	  	<#else>
-	  		<@m_zapmacro_common_field_text e_field/>
+	  		<@m_zapmacro_common_field_span e_field/>
 	  	</#if>
 </#macro>
 
@@ -230,6 +232,19 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 	    	</div>
 	  </div>
 </#macro>
+
+
+<#-- 字段：纯展示 -->
+<#macro m_zapmacro_common_field_span e_field>
+	<div class="control-group">
+	    	<label class="control-label">${e_field.getFieldNote()}</label>
+	    	<div class="controls">
+	      		${e_field.getPageFieldValue()?default("")}
+	    	</div>
+	  </div>
+</#macro>
+
+
 
 <#-- 字段：日期 -->
 <#macro m_zapmacro_common_field_date e_field>

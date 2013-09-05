@@ -267,7 +267,7 @@ public class RootExec extends BaseClass {
 						listEach.add(WebUp.upComponent(mField.getSourceCode())
 								.upListText(mField, mData));
 					} else {
-						listEach.add(mData.get(mField.getColumnName()));
+						listEach.add(mData.get(mField.getFieldName()));
 					}
 
 				}
