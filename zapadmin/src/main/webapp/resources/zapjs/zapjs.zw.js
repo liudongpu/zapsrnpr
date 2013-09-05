@@ -103,6 +103,15 @@ zapjs.zw = {
 	upExtend:function(sId,sStart)
 	{
 		return $('#'+sId).attr(zapjs.c.web_extend+sStart);
+	},
+	//编辑器提交时调用扩展
+	editorsubmit:function()
+	{
+		for ( instance in CKEDITOR.instances )
+	    {
+	        CKEDITOR.instances[instance].updateElement();
+	    }
+		return true;
 	}
 	
 	

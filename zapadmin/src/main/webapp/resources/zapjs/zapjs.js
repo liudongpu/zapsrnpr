@@ -15,8 +15,20 @@ zapjs.c = {
 
 	web_paginaion : 'zw_p_',
 	web_field : 'zw_f_',
-	web_extend:'zw_e_',
-	main_iframe : 'main_iframe'
+	web_extend : 'zw_e_',
+	main_iframe : 'main_iframe',
+	extend : {}
+
+};
+
+// 注册函数专用调用 注册该函数的方法需要返回true/false
+// 调用注册方法为zapjs.f.callextend(sId);该参数会返回true/false
+zapjs.e = function(sId, fCall) {
+	if (!zapjs.c.extend[sId]) {
+		zapjs.c.extend[sId] = [];
+	}
+
+	zapjs.c.extend[sId].push(fCall);
 
 };
 
@@ -41,9 +53,28 @@ zapjs.f = {
 			}
 		};
 
+		zapjs.f.callextend("zapjs_e_zapjs_f_ajaxsubmit_submit");
+
 		$(oElment).ajaxSubmit(options);
 
 	},
+
+	callextend : function(sId) {
+		var bReturn = true;
+
+		if (zapjs.c.extend[sId]) {
+			for ( var p in zapjs.c.extend[sId]) {
+				var bFlag = zapjs.c.extend[sId][p]();
+				if (!bFlag) {
+					bReturn = false;
+				}
+			}
+		}
+		;
+
+		return bReturn;
+	},
+
 	// 转成json格式
 	tojson : function(oObj) {
 		return $.toJSON(oObj);
@@ -75,19 +106,17 @@ zapjs.f = {
 			width : 600,
 			height : 400,
 			title : '请选择',
-			close:false
+			close : false
 		};
 
 		var s = $.extend({}, defaults, options || {});
-		
-		if(s.close)
-			{
-			
+
+		if (s.close) {
+
 			$('#' + s.id).window('close');
-			
-			return ;
-			}
-		
+
+			return;
+		}
 
 		if (!zapjs.f.exist(s.id)) {
 
@@ -106,7 +135,7 @@ zapjs.f = {
 			width : s.width,
 			height : s.height,
 			modal : true,
-			closed:false
+			closed : false
 		});
 
 		if (s.url) {
@@ -201,8 +230,8 @@ zapjs.f = {
 
 };
 
-if ( typeof define === "function" && define.amd  ) {
-    define( "zapjs/zapjs", [], function () { return zapjs; } );
+if (typeof define === "function" && define.amd) {
+	define("zapjs/zapjs", [], function() {
+		return zapjs;
+	});
 }
-
-

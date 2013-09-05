@@ -184,6 +184,8 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 	  		<@m_zapmacro_common_field_select  e_field  e_page ""/>
 	  	<#elseif  e_field.getFieldTypeAid()=="104005020">
 	  		<@m_zapmacro_common_field_textarea  e_field />
+	  	<#elseif  e_field.getFieldTypeAid()=="104005005">
+	  		<@m_zapmacro_common_field_editor  e_field />
 	  	<#else>
 	  		<@m_zapmacro_common_field_text e_field/>
 	  	</#if>
@@ -256,7 +258,7 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 </#macro>
 
 
-<#-- 字段：长为本框 -->
+<#-- 字段：长文本框 -->
 <#macro m_zapmacro_common_field_textarea e_field>
 	<div class="control-group">
 	    	<label class="control-label" for="${e_field.getPageFieldName()}">${e_field.getFieldNote()}</label>
@@ -266,6 +268,22 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 	    	</div>
 	  </div>
 </#macro>
+
+
+
+<#-- 字段：编辑框 -->
+<#macro m_zapmacro_common_field_editor e_field>
+	<div class="control-group">
+	    	<label class="control-label" for="${e_field.getPageFieldName()}">${e_field.getFieldNote()}</label>
+	    	<div class="controls">
+	    		<textarea class="w_display ckeditor" id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}">${e_field.getPageFieldValue()}</textarea>
+	    	</div>
+	  </div>
+	  
+	  <@m_zapmacro_common_html_script "require(['lib/ckeditor/ckeditor'],function(a){});zapjs.e('zapjs_e_zapjs_f_ajaxsubmit_submit',zapjs.zw.editorsubmit)" />
+	  
+</#macro>
+
 
 
 
