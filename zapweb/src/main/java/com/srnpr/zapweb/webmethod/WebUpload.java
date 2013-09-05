@@ -67,8 +67,16 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 					 * model.addAttribute( "serverTime", new
 					 * UploadFile().editorUpload(sUrl, fileName, fi.get()));
 					 */
+					
+					
+					
+					
+					String sDirPath= bConfig("zapweb.upload_path");
+					
+					
+					
 
-					MWebResult mResult = uploadFile(sTarget, fileName, fi.get());
+					MWebResult mResult = uploadFile(sDirPath,sTarget, fileName, fi.get());
 
 					if (sTarget.equals("editor")) {
 						if (mResult.upFlagTrue()) {
@@ -97,7 +105,7 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 
 	}
 
-	private MWebResult uploadFile(String sFilePath, String sFileName,
+	private MWebResult uploadFile(String sDirPath,String sFilePath, String sFileName,
 			byte[] bFile) {
 		MWebResult mResult = new MWebResult();
 		try {
@@ -133,11 +141,11 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 
 				sFilePath = sFilePath + "/" + sDate + "/";
 
-				FileUtils.forceMkdir(new File(sFilePath));
+				FileUtils.forceMkdir(new File(sDirPath+sFilePath));
 
 				String sNewFileNameString = WebHelper.upUuid() + "." + sFix;
 
-				FileCopyUtils.copy(bFile, new File(sFilePath
+				FileCopyUtils.copy(bFile, new File(sDirPath+sFilePath
 						+ sNewFileNameString));
 
 				// fileUrl = BConfig("zweb.upload_url") + filePath + fileName;

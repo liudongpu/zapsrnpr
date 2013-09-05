@@ -28,7 +28,7 @@ public class CacheDefine extends TopBase {
 			return upCache(sCacheName);
 		} else {
 			
-			Cache memoryOnlyCache = new Cache(sCacheName, 5000, false, true, 0, 0);
+			Cache memoryOnlyCache = new Cache(sCacheName, 0, false, true, 0, 0);
 			cManager.addCache(memoryOnlyCache);
 			
 			return memoryOnlyCache;
