@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-
 import com.srnpr.zapcom.basehelper.JsonHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.basemodel.MStringMap;
@@ -18,8 +16,10 @@ import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webmodel.MWebField;
 import com.srnpr.zapweb.webmodel.MWebHtml;
 import com.srnpr.zapweb.webmodel.MWebResult;
+
+
 /**
- * @author yanzj 数据下拉框。
+ * @author yanzj 数据下拉框之列表样式,添加商品专用
  * 
  *         zw_s_topcode=父code
  *         zw_s_url=url
@@ -27,18 +27,17 @@ import com.srnpr.zapweb.webmodel.MWebResult;
  * 		   zw_s_fieldvaluename=select的 value字段名称
  *         zw_s_fieldtextname=select的 name字段名称
  *         zw_s_fieldparentname=select的 parent字段名称
- *         zw_s_ismultilevel=是否存在多级  true ，false
- * 		   zw_s_iscaninput=是否能输入 ， true，false 
- *         zw_s_firstviewtext=查询，则为 全部，否则，请为 请选择  
- * 		   zw_s_mustbelast=是否必须选择到最后一级 
- * 
+ *         zw_s_width = 宽度 正整数
+ * 		   zw_s_height = 高度  正整数
+ *         zw_s_classid=css 样式   
+ * 		   zw_s_maxlevel=3最大级数
+ * 		   zw_s_lastselectchange=改变事件
  * 
  * 
  */
-public class ComponentMultiSelect extends RootComponent {
+public class ComponentSelectList extends RootComponent {
 
 	public String upListText(MWebField mWebField, MDataMap mDataMap) {
-		
 		//System.out.println("upListText======"+mWebField.getPageFieldValue()+"======");
 		
 		MDataMap mSetMap = upSetMap(mWebField.getSourceParam());
@@ -65,20 +64,16 @@ public class ComponentMultiSelect extends RootComponent {
 	}
 
 	public String upAddText(MWebField mWebField, MDataMap mDataMap) {
-		//System.out.println("upAddText======"+mWebField.getPageFieldValue()+"======");
-		
 		return upText(mWebField, mDataMap,2,mWebField.getPageFieldValue());
 	}
 
 	public MWebResult inAdd(MWebField mWebField, MDataMap mDataMap) {
 		// TODO Auto-generated method stub
-		//System.out.println("inAdd======"+mWebField.getPageFieldValue()+"======");
 		return null;
 	}
 
 	public MWebResult inEdit(MWebField mWebField, MDataMap mDataMap) {
 		// TODO Auto-generated method stub
-		//System.out.println("inEdit======"+mWebField.getPageFieldValue()+"======");
 		return null;
 	}
 
@@ -102,14 +97,7 @@ public class ComponentMultiSelect extends RootComponent {
 		return upText(mWebField, mDataMap,3,fieldValue);
 	}
 	
-	@Override
-	public String upInquireText(MWebField mWebField, MDataMap mDataMap)
-	{
-		//System.out.println("upInquireText======"+mWebField.getPageFieldValue()+"======");
-		return upText(mWebField,mDataMap,1,mWebField.getPageFieldValue());
-	}
 	
-
 	/*
 	 * @type 类型 1 查询，2 添加 3 修改
 	 */
@@ -125,20 +113,6 @@ public class ComponentMultiSelect extends RootComponent {
 		String id = mWebField.getPageFieldName()+"selectid";
 		String name = mWebField.getPageFieldName()+"selectname";
 		
-		
-		String hidden2Id =mWebField.getPageFieldName()+"hidden2";
-		mBaseDivHtml.addChild("hidden", "id", hidden2Id,
-				"name", hidden2Id, "value",fieldValue);
-		
-		
-		
-		mBaseDivHtml.addChild("text", "id", id ,
-				"name", name, "value",fieldValue,"style","display:none;");
-		
-	
-		
-		//,"display","none"
-		
 		String topParentCode = mSetMap.get("topcode");
 		String tableName = mSetMap.get("tablename");
 		String fieldvaluename=mSetMap.get("fieldvaluename");
@@ -146,17 +120,18 @@ public class ComponentMultiSelect extends RootComponent {
 		String fieldparentname =mSetMap.get("fieldparentname");
 		
 		
-		boolean ismultilevel = Boolean.parseBoolean(mSetMap.get("ismultilevel"));
-		boolean iscaninput = Boolean.parseBoolean(mSetMap.get("iscaninput"));
-		String firstviewtext = mSetMap.get("firstviewtext") ;
 		
-		boolean mustbelast = false;
+		/*         zw_s_width = 宽度 正整数
+		 * 		   zw_s_height = 高度  正整数
+		 *         zw_s_classid=css 样式   
+		 * 		   zw_s_maxlevel=3最大级数
+		 * */
 		
-		if(type == 1)
-			mustbelast = false;
-		else
-			mustbelast = true;
-		
+		int width = Integer.parseInt(mSetMap.get("width"));
+		int height = Integer.parseInt(mSetMap.get("height"));
+		String classid = mSetMap.get("classid").toString();
+		int maxlevel = Integer.parseInt(mSetMap.get("maxlevel"));
+		String lastselectchange = mSetMap.get("lastselectchange").toString();
 		String url= mSetMap.get("url") ;
 		
 		String parentReplaceName = WebConst.CONST_WEB_FIELD_NAME+fieldparentname;
@@ -170,35 +145,35 @@ public class ComponentMultiSelect extends RootComponent {
 		optionjson.append("{");
 		
 		optionjson.append("\"type\":"+type+",");
-		optionjson.append("\"ismultilevel\":"+(ismultilevel?"true":"false")+",");
-		optionjson.append("\"iscaninput\":"+(iscaninput?"true":"false")+",");
-		optionjson.append("\"firstViewText\":\""+firstviewtext+"\",");
-		optionjson.append("\"mustbelast\":"+(mustbelast?"true":"false")+",");
-		optionjson.append("\"selectValueName\":\""+mWebField.getPageFieldName()+"\",");
-		optionjson.append("\"secondSelectValueName\":\""+hidden2Id+"\",");//notMustBe
+		optionjson.append("\"maxlevel\":"+maxlevel+",");
+		optionjson.append("\"width\":"+width+",");
+		optionjson.append("\"height\":"+height+",");
+		optionjson.append("\"classid\":\""+classid+"\",");
+		optionjson.append("\"selectValueName\":\""+mWebField.getPageFieldName()+"\",");//notMustBe
+		if(lastselectchange.equals(""))
+			optionjson.append("\"lastselectchange\":\"\",");
+		else
+			optionjson.append("\"lastselectchange\":"+lastselectchange+",");
+		
 		optionjson.append("\"parentReplaceName\":\""+parentReplaceName+"\",");
 		optionjson.append("\"url\":\""+url+"\"");
 		
 		optionjson.append("}");
 		
-		
-		String sencondHiddenValue = (mDataMap.get(hidden2Id)==null?"":mDataMap.get(hidden2Id));
 		String tempStr = fieldValue;
 		
-		
-		if(!sencondHiddenValue.equals(""))
-			tempStr = sencondHiddenValue;
 		ComponentHelper ch = new ComponentHelper();
 		String dataKeyJson = ch.getDataKeyJson(topParentCode, tableName, fieldvaluename, fieldtextname, 
 				fieldparentname, id, name, tempStr,true);
 		
 		mBaseDivHtml.addChild("script",
-				"require(['zapjs/zapjs.combobox'],function(a){" +
-						"$(document).ready(function(){$(\"#"+mWebField.getPageFieldName()+"\").comboboxN(" +
+				"require(['zapjs/zapjs.comboboxc'],function(a){" +
+						"$(document).ready(function(){$(\"#"+mWebField.getPageFieldName()+"\").comboboxC(" +
 						optionjson.toString()+","+dataKeyJson.toString()+")" +
 				"})})");
 
 		// return sBuilder.toString();
 		return mBaseDivHtml.upString();
 	}
+
 }
