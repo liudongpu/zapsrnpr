@@ -3,6 +3,11 @@
 	display: none;
 }
 
+
+.w_none {
+	display: none !important;
+}
+
 .w_clear {
 	clear: both;
 }

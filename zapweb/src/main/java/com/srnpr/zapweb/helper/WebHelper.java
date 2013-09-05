@@ -29,6 +29,20 @@ public class WebHelper {
 				new MDataMap("code", sCodeStart));
 		return mResultMap.get("webcode").toString();
 	}
+	
+	
+	
+	
+	/**
+	 * 获取uuid
+	 * @return
+	 */
+	public static String upUuid()
+	{
+		return UUID.randomUUID().toString().replace("-", "");
+	}
+	
+	
 
 	/**
 	 * 加锁

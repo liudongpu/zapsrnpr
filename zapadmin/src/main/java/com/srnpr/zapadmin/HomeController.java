@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import com.srnpr.zapcom.basehelper.JsonHelper;
 import com.srnpr.zapweb.webexport.ExportChart;
 import com.srnpr.zapweb.webmethod.WebMethod;
+import com.srnpr.zapweb.webmethod.WebUpload;
 import com.srnpr.zapweb.webmodel.MWebResult;
 import com.srnpr.zapweb.webpage.PageProcess;
 
@@ -62,11 +62,18 @@ public class HomeController {
 		return "page/show";
 	}
 
+	@RequestMapping(value = "/upload/{url}", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public String upload(@PathVariable("url") String sUrl, Model model,
+			HttpServletRequest request) {
+		return WebUpload.getInstance().uploadFile(request, sUrl);
+	}
+
 	@RequestMapping(value = "/jsonchart/{url}", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public String jsonchart(@PathVariable("url") String sUrl, Model model,
 			HttpServletRequest request) {
-	
+
 		return new JsonHelper<List<List<String>>>().ObjToString(page_Process
 				.process(sUrl, request).upChartData().getPageData());
 
