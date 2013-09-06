@@ -18,7 +18,7 @@ zapjs.c = {
 	web_extend : 'zw_e_',
 	main_iframe : 'main_iframe',
 	path_resources:'../resources/',
-	upload_url:'http://zapadmin.wcn.srnpr.com/upload/',
+	//upload_url:'http://zapadmin.wcn.srnpr.com/upload/',
 	extend : {}
 
 };
