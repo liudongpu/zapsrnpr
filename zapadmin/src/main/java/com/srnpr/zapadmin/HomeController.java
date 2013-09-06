@@ -62,7 +62,7 @@ public class HomeController {
 		return "page/show";
 	}
 
-	@RequestMapping(value = "/upload/{url}", produces = { "application/html;charset=UTF-8" })
+	@RequestMapping(value = "/upload/{url}", produces = { "text/html;charset=UTF-8" })
 	@ResponseBody
 	public String upload(@PathVariable("url") String sUrl, Model model,
 			HttpServletRequest request) {

@@ -152,7 +152,7 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 
 				// mResult.info(969909002);
 
-				mResult.setResultObject(sFilePath + sNewFileNameString);
+				mResult.setResultObject(bConfig("zapweb.upload_url")+sFilePath + sNewFileNameString);
 
 			}
 
