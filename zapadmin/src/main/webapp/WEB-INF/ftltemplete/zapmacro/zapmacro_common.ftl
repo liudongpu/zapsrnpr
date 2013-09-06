@@ -162,11 +162,14 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 
 <#-- 页面字段的自动输出判断 -->
 <#macro m_zapmacro_common_auto_list e_pagedata   e_page>
+
+	<#if e_pagedata??>
 	<#list e_pagedata as e>
 		
 	  	<@m_zapmacro_common_auto_field e e_page/>
 	  	
 	</#list>
+	</#if>
 </#macro>
 
 <#-- 页面字段的自动输出判断 -->
