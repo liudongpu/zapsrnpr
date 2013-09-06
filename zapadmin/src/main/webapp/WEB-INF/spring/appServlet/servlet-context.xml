@@ -21,7 +21,7 @@
 	
 	 -->
 	 
-	 <resources mapping="/files/**" location="/files/" />
+	 <resources mapping="/staticfiles/**" location="/uploadfiles/" />
 	
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 

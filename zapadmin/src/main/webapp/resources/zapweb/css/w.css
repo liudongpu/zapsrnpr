@@ -8,17 +8,20 @@
 	display: none !important;
 }
 
-.w_clear {
+.w_clear,.w_c {
 	clear: both;
 }
 
-.w_left{
+.w_left,.w_fl{
 	float:left;
 }
-.w_right
+.w_right,.w_fr
 {
 	float:right;
 }
+
+
+
 
 
 .w_h_40 {

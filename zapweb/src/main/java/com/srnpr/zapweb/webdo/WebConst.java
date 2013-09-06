@@ -59,5 +59,15 @@ public class WebConst implements IBaseConst {
 	public final static String CONST_WEB_SESSION_USER="session:zw:userinfo";
 	
 	
+	
+	
+	
+	/**
+	 * 定义文件上传存放基路径
+	 */
+	public static String Static_Web_Upload_Dir=null;
+	
+	
+	
 
 }
