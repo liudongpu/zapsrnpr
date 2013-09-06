@@ -23,9 +23,10 @@
 
 <#macro m_common_html_head   >
 
-	<@m_common_html_js ["lib/jquery/jquery-last.min.js","lib/require/require.js","lib/datepicker/WdatePicker.js","lib/jquery/jquery-plugins-zap.min.js","lib/bootstrap/js/bootstrap.min.js","lib/easyui/jquery.easyui.min.js"]/>
-	<@m_common_html_css ["lib/bootstrap/css/bootstrap.min.css","lib/easyui/themes/bootstrap/easyui.css","zapadmin/css/zab_base.css","zapweb/css/w.css"] />
 	<@m_common_html_js ["zapjs/zapjs.js","zapjs/zapjs.zw.js","zapadmin/js/zapadmin.js"]/>
+	<@m_common_html_js ["lib/jquery/jquery-last.min.js","lib/require/require.js","lib/jquery/jquery-plugins-zap.min.js","lib/bootstrap/js/bootstrap.min.js","lib/easyui/jquery.easyui.min.js"]/>
+	<@m_common_html_css ["lib/bootstrap/css/bootstrap.min.css","lib/easyui/themes/bootstrap/easyui.css","zapadmin/css/zab_base.css","zapweb/css/w.css"] />
+	
 
 	<!--[if lte IE 7]> 
 	<@m_common_html_css ["zapadmin/hack/zab_base_ie6.css"] />

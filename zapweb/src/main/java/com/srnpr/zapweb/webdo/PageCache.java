@@ -20,6 +20,10 @@ public class PageCache extends RootCache<String, MWebPage> {
 		for (MDataMap mPageDataMap : DbUp.upTable("zw_page").queryByWhere(
 				"flag_enable", "1")) {
 
+			
+			try {
+				
+			
 			MWebPage mWebPage = new MWebPage();
 
 			mWebPage.setPageCode(mPageDataMap.get("page_code"));
@@ -59,7 +63,10 @@ public class PageCache extends RootCache<String, MWebPage> {
 			}
 
 			super.inElement(mWebPage.getPageCode(), mWebPage);
-
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
 		}
 
 	}

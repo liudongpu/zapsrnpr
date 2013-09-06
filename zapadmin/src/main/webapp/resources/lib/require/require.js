@@ -42,7 +42,10 @@ R).push([b,c,d])};define.amd={jQuery:!0};j.exec=function(b){return eval(b)};j(t)
 
 requirejs.config({
 	
-	baseUrl: '../resources/'
+	baseUrl: zapjs.c.path_resources
+		
+		
+		
 	});
 
 

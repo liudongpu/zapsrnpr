@@ -15,6 +15,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+
 import org.springframework.util.FileCopyUtils;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
@@ -22,6 +23,7 @@ import com.srnpr.zapcom.baseface.IBaseInstance;
 import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapweb.helper.WebHelper;
+import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webmodel.MWebResult;
 
 public class WebUpload extends BaseClass implements IBaseInstance {
@@ -67,23 +69,33 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 					 * model.addAttribute( "serverTime", new
 					 * UploadFile().editorUpload(sUrl, fileName, fi.get()));
 					 */
-					
-					
-					
-					
-					String sDirPath= bConfig("zapweb.upload_path");
-					
-					
-					
 
-					MWebResult mResult = uploadFile(sDirPath,sTarget, fileName, fi.get());
+					if (StringUtils.isEmpty(WebConst.Static_Web_Upload_Dir)) {
+						String sDir = bConfig("zapweb.upload_path");
+						sDir = request.getSession().getServletContext()
+								.getRealPath(sDir)
+								+ "/";
+
+						WebConst.Static_Web_Upload_Dir = sDir;
+
+						bLogInfo(969912001, sDir);
+
+					}
+
+					String sDirPath = WebConst.Static_Web_Upload_Dir;
+
+					// bLogInfo(0, sDirPath);
+
+					MWebResult mResult = uploadFile(sDirPath, sTarget,
+							fileName, fi.get());
 
 					if (sTarget.equals("editor")) {
 						if (mResult.upFlagTrue()) {
 
 							String sEditorFuncNum = request
 									.getParameter("CKEditorFuncNum");
-							sReturnString = FormatHelper.formatString(bConfig("zapweb.editor_upload"),
+							sReturnString = FormatHelper.formatString(
+									bConfig("zapweb.editor_upload"),
 									sEditorFuncNum, mResult.getResultObject()
 											.toString(), mResult
 											.getResultMessage());
@@ -105,8 +117,8 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 
 	}
 
-	private MWebResult uploadFile(String sDirPath,String sFilePath, String sFileName,
-			byte[] bFile) {
+	private MWebResult uploadFile(String sDirPath, String sFilePath,
+			String sFileName, byte[] bFile) {
 		MWebResult mResult = new MWebResult();
 		try {
 
@@ -141,23 +153,25 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 
 				sFilePath = sFilePath + "/" + sDate + "/";
 
-				FileUtils.forceMkdir(new File(sDirPath+sFilePath));
+				FileUtils.forceMkdir(new File(sDirPath + sFilePath));
 
 				String sNewFileNameString = WebHelper.upUuid() + "." + sFix;
 
-				FileCopyUtils.copy(bFile, new File(sDirPath+sFilePath
+				FileCopyUtils.copy(bFile, new File(sDirPath + sFilePath
 						+ sNewFileNameString));
 
 				// fileUrl = BConfig("zweb.upload_url") + filePath + fileName;
 
 				// mResult.info(969909002);
 
-				mResult.setResultObject(bConfig("zapweb.upload_url")+sFilePath + sNewFileNameString);
+				mResult.setResultObject(bConfig("zapweb.upload_url")
+						+ sFilePath + sNewFileNameString);
 
 			}
 
 		} catch (Exception e) {
 
+			e.printStackTrace();
 		}
 
 		return mResult;

@@ -17,9 +17,13 @@ zapjs.c = {
 	web_field : 'zw_f_',
 	web_extend : 'zw_e_',
 	main_iframe : 'main_iframe',
+	path_resources:'../resources/',
+	//upload_url:'http://zapadmin.wcn.srnpr.com/upload/',
 	extend : {}
 
 };
+
+
 
 // 注册函数专用调用 注册该函数的方法需要返回true/false
 // 调用注册方法为zapjs.f.callextend(sId);该参数会返回true/false
@@ -58,6 +62,32 @@ zapjs.f = {
 		$(oElment).ajaxSubmit(options);
 
 	},
+	
+	setdomain:function(url)
+	{
+		 var host = "null";
+         if (typeof url == "undefined"
+                 || null == url)
+             url = window.location.href;
+         var regex = /.*\:\/\/([^\/|:]*).*/;
+         var match = url.match(regex);
+         if (typeof match != "undefined"
+                 && null != match) {
+             host = match[1];
+         }
+         if (typeof host != "undefined"
+                 && null != host) {
+             var strAry = host.split(".");
+             if (strAry.length > 1) {
+                 host = strAry[strAry.length - 2] + "." + strAry[strAry.length - 1];
+             }
+         }
+         document.domain=host;
+         
+         return host;
+		
+	},
+	
 
 	callextend : function(sId) {
 		var bReturn = true;

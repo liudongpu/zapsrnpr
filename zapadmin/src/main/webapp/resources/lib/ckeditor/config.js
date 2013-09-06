@@ -36,7 +36,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// Make dialogs simpler.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 	
-	config.filebrowserImageUploadUrl = "../upload/editor";
+	//config.filebrowserImageUploadUrl = zapjs.c.upload_url+"editor";
 	
 };
 

@@ -15,9 +15,13 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 
-	<resources mapping="/debugfiles/**" location="D:\AAAProject\files" />
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- 
 	
-	<resources mapping="/files/**" location="D:\AAAProject\files" />
+	 -->
+	 
+	 <resources mapping="/staticfiles/**" location="/uploadfiles/" />
 	
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 

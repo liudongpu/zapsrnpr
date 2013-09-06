@@ -3,12 +3,15 @@ package com.srnpr.zapweb.webpage;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.ParagraphAction;
+
 import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.basemodel.MKvdList;
 import com.srnpr.zapcom.basemodel.MKvdModel;
+import com.srnpr.zapcom.topdo.TopUp;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webdo.WebUp;
@@ -72,9 +75,7 @@ public class ControlPage {
 	public List<MWebField> upAddData() {
 		return pageExec.addData(webPage, reqMap);
 	}
-	
-	
-	
+
 	/**
 	 * 得到修改页数据
 	 * 
@@ -83,6 +84,7 @@ public class ControlPage {
 	public List<MWebField> upEditData() {
 		return pageExec.editData(webPage, reqMap);
 	}
+
 	/**
 	 * 得到修改页数据
 	 * 
@@ -91,8 +93,6 @@ public class ControlPage {
 	public List<MWebField> upBookData() {
 		return pageExec.bookData(webPage, reqMap);
 	}
-	
-	
 
 	/**
 	 * 查询区域
@@ -138,6 +138,7 @@ public class ControlPage {
 
 	/**
 	 * 获取数据源
+	 * 
 	 * @param mField
 	 * @return
 	 */
@@ -148,11 +149,11 @@ public class ControlPage {
 		MWebSource mSource = WebUp.upSource(mField.getSourceCode());
 
 		MDataMap mWhereMap = new MDataMap();
-		String sWhereString="";
-		
-		if(StringUtils.isNotEmpty(mSource.getWhereEdit()))
-		{
-			sWhereString=FormatHelper.formatString(mSource.getWhereEdit(), mField.getSourceParam());
+		String sWhereString = "";
+
+		if (StringUtils.isNotEmpty(mSource.getWhereEdit())) {
+			sWhereString = FormatHelper.formatString(mSource.getWhereEdit(),
+					mField.getSourceParam());
 		}
 
 		for (MDataMap mDataMap : DbUp.upTable(mSource.getSourceFrom())
@@ -168,41 +169,41 @@ public class ControlPage {
 
 		return mReturnList.getChildList();
 	}
-	
-	
+
 	/**
 	 * 获取请求值
+	 * 
 	 * @param sKey
 	 * @return
 	 */
-	public String upReqValue(String sKey)
-	{
+	public String upReqValue(String sKey) {
 		return reqMap.get(sKey);
 	}
-	
-	
-	public String upConst(String sType,String... sParams)
-	{
-		String sReturn="";
-		if(sType.equals("126022006"))
-		{
-			sReturn=WebConst.CONST_WEB_FIELD_NAME+sParams[0];
+
+	public String upConst(String sType, String... sParams) {
+		String sReturn = "";
+		if (sType.equals("126022006")) {
+			sReturn = WebConst.CONST_WEB_FIELD_NAME + sParams[0];
+		} else if (sType.equals("126022001")) {
+			sReturn = sParams[0] + WebConst.CONST_WEB_FIELD_AFTER + sParams[1];
+		} else if (sType.equals("126022016")) {
+			sReturn = WebConst.CONST_WEB_PAGINATION_NAME + sParams[0];
+		} else if (sType.equals("126022005")) {
+			sReturn = WebConst.CONST_WEB_FIELD_EXTEND + sParams[0];
 		}
-		else if(sType.equals("126022001"))
-		{
-			sReturn=sParams[0]+WebConst.CONST_WEB_FIELD_AFTER+sParams[1];
-		}else if(sType.equals("126022016"))
-		{
-			sReturn=WebConst.CONST_WEB_PAGINATION_NAME+sParams[0];
-		}
-		else if(sType.equals("126022005"))
-		{
-			sReturn=WebConst.CONST_WEB_FIELD_EXTEND+sParams[0];
-		}
-		
+
 		return sReturn;
 	}
-	
-	
+
+	/**
+	 * 获取配置
+	 * @param sKey
+	 * @param sParams
+	 * @return
+	 */
+	public String upConfig(String sKey, Object... sParams) {
+		return FormatHelper.formatString(TopUp.upConfig(sKey), sParams);
+
+	}
 
 }
