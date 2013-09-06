@@ -15,6 +15,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.junit.runner.Request;
 import org.springframework.util.FileCopyUtils;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
@@ -73,6 +74,7 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 					
 					String sDirPath= bConfig("zapweb.upload_path");
 					
+					sDirPath=request.getSession().getServletContext().getRealPath(sDirPath)+"/";
 					
 					
 
@@ -151,6 +153,9 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 				// fileUrl = BConfig("zweb.upload_url") + filePath + fileName;
 
 				// mResult.info(969909002);
+				
+				
+				
 
 				mResult.setResultObject(bConfig("zapweb.upload_url")+sFilePath + sNewFileNameString);
 

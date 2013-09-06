@@ -294,11 +294,11 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 	<div class="control-group">
 	    	<label class="control-label" for="${e_field.getPageFieldName()}">${e_field.getFieldNote()}</label>
 	    	<div class="controls">
-	    		<textarea class="w_none ckeditor" id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}">${e_field.getPageFieldValue()}</textarea>
+	    		<textarea class="w_none " id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}">${e_field.getPageFieldValue()}</textarea>
 	    	</div>
 	  </div>
 	  
-	  <@m_zapmacro_common_html_script "require(['lib/ckeditor/ckeditor','lib/ckeditor/adapters/jquery'],function(a,b){$('#${e_field.getPageFieldName()}').ckeditor();});zapjs.e('zapjs_e_zapjs_f_ajaxsubmit_submit',zapjs.zw.editorsubmit)" />
+	  <@m_zapmacro_common_html_script "require(['lib/ckeditor/ckeditor'],function(a){ require(['lib/ckeditor/adapters/jquery'],function(c){$('#${e_field.getPageFieldName()}').ckeditor();});  });zapjs.e('zapjs_e_zapjs_f_ajaxsubmit_submit',zapjs.zw.editorsubmit)" />
 	  
 </#macro>
 
