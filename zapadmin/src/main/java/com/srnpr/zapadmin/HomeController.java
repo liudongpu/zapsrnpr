@@ -62,11 +62,12 @@ public class HomeController {
 		return "page/show";
 	}
 
-	@RequestMapping(value = "/upload/{url}", produces = { "text/html;charset=UTF-8" })
-	@ResponseBody
+	@RequestMapping(value = "/upload/{url}")
 	public String upload(@PathVariable("url") String sUrl, Model model,
 			HttpServletRequest request) {
-		return WebUpload.getInstance().uploadFile(request, sUrl);
+		model.addAttribute("b_ready", WebUpload.getInstance().uploadFile(request, sUrl));
+		return "page/ready";
+		
 	}
 
 	@RequestMapping(value = "/jsonchart/{url}", produces = { "application/json;charset=UTF-8" })
