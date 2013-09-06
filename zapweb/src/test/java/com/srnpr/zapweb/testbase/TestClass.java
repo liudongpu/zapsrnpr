@@ -32,12 +32,15 @@ public class TestClass extends TestBase {
 */		
 		
 		
-		
+		/*
 		//获取系统编码
 		//获取单据号格式
 		String sCode=WebHelper.upCode("DD");
 		bLogInfo(0, sCode);
 		//输出结果为：DD130903100009
+		*/
+		
+		WebHelper.errorMessage("aa", "错误啊", 0, this.getClass().getName(), "aaabb", null);
 		
 		
 		

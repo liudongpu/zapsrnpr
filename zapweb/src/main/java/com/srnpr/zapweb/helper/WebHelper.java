@@ -29,20 +29,15 @@ public class WebHelper {
 				new MDataMap("code", sCodeStart));
 		return mResultMap.get("webcode").toString();
 	}
-	
-	
-	
-	
+
 	/**
 	 * 获取uuid
+	 * 
 	 * @return
 	 */
-	public static String upUuid()
-	{
+	public static String upUuid() {
 		return UUID.randomUUID().toString().replace("-", "");
 	}
-	
-	
 
 	/**
 	 * 加锁
@@ -165,6 +160,44 @@ public class WebHelper {
 		}
 
 		return sText;
+
+	}
+
+	/**
+	 * 错误信息类
+	 * 
+	 * @param sCode
+	 *            错误编号
+	 * @param sErrorType
+	 *            错误类型
+	 * @param iErrorLevel
+	 *            错误级别 数字越大越严重 默认写0
+	 * @param sErrorSource
+	 *            错误来源 一般传过来类名吧
+	 * @param sMessage
+	 *            错误内容
+	 * @param e
+	 *            可传null 如果不为null 则printStackTrace
+	 */
+	public static void errorMessage(String sCode, String sErrorType,
+			int iErrorLevel, String sErrorSource, String sMessage, Exception e) {
+
+		try {
+
+			if (e != null) {
+				sMessage = sMessage + " #########" + e.getMessage();
+
+				e.printStackTrace();
+
+			}
+
+			DbUp.upTable("zw_error").insert("error_code", sCode,"error_type",sErrorType, "error_level",
+					String.valueOf(iErrorLevel), "error_source", sErrorSource,
+					"error_info", sMessage, "create_time",
+					FormatHelper.upDateTime());
+		} catch (Exception e2) {
+			e2.printStackTrace();
+		}
 
 	}
 
