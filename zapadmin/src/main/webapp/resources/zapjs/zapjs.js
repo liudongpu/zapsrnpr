@@ -17,9 +17,13 @@ zapjs.c = {
 	web_field : 'zw_f_',
 	web_extend : 'zw_e_',
 	main_iframe : 'main_iframe',
+	path_resources:'../resources/',
+	upload_url:'../upload/',
 	extend : {}
 
 };
+
+document.domain='srnpr.com'; 
 
 // 注册函数专用调用 注册该函数的方法需要返回true/false
 // 调用注册方法为zapjs.f.callextend(sId);该参数会返回true/false
