@@ -31,7 +31,7 @@ import com.srnpr.zapweb.webmodel.MWebResult;
  * 		   zw_s_height = 高度  正整数
  *         zw_s_classid=css 样式   
  * 		   zw_s_maxlevel=3最大级数
- * 		   zw_s_lastselectchange=改变事件
+ * 		   zw_s_onchange=改变事件
  * 
  * 
  */
@@ -131,7 +131,7 @@ public class ComponentSelectList extends RootComponent {
 		int height = Integer.parseInt(mSetMap.get("height"));
 		String classid = mSetMap.get("classid").toString();
 		int maxlevel = Integer.parseInt(mSetMap.get("maxlevel"));
-		String lastselectchange = mSetMap.get("lastselectchange").toString();
+		String onchange = mSetMap.get("onchange").toString();
 		String url= mSetMap.get("url") ;
 		
 		String parentReplaceName = WebConst.CONST_WEB_FIELD_NAME+fieldparentname;
@@ -150,10 +150,10 @@ public class ComponentSelectList extends RootComponent {
 		optionjson.append("\"height\":"+height+",");
 		optionjson.append("\"classid\":\""+classid+"\",");
 		optionjson.append("\"selectValueName\":\""+mWebField.getPageFieldName()+"\",");//notMustBe
-		if(lastselectchange.equals(""))
-			optionjson.append("\"lastselectchange\":\"\",");
+		if(onchange.equals(""))
+			optionjson.append("\"onchange\":\"\",");
 		else
-			optionjson.append("\"lastselectchange\":"+lastselectchange+",");
+			optionjson.append("\"onchange\":"+onchange+",");
 		
 		optionjson.append("\"parentReplaceName\":\""+parentReplaceName+"\",");
 		optionjson.append("\"url\":\""+url+"\"");

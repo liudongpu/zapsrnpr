@@ -74,7 +74,7 @@
 						{
 							if(n.level == combox.option.maxlevel){
 								$("#"+combox.option.selectValueName).val(currentValue);
-								combox.option.lastselectchange(currentValue);
+								
 							}
 							else{
 								$("#"+combox.option.selectValueName).val("");
@@ -123,7 +123,9 @@
 										combox.createNextLevel(node);
 									}
 								}	
-							}	
+							}
+							if(combox.option.onchange!=undefined && combox.option.onchange!="")
+								combox.option.onchange(n,combox.dataKey);
 						}					
 					});			
 				},
@@ -158,7 +160,7 @@
 			"width":200,//宽度
 			"height":200,//高度
 			"classid":"",
-			"lastselectchange":function(id){},
+			"onchange":function(node,datakeys){},
 			"url":""
 	}; 
 	$.fn.comboboxC.dataKey = {
