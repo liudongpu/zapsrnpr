@@ -44,6 +44,14 @@ public abstract class RootMethod extends BaseClass implements IWebMethod {
 				new MDataMap(sPrams));
 
 	}
+	
+	
+	public MDataMap upDataQuery(String sTaleName,String sFields, String sOrders,
+			String sWhere, String... sPrams) {
+		return DbUp.upTable(sTaleName).oneWhere(sFields, sOrders, sWhere, sPrams);
+
+	}
+	
 
 	/**
 	 * 插入session
