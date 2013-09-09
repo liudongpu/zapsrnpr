@@ -30,10 +30,10 @@
                 '//jquery-file-upload.appspot.com/' : '../upload/product';
     $('#fileupload').fileupload({
         url: url,
-        dataType: 'html',
+        dataType: 'json',
         done: function (e, data) {
         
-        alert(data);
+        alert(data.resultObject);
         /*
             $.each(data.result.files, function (index, file) {
                 $('<p/>').text(file.name).appendTo('#files');

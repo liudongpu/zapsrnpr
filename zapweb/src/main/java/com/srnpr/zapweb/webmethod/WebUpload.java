@@ -105,9 +105,8 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 						}
 					} else {
 
-						
-						sReturnString=mResult.getResultObject().toString();
-						
+						sReturnString = mResult.upJson();
+
 						// mResult.setResultType(resultType)
 
 					}

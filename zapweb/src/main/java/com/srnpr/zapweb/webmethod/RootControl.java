@@ -101,9 +101,15 @@ public class RootControl {
 	@RequestMapping(value = "/upload/{url}")
 	public String upload(@PathVariable("url") String sUrl, Model model,
 			HttpServletRequest request) {
-		model.addAttribute("b_ready",
+		model.addAttribute("b_html",
 				WebUpload.getInstance().uploadFile(request, sUrl));
-		return "page/" + sUrl;
+
+		String sReturnPageString = "empty";
+		if (sUrl.equals("editor")) {
+			sReturnPageString = "ready";
+		}
+
+		return "page/" + sReturnPageString;
 
 	}
 
