@@ -18,13 +18,22 @@ import com.srnpr.zapweb.webexport.ExportChart;
 import com.srnpr.zapweb.webmodel.MWebResult;
 import com.srnpr.zapweb.webpage.PageProcess;
 
-
+/**
+ * 基本控制类
+ * 
+ * @author srnpr
+ * 
+ */
 public class RootControl {
 	private static final PageProcess page_Process = new PageProcess();
 	private static final WebMethod web_method = new WebMethod();
 
 	/**
-	 * Simply selects the home view to render by returning its name.
+	 * 首页
+	 * 
+	 * @param locale
+	 * @param model
+	 * @return
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -33,6 +42,14 @@ public class RootControl {
 		return "home";
 	}
 
+	/**
+	 * 后台
+	 * 
+	 * @param sUrl
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/manage/{url}")
 	public String manage(@PathVariable("url") String sUrl, Model model,
 			HttpServletRequest request) {
@@ -40,6 +57,14 @@ public class RootControl {
 		return "manage/" + sUrl;
 	}
 
+	/**
+	 * 页面
+	 * 
+	 * @param sUrl
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/page/{url}")
 	public String page(@PathVariable("url") String sUrl, Model model,
 			HttpServletRequest request) {
@@ -48,6 +73,14 @@ public class RootControl {
 		return "page/default";
 	}
 
+	/**
+	 * 展示
+	 * 
+	 * @param sUrl
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/show/{url}")
 	public String show(@PathVariable("url") String sUrl, Model model,
 			HttpServletRequest request) {
@@ -56,6 +89,14 @@ public class RootControl {
 		return "page/show";
 	}
 
+	/**
+	 * 上传文件
+	 * 
+	 * @param sUrl
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/upload/{url}")
 	public String upload(@PathVariable("url") String sUrl, Model model,
 			HttpServletRequest request) {
@@ -65,6 +106,14 @@ public class RootControl {
 
 	}
 
+	/**
+	 * json数据
+	 * 
+	 * @param sUrl
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/jsonchart/{url}", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public String jsonchart(@PathVariable("url") String sUrl, Model model,
@@ -75,6 +124,14 @@ public class RootControl {
 
 	}
 
+	/**
+	 * 函数操作
+	 * 
+	 * @param sOperateId
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/func/{operateId}", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public String func(@PathVariable("operateId") String sOperateId,
@@ -85,6 +142,14 @@ public class RootControl {
 
 	}
 
+	/**
+	 * 导出
+	 * 
+	 * @param sOperateId
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value = "/export/{operateId}", produces = { "application/binary;charset=UTF-8" })
 	@ResponseBody
 	public String export(@PathVariable("operateId") String sOperateId,

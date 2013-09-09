@@ -6,7 +6,7 @@
 <title></title>
 </head>
 <body>
-	${b_ready}
+	${b_html}
 
 </body>
 </html>
