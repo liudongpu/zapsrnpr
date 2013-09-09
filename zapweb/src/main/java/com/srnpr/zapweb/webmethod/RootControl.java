@@ -18,7 +18,7 @@ import com.srnpr.zapweb.webexport.ExportChart;
 import com.srnpr.zapweb.webmodel.MWebResult;
 import com.srnpr.zapweb.webpage.PageProcess;
 
-@Controller
+
 public class RootControl {
 	private static final PageProcess page_Process = new PageProcess();
 	private static final WebMethod web_method = new WebMethod();
