@@ -18,12 +18,22 @@ public class MWebHtml {
 	public MWebHtml(String sTarget) {
 
 		// 特殊判断 如果是特殊定义则特殊操作
-		if (StringUtils.indexOf("hidden,text,button,script,", sTarget + ",") > -1) {
+		if (StringUtils.indexOf("hidden,text,button,script,file,css,js,",
+				sTarget + ",") > -1) {
 
 			if (sTarget.equals("script")) {
 				attribute.put("type", "text/javascript");
 
-			} else {
+			} else if (sTarget.equals("css")) {
+				attribute.put("type", "text/css");
+				attribute.put("rel", "stylesheet");
+				sTarget = "link";
+			} else if (sTarget.equals("js")) {
+				attribute.put("type", "text/javascript");
+				sTarget = "script";
+			}
+
+			else {
 				attribute.put("type", sTarget);
 				sTarget = "input";
 			}
@@ -66,17 +76,21 @@ public class MWebHtml {
 		if (attribute != null && attribute.size() > 0) {
 			for (String sKey : attribute.keySet()) {
 				if (StringUtils.isNotEmpty(sKey)) {
-					sbBuilder.append(" " + sKey + "=\""
-							+ attribute.get(sKey) + "\"");
+					sbBuilder.append(" " + sKey + "=\"" + attribute.get(sKey)
+							+ "\"");
 				}
 			}
 		}
 		sbBuilder.append(">");
 
 		if (child != null && child.size() > 0) {
-			for (MWebHtml mHtml : child) {
-				sbBuilder.append(mHtml.upString());
-			}
+		
+			 for(int i=0,j=child.size();i<j;i++)
+			 {
+				 sbBuilder.append(child.get(i).upString());
+			 }
+			
+			
 		}
 
 		sbBuilder.append(html);

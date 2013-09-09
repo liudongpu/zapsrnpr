@@ -52,7 +52,7 @@ requirejs.config({
         // is using jQuery 1.9.0 located at
         // js/lib/jquery-1.9.0.js, relative to
         // the HTML page.
-        jquery: 'lib/jquery/jquery-last.min'
+        //jquery: 'lib/jquery/jquery-last.min'
     }
 		
 		

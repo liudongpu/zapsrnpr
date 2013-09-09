@@ -14,7 +14,7 @@
 
 (function (factory) {
     'use strict';
-    if (typeof define === 'function' && define.amd) {
+    if (typeof define === 'function' && define.amd&& define.amd&&define.jquery) {
         // Register as an anonymous AMD module:
         define(['jquery'], factory);
     } else {

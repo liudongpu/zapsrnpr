@@ -24,6 +24,7 @@ import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapweb.helper.WebHelper;
 import com.srnpr.zapweb.webdo.WebConst;
+import com.srnpr.zapweb.webmodel.MWebHtml;
 import com.srnpr.zapweb.webmodel.MWebResult;
 
 public class WebUpload extends BaseClass implements IBaseInstance {
@@ -113,6 +114,54 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 
 				}
 			}
+		}
+
+		if (sTarget.equals("upload"))
+
+		{
+
+			MWebHtml mDivHtml = new MWebHtml("div");
+
+			mDivHtml.addChild("css", "href", bConfig("zapweb.resources_path")
+					+ "lib/bootstrap/css/bootstrap.min.css");
+			mDivHtml.addChild("css", "href", bConfig("zapweb.resources_path")
+					+ "zapadmin/css/zab_base.css");
+			mDivHtml.addChild("css", "href", bConfig("zapweb.resources_path")
+					+ "zapweb/css/w.css");
+			mDivHtml.addChild("js", "src", bConfig("zapweb.resources_path")
+					+ "zapjs/zapjs.zw.js");
+			mDivHtml.addChild("js", "src", bConfig("zapweb.resources_path")
+					+ "lib/jquery/jquery-last.min.js");
+
+			mDivHtml.addChild("js", "src", bConfig("zapweb.resources_path")
+					+ "lib/jquery/jquery-plugins-zap.min.js");
+
+			MWebHtml mForm = mDivHtml.addChild("form");
+			mForm.inAttributes("enctype", "multipart/form-data", "method", "post");
+
+			MWebHtml mSpanHtml = mForm.addChild("span", "class",
+					"btn btn-success fileinput-button");
+
+			mSpanHtml.addChild("i", "class", "glyphicon glyphicon-plus");
+
+			MWebHtml mTextHtml = mSpanHtml.addChild("span");
+			mTextHtml.setHtml("add file");
+
+			MWebHtml mFileHtml = mSpanHtml.addChild("file", "id", "file",
+					"name", "file", "onchange", "zapjs.zw.upload_upload(this)");
+
+			mForm.addChild("input", "type", "submit", "id", "formsubmit",
+					"value", "", "class", "w_none");
+
+			if (StringUtils.isNotEmpty(sReturnString)) {
+
+				MWebHtml mScriptHtml = mFileHtml.addChild("script");
+
+				mScriptHtml.setHtml("zapjs.zw.upload_result("+sReturnString+");");
+			}
+
+			sReturnString = mDivHtml.upString();
+
 		}
 
 		return sReturnString;

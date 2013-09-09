@@ -29,6 +29,40 @@ html
 	padding: 0px;
 }
 
+.control-upload
+{
+	
+}
+
+.control-upload ul li
+{
+	
+	margin-right:10px;
+	
+	float:left;
+	list-style-type:none;
+	
+	text-align:center;
+	
+}
+
+.control-upload-image
+{
+	border:solid 1px #008A17;
+	padding:5px;
+}
+
+.control-upload-delete
+{
+	margin-top:5px;
+}
+
+
+.control-upload img
+{
+	max-width:100px;
+}
+
 
 
 .fileinput-button {
@@ -272,7 +306,11 @@ html
 	margin-top:30px;
 }
 
-
+.zw_page_upload_iframe
+{
+	height:50px;
+	width:200px;
+}
 
 
 
