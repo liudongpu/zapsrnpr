@@ -31,7 +31,7 @@
 <#macro m_common_html_test   >
 
 <@m_common_html_css ["lib/qunit/qunit-last.css"] />
-<@m_common_html_js ["zapjs/zapjs.js","lib/require/require.js","lib/jquery/jquery-last.min.js","lib/qunit/qunit-last.js"]/>
+<@m_common_html_js ["zapjs/zapjs.js","lib/require/require.js","lib/qunit/qunit-last.js"]/>
 </#macro>
 
 
