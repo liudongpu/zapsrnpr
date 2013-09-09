@@ -21,6 +21,12 @@
 
 
 
+<#macro m_common_html_require   >
+
+<@m_common_html_js ["zapjs/zapjs.js","lib/require/require.js"]/>
+</#macro>
+
+
 <#macro m_common_html_head   >
 
 	<@m_common_html_js ["zapjs/zapjs.js","zapjs/zapjs.zw.js","zapadmin/js/zapadmin.js"]/>
