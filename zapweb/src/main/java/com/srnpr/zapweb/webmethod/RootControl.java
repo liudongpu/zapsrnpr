@@ -1,5 +1,6 @@
 package com.srnpr.zapweb.webmethod;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Locale;
 
@@ -102,7 +103,7 @@ public class RootControl {
 			HttpServletRequest request) {
 		model.addAttribute("b_ready",
 				WebUpload.getInstance().uploadFile(request, sUrl));
-		return "page/ready";
+		return "page/" + sUrl;
 
 	}
 
