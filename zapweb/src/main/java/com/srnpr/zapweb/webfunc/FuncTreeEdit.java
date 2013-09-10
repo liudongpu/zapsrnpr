@@ -23,8 +23,6 @@ public class FuncTreeEdit extends RootFunc {
 		MWebPage mPage = WebUp.upPage(mOperate.getPageCode());
 
 		MDataMap mAddMaps = mDataMap.upSubMap(WebConst.CONST_WEB_FIELD_NAME);
-				
-	
 
 		MDataMap mInsertMap = new MDataMap();
 
@@ -53,28 +51,24 @@ public class FuncTreeEdit extends RootFunc {
 				mInsertMap.put(mField.getColumnName(), sValue);
 			}
 
-			
-
 		}
 
 		if (mResult.upFlagTrue()) {
-			DbUp.upTable(mPage.getPageTable()).dataUpdate(mInsertMap,"","uid");
+			DbUp.upTable(mPage.getPageTable())
+					.dataUpdate(mInsertMap, "", "uid");
 
 			if (bFlagComponent) {
 
 				for (MWebField mField : mPage.getPageFields()) {
 					if (mField.getFieldTypeAid().equals("104005003")) {
 
-						WebUp.upComponent(mField.getSourceCode()).inEdit(mField,
-								mDataMap);
+						WebUp.upComponent(mField.getSourceCode()).inEdit(
+								mField, mDataMap);
 
 					}
 				}
-
 			}
-
 		}
-
 		if (mResult.upFlagTrue()) {
 			mResult.setResultMessage(bInfo(969909001));
 		}
