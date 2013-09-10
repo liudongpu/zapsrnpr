@@ -131,15 +131,6 @@ zapjs.zw = {
 
 		zapjs.f.setdomain();
 		// sUploadUrl = "../upload/";
-		if ($('#' + sFieldName).val() == "") {
-			$('#' + sFieldName)
-					.after(
-							'<span><iframe src="'
-									+ sUploadUrl
-									+ 'upload?zw_s_source='
-									+ sFieldName
-									+ '" class="zw_page_upload_iframe" frameborder="0"></iframe></span>');
-		}
 
 		zapjs.zw.upload_show(sFieldName);
 
@@ -152,10 +143,45 @@ zapjs.zw = {
 
 	upload_show : function(sField) {
 
-		if (1 == 1) {
-			var sFiles = $('#' + sField).val().split(zapjs.c.split);
+		var bFlagMul = false;
 
-			if ($('#' + sField).val()!=""&&sFiles.length > 0) {
+		var sNumber = zapjs.f.upset($('#' + sField).attr(
+				zapjs.c.field_attr + "set_params"), 'zw_s_number');
+
+		if (sNumber != "") {
+
+			var iMax = parseInt(sNumber);
+			var iNow = $('#' + sField).val().split(zapjs.c.split).length;
+
+			if (iNow < iMax) {
+
+				bFlagMul = true;
+			}
+
+		}
+
+		if ($('#' + sField).val() == "" || bFlagMul) {
+
+			if ($('#' + sField).nextAll('.control-upload_iframe').html() == "") {
+				var sUploadUrl = $('#' + sField).attr(
+						zapjs.c.field_attr + "target_url");
+
+				$('#' + sField)
+						.nextAll('.control-upload_iframe')
+						.html(
+								'<iframe src="'
+										+ sUploadUrl
+										+ 'upload?zw_s_source='
+										+ sField
+										+ '" class="zw_page_upload_iframe" frameborder="0"></iframe>');
+			}
+		} else {
+			$('#' + sField).nextAll('.control-upload_iframe').html('');
+		}
+
+		if ($('#' + sField).val() != "") {
+			var sFiles = $('#' + sField).val().split(zapjs.c.split);
+			if ($('#' + sField).val() != "" && sFiles.length > 0) {
 
 				var aHtml = [];
 
@@ -175,9 +201,10 @@ zapjs.zw = {
 				aHtml.push('</ul>');
 
 				$('#' + sField).nextAll('.control-upload').html(aHtml.join(''));
-			} else {
-				$('#' + sField).nextAll('.control-upload').html('');
 			}
+		} else {
+
+			$('#' + sField).nextAll('.control-upload').html('');
 		}
 	},
 
@@ -197,15 +224,17 @@ zapjs.zw = {
 
 		// alert(o.resultObject);
 
-		var sVal = $('#' + sField).val();
-		if (sVal != "") {
-			sVal = sVal + zapjs.c.split;
+		if (sField) {
+			var sVal = $('#' + sField).val();
+			if (sVal != "") {
+				sVal = sVal + zapjs.c.split;
+			}
+			sVal = sVal + o.resultObject;
+
+			$('#' + sField).val(sVal);
+
+			zapjs.zw.upload_show(sField);
 		}
-		sVal = sVal + o.resultObject;
-
-		$('#' + sField).val(sVal);
-
-		zapjs.zw.upload_show(sField);
 
 	},
 

@@ -16,6 +16,7 @@ zapjs.c = {
 	web_paginaion : 'zw_p_',
 	web_field : 'zw_f_',
 	web_extend : 'zw_e_',
+	field_attr : 'zapweb_attr_',
 	main_iframe : 'main_iframe',
 	split : '|',
 	path_resources : '../resources/',
@@ -218,6 +219,10 @@ zapjs.f = {
 
 		$('#zapjs_f_id_modal_box').modal('show');
 
+	},
+
+	upset : function(sSet, sKey) {
+		return zapjs.f.urlget(sKey, '?' + sSet);
 	},
 
 	urlget : function(sKey, sUrl) {
