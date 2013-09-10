@@ -137,15 +137,16 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 					+ "lib/jquery/jquery-plugins-zap.min.js");
 
 			MWebHtml mForm = mDivHtml.addChild("form");
-			mForm.inAttributes("enctype", "multipart/form-data", "method", "post");
+			mForm.inAttributes("enctype", "multipart/form-data", "method",
+					"post");
 
 			MWebHtml mSpanHtml = mForm.addChild("span", "class",
-					"btn btn-success fileinput-button");
+					"btn btn-info fileinput-button");
 
 			mSpanHtml.addChild("i", "class", "glyphicon glyphicon-plus");
 
 			MWebHtml mTextHtml = mSpanHtml.addChild("span");
-			mTextHtml.setHtml("add file");
+			mTextHtml.setHtml(bInfo(969901003));
 
 			MWebHtml mFileHtml = mSpanHtml.addChild("file", "id", "file",
 					"name", "file", "onchange", "zapjs.zw.upload_upload(this)");
@@ -157,7 +158,8 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 
 				MWebHtml mScriptHtml = mFileHtml.addChild("script");
 
-				mScriptHtml.setHtml("zapjs.zw.upload_result("+sReturnString+");");
+				mScriptHtml.setHtml("zapjs.zw.upload_result(" + sReturnString
+						+ ");");
 			}
 
 			sReturnString = mDivHtml.upString();

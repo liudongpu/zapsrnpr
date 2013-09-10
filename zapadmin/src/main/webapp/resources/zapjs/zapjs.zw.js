@@ -224,7 +224,7 @@ zapjs.zw = {
 
 		// alert(o.resultObject);
 
-		if (sField) {
+		if (o.resultCode == 1) {
 			var sVal = $('#' + sField).val();
 			if (sVal != "") {
 				sVal = sVal + zapjs.c.split;
@@ -234,6 +234,8 @@ zapjs.zw = {
 			$('#' + sField).val(sVal);
 
 			zapjs.zw.upload_show(sField);
+		} else {
+			alert(o.resultMessage);
 		}
 
 	},
