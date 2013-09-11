@@ -29,6 +29,8 @@ public class FuncCache extends RootCache<String, IWebFunc> {
 			if (StringUtils.isNotEmpty(mDataMap.get("operate_func"))) {
 
 				try {
+					
+					
 									
 					Class<?> cClass = ClassUtils.getClass(mDataMap
 							.get("operate_func"));
