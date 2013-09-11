@@ -20,7 +20,7 @@ public class MDataMap extends MObjMap<String, String> implements
 	}
 
 	/**
-	 * 获取子数据  根据传入参数取得以该参数开头的集合
+	 * 获取子数据 根据传入参数取得以该参数开头的集合
 	 * 
 	 * @param sStartString
 	 * @return
@@ -38,29 +38,22 @@ public class MDataMap extends MObjMap<String, String> implements
 		return mReturn;
 	}
 
-	public MDataMap inUrlParams(String sParams)
-	{
+	public MDataMap inUrlParams(String sParams) {
 		this.inAllValues(FormatHelper.upUrlStrings(sParams));
 		return this;
 	}
-	
-	
-	public String[] upStrings()
-	{
-		ArrayList<String> aList=new ArrayList<String>();
+
+	public String[] upStrings() {
+		ArrayList<String> aList = new ArrayList<String>();
 		for (String sKey : this.upKeys()) {
 			aList.add(sKey);
 			aList.add(this.get(sKey));
 		}
-		
-		return aList.toArray(new String[]{});
-	
+
+		return aList.toArray(new String[] {});
+
 	}
-	
-	
-	
-	
-	
+
 	public MDataMap() {
 
 	}
@@ -72,7 +65,13 @@ public class MDataMap extends MObjMap<String, String> implements
 	public MDataMap(Map<String, Object> mInput) {
 
 		for (String s : mInput.keySet()) {
-			put(s, mInput.get(s).toString());
+
+			if (mInput.get(s) != null) {
+
+				put(s, mInput.get(s).toString());
+			} else {
+				put(s, "");
+			}
 		}
 	}
 
