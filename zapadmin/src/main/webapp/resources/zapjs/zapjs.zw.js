@@ -52,6 +52,13 @@ zapjs.zw = {
 		});
 	},
 
+	up_json : function(sPageCode, dataMap, fCallBack) {
+		$.getJSON("../jsonchart/" + sPageCode, dataMap, function(o) {
+			fCallBack(o);
+		});
+
+	},
+
 	func_success : function(o) {
 
 		switch (o.resultType) {
@@ -127,6 +134,27 @@ zapjs.zw = {
 
 	},
 
+	upload_html : function(sTargetUpload, sId, sValue, sSet) {
+
+		if (!sSet) {
+			sSet = '';
+		}
+
+		return '<input type="hidden" zapweb_attr_target_url="'
+				+ sTargetUpload
+				+ '"  zapweb_attr_set_params="'
+				+ sSet
+				+ '"  id="'
+				+ sId
+				+ '" name="'
+				+ sId
+				+ '" value="'
+				+ sValue
+				+ '"><span class="control-upload_iframe"></span><span class="control-upload"></span>';
+
+	},
+
+	// 上传文件
 	upload_file : function(sFieldName, sUploadUrl) {
 
 		zapjs.f.setdomain();
@@ -135,12 +163,12 @@ zapjs.zw = {
 		zapjs.zw.upload_show(sFieldName);
 
 	},
-
+	// 上传文件结果
 	upload_result : function(o) {
 		zapjs.f.setdomain();
 		parent.zapjs.zw.upload_success(o, zapjs.f.urlget('zw_s_source'));
 	},
-
+	// 上传展示
 	upload_show : function(sField) {
 
 		var bFlagMul = false;
@@ -207,7 +235,7 @@ zapjs.zw = {
 			$('#' + sField).nextAll('.control-upload').html('');
 		}
 	},
-
+	// 删除上传文件
 	upload_delete : function(sField, iIndex) {
 
 		var sFiles = $('#' + sField).val().split(zapjs.c.split);
@@ -218,7 +246,7 @@ zapjs.zw = {
 
 		zapjs.zw.upload_show(sField);
 	},
-
+	// 上传成功
 	upload_success : function(o, sField) {
 		// alert(sField);
 
@@ -239,7 +267,7 @@ zapjs.zw = {
 		}
 
 	},
-
+	// 上传提交
 	upload_upload : function(oElm) {
 		$('#formsubmit').click();
 
