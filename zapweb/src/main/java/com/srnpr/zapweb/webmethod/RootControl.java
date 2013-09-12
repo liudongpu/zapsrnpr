@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.srnpr.zapcom.basehelper.JsonHelper;
+import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webexport.ExportChart;
 import com.srnpr.zapweb.webmodel.MWebResult;
 import com.srnpr.zapweb.webpage.PageProcess;
@@ -99,21 +100,17 @@ public class RootControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/upload/{url}")
-	
 	public String upload(@PathVariable("url") String sUrl, Model model,
 			HttpServletRequest request) {
-		
-		
+
 		model.addAttribute("b_html",
 				WebUpload.getInstance().uploadFile(request, sUrl));
-
 		String sReturnPageString = "ready";
-		
+		if (sUrl.equals(WebConst.CONST_STATIC_WEB_UPLOAD_SAVE)) {
+			sReturnPageString = "empty";
+		}
 
 		return "page/" + sReturnPageString;
-		
-		
-
 	}
 
 	/**

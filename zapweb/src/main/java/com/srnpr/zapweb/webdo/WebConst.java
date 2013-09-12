@@ -69,5 +69,10 @@ public class WebConst implements IBaseConst {
 	
 	
 	
+	public final static String CONST_STATIC_WEB_UPLOAD_SAVE="realsave";
+	
+	
+	
+	
 
 }

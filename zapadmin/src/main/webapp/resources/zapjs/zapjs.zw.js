@@ -124,13 +124,13 @@ zapjs.zw = {
 
 		zapjs.f.setdomain();
 
-		var slib="lib/ckeditor/";
+		var slib = "lib/ckeditor/";
 		if (zapjs.f.browser('ie6') == true) {
-			slib="lib/hack/ckeditor3/";
+			slib = "lib/hack/ckeditor3/";
 		}
-		
-		require([ slib+'ckeditor' ], function(a) {
-			require([ slib+'adapters/jquery' ], function(c) {
+
+		require([ slib + 'ckeditor' ], function(a) {
+			require([ slib + 'adapters/jquery' ], function(c) {
 				$('#' + sFieldName).ckeditor({
 					filebrowserImageUploadUrl : sUploadUrl + 'editor'
 				});
@@ -259,15 +259,18 @@ zapjs.zw = {
 		// alert(o.resultObject);
 
 		if (o.resultCode == 1) {
-			var sVal = $('#' + sField).val();
-			if (sVal != "") {
-				sVal = sVal + zapjs.c.split;
+			if (o.resultObject) {
+
+				var sVal = $('#' + sField).val();
+				if (sVal != "") {
+					sVal = sVal + zapjs.c.split;
+				}
+				sVal = sVal + o.resultObject;
+
+				$('#' + sField).val(sVal);
+
+				zapjs.zw.upload_show(sField);
 			}
-			sVal = sVal + o.resultObject;
-
-			$('#' + sField).val(sVal);
-
-			zapjs.zw.upload_show(sField);
 		} else {
 			alert(o.resultMessage);
 		}
