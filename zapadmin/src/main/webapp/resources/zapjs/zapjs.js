@@ -63,8 +63,11 @@ zapjs.f = {
 		$(oElment).ajaxSubmit(options);
 
 	},
+	setdomain : function() {
 
-	setdomain : function(url) {
+	},
+	setdomain_old : function(url) {
+
 		var host = "null";
 		if (typeof url == "undefined" || null == url)
 			url = window.location.href;
@@ -140,8 +143,7 @@ zapjs.f = {
 
 		if (sBrowser) {
 
-			if(sBrowser == "ie6")
-			{
+			if (sBrowser == "ie6") {
 				try {
 					return bs.msie && bs.version == "6.0";
 				} catch (ex) {

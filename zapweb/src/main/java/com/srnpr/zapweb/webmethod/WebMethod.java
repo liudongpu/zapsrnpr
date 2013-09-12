@@ -1,5 +1,11 @@
 package com.srnpr.zapweb.webmethod;
 
-public class WebMethod extends RootMethod {
+import com.srnpr.zapcom.baseface.IBaseInstance;
 
+public class WebMethod extends RootMethod implements IBaseInstance {
+
+	
+	public final static WebMethod INSTANCE=new WebMethod();
+	
+	
 }

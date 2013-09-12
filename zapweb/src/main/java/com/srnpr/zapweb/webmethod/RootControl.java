@@ -104,7 +104,7 @@ public class RootControl {
 			HttpServletRequest request) {
 
 		model.addAttribute("b_html",
-				WebUpload.getInstance().uploadFile(request, sUrl));
+				WebUpload.INSTANCE.uploadFile(request, sUrl));
 		String sReturnPageString = "ready";
 		if (sUrl.equals(WebConst.CONST_STATIC_WEB_UPLOAD_SAVE)) {
 			sReturnPageString = "empty";

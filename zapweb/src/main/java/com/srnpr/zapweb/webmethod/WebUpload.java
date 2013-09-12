@@ -32,11 +32,9 @@ import com.srnpr.zapweb.webmodel.MWebResult;
 
 public class WebUpload extends BaseClass implements IBaseInstance {
 
-	private static final WebUpload webUpload = new WebUpload();
+	public static final WebUpload INSTANCE = new WebUpload();
 
-	public static WebUpload getInstance() {
-		return webUpload;
-	}
+	
 
 	/**
 	 * 远程上传文件

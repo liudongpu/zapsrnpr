@@ -11,7 +11,7 @@ public class MUserInfo {
 	/**
 	 * 用户名
 	 */
-	private String userName = "";
+	private String loginName = "";
 
 	/**
 	 * 真实姓名
@@ -19,17 +19,14 @@ public class MUserInfo {
 	private String realName = "";
 
 	/**
+	 * 用户管理编号
+	 */
+	private String manageCode = "";
+
+	/**
 	 * 菜单信息
 	 */
 	private List<MMenuInfo> menuInfos = new ArrayList<MMenuInfo>();
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
 
 	public String getRealName() {
 		return realName;
@@ -45,6 +42,22 @@ public class MUserInfo {
 
 	public void setMenuInfos(List<MMenuInfo> menuInfos) {
 		this.menuInfos = menuInfos;
+	}
+
+	public String getManageCode() {
+		return manageCode;
+	}
+
+	public void setManageCode(String manageCode) {
+		this.manageCode = manageCode;
+	}
+
+	public String getLoginName() {
+		return loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
 	}
 
 }
