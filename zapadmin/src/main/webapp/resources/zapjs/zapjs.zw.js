@@ -123,17 +123,14 @@ zapjs.zw = {
 	editor_show : function(sFieldName, sUploadUrl) {
 
 		zapjs.f.setdomain();
-		
-		var sLib="lib/ckeditor/";
-		
-		is(zapjs.f.browser('ie6')==true)
-		{
-			sLib="lib/hack/ckeditor3/";
+
+		var slib="lib/ckeditor/";
+		if (zapjs.f.browser('ie6') == true) {
+			slib="lib/hack/ckeditor3/";
 		}
-	
 		
-		require([ sLib+'ckeditor' ], function(a) {
-			require([  sLib+'adapters/jquery' ], function(c) {
+		require([ slib+'ckeditor' ], function(a) {
+			require([ slib+'adapters/jquery' ], function(c) {
 				$('#' + sFieldName).ckeditor({
 					filebrowserImageUploadUrl : sUploadUrl + 'editor'
 				});
