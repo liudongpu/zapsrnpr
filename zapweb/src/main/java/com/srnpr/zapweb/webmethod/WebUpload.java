@@ -1,15 +1,11 @@
 package com.srnpr.zapweb.webmethod;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.print.attribute.standard.Media;
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -17,27 +13,18 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.ContentType;
-import org.apache.http.entity.FileEntity;
-import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.impl.DefaultHttpRequestFactory;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-
 import org.springframework.util.FileCopyUtils;
-
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.baseface.IBaseInstance;
 import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basehelper.JsonHelper;
-import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapweb.helper.WebHelper;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webmodel.MWebHtml;
@@ -52,6 +39,8 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 	}
 
 	/**
+	 * 远程上传文件
+	 * 
 	 * @param sTarget
 	 * @param sFileName
 	 * @param b
@@ -63,9 +52,13 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 
 		try {
 
-			HttpClient httpclient = new DefaultHttpClient();
+			// HttpClient httpclient = new DefaultHttpClient();
 			// httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION,
 			// HttpVersion.HTTP_1_1);
+
+			HttpClientBuilder hClientBuilder = HttpClientBuilder.create();
+
+			HttpClient httpclient = hClientBuilder.build();
 
 			HttpPost httppost = new HttpPost(bConfig("zapweb.upload_remote")
 					+ "?" + WebConst.CONST_WEB_FIELD_SET + "target=" + sTarget);
@@ -95,7 +88,8 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 
 			}
 
-			httpclient.getConnectionManager().shutdown();
+			httpclient = null;
+			// httpclient.getConnectionManager().shutdown();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -159,8 +153,10 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 
 							}
 
+							// 读取文件存放路径
 							String sDirPath = WebConst.Static_Web_Upload_Dir;
 
+							// 判断存放目标路径
 							String sSubPathString = sTarget;
 							if (StringUtils.isNotEmpty(request
 									.getParameter(WebConst.CONST_WEB_FIELD_SET
@@ -184,6 +180,7 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 			}
 		}
 
+		// 如果是编辑器上传 则返回ckeditor专用错误
 		if (sTarget.equals("editor")) {
 			if (mResult.upFlagTrue()) {
 
@@ -314,6 +311,7 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 		} catch (Exception e) {
 
 			e.printStackTrace();
+			mResult.inErrorMessage(969905006);
 		}
 
 		return mResult;
