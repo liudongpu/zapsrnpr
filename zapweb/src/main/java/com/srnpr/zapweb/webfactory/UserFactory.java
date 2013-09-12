@@ -10,7 +10,9 @@ public class UserFactory implements IBaseInstance, IBaseFactory<MUserInfo> {
 
 	public static final UserFactory INSTANCE = new UserFactory();
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.srnpr.zapcom.baseface.IBaseFactory#create()
 	 */
 	public MUserInfo create() {
@@ -24,12 +26,7 @@ public class UserFactory implements IBaseInstance, IBaseFactory<MUserInfo> {
 			mUserInfo = (MUserInfo) oUserInfo;
 		} else {
 
-			//测试专用
-			mUserInfo = new MUserInfo();
-			mUserInfo.setManageCode("sp001");
-			mUserInfo.setLoginName("s");
-			mUserInfo.setRealName("小测测");
-
+			mUserInfo = upTestUser();
 			WebMethod.INSTANCE.inSession(WebConst.CONST_WEB_SESSION_USER,
 					mUserInfo);
 			// mUserInfo.setUserName(userName)
@@ -37,6 +34,16 @@ public class UserFactory implements IBaseInstance, IBaseFactory<MUserInfo> {
 
 		return mUserInfo;
 
+	}
+
+	public MUserInfo upTestUser() {
+		// 测试专用
+		MUserInfo mUserInfo = new MUserInfo();
+		mUserInfo.setManageCode("MJ0001");
+		mUserInfo.setLoginName("s");
+		mUserInfo.setRealName("小测测");
+
+		return mUserInfo;
 	}
 
 }
