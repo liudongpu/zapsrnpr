@@ -140,7 +140,7 @@ zapjs.f = {
 
 		if (sBrowser) {
 
-			is(sBrowser == "ie6")
+			if(sBrowser == "ie6")
 			{
 				try {
 					return bs.msie && bs.version == "6.0";
