@@ -123,8 +123,17 @@ zapjs.zw = {
 	editor_show : function(sFieldName, sUploadUrl) {
 
 		zapjs.f.setdomain();
-		require([ 'lib/ckeditor/ckeditor' ], function(a) {
-			require([ 'lib/ckeditor/adapters/jquery' ], function(c) {
+		
+		var sLib="lib/ckeditor/";
+		
+		is(zapjs.f.browser('ie6')==true)
+		{
+			sLib="lib/hack/ckeditor3/";
+		}
+	
+		
+		require([ sLib+'ckeditor' ], function(a) {
+			require([  sLib+'adapters/jquery' ], function(c) {
 				$('#' + sFieldName).ckeditor({
 					filebrowserImageUploadUrl : sUploadUrl + 'editor'
 				});
@@ -276,7 +285,7 @@ zapjs.zw = {
 };
 
 if (typeof define === "function" && define.amd) {
-	define("zapjs/zapjs.zw", [ "zapjs/zapjs" ], function() {
+	define("zapjs/zapjs.zw", function() {
 		return zapjs.zw;
 	});
 }

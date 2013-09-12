@@ -49,6 +49,7 @@ zapjs.f = {
 		}
 		var options = {
 			url : sAction,
+			type : "post",
 			success : function(o) {
 				fSucceess(o);
 			},
@@ -122,6 +123,36 @@ zapjs.f = {
 
 	exist : function(sId) {
 		return document.getElementById(sId) ? true : false;
+
+	},
+
+	browser : function(sBrowser) {
+		var userAgent = navigator.userAgent.toLowerCase();
+		var bs = {
+			version : (userAgent.match(/.+(?:rv|it|ra|ie)[\/: ]([\d.]+)/) || [
+					0, '0' ])[1],
+			safari : /webkit/.test(userAgent),
+			opera : /opera/.test(userAgent),
+			msie : /msie/.test(userAgent) && !/opera/.test(userAgent),
+			mozilla : /mozilla/.test(userAgent)
+					&& !/(compatible|webkit)/.test(userAgent)
+		};
+
+		if (sBrowser) {
+
+			is(sBrowser == "ie6")
+			{
+				try {
+					return bs.msie && bs.version == "6.0";
+				} catch (ex) {
+
+				}
+
+			}
+
+		}
+
+		return bs;
 
 	},
 
