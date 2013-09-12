@@ -14,7 +14,7 @@ public class HomeController extends RootControl {
 
 	
 	@RequestMapping(value = "/test/{url}")
-	public String show(@PathVariable("url") String sUrl, Model model,
+	public String test(@PathVariable("url") String sUrl, Model model,
 			HttpServletRequest request) {
 		
 		return "page/test";
