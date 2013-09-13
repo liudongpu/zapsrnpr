@@ -7,6 +7,9 @@ public class TestApi extends RootApi<TestResult, TestInput> {
 	public TestResult Process(TestInput r) {
 
 		TestResult tResult = new TestResult();
+		
+		
+		
 
 		return tResult;
 

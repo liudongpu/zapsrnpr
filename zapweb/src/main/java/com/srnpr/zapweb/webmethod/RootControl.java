@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.srnpr.zapcom.basehelper.JsonHelper;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webexport.ExportChart;
+import com.srnpr.zapweb.webfactory.ApiFactory;
 import com.srnpr.zapweb.webmodel.MWebResult;
 import com.srnpr.zapweb.webpage.PageProcess;
 
@@ -128,6 +129,23 @@ public class RootControl {
 
 		return new JsonHelper<List<List<String>>>().ObjToString(page_Process
 				.process(sUrl, request).upChartData().getPageData());
+
+	}
+
+	/**
+	 * json数据
+	 * 
+	 * @param sUrl
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/jsonapi/{url}", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public String jsonapi(@PathVariable("url") String sUrl, Model model,
+			HttpServletRequest request) {
+
+		return ApiFactory.INSTANCE.upProcess(request);
 
 	}
 

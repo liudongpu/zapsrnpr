@@ -3,6 +3,7 @@ package com.srnpr.zapweb.webmodel;
 import java.util.List;
 
 import com.srnpr.zapcom.basehelper.JsonHelper;
+import com.srnpr.zapcom.topapi.RootResult;
 import com.srnpr.zapcom.topdo.TopUp;
 import com.srnpr.zapweb.webface.IWebResult;
 
@@ -13,30 +14,12 @@ import com.srnpr.zapweb.webface.IWebResult;
  * @author srnpr
  * 
  */
-public class MWebResult {
-
-	/**
-	 * 操作标记 默认为1 不为1则表示错误
-	 */
-	private int resultCode = 1;
-
-	/**
-	 * 返回消息
-	 */
-	private String resultMessage = "";
+public class MWebResult extends RootResult {
 
 	/**
 	 * 结果类型 默认为空 否则参照
 	 */
 	private String resultType = "";
-
-	public String getResultMessage() {
-		return resultMessage;
-	}
-
-	public void setResultMessage(String resultMessage) {
-		this.resultMessage = resultMessage;
-	}
 
 	public Object getResultObject() {
 		return resultObject;
@@ -54,14 +37,6 @@ public class MWebResult {
 		this.resultList = resultList;
 	}
 
-	public int getResultCode() {
-		return resultCode;
-	}
-
-	public void setResultCode(int resultCode) {
-		this.resultCode = resultCode;
-	}
-
 	/**
 	 * 操作结果
 	 */
@@ -73,11 +48,12 @@ public class MWebResult {
 	private List<Object> resultList;
 
 	public boolean upFlagTrue() {
-		return resultCode == 1;
+		return getResultCode() == 1;
 	}
 
 	/**
 	 * 获取json格式表示
+	 * 
 	 * @return
 	 */
 	public String upJson() {
@@ -85,8 +61,10 @@ public class MWebResult {
 	}
 
 	public void inErrorMessage(int iErrorCode, Object... sParms) {
-		resultCode = iErrorCode;
-		resultMessage = TopUp.upLogInfo(iErrorCode, sParms);
+
+		setResultCode(iErrorCode);
+
+		setResultMessage(TopUp.upLogInfo(iErrorCode, sParms));
 	}
 
 	public String getResultType() {
