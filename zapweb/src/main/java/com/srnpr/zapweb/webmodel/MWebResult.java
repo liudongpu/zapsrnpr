@@ -13,7 +13,7 @@ import com.srnpr.zapweb.webface.IWebResult;
  * @author srnpr
  * 
  */
-public class MWebResult implements IWebResult {
+public class MWebResult {
 
 	/**
 	 * 操作标记 默认为1 不为1则表示错误
