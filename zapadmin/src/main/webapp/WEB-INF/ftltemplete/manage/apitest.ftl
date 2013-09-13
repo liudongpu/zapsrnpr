@@ -86,14 +86,8 @@
     
     
 	<script type="text/javascript">
-		require(['zapadmin/js/zapadmin_tree'],function(a){a.tree_init();});
+		require(['zapadmin/js/zapadmin_apitest'],function(a){a.init();});
 	</script>
-
-
-
-
-
-
 
 
 <input type="hidden" name="zw_page_tree_zw_s_uid" id="zw_page_tree_zw_s_uid" value="zw_f_uid"    />
