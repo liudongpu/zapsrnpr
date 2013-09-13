@@ -58,7 +58,7 @@ zapjs.zw = {
 		});
 
 	},
-
+	//执行成功
 	func_success : function(o) {
 
 		switch (o.resultType) {
@@ -223,9 +223,9 @@ zapjs.zw = {
 
 				for ( var i in sFiles) {
 					aHtml
-							.push('<li><div class="control-upload-image"><img src="'
+							.push('<li><div class="control-upload-image"><a href="'+sFiles[i]+'" target="_blank"><img src="'
 									+ sFiles[i]
-									+ '" /></div><div class="control-upload-delete"><span class="btn btn-mini " onclick="zapjs.zw.upload_delete(\''
+									+ '" /></a></div><div class="control-upload-delete"><span class="btn btn-mini " onclick="zapjs.zw.upload_delete(\''
 									+ sField
 									+ '\','
 									+ i
