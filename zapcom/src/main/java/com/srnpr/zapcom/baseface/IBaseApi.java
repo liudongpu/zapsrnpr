@@ -1,6 +1,6 @@
 package com.srnpr.zapcom.baseface;
 
-public interface IBaseProcess<TResult, TInput> {
+public interface IBaseApi<TResult, TInput> {
 
 	public TResult Process(TInput r);
 

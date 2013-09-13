@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 import org.junit.Test;
 
 import com.srnpr.zapcom.baseface.IBaseInput;
-import com.srnpr.zapcom.baseface.IBaseProcess;
+import com.srnpr.zapcom.baseface.IBaseApi;
 import com.srnpr.zapcom.baseface.IBaseResult;
 import com.srnpr.zapcom.basehelper.JsonHelper;
 import com.srnpr.zapcom.basehelper.TestHelper;
@@ -21,7 +21,7 @@ public class TestRequest extends TestHelper {
 
 			String sTextString = "";
 
-			Class<?> c = Class.forName("com.srnpr.zapcom.testapi.TestProcess");
+			Class<?> c = Class.forName("com.srnpr.zapcom.testapi.TestApi");
 
 			// c.getMethods()[0].
 			Class<?> cReturn = null;
@@ -54,7 +54,7 @@ public class TestRequest extends TestHelper {
 
 			bLogTest(sTextString);
 
-			IBaseProcess tFace1 = (IBaseProcess) c.newInstance();
+			IBaseApi tFace1 = (IBaseApi) c.newInstance();
 
 			IBaseResult iResult = (IBaseResult) tFace1.Process(iInput);
 
