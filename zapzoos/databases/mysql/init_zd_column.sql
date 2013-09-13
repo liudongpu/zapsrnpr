@@ -1,1 +1,1 @@
-select count(*) from v_sellororder where zid<10000
+call zapdata.proc_zd_allfield ;

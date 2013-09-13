@@ -30,16 +30,8 @@ public class ApiFactory implements IBaseInstance {
 		return "";
 	}
 
-	public String doProcess(String sClassName, String sInputJson) {
-
-		String sReturnString = "";
-
+	public MApiModel upApiModel(String sClassName) {
 		MApiModel mApiModel = null;
-
-		IBaseApi iBaseApi = null;
-
-		IBaseInput iBaseInput = null;
-
 		try {
 
 			if (!DefaultApiCache.INSTANCE.containsKey(sClassName)) {
@@ -71,6 +63,24 @@ public class ApiFactory implements IBaseInstance {
 			} else {
 				mApiModel = DefaultApiCache.INSTANCE.upValue(sClassName);
 			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mApiModel;
+	}
+
+	public String doProcess(String sClassName, String sInputJson) {
+
+		String sReturnString = "";
+
+		IBaseApi iBaseApi = null;
+
+		IBaseInput iBaseInput = null;
+
+		try {
+
+			MApiModel mApiModel = upApiModel(sClassName);
 
 			iBaseApi = (IBaseApi) mApiModel.getApiClass().newInstance();
 
