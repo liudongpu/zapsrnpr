@@ -81,9 +81,9 @@
 			<div  region="center" border="false" class="zab_home_home_right">
 				<iframe src="../page/page_zapadmin_index_center" id="main_iframe"
 					name="main_iframe" width="100%" height="100%" frameborder="0" onload="zapadmin.load_complate(this)"
-					 />
+					 ></iframe>
 			</div>
-		</div>
+		
 
 
 

@@ -4,37 +4,49 @@
  * 其中zapjs.f 表示扩展功能
  */
 
-var zapjs = {};
+var zapjs = {
+	// 配置
+	c : {
+		web_paginaion : 'zw_p_',
+		web_field : 'zw_f_',
+		web_extend : 'zw_e_',
+		field_attr : 'zapweb_attr_',
+		main_iframe : 'main_iframe',
+		split : '|',
+		path_resources : '../resources/',
+		extend : {},
+		// 是否调试模式
+		debug : true
+	},
+	// 注册函数专用调用 注册该函数的方法需要返回true/false
+	// 调用注册方法为zapjs.f.callextend(sId);该参数会返回true/false
+	e : function(sId, fCall) {
+		if (!zapjs.c.extend[sId]) {
+			zapjs.c.extend[sId] = [];
+		}
+
+		zapjs.c.extend[sId].push(fCall);
+
+	},
+	// 调试模式的话则输出日志
+	d : function(oLog) {
+		if (zapjs.c.debug) {
+
+			if (window.console && window.console.log) {
+				console.log(zapjs.f.tojson( oLog));
+			}
+
+		}
+	}
+
+};
+
+
+
 
 zapjs.fn = zapjs.prototype = {};
 
 window.zapjs = zapjs;
-
-// 配置
-zapjs.c = {
-
-	web_paginaion : 'zw_p_',
-	web_field : 'zw_f_',
-	web_extend : 'zw_e_',
-	field_attr : 'zapweb_attr_',
-	main_iframe : 'main_iframe',
-	split : '|',
-	path_resources : '../resources/',
-	// upload_url:'http://zapadmin.wcn.srnpr.com/upload/',
-	extend : {}
-
-};
-
-// 注册函数专用调用 注册该函数的方法需要返回true/false
-// 调用注册方法为zapjs.f.callextend(sId);该参数会返回true/false
-zapjs.e = function(sId, fCall) {
-	if (!zapjs.c.extend[sId]) {
-		zapjs.c.extend[sId] = [];
-	}
-
-	zapjs.c.extend[sId].push(fCall);
-
-};
 
 /*
  * f
@@ -324,3 +336,5 @@ if (typeof define === "function" && define.amd) {
 		return zapjs;
 	});
 }
+
+

@@ -24,16 +24,15 @@ public class UserFactory implements IBaseInstance, IBaseFactory<MUserInfo> {
 
 		if (oUserInfo != null) {
 			mUserInfo = (MUserInfo) oUserInfo;
-		} else {
-
-			mUserInfo = upTestUser();
-			WebMethod.INSTANCE.inSession(WebConst.CONST_WEB_SESSION_USER,
-					mUserInfo);
-			// mUserInfo.setUserName(userName)
 		}
 
 		return mUserInfo;
 
+	}
+
+	public void inUserInfo(MUserInfo mUserInfo) {
+		WebMethod.INSTANCE
+				.inSession(WebConst.CONST_WEB_SESSION_USER, mUserInfo);
 	}
 
 	public MUserInfo upTestUser() {

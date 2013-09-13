@@ -53,7 +53,7 @@ public class TopInit extends RootInit implements IBaseInit {
 
 	
 		
-		topInitCache(new TopConfig(),new TopInfo(),new TopInfo());
+		topInitCache(new TopConfig(),new TopInfo());
 	}
 
 	private void initClass() {
