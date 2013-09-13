@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.srnpr.zapcom.basehelper.JsonHelper;
 import com.srnpr.zapcom.topdo.TopUp;
+import com.srnpr.zapweb.webface.IWebResult;
 
 /**
  * 
@@ -12,7 +13,7 @@ import com.srnpr.zapcom.topdo.TopUp;
  * @author srnpr
  * 
  */
-public class MWebResult {
+public class MWebResult implements IWebResult {
 
 	/**
 	 * 操作标记 默认为1 不为1则表示错误
