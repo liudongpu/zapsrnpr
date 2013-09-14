@@ -10,7 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basehelper.TestHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
-import com.srnpr.zapcom.testserialize.TestClass;
+
 
 public class SerializeSupport<T>  {
 
