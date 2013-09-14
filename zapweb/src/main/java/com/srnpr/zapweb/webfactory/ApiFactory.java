@@ -17,9 +17,13 @@ import com.srnpr.zapcom.baseface.IBaseInstance;
 import com.srnpr.zapcom.baseface.IBaseResult;
 import com.srnpr.zapcom.basehelper.JsonHelper;
 import com.srnpr.zapcom.basehelper.SecrurityHelper;
+import com.srnpr.zapcom.basemodel.MApiAuthorize;
 import com.srnpr.zapcom.basemodel.MApiModel;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.topapi.DefaultApiCache;
+import com.srnpr.zapcom.topapi.DefaultAuthorizeCache;
+import com.srnpr.zapcom.topapi.RootResult;
+import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.webmodel.MWebResult;
 import com.srnpr.zapweb.webpage.RootProcess;
 
@@ -29,6 +33,10 @@ public class ApiFactory implements IBaseInstance {
 
 	private final static RootProcess ROOT_PROCESS = new RootProcess();
 
+	/**
+	 * @param hRequest
+	 * @return
+	 */
 	public String upProcess(HttpServletRequest hRequest) {
 
 		String sReturnString = "";
@@ -39,7 +47,7 @@ public class ApiFactory implements IBaseInstance {
 		String sApiKey = "";
 		String sApiSecret = "";
 
-		String sApiPass = "testpassword";
+		String sApiPass = "";
 
 		MDataMap mDataMap = ROOT_PROCESS.convertRequest(hRequest);
 
@@ -85,7 +93,41 @@ public class ApiFactory implements IBaseInstance {
 
 		}
 
-		// 开始验证正确性
+		// 开始验证apikey是否存在并设置pass
+		if (mResult.upFlagTrue()) {
+			MApiAuthorize mAuthorize = null;
+			if (DefaultAuthorizeCache.getInstance().containsKey(sApiKey)) {
+				mAuthorize = DefaultAuthorizeCache.getInstance().upValue(
+						sApiKey);
+			} else {
+
+				MDataMap mAPiAuth = DbUp.upTable("za_apiauthorize").one(
+						"api_key", sApiKey);
+
+				if (mAPiAuth != null) {
+
+					mAuthorize = new MApiAuthorize();
+
+					mAuthorize.setApiKey(mAPiAuth.get("api_key"));
+					mAuthorize.setApiPass(mAPiAuth.get("api_pass"));
+					mAuthorize.setApiAble(mAPiAuth.get("api_able"));
+
+					DefaultAuthorizeCache.getInstance().inElement(
+							mAuthorize.getApiKey(), mAuthorize);
+
+				} else {
+					mResult.inErrorMessage(969905011);
+				}
+
+			}
+
+			if (mAuthorize != null) {
+				sApiPass = mAuthorize.getApiPass();
+			}
+
+		}
+
+		// 开始验证密码戳正确性
 		if (mResult.upFlagTrue()) {
 
 			String sSource = sTarget + sApiKey + sInputString + sTimeSpan
@@ -105,7 +147,17 @@ public class ApiFactory implements IBaseInstance {
 
 			sReturnString = doProcess(sTarget, sInputString);
 		} else {
-			sReturnString = mResult.upJson();
+
+			// 重新格式化输出结果
+
+			RootResult rootResult = new RootResult();
+			rootResult.setResultCode(mResult.getResultCode());
+			rootResult.setResultMessage(mResult.getResultMessage());
+
+			JsonHelper<RootResult> rJsonHelper = new JsonHelper<RootResult>();
+
+			sReturnString = rJsonHelper.ObjToString(rootResult);
+
 		}
 
 		return sReturnString;
