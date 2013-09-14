@@ -37,15 +37,15 @@ public class SerializeSupport<T>  {
 					
 					if(sType.endsWith("long"))
 					{
-						field.setLong(t, Long.parseLong(sValue));
+						field.set(t, Long.parseLong(sValue));
 					}
-					else if(sType.equals("int"))
+					else if(sType.equals("int")||sType.endsWith("Integer"))
 					{
-						field.setInt(t, Integer.parseInt(sValue));
+						field.set(t, Integer.parseInt(sValue));
 					}
 					else if(sType.equals("float"))
 					{
-						field.setFloat(t, Float.parseFloat(sValue));
+						field.set(t, Float.parseFloat(sValue));
 					}
 					else
 					{
