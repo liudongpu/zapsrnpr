@@ -175,8 +175,7 @@ public class ComponentCheckbox extends RootComponent {
 		}
 		;
 
-		MDataMap mComponentMap = MapHelper.subMap(mDataMap,
-				WebConst.CONST_WEB_FIELD_COMPONENT);
+		MDataMap mComponentMap = mDataMap.upSubMap(WebConst.CONST_WEB_FIELD_COMPONENT);
 
 		if (mComponentMap.containsKey(mWebField.getColumnName())) {
 			String[] sValueStrings = mComponentMap.get(

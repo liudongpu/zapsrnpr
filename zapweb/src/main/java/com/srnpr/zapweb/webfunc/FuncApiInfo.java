@@ -43,6 +43,10 @@ public class FuncApiInfo extends RootFunc {
 
 		mDataApiDataMap.put("javadoc_input", mApiModel.getInputClass()
 				.getName());
+		
+		mDataApiDataMap.put("javadoc_result", mApiModel.getResultClass()
+				.getName());
+		
 
 		mResult.setResultObject(mDataApiDataMap);
 
