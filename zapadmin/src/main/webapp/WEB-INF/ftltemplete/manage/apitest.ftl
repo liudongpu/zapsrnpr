@@ -9,9 +9,17 @@
 <title>API测试接口</title>
 
 </head>
-<body class="easyui-layout">
+<body>
 
- 	<div class="span4">
+
+<div class="easyui-layout" style="width:100%;height:700px;">
+
+
+
+
+
+
+ 	<div   data-options="region:'west',split:true" title="West" style="width:200px;">
  	
  	
  	<div class="zw_page_tree_box">
@@ -19,35 +27,30 @@
 	<ul class="easyui-tree" id="zw_page_common_tree" ></ul>
 	</div>
  	</div>
-	<div class="span7">
-      <form class="form-horizontal" class="span8">
+	<div      data-options="region:'center'" title="测试吧，少年" >
+      <form class="form-horizontal" id="manage_apitest_form">
       
         <legend>API测试</legend>
         
          <div class="control-group">
 	    	<label class="control-label" for="api_target">api名称：</label>
 	    	<div class="controls">
-	    		<input type="text" class="span8" id="api_target"  placeholder="APITarge" value="com.srnpr.zapweb.webfactory.ListApi">
+	    		<input type="text" class="span5 c_md5" id="api_target" name="api_target"  placeholder="api名称" value="">
 	    	</div>
 	  	</div>
         
         <div class="control-group">
 	    	<label class="control-label" for="api_key">APIKey：</label>
 	    	<div class="controls">
-	    		<input type="text" id="api_key"  placeholder="APIKey" value="testapi">
+	    		<input type="text" class="c_md5" id="api_key" name="api_key"  placeholder="APIKey" value="testapi">
 	    	</div>
 	  	</div>
-        <div class="control-group">
-	    	<label class="control-label" for="api_pass">API密码：</label>
-	    	<div class="controls">
-	    		<input type="text" id="api_pass"  placeholder="密码" value="testpassword">
-	    	</div>
-	  	</div>
+       
 	  	
 	  	<div class="control-group">
 	    	<label class="control-label" for="api_input">Json数据：</label>
 	    	<div class="controls">
-	    		<textarea class="span8" id="api_input" name="api_input" rows="12" ></textarea>
+	    		<textarea class="span5 c_md5" id="api_input" name="api_input" rows="12" ></textarea>
 	    	</div>
 	  	</div>
 	  	
@@ -55,7 +58,7 @@
 	  	<div class="control-group">
 	    	<label class="control-label" for="api_timespan">时间：</label>
 	    	<div class="controls">
-	    		<input type="text" id="api_timespan" name="api_timespan"  placeholder="" value="">
+	    		<input type="text"  class="c_md5" id="api_timespan" name="api_timespan"  placeholder="" value="">
 	    	</div>
 	  	</div>
 	  	
@@ -63,26 +66,59 @@
 	  	 <div class="control-group">
 	    	<label class="control-label" for="api_secret">验证串：</label>
 	    	<div class="controls">
-	    		<input type="text" id="api_secret" name="api_secret"  placeholder="" value="">
+	    		<input type="text" class="span5"  id="api_secret" name="api_secret"  placeholder="" value="">
 	    	</div>
 	  	</div>
 	  	
         
          <div class="control-group">
-         <label class="control-label" for=""></label>
-         <div class="controls">
-	    	
-        	<button class="btn btn-large btn-success" type="button">测试</button>
-        </div>
+	         <label class="control-label" for=""></label>
+	         <div class="controls">
+		    	
+	        	<button class="btn btn-large btn-success" type="button" onclick="zapadmin_apitest.call_api()">调用API</button>
+	        </div>
 	  	</div>
      
-        
+         <div class="control-group">
+	    	<label class="control-label" for="api_pass">API密码：</label>
+	    	<div class="controls">
+	    		<input type="text" id="api_pass"  placeholder="密码" value="testpassword">
+	    	</div>
+	  	</div>
         
       </form>
 
     </div> 
     
     
+    <div     data-options="region:'east',split:true" title="模拟请求"  style="width:400px;"> 
+    
+    	<div style="width:360px;margin:10px;">
+
+		<div>
+			<div>请求链接</div>
+			<div id="manage_apitest_link"></div>
+		</div>
+		<div>
+			<div>请求内容</div>
+			<div id="manage_apitest_submit" >
+			
+			
+			</div>
+		</div>
+		<div>
+			<div>返回信息</div>
+			<div >
+			<textarea id="manage_apitest_return" rows="20" style="width:100%;">
+			</textarea>
+			
+			</div>
+		</div>
+    	</div>
+    
+    </div>
+    
+    </div>
     
     
 	<script type="text/javascript">
@@ -102,6 +138,7 @@
 <input type="hidden" name="zw_page_tree_zw_s_jsonchart" id="zw_page_tree_zw_s_jsonchart" value="../jsonchart/page_chart_v_za_apiinfo"    />
     
     
-	
+	       
+    </div>
 </body>
 </html>

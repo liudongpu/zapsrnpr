@@ -1,21 +1,108 @@
 var zapadmin_apitest = {
 
 	init : function() {
-		require([ 'zapadmin/js/zapadmin_tree' ], function(a) {
-			zapadmin_tree.tree_show = function(oData) {
-				var x = zapadmin.tree_data(oData);
+		require([ 'zapadmin/js/zapadmin_tree', 'zapadmin/js/zapadmin_md5' ],
+				function(a) {
+					zapadmin_tree.tree_show = function(oData) {
+						var x = zapadmin.tree_data(oData);
 
-				$('#zw_page_common_tree').tree({
-					data : x,
-					onClick : function(node) {
-						alert('');
-					}
+						$('#zw_page_common_tree').tree({
+							data : x,
+							onClick : function(node) {
+								// alert('');
+								zapadmin_apitest.click_func(node);
+							}
 
+						});
+					};
+
+					a.tree_init();
 				});
-			};
+	},
 
-			a.tree_init();
+	click_func : function(node) {
+		var sId = node.id;
+
+		if (sId.toString().length > 12) {
+
+			$.getJSON("../func/dcca78c87dd746649dca938e6d16b5b7?zw_f_uid="
+					+ node.attributes.uid, {}, function(oData) {
+				// alert(data);
+
+				$('#api_target').val(
+						oData.resultObject.class_name.replace(/\./g, '_'));
+
+				$('#api_input').val(oData.resultObject.template_input);
+
+			});
+		}
+	},
+
+	call_api : function() {
+
+		$('#api_timespan').val(
+				zapadmin_apitest.date_time('YYYY-MM-DD HH:mm:ss'));
+
+		var sSource = $('#api_target').val() + $('#api_key').val()
+				+ $('#api_input').val() + $('#api_timespan').val()
+				+ $('#api_pass').val();
+
+		var sMd5 = MD5(sSource);
+
+		$('#api_secret').val(sMd5);
+		var sUrl = "../jsonapi/" + $('#api_target').val();
+		$('#manage_apitest_link').html(sUrl);
+
+		var queryString = $('#manage_apitest_form').formSerialize();
+
+		//$('#manage_apitest_submit').html(queryString);
+
+		$.post(sUrl, {
+			api_key : $('#api_key').val(),
+			api_input : $('#api_input').val(),
+			api_target : $('#api_target').val(),
+			api_secret : $('#api_secret').val(),
+			api_timespan : $('#api_timespan').val()
+		}, function(data, status) {
+			
+			$('#manage_apitest_return').html(zapjs.f.tojson(data));
 		});
+
+	},
+	date_time : function(formatStr) {
+
+		var dthis = new Date();
+
+		var str = formatStr;
+		var Week = [ '日', '一', '二', '三', '四', '五', '六' ];
+
+		str = str.replace(/yyyy|YYYY/, dthis.getFullYear());
+		str = str.replace(/yy|YY/, (dthis.getYear() % 100) > 9 ? (dthis
+				.getYear() % 100).toString() : '0' + (dthis.getYear() % 100));
+
+		var iMonth = dthis.getMonth() + 1;
+
+		str = str.replace(/MM/, iMonth > 9 ? iMonth.toString() : '0' + iMonth);
+		str = str.replace(/M/g, iMonth);
+
+		str = str.replace(/w|W/g, Week[dthis.getDay()]);
+
+		str = str.replace(/dd|DD/, dthis.getDate() > 9 ? dthis.getDate()
+				.toString() : '0' + dthis.getDate());
+		str = str.replace(/d|D/g, dthis.getDate());
+
+		str = str.replace(/hh|HH/, dthis.getHours() > 9 ? dthis.getHours()
+				.toString() : '0' + dthis.getHours());
+		str = str.replace(/h|H/g, dthis.getHours());
+		str = str.replace(/mm/, dthis.getMinutes() > 9 ? dthis.getMinutes()
+				.toString() : '0' + dthis.getMinutes());
+		str = str.replace(/m/g, dthis.getMinutes());
+
+		str = str.replace(/ss|SS/, dthis.getSeconds() > 9 ? dthis.getSeconds()
+				.toString() : '0' + dthis.getSeconds());
+		str = str.replace(/s|S/g, dthis.getSeconds());
+
+		return str;
 	}
 
 };
