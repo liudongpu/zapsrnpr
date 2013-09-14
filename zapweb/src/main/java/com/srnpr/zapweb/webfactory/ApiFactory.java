@@ -145,8 +145,17 @@ public class ApiFactory implements IBaseInstance {
 
 			sTarget = sTarget.replace("_", ".");
 
-			sReturnString = doProcess(sTarget, sInputString);
-		} else {
+			try {
+				sReturnString = doProcess(sTarget, sInputString);
+			} catch (Exception e) {
+				mResult.inErrorMessage(969905012);
+				e.printStackTrace();
+			}
+
+		}
+
+		// 如果失败 则重新格式化返回消息
+		if (!mResult.upFlagTrue()) {
 
 			// 重新格式化输出结果
 

@@ -31,6 +31,18 @@ var zapadmin_apitest = {
 
 				$('#api_target').val(
 						oData.resultObject.class_name.replace(/\./g, '_'));
+				
+				
+				var sBaseUrl="http://www.test.cctvmall.cn/javadoc/";
+				var sExet=".html";
+				
+				var aHtml=[];
+				aHtml.push('<a href="'+sBaseUrl+oData.resultObject.javadoc_input.replace(/\./g, '/')+sExet+'" target="_blank">输入参数描述</a>');
+				aHtml.push("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+				aHtml.push('<a href="'+sBaseUrl+oData.resultObject.javadoc_result.replace(/\./g, '/')+sExet+'" target="_blank">返回参数描述</a>');
+				
+				
+				$('#manage_apitest_javadoc').html(aHtml.join(''));
 
 				$('#api_input').val(oData.resultObject.template_input);
 

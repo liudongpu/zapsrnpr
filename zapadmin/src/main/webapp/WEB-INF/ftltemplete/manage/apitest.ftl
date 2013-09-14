@@ -38,39 +38,24 @@
 	    		<input type="text" class="c_md5" style="width:80%;" id="api_target" name="api_target"  placeholder="api名称" value="">
 	    	</div>
 	  	</div>
-        
-        <div class="control-group">
-	    	<label class="control-label" for="api_key">APIKey：</label>
-	    	<div class="controls">
-	    		<input type="text" class="c_md5" id="api_key" name="api_key"  placeholder="APIKey" value="testapi">
-	    	</div>
-	  	</div>
-       
+
 	  	
 	  	<div class="control-group">
 	    	<label class="control-label" for="api_input">Json数据：</label>
 	    	<div class="controls">
-	    		<textarea class=" c_md5"  style="width:80%;" id="api_input" name="api_input" rows="12" ></textarea>
+	    		<textarea class=" c_md5"  style="width:80%;" id="api_input" name="api_input" rows="8" ></textarea>
 	    	</div>
 	  	</div>
-	  	
 	  	
 	  	<div class="control-group">
-	    	<label class="control-label" for="api_timespan">时间：</label>
+	    	<label class="control-label" for="api_input">接口描述：</label>
 	    	<div class="controls">
-	    		<input type="text"  class="c_md5" id="api_timespan" name="api_timespan"  placeholder="" value="">
+	    		<div id="manage_apitest_javadoc"></div>
 	    	</div>
 	  	</div>
 	  	
-	  	
-	  	 <div class="control-group">
-	    	<label class="control-label" for="api_secret">验证串：</label>
-	    	<div class="controls">
-	    		<input type="text" class="span5"  id="api_secret" name="api_secret"  placeholder="" value="">
-	    	</div>
-	  	</div>
-	  	
-        
+
+
          <div class="control-group">
 	         <label class="control-label" for=""></label>
 	         <div class="controls">
@@ -79,10 +64,33 @@
 	        </div>
 	  	</div>
      
+     
+     	 <div class="control-group">
+	    	<label class="control-label" for="api_key">APIKey：</label>
+	    	<div class="controls">
+	    		<input type="text" class="c_md5" id="api_key" name="api_key"  placeholder="APIKey" value="testapi">
+	    	</div>
+	  	</div>
+     
          <div class="control-group">
 	    	<label class="control-label" for="api_pass">API密码：</label>
 	    	<div class="controls">
 	    		<input type="text" id="api_pass"  placeholder="密码" value="testpassword">
+	    	</div>
+	  	</div>
+	  	<div class="control-group">
+	    	<label class="control-label" for="api_timespan">时间戳：</label>
+	    	<div class="controls">
+	    		<input type="text"  class="c_md5" id="api_timespan" name="api_timespan"  placeholder="" value="">
+	    		<input type="checkbox" checked="checked" id="manage_apitest_timeauto">自动取客户端时间
+	    	</div>
+	  	</div>
+	  	
+	  	 <div class="control-group">
+	    	<label class="control-label" for="api_secret">验证串：</label>
+	    	<div class="controls">
+	    		<input type="text"  style="width:60%;" id="api_secret" name="api_secret"  placeholder="" value="">
+	    		<span class="help-block">Md5()</span>
 	    	</div>
 	  	</div>
         
