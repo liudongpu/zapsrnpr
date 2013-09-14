@@ -136,6 +136,7 @@ public class FormatHelper {
 
 	/**
 	 * 获取url结构表示出来的字符串参数 a=b&c=d 表示为[a,b,c,d]
+	 * 
 	 * @param sUrl
 	 * @return
 	 */
@@ -151,6 +152,10 @@ public class FormatHelper {
 		}
 
 		return aList.toArray(new String[] {});
+	}
+
+	public static String upReplaceSerialize(String sKey) {
+		return sKey.replace("_", "").toLowerCase();
 	}
 
 }

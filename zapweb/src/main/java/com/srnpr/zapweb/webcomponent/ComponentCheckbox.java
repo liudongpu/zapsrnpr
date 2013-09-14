@@ -123,14 +123,19 @@ public class ComponentCheckbox extends RootComponent {
 		for (MDataMap mShow : DbUp.upTable(
 				componentMap.get("component_show_table")).queryByWhere()) {
 
-			listReturnList.add(FormatHelper.formatString(
-					sHtmlCheckbox,
-					upFieldName(mField.getColumnName()) + "_"
-							+ String.valueOf(iStep),
-					upFieldName(mField.getColumnName()),
-					mShow.get(componentMap.get("component_show_field_value")),
-					mShow.get(componentMap.get("component_show_field_text")),
-					mExitDataMap.containsKey(mShow.get(componentMap.get("component_show_field_value")))?" checked=\"checked\" ":""));
+			listReturnList
+					.add(FormatHelper.formatString(
+							sHtmlCheckbox,
+							upFieldName(mField.getColumnName()) + "_"
+									+ String.valueOf(iStep),
+							upFieldName(mField.getColumnName()),
+							mShow.get(componentMap
+									.get("component_show_field_value")),
+							mShow.get(componentMap
+									.get("component_show_field_text")),
+							mExitDataMap.containsKey(mShow.get(componentMap
+									.get("component_show_field_value"))) ? " checked=\"checked\" "
+									: ""));
 
 			iStep++;
 
@@ -161,8 +166,7 @@ public class ComponentCheckbox extends RootComponent {
 
 		MWebResult mReturnResult = new MWebResult();
 
-		MDataMap mFieldMap = MapHelper.subMap(mDataMap,
-				WebConst.CONST_WEB_FIELD_NAME);
+		MDataMap mFieldMap = mDataMap.upSubMap(WebConst.CONST_WEB_FIELD_NAME);
 
 		if (mFieldMap.containsKey(componentMap.get("component_key_field"))) {
 			DbUp.upTable(componentMap.get("component_in_table")).delete(
