@@ -3,7 +3,7 @@ package com.srnpr.zapcom.topapi;
 import com.srnpr.zapcom.baseface.IBaseResult;
 
 /**
- * 返回消息
+ * 返回执行结果
  * 
  * @author srnpr
  * 

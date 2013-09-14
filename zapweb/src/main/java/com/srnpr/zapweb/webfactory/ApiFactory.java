@@ -172,6 +172,12 @@ public class ApiFactory implements IBaseInstance {
 		return sReturnString;
 	}
 
+	/**
+	 * 获取Api模型
+	 * 
+	 * @param sClassName
+	 * @return
+	 */
 	public MApiModel upApiModel(String sClassName) {
 		MApiModel mApiModel = null;
 		try {
