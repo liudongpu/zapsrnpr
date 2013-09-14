@@ -9,7 +9,7 @@ import com.srnpr.zapweb.webfactory.ApiFactory;
 
 public class TestWebApi extends TestHelper implements Runnable {
 
-	@Test
+	
 	public void test() {
 
 		
