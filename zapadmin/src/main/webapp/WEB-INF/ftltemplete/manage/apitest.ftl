@@ -12,7 +12,7 @@
 <body>
 
 
-<div class="easyui-layout" style="width:100%;height:700px;">
+<div class="easyui-layout" style="width:100%;height:100%;">
 
 
 
@@ -35,7 +35,7 @@
          <div class="control-group">
 	    	<label class="control-label" for="api_target">api名称：</label>
 	    	<div class="controls">
-	    		<input type="text" class="span5 c_md5" id="api_target" name="api_target"  placeholder="api名称" value="">
+	    		<input type="text" class="c_md5" style="width:80%;" id="api_target" name="api_target"  placeholder="api名称" value="">
 	    	</div>
 	  	</div>
         
@@ -50,7 +50,7 @@
 	  	<div class="control-group">
 	    	<label class="control-label" for="api_input">Json数据：</label>
 	    	<div class="controls">
-	    		<textarea class="span5 c_md5" id="api_input" name="api_input" rows="12" ></textarea>
+	    		<textarea class=" c_md5"  style="width:80%;" id="api_input" name="api_input" rows="12" ></textarea>
 	    	</div>
 	  	</div>
 	  	

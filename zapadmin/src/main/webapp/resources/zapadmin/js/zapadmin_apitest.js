@@ -40,6 +40,12 @@ var zapadmin_apitest = {
 
 	call_api : function() {
 
+		if($('#api_target').val()=="")
+			{
+			alert('目标呢？亲！');
+			return ;
+			}
+		
 		$('#api_timespan').val(
 				zapadmin_apitest.date_time('YYYY-MM-DD HH:mm:ss'));
 

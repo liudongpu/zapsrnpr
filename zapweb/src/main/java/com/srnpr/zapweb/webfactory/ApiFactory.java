@@ -16,6 +16,7 @@ import com.srnpr.zapcom.baseface.IBaseInput;
 import com.srnpr.zapcom.baseface.IBaseInstance;
 import com.srnpr.zapcom.baseface.IBaseResult;
 import com.srnpr.zapcom.basehelper.JsonHelper;
+import com.srnpr.zapcom.basehelper.SecrurityHelper;
 import com.srnpr.zapcom.basemodel.MApiModel;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.topapi.DefaultApiCache;
@@ -38,6 +39,8 @@ public class ApiFactory implements IBaseInstance {
 		String sApiKey = "";
 		String sApiSecret = "";
 
+		String sApiPass = "testpassword";
+
 		MDataMap mDataMap = ROOT_PROCESS.convertRequest(hRequest);
 
 		MWebResult mResult = new MWebResult();
@@ -59,7 +62,7 @@ public class ApiFactory implements IBaseInstance {
 				sTimeSpan = mDataMap.get("api_timespan");
 				sInputString = mDataMap.get("api_input");
 				sApiKey = mDataMap.get("api_key");
-				sApiSecret = mDataMap.get("api_secret");
+				sApiSecret = mDataMap.get("api_secret").toUpperCase();
 
 			}
 		}
@@ -82,11 +85,24 @@ public class ApiFactory implements IBaseInstance {
 
 		}
 
+		// 开始验证正确性
+		if (mResult.upFlagTrue()) {
+
+			String sSource = sTarget + sApiKey + sInputString + sTimeSpan
+					+ sApiPass;
+			String sSec = SecrurityHelper.MD5(sSource);
+
+			if (!StringUtils.equals(sSec, sApiSecret)) {
+				mResult.inErrorMessage(969905010);
+			}
+
+		}
+
 		// 开始返回值
 		if (mResult.upFlagTrue()) {
-			
-			sTarget =sTarget.replace("_", ".");
-			
+
+			sTarget = sTarget.replace("_", ".");
+
 			sReturnString = doProcess(sTarget, sInputString);
 		} else {
 			sReturnString = mResult.upJson();
