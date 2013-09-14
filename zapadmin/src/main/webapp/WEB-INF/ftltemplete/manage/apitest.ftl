@@ -90,7 +90,12 @@
 	    	<label class="control-label" for="api_secret">验证串：</label>
 	    	<div class="controls">
 	    		<input type="text"  style="width:60%;" id="api_secret" name="api_secret"  placeholder="" value="">
-	    		<span class="help-block">Md5()</span>
+	    		<span class="help-block">var [验证串]=Md5([api名称]+[APIKey]+[Json数据]+[时间戳]+[API密码]);
+	    		<br/>
+	    		post数据：api_key=[APIKey]&api_input=[Json数据]&api_target=[api名称]&api_secret=[验证串]&api_timespan=[时间戳]
+	    		<br/>
+	    		接口描述的链接请只观看【字段概要】或者【字段详细资料】，其他请忽略。
+	    		</span>
 	    	</div>
 	  	</div>
         
