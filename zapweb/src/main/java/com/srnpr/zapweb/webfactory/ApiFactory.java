@@ -9,6 +9,7 @@ import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 
@@ -30,8 +31,9 @@ import com.srnpr.zapweb.webpage.RootProcess;
 
 /**
  * API调用基类
+ * 
  * @author srnpr
- *
+ * 
  */
 public class ApiFactory implements IBaseInstance {
 
@@ -41,6 +43,7 @@ public class ApiFactory implements IBaseInstance {
 
 	/**
 	 * 获取处理结果
+	 * 
 	 * @param hRequest
 	 * @return
 	 */
@@ -85,10 +88,10 @@ public class ApiFactory implements IBaseInstance {
 		// 开始判断日期时间差
 		if (mResult.upFlagTrue()) {
 			try {
-				
-				
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				
+
+				SimpleDateFormat sdf = new SimpleDateFormat(
+						"yyyy-MM-dd HH:mm:ss");
+
 				Date date = sdf.parse(sTimeSpan);
 
 				long diff = date.getTime() - (new Date()).getTime();
@@ -197,7 +200,9 @@ public class ApiFactory implements IBaseInstance {
 
 				mApiModel = new MApiModel();
 
-				Class<?> c = Class.forName(sClassName);
+				// Class<?> c = Class.forName(sClassName);
+
+				Class<?> c = ClassUtils.getClass(sClassName);
 
 				Class<?> cReturn = null;
 				Class<?> cInputClass = null;
@@ -231,6 +236,7 @@ public class ApiFactory implements IBaseInstance {
 
 	/**
 	 * 处理逻辑
+	 * 
 	 * @param sClassName
 	 * @param sInputJson
 	 * @return
