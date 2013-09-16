@@ -78,6 +78,12 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 
 				mResult = new JsonHelper<MWebResult>().StringToObj(
 						sReturnString, mResult);
+				
+				if(mResult==null||mResult.getResultObject()==null)
+				{
+					mResult.inErrorMessage(969905005);
+				}
+				
 
 			}
 			if (resEntity != null) {
@@ -90,9 +96,10 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 			// httpclient.getConnectionManager().shutdown();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 
 			mResult.inErrorMessage(969905005);
+			e.printStackTrace();
 
 		}
 
