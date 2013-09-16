@@ -193,45 +193,8 @@ public class ApiFactory implements IBaseInstance {
 	 * @return
 	 */
 	public MApiModel upApiModel(String sClassName) {
-		MApiModel mApiModel = null;
-		try {
 
-			if (!DefaultApiCache.INSTANCE.containsKey(sClassName)) {
-
-				mApiModel = new MApiModel();
-
-				// Class<?> c = Class.forName(sClassName);
-
-				Class<?> c = ClassUtils.getClass(sClassName);
-
-				Class<?> cReturn = null;
-				Class<?> cInputClass = null;
-
-				for (Method method : c.getMethods()) {
-
-					if (method.getName().equals("Process")
-							&& !method.isBridge()) {
-						cReturn = method.getReturnType();
-						cInputClass = method.getParameterTypes()[0];
-
-					}
-
-				}
-
-				mApiModel.setApiClass(c);
-				mApiModel.setInputClass(cInputClass);
-				mApiModel.setResultClass(cReturn);
-
-				DefaultApiCache.INSTANCE.inElement(sClassName, mApiModel);
-
-			} else {
-				mApiModel = DefaultApiCache.INSTANCE.upValue(sClassName);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return mApiModel;
+		return DefaultApiCache.INSTANCE.upValue(sClassName);
 	}
 
 	/**
