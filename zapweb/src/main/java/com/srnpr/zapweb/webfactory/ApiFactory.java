@@ -3,6 +3,7 @@ package com.srnpr.zapweb.webfactory;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
 
@@ -27,6 +28,11 @@ import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.webmodel.MWebResult;
 import com.srnpr.zapweb.webpage.RootProcess;
 
+/**
+ * API调用基类
+ * @author srnpr
+ *
+ */
 public class ApiFactory implements IBaseInstance {
 
 	public final static ApiFactory INSTANCE = new ApiFactory();
@@ -34,6 +40,7 @@ public class ApiFactory implements IBaseInstance {
 	private final static RootProcess ROOT_PROCESS = new RootProcess();
 
 	/**
+	 * 获取处理结果
 	 * @param hRequest
 	 * @return
 	 */
@@ -78,7 +85,11 @@ public class ApiFactory implements IBaseInstance {
 		// 开始判断日期时间差
 		if (mResult.upFlagTrue()) {
 			try {
-				Date date = DateFormat.getDateTimeInstance().parse(sTimeSpan);
+				
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				
+				Date date = sdf.parse(sTimeSpan);
 
 				long diff = date.getTime() - (new Date()).getTime();
 				long minutes = diff / (1000 * 60);
@@ -218,6 +229,12 @@ public class ApiFactory implements IBaseInstance {
 		return mApiModel;
 	}
 
+	/**
+	 * 处理逻辑
+	 * @param sClassName
+	 * @param sInputJson
+	 * @return
+	 */
 	public String doProcess(String sClassName, String sInputJson) {
 
 		String sReturnString = "";
