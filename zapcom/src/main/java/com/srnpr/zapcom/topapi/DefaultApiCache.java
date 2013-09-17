@@ -9,6 +9,12 @@ import com.srnpr.zapcom.basemodel.MApiAuthorize;
 import com.srnpr.zapcom.basemodel.MApiModel;
 import com.srnpr.zapcom.rootclass.RootCache;
 
+/**
+ * API缓存类
+ * 
+ * @author srnpr
+ * 
+ */
 public class DefaultApiCache extends RootCache<String, MApiModel> implements
 		IBaseInstance {
 

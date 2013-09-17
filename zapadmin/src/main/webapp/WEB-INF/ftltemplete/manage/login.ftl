@@ -16,7 +16,7 @@
  	<div class="container">
 
       <form class="zab_manage_login_signin  form-horizontal">
-      
+      <img src="http://p4.img.cctvpic.com/photoAlbum/page/performance/img/2013/3/7/1362629299085_999.jpg"/>
         <legend>后台登陆</legend>
         <div class="control-group">
 	    	<label class="control-label" for="login_name">用户名：</label>
@@ -35,7 +35,7 @@
          <label class="control-label" for=""></label>
          <div class="controls">
 	    	
-        	<button class="btn btn-large btn-success" type="submit">登陆</button>
+        	<button class="btn btn-large btn-success" type="button">登陆</button>
         </div>
 	  	</div>
      

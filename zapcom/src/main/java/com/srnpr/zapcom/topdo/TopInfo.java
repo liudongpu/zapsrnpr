@@ -28,6 +28,13 @@ class TopInfo extends RootCache<Long, String> {
 		MStringMap mStringMap = loadProperties.loadMap(sTempConfigString);
 		for (String s : mStringMap.upKeys()) {
 
+			Long lKey=Long.parseLong(s);
+			
+			if(containsKey(lKey))
+			{
+				bLogError(0, "key ["+lKey.toString()+"] exist more then two");
+			}
+			
 			this.inElement(Long.parseLong(s), mStringMap.get(s));
 		}
 
