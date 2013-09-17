@@ -141,5 +141,6 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>zapadmin</finalName>
     </build>
 </project>
