@@ -1,7 +1,10 @@
 package com.srnpr.zapweb.webfactory;
 
+import org.apache.commons.lang.ObjectUtils;
+
 import com.srnpr.zapcom.baseface.IBaseFactory;
 import com.srnpr.zapcom.baseface.IBaseInstance;
+import com.srnpr.zapweb.helper.WebSessionHelper;
 import com.srnpr.zapweb.usermodel.MUserInfo;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webmethod.WebMethod;
@@ -19,8 +22,8 @@ public class UserFactory implements IBaseInstance, IBaseFactory<MUserInfo> {
 
 		MUserInfo mUserInfo = new MUserInfo();
 
-		Object oUserInfo = WebMethod.INSTANCE
-				.upSession(WebConst.CONST_WEB_SESSION_USER);
+		Object oUserInfo = WebSessionHelper.create().upSession(
+				WebConst.CONST_WEB_SESSION_USER);
 
 		if (oUserInfo != null) {
 			mUserInfo = (MUserInfo) oUserInfo;
@@ -28,12 +31,17 @@ public class UserFactory implements IBaseInstance, IBaseFactory<MUserInfo> {
 
 		return mUserInfo;
 
+
 	}
 
 	public void inUserInfo(MUserInfo mUserInfo) {
-		WebMethod.INSTANCE
-				.inSession(WebConst.CONST_WEB_SESSION_USER, mUserInfo);
+
+		WebSessionHelper.create().inSession(WebConst.CONST_WEB_SESSION_USER,
+				mUserInfo);
+
 	}
+
+
 
 	public MUserInfo upTestUser() {
 		// 测试专用
