@@ -53,7 +53,7 @@ public abstract class BaseClass {
 	 * @param iInfoCode
 	 * @param sParms
 	 */
-	public void bLogDebug(int iInfoCode, String... sParms) {
+	public void bLogDebug(int iInfoCode, Object... sParms) {
 		if (logger == null) {
 			logger = LogFactory.getLog(this.getClass());
 		}
@@ -77,7 +77,7 @@ public abstract class BaseClass {
 	 *            拼接字符串
 	 * @return
 	 */
-	public String bInfo(long iInfoCode, String... sParms) {
+	public String bInfo(long iInfoCode, Object... sParms) {
 
 		return FormatHelper.formatString(TopUp.upInfo(iInfoCode), sParms);
 	}
