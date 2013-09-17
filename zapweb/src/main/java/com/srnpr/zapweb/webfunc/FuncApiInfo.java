@@ -9,8 +9,16 @@ import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webfactory.ApiFactory;
 import com.srnpr.zapweb.webmodel.MWebResult;
 
+/**
+ * API信息获取函数
+ * @author srnpr
+ *
+ */
 public class FuncApiInfo extends RootFunc {
 
+	/* (non-Javadoc)
+	 * @see com.srnpr.zapweb.webface.IWebFunc#funcDo(java.lang.String, com.srnpr.zapcom.basemodel.MDataMap)
+	 */
 	public MWebResult funcDo(String sOperateUid, MDataMap mDataMap) {
 
 		MWebResult mResult = new MWebResult();
