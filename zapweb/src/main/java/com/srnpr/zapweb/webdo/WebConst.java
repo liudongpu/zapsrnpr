@@ -5,13 +5,13 @@ import com.srnpr.zapcom.baseface.IBaseConst;
 public class WebConst implements IBaseConst {
 
 	/**
-	 * 定义页面字段的默认左边 126022006
+	 * 定义页面字段的默认左边     zw_f_    126022006
 	 */
 	public final static String CONST_WEB_FIELD_NAME = "zw_f_";
 
 	
 	/**
-	 * 定义页面分页字段左边 126022016
+	 * 定义页面分页字段左边   zw_p_    126022016
 	 */
 	public final static String CONST_WEB_PAGINATION_NAME = "zw_p_";
 
