@@ -1,15 +1,14 @@
 package com.srnpr.zapweb.usermodel;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.srnpr.zapcom.basemodel.MDataMap;
-import com.srnpr.zapcom.basemodel.MObjMap;
-
 public class MUserInfo {
 
 	/**
-	 * 用户名
+	 * 用户编号
+	 */
+	private String userCode = "";
+
+	/**
+	 * 用户登陆名
 	 */
 	private String loginName = "";
 
@@ -19,14 +18,19 @@ public class MUserInfo {
 	private String realName = "";
 
 	/**
-	 * 用户管理编号
+	 * 登陆状态 1为登陆 0为未登陆
+	 */
+	private int flagLogin = 0;
+
+	/**
+	 * 用户管理店铺编号
 	 */
 	private String manageCode = "";
 
 	/**
-	 * 菜单信息
+	 * 用户菜单编号串 竖线分隔
 	 */
-	private List<MMenuInfo> menuInfos = new ArrayList<MMenuInfo>();
+	private String userMenu = "";
 
 	public String getRealName() {
 		return realName;
@@ -34,14 +38,6 @@ public class MUserInfo {
 
 	public void setRealName(String realName) {
 		this.realName = realName;
-	}
-
-	public List<MMenuInfo> getMenuInfos() {
-		return menuInfos;
-	}
-
-	public void setMenuInfos(List<MMenuInfo> menuInfos) {
-		this.menuInfos = menuInfos;
 	}
 
 	public String getManageCode() {
@@ -58,6 +54,30 @@ public class MUserInfo {
 
 	public void setLoginName(String loginName) {
 		this.loginName = loginName;
+	}
+
+	public int getFlagLogin() {
+		return flagLogin;
+	}
+
+	public void setFlagLogin(int flagLogin) {
+		this.flagLogin = flagLogin;
+	}
+
+	public String getUserMenu() {
+		return userMenu;
+	}
+
+	public void setUserMenu(String userMenu) {
+		this.userMenu = userMenu;
+	}
+
+	public String getUserCode() {
+		return userCode;
+	}
+
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
 	}
 
 }
