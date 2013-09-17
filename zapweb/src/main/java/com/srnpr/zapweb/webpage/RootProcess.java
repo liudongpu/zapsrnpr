@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapweb.webdo.WebUp;
+import com.srnpr.zapweb.webface.IControlPage;
 import com.srnpr.zapweb.webface.IWebProcess;
 import com.srnpr.zapweb.webmodel.MWebPage;
 import com.srnpr.zapweb.webmodel.MWebResult;
@@ -27,7 +28,7 @@ public class RootProcess implements IWebProcess {
 	 * @see com.srnpr.zapweb.webface.IWebProcess#process(java.lang.String,
 	 * javax.servlet.http.HttpServletRequest)
 	 */
-	public ControlPage process(String sPageCode, HttpServletRequest hRequest) {
+	public IControlPage process(String sPageCode, HttpServletRequest hRequest) {
 
 		try {
 			hRequest.setCharacterEncoding("UTF-8");
@@ -38,7 +39,7 @@ public class RootProcess implements IWebProcess {
 
 		MWebPage mPage = WebUp.upPage(sPageCode);
 
-		ControlPage cPage = new ControlPage();
+		IControlPage cPage = new ControlPage();
 
 		// 设置连接
 		if (StringUtils.isEmpty(hRequest.getQueryString())) {

@@ -15,48 +15,18 @@ import com.srnpr.zapcom.topdo.TopUp;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webdo.WebUp;
+import com.srnpr.zapweb.webface.IControlPage;
 import com.srnpr.zapweb.webmodel.MPageData;
 import com.srnpr.zapweb.webmodel.MWebField;
 import com.srnpr.zapweb.webmodel.MWebPage;
 import com.srnpr.zapweb.webmodel.MWebSource;
 
-public class ControlPage {
-
-	/**
-	 * 页面链接
-	 */
-	private String pageUrl = "";
-
-	/**
-	 * 输入参数
-	 */
-	private MDataMap reqMap = new MDataMap();
-
-	/**
-	 * 页面实体
-	 */
-	private MWebPage webPage = new MWebPage();
+public class ControlPage extends RootPage implements IControlPage {
 
 	/**
 	 * 页面操作类
 	 */
 	private final static PageExec pageExec = new PageExec();
-
-	public MDataMap getReqMap() {
-		return reqMap;
-	}
-
-	public void setReqMap(MDataMap reqMap) {
-		this.reqMap = reqMap;
-	}
-
-	public MWebPage getWebPage() {
-		return webPage;
-	}
-
-	public void setWebPage(MWebPage webPage) {
-		this.webPage = webPage;
-	}
 
 	/**
 	 * 得到列表页数据
@@ -64,7 +34,7 @@ public class ControlPage {
 	 * @return
 	 */
 	public MPageData upChartData() {
-		return pageExec.chartData(webPage, reqMap);
+		return pageExec.chartData(getWebPage(), getReqMap());
 	}
 
 	/**
@@ -73,7 +43,7 @@ public class ControlPage {
 	 * @return
 	 */
 	public List<MWebField> upAddData() {
-		return pageExec.addData(webPage, reqMap);
+		return pageExec.addData(getWebPage(), getReqMap());
 	}
 
 	/**
@@ -82,7 +52,7 @@ public class ControlPage {
 	 * @return
 	 */
 	public List<MWebField> upEditData() {
-		return pageExec.editData(webPage, reqMap);
+		return pageExec.editData(getWebPage(), getReqMap());
 	}
 
 	/**
@@ -91,7 +61,7 @@ public class ControlPage {
 	 * @return
 	 */
 	public List<MWebField> upBookData() {
-		return pageExec.bookData(webPage, reqMap);
+		return pageExec.bookData(getWebPage(), getReqMap());
 	}
 
 	/**
@@ -100,13 +70,13 @@ public class ControlPage {
 	 * @return
 	 */
 	public List<MWebField> upInquireData() {
-		return pageExec.inquireData(webPage, reqMap);
+		return pageExec.inquireData(getWebPage(), getReqMap());
 	}
 
 	public String upReplaceUrl(String sUrl, String... sReplace) {
 
 		if (StringUtils.isEmpty(sUrl)) {
-			sUrl = pageUrl;
+			sUrl = getPageUrl();
 		}
 
 		String[] sSplitUrl = StringUtils.split(sUrl, "?");
@@ -126,14 +96,6 @@ public class ControlPage {
 		sUrl = sSplitUrl[0] + "?" + StringUtils.join(mQueryMap.values(), "&");
 
 		return sUrl;
-	}
-
-	public String getPageUrl() {
-		return pageUrl;
-	}
-
-	public void setPageUrl(String pageUrl) {
-		this.pageUrl = pageUrl;
 	}
 
 	/**
@@ -170,16 +132,6 @@ public class ControlPage {
 		return mReturnList.getChildList();
 	}
 
-	/**
-	 * 获取请求值
-	 * 
-	 * @param sKey
-	 * @return
-	 */
-	public String upReqValue(String sKey) {
-		return reqMap.get(sKey);
-	}
-
 	public String upConst(String sType, String... sParams) {
 		String sReturn = "";
 		if (sType.equals("126022006")) {
@@ -197,6 +149,7 @@ public class ControlPage {
 
 	/**
 	 * 获取配置
+	 * 
 	 * @param sKey
 	 * @param sParams
 	 * @return
