@@ -8,7 +8,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.srnpr.zapcom.baseface.IBaseCreate;
 import com.srnpr.zapcom.baseface.IBaseHelper;
-import com.srnpr.zapcom.baseface.IBaseInstance;
 
 public class WebSessionHelper implements IBaseHelper, IBaseCreate {
 
@@ -73,6 +72,27 @@ public class WebSessionHelper implements IBaseHelper, IBaseCreate {
 		}
 
 		return sReturn;
+	}
+
+	/**
+	 * 获取IP地址
+	 * 
+	 * @return
+	 */
+	public String upIpaddress() {
+
+		String ip = upRequest().getHeader("x-forwarded-for");
+		/*
+		 * if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip))
+		 * { ip = request.getHeader("Proxy-Client-IP"); } if (ip == null ||
+		 * ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { ip =
+		 * request.getHeader("WL-Proxy-Client-IP"); }
+		 */
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getRemoteAddr();
+		}
+		return ip;
+
 	}
 
 }

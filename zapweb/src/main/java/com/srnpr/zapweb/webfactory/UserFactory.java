@@ -6,19 +6,23 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 
+import com.srnpr.zapcom.baseclass.BaseClass;
+import com.srnpr.zapcom.baseface.IBaseCreate;
 import com.srnpr.zapcom.baseface.IBaseFactory;
 import com.srnpr.zapcom.baseface.IBaseInstance;
 import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basehelper.SecrurityHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
+import com.srnpr.zapweb.helper.WebHelper;
 import com.srnpr.zapweb.helper.WebSessionHelper;
 import com.srnpr.zapweb.usermodel.MUserInfo;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webmethod.WebMethod;
 import com.srnpr.zapweb.webmodel.MWebResult;
 
-public class UserFactory implements IBaseInstance, IBaseFactory<MUserInfo> {
+public class UserFactory extends BaseClass implements IBaseInstance,
+		IBaseCreate {
 
 	public static final UserFactory INSTANCE = new UserFactory();
 
@@ -37,15 +41,31 @@ public class UserFactory implements IBaseInstance, IBaseFactory<MUserInfo> {
 		if (oUserInfo != null) {
 			mUserInfo = (MUserInfo) oUserInfo;
 		}
+		else
+		{
+			
+		}
 
 		return mUserInfo;
 
 	}
 
-	public void inUserInfo(MUserInfo mUserInfo) {
+	/**
+	 * 登陆信息初始化并写入session
+	 * 
+	 * @param mUserData
+	 */
+	public void inUserInfo(MDataMap mUserData) {
+
+		MUserInfo mLoginUserInfo = new MUserInfo();
+
+		mLoginUserInfo.setFlagLogin(1);
+		mLoginUserInfo.setLoginName(mUserData.get("user_name"));
+		mLoginUserInfo.setRealName(mUserData.get("real_name"));
+		mLoginUserInfo.setManageCode(mUserData.get("manage_code"));
 
 		WebSessionHelper.create().inSession(WebConst.CONST_WEB_SESSION_USER,
-				mUserInfo);
+				mLoginUserInfo);
 
 	}
 
@@ -70,11 +90,11 @@ public class UserFactory implements IBaseInstance, IBaseFactory<MUserInfo> {
 		if (mResult.upFlagTrue()) {
 
 			// 定义最大失败次数
-			int iMaxFaieldCount = 10;
+			int iMaxFaieldCount = 3;
 			// 定义失败分钟数
 			int iMimute = 10;
 
-			Long lFaield = Long.parseLong(mUserInfo.get("failed_count"));
+			int lFaield = Integer.parseInt(mUserInfo.get("failed_count"));
 
 			// 判断最大失败次数
 			if (lFaield >= iMaxFaieldCount) {
@@ -87,7 +107,10 @@ public class UserFactory implements IBaseInstance, IBaseFactory<MUserInfo> {
 
 					if (dFailDate.after(new Date())) {
 						mResult.inErrorMessage(969905016, iMimute);
+					} else {
+						lFaield = 0;
 					}
+
 				} catch (Exception e) {
 					e.printStackTrace();
 					mResult.inErrorMessage(969905016, iMimute);
@@ -101,12 +124,42 @@ public class UserFactory implements IBaseInstance, IBaseFactory<MUserInfo> {
 						mUserInfo.get("user_password").trim())) {
 					// 如果密码不对时 增加冻结次数
 					mUserInfo.put("failed_count", String.valueOf(lFaield + 1));
+
+					mUserInfo.put("failed_time", FormatHelper.upDateTime());
+
 					DbUp.upTable("za_userinfo").dataUpdate(mUserInfo,
-							"failed_count", "uid");
- 
+							"failed_count,failed_time", "uid");
+					mResult.inErrorMessage(969905015,
+							String.valueOf(iMaxFaieldCount - lFaield-1));
+
 				}
 
 			}
+
+			// 如果没任何错误 则登陆成功 开始初始化
+			if (mResult.upFlagTrue()) {
+
+				String sCookieUser = WebHelper.upUuid() + WebHelper.upUuid();
+				mUserInfo.put("cookie_user", sCookieUser);
+
+				mUserInfo.put("failed_count", "0");
+
+				mUserInfo.put("failed_time", "");
+
+				DbUp.upTable("za_userinfo").dataUpdate(mUserInfo,
+						"cookie_user,failed_count,failed_time", "uid");
+
+				inUserInfo(mUserInfo);
+
+				String sIp = WebSessionHelper.create().upIpaddress();
+				WebLogFactory.INSTANCE.addLog(
+						"467723120001",
+						"system_login",
+						bInfo(969912002, mUserInfo.get("user_code"),
+								mUserInfo.get("user_name"), sIp));
+
+			}
+
 		}
 
 		return mResult;

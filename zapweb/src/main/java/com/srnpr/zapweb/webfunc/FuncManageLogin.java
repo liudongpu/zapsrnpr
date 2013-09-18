@@ -2,6 +2,7 @@ package com.srnpr.zapweb.webfunc;
 
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
+import com.srnpr.zapweb.helper.WebSessionHelper;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webfactory.UserFactory;
 import com.srnpr.zapweb.webmodel.MWebResult;
@@ -40,9 +41,19 @@ public class FuncManageLogin extends RootFunc {
 
 		// 获取用户信息
 		if (mResult.upFlagTrue()) {
+
 			String sLoginName = mSubMap.get("login_name");
 
 			String sPassword = mSubMap.get("login_pass");
+
+			MWebResult mLoginResult = UserFactory.INSTANCE.userLogin(
+					sLoginName, sPassword);
+
+			if (mLoginResult.upFlagTrue()) {
+
+			} else {
+				mResult = mLoginResult;
+			}
 
 			/*
 			 * MDataMap mUserInfo = DbUp.upTable("za_userinfo").one("user_name",
