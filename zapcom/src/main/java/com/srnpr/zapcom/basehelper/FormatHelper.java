@@ -1,5 +1,6 @@
 package com.srnpr.zapcom.basehelper;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -132,6 +133,12 @@ public class FormatHelper {
 	public static String upDateTime(Date dDate, String sPattern) {
 		SimpleDateFormat sFormat = new SimpleDateFormat(sPattern);
 		return sFormat.format(dDate);
+	}
+
+	public static Date parseDate(String sDateTime) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		return sdf.parse(sDateTime);
 	}
 
 	/**

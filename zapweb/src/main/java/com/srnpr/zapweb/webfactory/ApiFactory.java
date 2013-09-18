@@ -17,6 +17,7 @@ import com.srnpr.zapcom.baseface.IBaseApi;
 import com.srnpr.zapcom.baseface.IBaseInput;
 import com.srnpr.zapcom.baseface.IBaseInstance;
 import com.srnpr.zapcom.baseface.IBaseResult;
+import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basehelper.JsonHelper;
 import com.srnpr.zapcom.basehelper.SecrurityHelper;
 import com.srnpr.zapcom.basemodel.MApiAuthorize;
@@ -89,10 +90,7 @@ public class ApiFactory implements IBaseInstance {
 		if (mResult.upFlagTrue()) {
 			try {
 
-				SimpleDateFormat sdf = new SimpleDateFormat(
-						"yyyy-MM-dd HH:mm:ss");
-
-				Date date = sdf.parse(sTimeSpan);
+				Date date = FormatHelper.parseDate(sTimeSpan);
 
 				long diff = date.getTime() - (new Date()).getTime();
 				long minutes = diff / (1000 * 60);

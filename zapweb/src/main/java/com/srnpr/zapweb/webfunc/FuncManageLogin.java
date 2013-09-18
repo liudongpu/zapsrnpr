@@ -3,6 +3,7 @@ package com.srnpr.zapweb.webfunc;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.webdo.WebConst;
+import com.srnpr.zapweb.webfactory.UserFactory;
 import com.srnpr.zapweb.webmodel.MWebResult;
 
 /**
@@ -43,18 +44,15 @@ public class FuncManageLogin extends RootFunc {
 
 			String sPassword = mSubMap.get("login_pass");
 
-			MDataMap mUserInfo = DbUp.upTable("za_userinfo").one("user_name",
-					sLoginName, "user_password", sPassword, "flag_enable", "1");
-
-			if (mUserInfo != null && mUserInfo.get("flag_enable").equals("1")) {
-
-			
-				
-				
-				
-			} else {
-				mResult.inErrorMessage(969905014);
-			}
+			/*
+			 * MDataMap mUserInfo = DbUp.upTable("za_userinfo").one("user_name",
+			 * sLoginName,"flag_enable", "1");
+			 * 
+			 * if (mUserInfo != null &&
+			 * mUserInfo.get("flag_enable").equals("1")) {
+			 * 
+			 * } else { mResult.inErrorMessage(969905014); }
+			 */
 
 		}
 
