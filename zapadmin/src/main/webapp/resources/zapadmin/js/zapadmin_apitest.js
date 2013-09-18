@@ -33,7 +33,7 @@ var zapadmin_apitest = {
 						oData.resultObject.class_name.replace(/\./g, '_'));
 				
 				
-				var sBaseUrl="http://www.test.cctvmall.cn/javadoc/";
+				var sBaseUrl="http://zapdoc.wcn.srnpr.com/javadoc/";
 				var sExet=".html";
 				
 				var aHtml=[];
