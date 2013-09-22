@@ -21,6 +21,12 @@ import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webmethod.WebMethod;
 import com.srnpr.zapweb.webmodel.MWebResult;
 
+/**
+ * 用户
+ * 
+ * @author srnpr
+ * 
+ */
 public class UserFactory extends BaseClass implements IBaseInstance,
 		IBaseCreate {
 
@@ -33,17 +39,28 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 	 */
 	public MUserInfo create() {
 
-		MUserInfo mUserInfo = new MUserInfo();
+		MUserInfo mUserInfo = null;
 
 		Object oUserInfo = WebSessionHelper.create().upSession(
 				WebConst.CONST_WEB_SESSION_USER);
 
 		if (oUserInfo != null) {
 			mUserInfo = (MUserInfo) oUserInfo;
-		}
-		else
-		{
-			
+		} else {
+
+			String sCookieUser = WebSessionHelper.create().upCookie(
+					WebConst.CONST_WEB_SESSION_USER);
+
+			if (StringUtils.isNotEmpty(sCookieUser)) {
+				MDataMap mUserMap = DbUp.upTable("za_userinfo").one(
+						"cookie_user", sCookieUser);
+
+				if (mUserMap != null) {
+					mUserInfo = inUserInfo(mUserMap);
+				}
+
+			}
+
 		}
 
 		return mUserInfo;
@@ -51,24 +68,54 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 	}
 
 	/**
+	 * 判断用户是否登录
+	 * 
+	 * @return
+	 */
+	public boolean checkUserLogin() {
+
+		boolean bFlagLogin = false;
+
+		MUserInfo mUserInfo = this.create();
+
+		if (mUserInfo != null && mUserInfo.getFlagLogin() == 1) {
+			bFlagLogin = true;
+		}
+
+		return bFlagLogin;
+	}
+
+	/**
 	 * 登陆信息初始化并写入session
 	 * 
 	 * @param mUserData
 	 */
-	public void inUserInfo(MDataMap mUserData) {
+	public MUserInfo inUserInfo(MDataMap mUserData) {
 
 		MUserInfo mLoginUserInfo = new MUserInfo();
 
-		mLoginUserInfo.setFlagLogin(1);
-		mLoginUserInfo.setLoginName(mUserData.get("user_name"));
-		mLoginUserInfo.setRealName(mUserData.get("real_name"));
-		mLoginUserInfo.setManageCode(mUserData.get("manage_code"));
+		if (mUserData.get("flag_enable").equals("1")) {
 
-		WebSessionHelper.create().inSession(WebConst.CONST_WEB_SESSION_USER,
-				mLoginUserInfo);
+			mLoginUserInfo.setFlagLogin(1);
+			mLoginUserInfo.setLoginName(mUserData.get("user_name"));
+			mLoginUserInfo.setRealName(mUserData.get("real_name"));
+			mLoginUserInfo.setManageCode(mUserData.get("manage_code"));
+			mLoginUserInfo.setCookieUser(mUserData.get("cookie_user"));
+
+			WebSessionHelper.create().inSession(
+					WebConst.CONST_WEB_SESSION_USER, mLoginUserInfo);
+		}
+		return mLoginUserInfo;
 
 	}
 
+	/**
+	 * 用户登录检测
+	 * 
+	 * @param sLoginName
+	 * @param sPassword
+	 * @return
+	 */
 	public MWebResult userLogin(String sLoginName, String sPassword) {
 
 		MWebResult mResult = new MWebResult();
@@ -130,7 +177,7 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 					DbUp.upTable("za_userinfo").dataUpdate(mUserInfo,
 							"failed_count,failed_time", "uid");
 					mResult.inErrorMessage(969905015,
-							String.valueOf(iMaxFaieldCount - lFaield-1));
+							String.valueOf(iMaxFaieldCount - lFaield - 1));
 
 				}
 
@@ -141,6 +188,8 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 
 				String sCookieUser = WebHelper.upUuid() + WebHelper.upUuid();
 				mUserInfo.put("cookie_user", sCookieUser);
+
+				mUserInfo.put("login_time", FormatHelper.upDateTime());
 
 				mUserInfo.put("failed_count", "0");
 

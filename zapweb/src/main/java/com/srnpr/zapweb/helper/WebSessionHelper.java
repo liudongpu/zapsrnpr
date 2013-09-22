@@ -8,6 +8,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.srnpr.zapcom.baseface.IBaseCreate;
 import com.srnpr.zapcom.baseface.IBaseHelper;
+import com.srnpr.zapweb.webdo.WebConst;
 
 public class WebSessionHelper implements IBaseHelper, IBaseCreate {
 
@@ -38,7 +39,8 @@ public class WebSessionHelper implements IBaseHelper, IBaseCreate {
 	 */
 	public void inSession(String sKey, Object oValue) {
 
-		upRequest().getSession().setAttribute(sKey, oValue);
+		upRequest().getSession().setAttribute(
+				WebConst.CONST_WEB_SESSION_KEY + sKey, oValue);
 
 	}
 
@@ -50,7 +52,8 @@ public class WebSessionHelper implements IBaseHelper, IBaseCreate {
 	 */
 	public Object upSession(String sKey) {
 
-		Object oReturnObject = upRequest().getSession().getAttribute(sKey);
+		Object oReturnObject = upRequest().getSession().getAttribute(
+				WebConst.CONST_WEB_SESSION_KEY + sKey);
 
 		return oReturnObject;
 	}
@@ -65,9 +68,12 @@ public class WebSessionHelper implements IBaseHelper, IBaseCreate {
 		String sReturn = null;
 		Cookie[] allCookies = upRequest().getCookies();
 
-		for (Cookie cookie : allCookies) {
-			if (cookie.getName().equals(sKey)) {
-				sReturn = cookie.getValue();
+		if (allCookies != null) {
+			for (Cookie cookie : allCookies) {
+				if (cookie.getName().equals(
+						WebConst.CONST_WEB_COOKIE_KEY + sKey)) {
+					sReturn = cookie.getValue();
+				}
 			}
 		}
 

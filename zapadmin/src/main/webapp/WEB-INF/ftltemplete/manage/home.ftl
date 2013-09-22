@@ -18,14 +18,14 @@
 
 		<div  region="north" class="zab_home_home_top">
 			<div class="w_left c_site">
-				<a href=""><i class="icon-home  icon-white"></i>&nbsp;超级管理后台</a>
+				<a href="#"><i class="icon-home  icon-white"></i>&nbsp;超级管理后台</a>
 
 
 
 			</div>
 			<div class="w_left c_nav">
 				<ul class="w_ul">
-					<li class="c_active"><a href=""
+					<li class="c_active"><a href="#"
 						onclick="zapadmin.top_menu(this)">后台首页</a></li> <#list home_menu as el
 					> <#if el['parent_menu']=='467703130001'>
 					<li><a href="#" onclick="zapadmin.top_menu(this,${el['menu_code']})">${el['menu_name']}</a></li>

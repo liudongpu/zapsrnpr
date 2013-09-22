@@ -14,6 +14,7 @@ import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.helper.WebSessionHelper;
 import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webface.IWebMethod;
+import com.srnpr.zapweb.webfactory.UserFactory;
 import com.srnpr.zapweb.webmodel.MWebField;
 import com.srnpr.zapweb.webpage.ControlPage;
 
@@ -129,6 +130,20 @@ public abstract class RootMethod extends BaseClass implements IWebMethod {
 
 		return mReturnField;
 
+	}
+
+	/**
+	 * 检查是否登录
+	 * 
+	 * @param sInput
+	 * @return
+	 */
+	public String checkLogin(String sInput) {
+		if (UserFactory.INSTANCE.checkUserLogin()) {
+			return sInput;
+		} else {
+			return "manage/noaccess";
+		}
 	}
 
 }

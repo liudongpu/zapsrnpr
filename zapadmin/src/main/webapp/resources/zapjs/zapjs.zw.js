@@ -58,7 +58,7 @@ zapjs.zw = {
 		});
 
 	},
-	//执行成功
+	// 执行成功
 	func_success : function(o) {
 
 		switch (o.resultType) {
@@ -120,6 +120,7 @@ zapjs.zw = {
 		return true;
 	},
 
+	// 编辑器显示
 	editor_show : function(sFieldName, sUploadUrl) {
 
 		zapjs.f.setdomain();
@@ -140,6 +141,7 @@ zapjs.zw = {
 
 	},
 
+	// 上传显示
 	upload_html : function(sTargetUpload, sId, sValue, sSet) {
 
 		if (!sSet) {
@@ -223,7 +225,9 @@ zapjs.zw = {
 
 				for ( var i in sFiles) {
 					aHtml
-							.push('<li><div class="control-upload-image"><a href="'+sFiles[i]+'" target="_blank"><img src="'
+							.push('<li><div class="control-upload-image"><a href="'
+									+ sFiles[i]
+									+ '" target="_blank"><img src="'
 									+ sFiles[i]
 									+ '" /></a></div><div class="control-upload-delete"><span class="btn btn-mini " onclick="zapjs.zw.upload_delete(\''
 									+ sField
@@ -280,7 +284,25 @@ zapjs.zw = {
 	upload_upload : function(oElm) {
 		$('#formsubmit').click();
 
+	},
+	//用户登录成功
+	login_sucess : function(oUserInfo) {
+		var sCookie = oUserInfo.cookieUser;
+
+		if (sCookie) {
+			zapjs.f.cookie(zapjs.c.cookie_user,sCookie);
+			zapjs.f.tourl('../manage/home');
+			
+		}
+
+	},
+	login_out:function()
+	{
+		
+		zapjs.f.tourl('../manage/login');
 	}
+	
+	
 
 };
 

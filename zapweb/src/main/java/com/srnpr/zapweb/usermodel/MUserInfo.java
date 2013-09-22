@@ -28,6 +28,11 @@ public class MUserInfo {
 	private String manageCode = "";
 
 	/**
+	 * 用户Cookie信息
+	 */
+	private String cookieUser = "";
+
+	/**
 	 * 用户菜单编号串 竖线分隔
 	 */
 	private String userMenu = "";
@@ -78,6 +83,14 @@ public class MUserInfo {
 
 	public void setUserCode(String userCode) {
 		this.userCode = userCode;
+	}
+
+	public String getCookieUser() {
+		return cookieUser;
+	}
+
+	public void setCookieUser(String cookieUser) {
+		this.cookieUser = cookieUser;
 	}
 
 }

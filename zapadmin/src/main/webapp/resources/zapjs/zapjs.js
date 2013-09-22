@@ -14,6 +14,8 @@ var zapjs = {
 		main_iframe : 'main_iframe',
 		split : '|',
 		path_resources : '../resources/',
+		cookie_base : 'cookie-zw-',
+		cookie_user : 'userinfo',
 		extend : {},
 		// 是否调试模式
 		debug : true
@@ -33,16 +35,13 @@ var zapjs = {
 		if (zapjs.c.debug) {
 
 			if (window.console && window.console.log) {
-				console.log(zapjs.f.tojson( oLog));
+				console.log(zapjs.f.tojson(oLog));
 			}
 
 		}
 	}
 
 };
-
-
-
 
 zapjs.fn = zapjs.prototype = {};
 
@@ -78,7 +77,23 @@ zapjs.f = {
 	setdomain : function() {
 
 	},
-	setdomain_old : function(url) {
+
+	// Cookie操作
+	cookie : function(key, value, options) {
+
+		//判断如果是写操作  写到根目录
+		if (value) {
+			if (!options) {
+				options = {};
+			}
+
+			options.path = "/";
+		}
+
+		return $.cookie(zapjs.c.cookie_base + key, value, options);
+	},
+
+	updomain : function(url) {
 
 		var host = "null";
 		if (typeof url == "undefined" || null == url)
@@ -95,7 +110,6 @@ zapjs.f = {
 						+ strAry[strAry.length - 1];
 			}
 		}
-		document.domain = host;
 
 		return host;
 
@@ -336,5 +350,3 @@ if (typeof define === "function" && define.amd) {
 		return zapjs;
 	});
 }
-
-

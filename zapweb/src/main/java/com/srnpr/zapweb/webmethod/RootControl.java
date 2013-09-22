@@ -73,7 +73,7 @@ public class RootControl {
 			HttpServletRequest request) {
 		model.addAttribute("b_page", page_Process.process(sUrl, request));
 		model.addAttribute("b_method", web_method);
-		return "page/default";
+		return web_method.checkLogin("page/default");
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class RootControl {
 			HttpServletRequest request) {
 		model.addAttribute("b_page", page_Process.process(sUrl, request));
 		model.addAttribute("b_method", web_method);
-		return "page/show";
+		return web_method.checkLogin("page/show");
 	}
 
 	/**
@@ -111,7 +111,8 @@ public class RootControl {
 			sReturnPageString = "empty";
 		}
 
-		return "page/" + sReturnPageString;
+		return web_method.checkLogin("page/" + sReturnPageString);
+
 	}
 
 	/**
@@ -127,8 +128,9 @@ public class RootControl {
 	public String jsonchart(@PathVariable("url") String sUrl, Model model,
 			HttpServletRequest request) {
 
-		return new JsonHelper<List<List<String>>>().ObjToString(page_Process
-				.process(sUrl, request).upChartData().getPageData());
+		return web_method.checkLogin(new JsonHelper<List<List<String>>>()
+				.ObjToString(page_Process.process(sUrl, request).upChartData()
+						.getPageData()));
 
 	}
 

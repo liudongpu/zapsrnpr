@@ -1,8 +1,11 @@
 package com.srnpr.zapweb.webfunc;
 
+import com.srnpr.zapcom.basehelper.FormatHelper;
+import com.srnpr.zapcom.basehelper.JsonHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.helper.WebSessionHelper;
+import com.srnpr.zapweb.usermodel.MUserInfo;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webfactory.UserFactory;
 import com.srnpr.zapweb.webmodel.MWebResult;
@@ -50,6 +53,16 @@ public class FuncManageLogin extends RootFunc {
 					sLoginName, sPassword);
 
 			if (mLoginResult.upFlagTrue()) {
+
+				mResult.setResultType("116018010");
+
+				JsonHelper<MUserInfo> userJsonHelper = new JsonHelper<MUserInfo>();
+
+				String sUserInfoString = userJsonHelper
+						.ObjToString(UserFactory.INSTANCE.create());
+
+				mResult.setResultObject(FormatHelper.formatString(
+						bConfig("zapweb.login_success_js"), sUserInfoString));
 
 			} else {
 				mResult = mLoginResult;
