@@ -51,18 +51,22 @@ public class PageCache extends RootCache<String, MWebPage> {
 				String sViewKey = mWebPage.getViewCode() + "-"
 						+ mPageDataMap.get("view_type_aid");
 
-				if (StringUtils.isNotEmpty(mWebPage.getViewCode())
-						&& viewCache.containsKey(sViewKey)) {
+				if (StringUtils.isNotEmpty(mWebPage.getViewCode())) {
 
-					MWebView mView = WebUp.upViewCache(sViewKey);
+					if (viewCache.containsKey(sViewKey)) {
+						MWebView mView = WebUp.upViewCache(sViewKey);
 
-					mWebPage.setPageTable(mView.getTableName());
-					// 设置字段
-					List<MWebField> listFields = new ArrayList<MWebField>();
-					for (MWebField mField : mView.getFields()) {
-						listFields.add(mField.clone());
+						mWebPage.setPageTable(mView.getTableName());
+						// 设置字段
+						List<MWebField> listFields = new ArrayList<MWebField>();
+						for (MWebField mField : mView.getFields()) {
+							listFields.add(mField.clone());
+						}
+						mWebPage.setPageFields(listFields);
+					} else {
+						bLogError(0, mWebPage.getPageCode() + ":" + sViewKey
+								+ " not exist");
 					}
-					mWebPage.setPageFields(listFields);
 				}
 
 				super.inElement(mWebPage.getPageCode(), mWebPage);
