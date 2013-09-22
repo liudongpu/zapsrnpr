@@ -95,4 +95,13 @@ public abstract class RootCache<K, V> extends TopBase implements IBaseCache {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.srnpr.zapcom.baseface.IBaseCache#removeAll()
+	 */
+	public void removeAll() {
+		cache.removeAll();
+	}
+
 }
