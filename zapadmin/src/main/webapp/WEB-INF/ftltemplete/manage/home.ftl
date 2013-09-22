@@ -11,15 +11,11 @@
 
 
 
-<#assign user_factory=b_method.upClass("com.srnpr.zapweb.webfactory.UserFactory")>
+<#assign user_info=b_method.upClass("com.srnpr.zapweb.webfactory.UserFactory").create()>
 
 
 
-<#if user_factory.checkUserLogin()>
 
-dafd
-
-</#if>
 
 
 </head>
@@ -52,7 +48,7 @@ dafd
 			
 				<a
 					href="javascript:zapjs.zw.func_do(this,'f99848c8f8c011e29b7a000c298b20x')">
-		管理员</a>
+		<#if user_info??>${user_info.getRealName()?default("")}</#if></a>
 			</div>
 
 

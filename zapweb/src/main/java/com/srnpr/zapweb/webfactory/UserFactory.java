@@ -32,10 +32,9 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 
 	public static final UserFactory INSTANCE = new UserFactory();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.srnpr.zapcom.baseface.IBaseFactory#create()
+	
+	/**
+	 * @return
 	 */
 	public MUserInfo create() {
 
@@ -213,6 +212,12 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 
 		return mResult;
 	}
+	
+	
+	
+	
+	
+	
 
 	public MUserInfo upTestUser() {
 		// 测试专用
