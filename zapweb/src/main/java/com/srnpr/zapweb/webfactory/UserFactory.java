@@ -32,8 +32,9 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 
 	public static final UserFactory INSTANCE = new UserFactory();
 
-	
 	/**
+	 * 获取用户信息
+	 * 
 	 * @return
 	 */
 	public MUserInfo create() {
@@ -212,12 +213,6 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 
 		return mResult;
 	}
-	
-	
-	
-	
-	
-	
 
 	public MUserInfo upTestUser() {
 		// 测试专用

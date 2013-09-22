@@ -4,6 +4,7 @@ import java.net.URL;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.config.CacheConfiguration;
 import net.sf.ehcache.config.Configuration;
 
 import com.srnpr.zapcom.topdo.TopBase;
@@ -42,8 +43,23 @@ public class CacheDefine extends TopBase {
 			return upCache(sCacheName);
 		} else {
 
-			Cache memoryOnlyCache = new Cache(sCacheName, 5000, false, true, 0,
-					0);
+			/*
+			 * Cache memoryOnlyCache = new Cache(sCacheName, 5000, false, true,
+			 * 0, 0);
+			 */
+
+			CacheConfiguration cacheConfiguration = new CacheConfiguration();
+
+			cacheConfiguration.setName(sCacheName);
+
+			cacheConfiguration.setEternal(true);
+
+			cacheConfiguration.setTimeToIdleSeconds(0);
+			cacheConfiguration.setTimeToIdleSeconds(0);
+			cacheConfiguration.setMaxEntriesLocalHeap(99999999);
+
+			Cache memoryOnlyCache = new Cache(cacheConfiguration);
+
 			cManager.addCache(memoryOnlyCache);
 
 			return memoryOnlyCache;

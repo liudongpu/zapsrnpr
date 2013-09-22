@@ -11,10 +11,10 @@
 
 
 
-<#assign user_info=b_method.upClass("com.srnpr.zapweb.webfactory.UserFactory").create()>
-
-
-
+<#assign user_factory=b_method.upClass("com.srnpr.zapweb.webfactory.UserFactory")>
+<#if user_factory.checkUserLogin()>
+	<#assign user_info=user_factory.create()>
+</#if>
 
 
 
