@@ -12,6 +12,8 @@ import org.apache.commons.lang.StringUtils;
 import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
+import com.srnpr.zapweb.usermodel.MUserInfo;
+import com.srnpr.zapweb.webfactory.UserFactory;
 import com.srnpr.zapweb.webmodel.MWebField;
 
 public class WebHelper {
@@ -135,30 +137,55 @@ public class WebHelper {
 	}
 
 	public static String recheckReplace(String sText, MDataMap mDataMap) {
-		Pattern p = Pattern.compile("\\[@(.+?)\\$(.*?)\\]");
-		Matcher m = p.matcher(sText);
-		while (m.find()) {
 
-			String sFull = m.group(0);
-			String sKey = m.group(1);
-			String sAttr = m.group(2);
+		if (StringUtils.contains(sText, "[@")) {
 
-			String sReplace = "";
+			Pattern p = Pattern.compile("\\[@(.+?)\\$(.*?)\\]");
+			Matcher m = p.matcher(sText);
+			while (m.find()) {
 
-			if (sKey.equals("this")) {
-				if (mDataMap.containsKey(sAttr)) {
-					sReplace = mDataMap.get(sAttr);
+				String sFull = m.group(0);
+				String sKey = m.group(1);
+				String sAttr = m.group(2);
+
+				String sReplace = "";
+
+				// 如果参数是this 则指向当前的map
+				if (sKey.equals("this")) {
+					if (mDataMap.containsKey(sAttr)) {
+						sReplace = mDataMap.get(sAttr);
+					}
 				}
-			} else if (sKey.equals("code")) {
-				sReplace = WebHelper.upCode(sAttr);
-			} else if (sKey.equals("datenow")) {
-				sReplace = FormatHelper.upDateTime();
+				// 如果参数是code 则获取后标记位开始的
+				else if (sKey.equals("code")) {
+					sReplace = WebHelper.upCode(sAttr);
+				}
+				// 如果参数是datenow 则替换为当前时间
+				else if (sKey.equals("datenow")) {
+					sReplace = FormatHelper.upDateTime();
+				}
+				// 如果参数是user 则根据后续参数替换
+				else if (sKey.equals("user")) {
+
+					MUserInfo mUserInfo = UserFactory.INSTANCE.create();
+					if (mUserInfo.getFlagLogin() == 1) {
+
+						if (sAttr.equals("manageCode")) {
+							sReplace = mUserInfo.getManageCode();
+						} else if (sAttr.equals("loginName")) {
+							sReplace = mUserInfo.getLoginName();
+						} else if (sAttr.equals("realName")) {
+							sReplace = mUserInfo.getRealName();
+						}
+
+					}
+
+				}
+
+				sText = sText.replace(sFull, sReplace);
+
 			}
-
-			sText = sText.replace(sFull, sReplace);
-
 		}
-
 		return sText;
 
 	}
@@ -191,10 +218,10 @@ public class WebHelper {
 
 			}
 
-			DbUp.upTable("zw_error").insert("error_code", sCode,"error_type",sErrorType, "error_level",
-					String.valueOf(iErrorLevel), "error_source", sErrorSource,
-					"error_info", sMessage, "create_time",
-					FormatHelper.upDateTime());
+			DbUp.upTable("zw_error").insert("error_code", sCode, "error_type",
+					sErrorType, "error_level", String.valueOf(iErrorLevel),
+					"error_source", sErrorSource, "error_info", sMessage,
+					"create_time", FormatHelper.upDateTime());
 		} catch (Exception e2) {
 			e2.printStackTrace();
 		}

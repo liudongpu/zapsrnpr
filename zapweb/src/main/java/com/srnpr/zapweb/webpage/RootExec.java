@@ -45,7 +45,10 @@ public class RootExec extends BaseClass {
 
 		String sSortString = "-zid";
 
-		mReqMap.inAllValues(FormatHelper.upUrlStrings(webPage.getDataScope()));
+		if (StringUtils.isNotEmpty(webPage.getDataScope())) {
+			mReqMap.inAllValues(FormatHelper.upUrlStrings(WebHelper
+					.recheckReplace(webPage.getDataScope(), mReqMap)));
+		}
 
 		/********** 开始处理分页输入参数逻辑 ********************************/
 		{
