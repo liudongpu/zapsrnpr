@@ -53,8 +53,10 @@ public class PageCache extends RootCache<String, MWebPage> {
 
 				if (StringUtils.isNotEmpty(mWebPage.getViewCode())) {
 
-					if (viewCache.containsKey(sViewKey)) {
-						MWebView mView = WebUp.upViewCache(sViewKey);
+					MWebView mView = WebUp.upViewCache(sViewKey);
+					
+					if (mView!=null) {
+						
 
 						mWebPage.setPageTable(mView.getTableName());
 						// 设置字段
