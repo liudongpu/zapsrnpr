@@ -176,6 +176,8 @@ public class WebHelper {
 							sReplace = mUserInfo.getLoginName();
 						} else if (sAttr.equals("realName")) {
 							sReplace = mUserInfo.getRealName();
+						}else if (sAttr.equals("userCode")) {
+							sReplace = mUserInfo.getUserCode();
 						}
 
 					}

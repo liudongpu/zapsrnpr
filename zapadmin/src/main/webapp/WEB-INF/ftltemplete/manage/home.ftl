@@ -9,6 +9,19 @@
 
 <title>zapadmin</title>
 
+
+
+<#assign user_factory=b_method.upClass("com.srnpr.zapweb.webfactory.UserFactory")>
+
+
+
+<#if user_factory.checkUserLogin()>
+
+dafd
+
+</#if>
+
+
 </head>
 <body class="  easyui-layout">
 

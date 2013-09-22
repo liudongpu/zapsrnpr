@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.ClassUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -144,6 +145,19 @@ public abstract class RootMethod extends BaseClass implements IWebMethod {
 		} else {
 			return "manage/noaccess";
 		}
+	}
+
+	public Object upClass(String sClassName) {
+		Object oReturn = null;
+
+		try {
+			oReturn = ClassUtils.getClass(sClassName).newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return oReturn;
+
 	}
 
 }

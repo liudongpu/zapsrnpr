@@ -17,54 +17,57 @@ public class PageCache extends RootCache<String, MWebPage> {
 
 	public synchronized void refresh() {
 
+		ViewCache viewCache = new ViewCache();
+
 		for (MDataMap mPageDataMap : DbUp.upTable("zw_page").queryByWhere(
 				"flag_enable", "1")) {
 
-			
 			try {
-				
-			
-			MWebPage mWebPage = new MWebPage();
 
-			mWebPage.setPageCode(mPageDataMap.get("page_code"));
-			mWebPage.setPageName(mPageDataMap.get("page_name"));
-			mWebPage.setPageTemplate(mPageDataMap.get("page_template"));
-			mWebPage.setPageTypeAid(mPageDataMap.get("page_type_aid"));
-			mWebPage.setViewCode(mPageDataMap.get("view_code"));
-			mWebPage.setDataScope(mPageDataMap.get("data_scope"));
-			//mWebPage.setDataSort(mPageDataMap.get("data_sort"));
+				MWebPage mWebPage = new MWebPage();
 
-			// 设置操作按钮
-			List<MWebOperate> listOperates = new ArrayList<MWebOperate>();
-			for (MDataMap mOperateDataMap : DbUp.upTable("zw_operate")
-					.queryByWhere("flag_enable", "1", "page_code",
-							mWebPage.getPageCode())) {
+				mWebPage.setPageCode(mPageDataMap.get("page_code"));
+				mWebPage.setPageName(mPageDataMap.get("page_name"));
+				mWebPage.setPageTemplate(mPageDataMap.get("page_template"));
+				mWebPage.setPageTypeAid(mPageDataMap.get("page_type_aid"));
+				mWebPage.setViewCode(mPageDataMap.get("view_code"));
+				mWebPage.setDataScope(mPageDataMap.get("data_scope"));
+				// mWebPage.setDataSort(mPageDataMap.get("data_sort"));
 
-				MWebOperate mOperate = WebUp.upOperate(
-						mOperateDataMap.get("uid")).clone();
+				// 设置操作按钮
+				List<MWebOperate> listOperates = new ArrayList<MWebOperate>();
+				for (MDataMap mOperateDataMap : DbUp.upTable("zw_operate")
+						.queryByWhere("flag_enable", "1", "page_code",
+								mWebPage.getPageCode())) {
 
-				listOperates.add(mOperate);
-			}
+					MWebOperate mOperate = WebUp.upOperate(
+							mOperateDataMap.get("uid")).clone();
 
-			mWebPage.setPageOperate(listOperates);
-
-			if (StringUtils.isNotEmpty(mWebPage.getViewCode())) {
-
-				MWebView mView = WebUp.upViewCache(mWebPage.getViewCode() + "-"
-						+ mPageDataMap.get("view_type_aid"));
-
-				mWebPage.setPageTable(mView.getTableName());
-				// 设置字段
-				List<MWebField> listFields = new ArrayList<MWebField>();
-				for (MWebField mField : mView.getFields()) {
-					listFields.add(mField.clone());
+					listOperates.add(mOperate);
 				}
-				mWebPage.setPageFields(listFields);
-			}
 
-			super.inElement(mWebPage.getPageCode(), mWebPage);
+				mWebPage.setPageOperate(listOperates);
+
+				String sViewKey = mWebPage.getViewCode() + "-"
+						+ mPageDataMap.get("view_type_aid");
+
+				if (StringUtils.isNotEmpty(mWebPage.getViewCode())
+						&& viewCache.containsKey(sViewKey)) {
+
+					MWebView mView = WebUp.upViewCache(sViewKey);
+
+					mWebPage.setPageTable(mView.getTableName());
+					// 设置字段
+					List<MWebField> listFields = new ArrayList<MWebField>();
+					for (MWebField mField : mView.getFields()) {
+						listFields.add(mField.clone());
+					}
+					mWebPage.setPageFields(listFields);
+				}
+
+				super.inElement(mWebPage.getPageCode(), mWebPage);
 			} catch (Exception e) {
-				
+
 				e.printStackTrace();
 			}
 		}
