@@ -17,8 +17,7 @@ public abstract class RootInit extends BaseClass implements IBaseInit {
 	 */
 	public void topInitCache(IBaseCache... baseCaches) {
 		for (IBaseCache iCache : baseCaches) {
-			iCache.removeAll();
-
+			
 			iCache.refresh();
 		}
 	}

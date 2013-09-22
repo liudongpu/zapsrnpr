@@ -76,4 +76,16 @@ public class CacheDefine extends TopBase {
 		return cManager.getCache(sCacheName);
 	}
 
+	public synchronized void removeAllCache() {
+
+		for (String sKey : cManager.getCacheNames()) {
+
+			Cache cache = upCache(sKey);
+			bLogInfo(0, "remove cache:" + cache.getName());
+			cache.removeAll();
+
+		}
+
+	}
+
 }
