@@ -76,18 +76,6 @@ public class FuncAdd extends RootFunc {
 							sValue = WebHelper.recheckReplace(sDefaultValue,
 									mDataMap);
 
-							/*
-							 * // 特殊判断是否是唯一校验 if (sKeyString.equals("unique")) {
-							 * 
-							 * int iCount = DbUp.upTable(mPage.getPageTable())
-							 * .count(mField.getColumnName(),
-							 * mInsertMap.get(mField .getFieldName())); if
-							 * (iCount > 0) { mResult.inErrorMessage(969905004,
-							 * mField.getFieldNote()); }
-							 * 
-							 * }
-							 */
-
 						} else {
 							sValue = sDefaultValue;
 						}
