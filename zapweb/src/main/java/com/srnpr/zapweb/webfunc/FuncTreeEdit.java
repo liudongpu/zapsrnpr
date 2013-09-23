@@ -17,23 +17,23 @@ public class FuncTreeEdit extends RootFunc {
 		MWebOperate mOperate = WebUp.upOperate(sOperateUid);
 		MWebPage mPage = WebUp.upPage(mOperate.getPageCode());
 		MDataMap mAddMaps = mDataMap.upSubMap(WebConst.CONST_WEB_FIELD_NAME);
+
+		recheckMapField(mResult, mPage, mAddMaps);
+
 		MDataMap mInsertMap = new MDataMap();
 		// 定义组件判断标记
 		boolean bFlagComponent = false;
-		// 循环所有结构
-		for (MWebField mField : mPage.getPageFields()) {
-			if (mField.getFieldTypeAid().equals("104005003")) {
-				bFlagComponent = true;
-			}
-			if (mAddMaps.containsKey(mField.getColumnName())) {
-				String sValue = mAddMaps.get(mField.getColumnName());
-				// 重新校验字段是否正确
-				int iReturn = recheckInputField(mField.getRegexValue(), sValue);
-				if (iReturn != 1) {
-					mResult.inErrorMessage(iReturn, mField.getFieldNote());
-					break;
+
+		if (mResult.upFlagTrue()) {
+			// 循环所有结构
+			for (MWebField mField : mPage.getPageFields()) {
+				if (mField.getFieldTypeAid().equals("104005003")) {
+					bFlagComponent = true;
 				}
-				mInsertMap.put(mField.getColumnName(), sValue);
+				if (mAddMaps.containsKey(mField.getColumnName())) {
+					String sValue = mAddMaps.get(mField.getColumnName());
+					mInsertMap.put(mField.getColumnName(), sValue);
+				}
 			}
 		}
 		if (mResult.upFlagTrue()) {

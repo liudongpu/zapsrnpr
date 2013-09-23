@@ -23,50 +23,44 @@ public class FuncEdit extends RootFunc {
 		MWebPage mPage = WebUp.upPage(mOperate.getPageCode());
 
 		MDataMap mAddMaps = mDataMap.upSubMap(WebConst.CONST_WEB_FIELD_NAME);
-				
-	
 
 		MDataMap mInsertMap = new MDataMap();
+
+		recheckMapField(mResult, mPage, mAddMaps);
 
 		// 定义组件判断标记
 		boolean bFlagComponent = false;
 
-		// 循环所有结构
-		for (MWebField mField : mPage.getPageFields()) {
+		if (mResult.upFlagTrue()) {
 
-			if (mField.getFieldTypeAid().equals("104005003")) {
-				bFlagComponent = true;
-			}
+			// 循环所有结构
+			for (MWebField mField : mPage.getPageFields()) {
 
-			if (mAddMaps.containsKey(mField.getColumnName())) {
-
-				String sValue = mAddMaps.get(mField.getColumnName());
-
-				// 重新校验字段是否正确
-				int iReturn = recheckInputField(mField.getRegexValue(), sValue);
-
-				if (iReturn != 1) {
-					mResult.inErrorMessage(iReturn, mField.getFieldNote());
-					break;
+				if (mField.getFieldTypeAid().equals("104005003")) {
+					bFlagComponent = true;
 				}
 
-				mInsertMap.put(mField.getColumnName(), sValue);
+				if (mAddMaps.containsKey(mField.getColumnName())) {
+
+					String sValue = mAddMaps.get(mField.getColumnName());
+
+					mInsertMap.put(mField.getColumnName(), sValue);
+				}
+
 			}
-
-			
-
 		}
 
 		if (mResult.upFlagTrue()) {
-			DbUp.upTable(mPage.getPageTable()).dataUpdate(mInsertMap,"","uid");
+			DbUp.upTable(mPage.getPageTable())
+					.dataUpdate(mInsertMap, "", "uid");
 
 			if (bFlagComponent) {
 
 				for (MWebField mField : mPage.getPageFields()) {
 					if (mField.getFieldTypeAid().equals("104005003")) {
 
-						WebUp.upComponent(mField.getSourceCode()).inEdit(mField,
-								mDataMap);
+						WebUp.upComponent(mField.getSourceCode()).inEdit(
+								mField, mDataMap);
 
 					}
 				}

@@ -30,12 +30,13 @@ public class RootProcess implements IWebProcess {
 	 */
 	public IControlPage process(String sPageCode, HttpServletRequest hRequest) {
 
+		/*
 		try {
 			hRequest.setCharacterEncoding("UTF-8");
 		} catch (UnsupportedEncodingException e) {
 
 			e.printStackTrace();
-		}
+		}*/
 
 		MWebPage mPage = WebUp.upPage(sPageCode);
 

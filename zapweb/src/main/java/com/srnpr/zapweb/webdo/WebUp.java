@@ -29,7 +29,7 @@ public class WebUp {
 
 	private final static ComponentCache componentCache = new ComponentCache();
 
-	private final static ObjectCache objectCache = new ObjectCache();
+	
 
 	/**
 	 * @param sViewKey
@@ -113,33 +113,5 @@ public class WebUp {
 		return sProject;
 	}
 
-	public static List<MDataMap> upTempDataList(String sTableName,
-			String sFields, String sOrders, String sWhere, String... sParams) {
-
-		List<MDataMap> listReturn = null;
-		String sKeyString = sTableName + sFields + sOrders + sWhere
-				+ StringUtils.join(sParams, "&");
-
-		if (objectCache.containsKey(sKeyString)) {
-			listReturn = (List<MDataMap>) objectCache.upValue(sKeyString);
-		} else {
-
-			MDataMap mWhereMap = new MDataMap();
-			mWhereMap.inAllValues(sParams);
-			
-			
-
-			listReturn =
-
-			DbUp.upTable(sTableName).queryAll(sFields, sOrders, sWhere,
-					mWhereMap);
-
-			objectCache.inElement(sKeyString, listReturn);
-
-		}
-		return listReturn;
-
-		// DbUp.upTable(sTableName).listByWhere(sParams)
-
-	}
+	
 }

@@ -44,7 +44,7 @@ public class FuncAdd extends RootFunc {
 		// 定义组件判断标记
 		boolean bFlagComponent = false;
 
-		recheckMapField(mResult, sOperateUid, mAddMaps);
+		recheckMapField(mResult, mPage, mAddMaps);
 
 		if (mResult.upFlagTrue()) {
 

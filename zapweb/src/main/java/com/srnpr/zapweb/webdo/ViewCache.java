@@ -11,6 +11,11 @@ import com.srnpr.zapweb.webmodel.MWebView;
 
 public class ViewCache extends RootCache<String, MWebView> {
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.srnpr.zapcom.baseface.IBaseCache#refresh()
+	 */
 	public void refresh() {
 
 		for (MDataMap mViewDataMap : DbUp.upTable("zw_view").queryByWhere()) {
@@ -20,6 +25,7 @@ public class ViewCache extends RootCache<String, MWebView> {
 
 				String sViewType = mViewTypeDataMap.get("abstract_aids");
 
+				// 判断如果类型 则跳出循环
 				if (sViewType.equals("116022014")) {
 					continue;
 				}
@@ -39,6 +45,7 @@ public class ViewCache extends RootCache<String, MWebView> {
 				MDataMap mFiledQuery = new MDataMap();
 				mFiledQuery.put("view_code", mWebView.getViewCode());
 
+				// 循环视图的字段列表
 				for (MDataMap mFieldDataMap : DbUp.upTable("zw_field")
 						.queryAll("", sSortField, "", mFiledQuery)) {
 					MWebField mWebField = new MWebField();
@@ -47,15 +54,20 @@ public class ViewCache extends RootCache<String, MWebView> {
 					mWebField.setQueryTypeAid(mFieldDataMap
 							.get("query_type_aid"));
 					mWebField.setRegexValue(mFieldDataMap.get("regex_value"));
+
+					// 特殊判断 如果正则标记为无 则置为空
+					if (mWebField.getRegexValue().equals("469923180001")) {
+						mWebField.setRegexValue("");
+					}
+
 					mWebField.setFieldTypeAid(mFieldDataMap
 							.get("field_type_aid"));
 
 					mWebField.setSort(mFieldDataMap.get(sSortField));
 					mWebField.setDefaultValue(mFieldDataMap
 							.get("default_value"));
-					
-					mWebField.setFieldName(mFieldDataMap
-							.get("field_name"));
+
+					mWebField.setFieldName(mFieldDataMap.get("field_name"));
 
 					mWebField.setSourceCode(mFieldDataMap.get("source_code"));
 					mWebField.setSourceParam(mFieldDataMap.get("source_param"));

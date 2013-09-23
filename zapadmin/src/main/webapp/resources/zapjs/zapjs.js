@@ -95,6 +95,16 @@ zapjs.f = {
 		return $.cookie(zapjs.c.cookie_base + key, value, options);
 	},
 
+	ready : function(f) {
+		$(f);
+	},
+
+	require : function(aNeeds, f) {
+
+		require(aNeeds, f);
+
+	},
+
 	updomain : function(url) {
 
 		var host = "null";
