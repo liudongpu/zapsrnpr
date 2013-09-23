@@ -81,13 +81,15 @@ zapjs.f = {
 	// Cookie操作
 	cookie : function(key, value, options) {
 
-		//判断如果是写操作  写到根目录
+		// 判断如果是写操作 写到根目录
 		if (value) {
 			if (!options) {
 				options = {};
 			}
 
 			options.path = "/";
+			if (!options.expires)
+				options.expires = 30;
 		}
 
 		return $.cookie(zapjs.c.cookie_base + key, value, options);

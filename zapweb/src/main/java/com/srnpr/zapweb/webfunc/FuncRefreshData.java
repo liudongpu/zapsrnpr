@@ -18,9 +18,9 @@ public class FuncRefreshData extends RootFunc {
 	public MWebResult funcDo(String sOperateUid, MDataMap mDataMap) {
 		MWebResult mResult=new MWebResult();
 		
-		
-		DbUp.upTable("zd_tables").dataExec("call proc_zw_allview();", new MDataMap());
 		DbUp.upTable("zd_tables").dataExec("call proc_zd_allfield();", new MDataMap());
+		DbUp.upTable("zd_tables").dataExec("call proc_zw_allview();", new MDataMap());
+		
 		
 		
 		mResult.setResultMessage(bInfo(969909002));

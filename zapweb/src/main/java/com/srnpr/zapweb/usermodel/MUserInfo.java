@@ -36,6 +36,14 @@ public class MUserInfo {
 	 * 用户菜单编号串 竖线分隔
 	 */
 	private String userMenu = "";
+	
+	
+	/**
+	 * 用户角色编号串  竖线分隔
+	 */
+	private String userRole="";
+	
+	
 
 	public String getRealName() {
 		return realName;
@@ -91,6 +99,14 @@ public class MUserInfo {
 
 	public void setCookieUser(String cookieUser) {
 		this.cookieUser = cookieUser;
+	}
+
+	public String getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
 	}
 
 }

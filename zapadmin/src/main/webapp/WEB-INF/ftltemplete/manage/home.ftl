@@ -11,9 +11,9 @@
 
 
 
-<#assign user_factory=b_method.upClass("com.srnpr.zapweb.webfactory.UserFactory")>
-<#if user_factory.checkUserLogin()>
-	<#assign user_info=user_factory.create()>
+<#assign user_support=b_method.upClass("com.srnpr.zapweb.websupport.UserSupport")>
+<#if user_support.checkLogin()>
+	<#assign user_info=user_support.getUserInfo()>
 </#if>
 
 
@@ -23,19 +23,18 @@
 
 	
 	
-		<#assign home_menu=b_method.upDataQuery("za_menu","menu_code","left(menu_code,13)='4677031300010'")>
+		<#assign home_menu= user_support.upUserMenu("4677031300010")>
 
 		<div  region="north" class="zab_home_home_top">
 			<div class="w_left c_site">
-				<a href="#"><i class="icon-home  icon-white"></i>&nbsp;超级管理后台</a>
+				<a href="home"><i class="icon-home  icon-white"></i>&nbsp;超级管理后台</a>
 
 
 
 			</div>
 			<div class="w_left c_nav">
 				<ul class="w_ul">
-					<li class="c_active"><a href="#"
-						onclick="zapadmin.top_menu(this)">后台首页</a></li> <#list home_menu as el
+					<li class="c_active"><a href="home">后台首页</a></li> <#list home_menu as el
 					> <#if el['parent_menu']=='467703130001'>
 					<li><a href="#" onclick="zapadmin.top_menu(this,${el['menu_code']})">${el['menu_name']}</a></li>
 					</#if> </#list>

@@ -1,6 +1,8 @@
 package com.srnpr.zapweb.webfactory;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -101,6 +103,39 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 			mLoginUserInfo.setRealName(mUserData.get("real_name"));
 			mLoginUserInfo.setManageCode(mUserData.get("manage_code"));
 			mLoginUserInfo.setCookieUser(mUserData.get("cookie_user"));
+
+			ArrayList<String> aRoleList = new ArrayList<String>();
+			for (MDataMap mDataMap : DbUp.upTable("za_userrole").queryByWhere(
+					"user_code", mLoginUserInfo.getUserCode())) {
+				aRoleList.add(mDataMap.get("role_code"));
+			}
+			String[] sRoleStrings = aRoleList.toArray(new String[] {});
+
+			mLoginUserInfo.setUserRole(StringUtils.join(sRoleStrings,
+					WebConst.CONST_SPLIT_LINE));
+			// 如果角色数量大于0
+			if (sRoleStrings.length > 0) {
+
+				List<String> listMenuCode = new ArrayList<String>();
+
+				for (MDataMap mDataMap : DbUp.upTable("za_rolemenu").queryAll(
+						"",
+						"",
+						"role_code in ('"
+								+ StringUtils.join(sRoleStrings, "','") + "')",
+						null)) {
+
+					listMenuCode.add(mDataMap.get("menu_code"));
+
+				}
+
+				mLoginUserInfo.setUserMenu(StringUtils.join(
+						listMenuCode.toArray(new String[] {}),
+						WebConst.CONST_SPLIT_LINE));
+
+			}
+
+			// mLoginUserInfo.setUserMenu(userMenu)
 
 			WebSessionHelper.create().inSession(
 					WebConst.CONST_WEB_SESSION_USER, mLoginUserInfo);
