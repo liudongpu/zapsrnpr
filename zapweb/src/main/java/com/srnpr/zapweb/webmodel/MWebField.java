@@ -6,13 +6,12 @@ public class MWebField implements Cloneable {
 	 * 字段中文名
 	 */
 	private String fieldNote = "";
-	
-	
+
 	/**
-	 * 字段名称  该字段默认情况下同数据库名称
+	 * 字段名称 该字段默认情况下同数据库名称
 	 */
-	private String fieldName="";
-	
+	private String fieldName = "";
+
 	/**
 	 * 数据库名称
 	 */
@@ -34,7 +33,7 @@ public class MWebField implements Cloneable {
 	private String pageFieldName = "";
 
 	/**
-	 * 页面元素定义  默认情况下为标记+字段名称  zw_f_+fieldname
+	 * 页面元素定义 默认情况下为标记+字段名称 zw_f_+fieldname
 	 */
 	private String pageFieldValue = "";
 
@@ -59,9 +58,9 @@ public class MWebField implements Cloneable {
 	private String sourceParam = "";
 
 	/**
-	 * 默认值 创建时调用该逻辑判断
+	 * 字段设置
 	 */
-	private String defaultValue = "";
+	private String fieldScope = "";
 
 	public String getFieldNote() {
 		return fieldNote;
@@ -154,20 +153,20 @@ public class MWebField implements Cloneable {
 		this.sourceParam = sourceParam;
 	}
 
-	public String getDefaultValue() {
-		return defaultValue;
-	}
-
-	public void setDefaultValue(String defaultValue) {
-		this.defaultValue = defaultValue;
-	}
-
 	public String getFieldName() {
 		return fieldName;
 	}
 
 	public void setFieldName(String fieldName) {
 		this.fieldName = fieldName;
+	}
+
+	public String getFieldScope() {
+		return fieldScope;
+	}
+
+	public void setFieldScope(String fieldScope) {
+		this.fieldScope = fieldScope;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.srnpr.zapweb.webcomponent;
 
 import com.srnpr.zapcom.basemodel.MDataMap;
+import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webmodel.MWebField;
 import com.srnpr.zapweb.webmodel.MWebHtml;
@@ -29,12 +30,22 @@ public class ComponentSetReplace extends RootSimpleComponent {
 			mTextArea.setHtml(mDataMap.get(mWebField.getFieldName()));
 		}
 
-		mBaseDiv.addChild("button", "value", "change", "class", "btn ");
+		// mBaseDiv.addChild("button", "value", "change", "class", "btn ");
+
+		MDataMap mSetMap = new MDataMap()
+				.inUrlParams(mWebField.getSourceParam()).upSubMap(
+						WebConst.CONST_WEB_FIELD_SET);
+
+		String sDefine = "";
+
+		if (mSetMap.containsKey("sourcedid")) {
+			sDefine = mSetMap.get("sourcedid");
+		}
 
 		MWebHtml mScript = mBaseDiv.addChild("script");
 
 		mScript.setHtml("zapjs.f.require([\"zapadmin/js/zapadmin_setreplace\"],function(a){ a.init(\""
-				+ mWebField.getPageFieldName() + "\");  })");
+				+ mWebField.getPageFieldName() + "\",\"" + sDefine + "\");  })");
 
 		sReturnString = mBaseDiv.upString();
 
