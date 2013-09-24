@@ -64,9 +64,9 @@ public class FuncAdd extends RootFunc {
 				}
 
 				// 如果默认值不为空 则进行各种校验
-				if (StringUtils.isNotEmpty(mField.getDefaultValue())) {
+				if (StringUtils.isNotEmpty(mField.getFieldScope())) {
 
-					String sDefaultValue = mField.getDefaultValue();
+					String sDefaultValue = mField.getFieldScope();
 					if (StringUtils.isNotEmpty(sDefaultValue)) {
 						String sValue = "";
 

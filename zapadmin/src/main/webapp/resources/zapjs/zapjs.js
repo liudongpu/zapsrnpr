@@ -236,7 +236,14 @@ zapjs.f = {
 		return bs;
 
 	},
+	window_close : function(sId) {
+		if (!sId) {
+			sId = 'zapjs_f_id_window_box';
+		}
 
+		$('#' + sId).window('close');
+
+	},
 	window_box : function(options) {
 		var defaults = {
 			id : 'zapjs_f_id_window_box',
@@ -276,6 +283,13 @@ zapjs.f = {
 			$('#' + s.id).window('refresh', s.url);
 		}
 
+	},
+
+	//提示消息
+	alert : function(sContent) {
+		zapjs.f.modal({
+			content : sContent
+		});
 	},
 
 	modal : function(options) {
@@ -337,9 +351,8 @@ zapjs.f = {
 			buttons : [{
 				text : s.oktext,
 				handler : function() {
-					
+
 					$('#' + s.id).dialog('close');
-					
 
 					if (s.okfunc) {
 						eval(s.okfunc);
