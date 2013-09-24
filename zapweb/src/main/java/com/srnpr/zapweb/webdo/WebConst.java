@@ -38,6 +38,15 @@ public class WebConst implements IBaseConst {
 	 * 设置定义 126022019 常用于设置各种属性 url用 或者url的设置参数
 	 */
 	public final static String CONST_WEB_FIELD_SET = "zw_s_";
+	
+	
+	
+	/**
+	 * 页面元素附件参数   
+	 */
+	public final static String CONST_WEB_FIELD_ATTR="zapweb_attr_";
+	
+	
 
 	/**
 	 * 定义需要替换的规则表达式 如果字段含有该字段 则执行替换逻辑

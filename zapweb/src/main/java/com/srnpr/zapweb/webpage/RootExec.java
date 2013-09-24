@@ -375,7 +375,7 @@ public class RootExec extends BaseClass {
 
 			sReturn = new MWebHtml("button").inAttributes("onclick", sReturn,
 					"class", "btn btn-small", "value",
-					mWebOperate.getOperateName()).upString();
+					mWebOperate.getOperateName(),WebConst.CONST_WEB_FIELD_ATTR+"operate_id",mWebOperate.getOperateUid()).upString();
 
 		}
 
