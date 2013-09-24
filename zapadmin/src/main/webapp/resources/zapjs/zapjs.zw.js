@@ -47,13 +47,13 @@ zapjs.zw = {
 			data = {};
 		}
 
-		$.getJSON("../func/" + sOperate, data, function(data) {
+		zapjs.f.ajaxjson("../func/" + sOperate, data, function(data) {
 			zapjs.zw.func_success(data);
 		});
 	},
 
 	up_json : function(sPageCode, dataMap, fCallBack) {
-		$.getJSON("../jsonchart/" + sPageCode, dataMap, function(o) {
+		zapjs.f.ajaxjson("../jsonchart/" + sPageCode, dataMap, function(o) {
 			fCallBack(o);
 		});
 
@@ -67,9 +67,24 @@ zapjs.zw = {
 			break;
 		default:
 			// alert(o.resultMessage);
-			zapjs.zw.modal_show({
-				content : o.resultMessage
-			});
+
+			if (o.resultCode == "1") {
+
+				if (o.resultMessage == "") {
+					o.resultMessage = "操作成功";
+				}
+
+				zapjs.zw.modal_show({
+					content : o.resultMessage,
+					okfunc : 'zapjs.f.autorefresh()'
+				});
+
+			} else {
+				zapjs.zw.modal_show({
+					content : o.resultMessage
+				});
+			}
+
 			break;
 		}
 
@@ -285,24 +300,21 @@ zapjs.zw = {
 		$('#formsubmit').click();
 
 	},
-	//用户登录成功
+	// 用户登录成功
 	login_sucess : function(oUserInfo) {
 		var sCookie = oUserInfo.cookieUser;
 
 		if (sCookie) {
-			zapjs.f.cookie(zapjs.c.cookie_user,sCookie);
+			zapjs.f.cookie(zapjs.c.cookie_user, sCookie);
 			zapjs.f.tourl('../manage/home');
-			
+
 		}
 
 	},
-	login_out:function()
-	{
-		
+	login_out : function() {
+
 		zapjs.f.tourl('../manage/login');
 	}
-	
-	
 
 };
 

@@ -40,7 +40,6 @@ var zapjs = {
 
 		}
 	}
-
 };
 
 zapjs.fn = zapjs.prototype = {};
@@ -74,6 +73,10 @@ zapjs.f = {
 		$(oElment).ajaxSubmit(options);
 
 	},
+	ajaxjson : function(sTarget, data, fCallBack) {
+		$.getJSON(sTarget, data, fCallBack);
+	},
+
 	setdomain : function() {
 
 	},
@@ -104,34 +107,33 @@ zapjs.f = {
 		require(aNeeds, f);
 
 	},
-
+	// 获取当前主域
 	updomain : function(url) {
 
 		var host = "null";
-		if (typeof url == "undefined" || null == url)
+		if ( typeof url == "undefined" || null == url)
 			url = window.location.href;
 		var regex = /.*\:\/\/([^\/|:]*).*/;
 		var match = url.match(regex);
-		if (typeof match != "undefined" && null != match) {
+		if ( typeof match != "undefined" && null != match) {
 			host = match[1];
 		}
-		if (typeof host != "undefined" && null != host) {
+		if ( typeof host != "undefined" && null != host) {
 			var strAry = host.split(".");
 			if (strAry.length > 1) {
-				host = strAry[strAry.length - 2] + "."
-						+ strAry[strAry.length - 1];
+				host = strAry[strAry.length - 2] + "." + strAry[strAry.length - 1];
 			}
 		}
 
 		return host;
 
 	},
-
+	// 调用扩展
 	callextend : function(sId) {
 		var bReturn = true;
 
 		if (zapjs.c.extend[sId]) {
-			for ( var p in zapjs.c.extend[sId]) {
+			for (var p in zapjs.c.extend[sId]) {
 				var bFlag = zapjs.c.extend[sId][p]();
 				if (!bFlag) {
 					bReturn = false;
@@ -158,25 +160,64 @@ zapjs.f = {
 		return window.location.href;
 	},
 
-	tourl : function(sUrl) {
-		location.href = sUrl;
+	/*
+	 * 自动刷新  如果有子页面  则刷新iframe
+	 */
+	autorefresh : function() {
+		if (zapjs.f.exist('main_iframe')) {
+			document.getElementById("main_iframe").contentWindow.zapjs.f.tourl();
+		} else {
+			zapjs.f.tourl();
+		}
 	},
 
+	replace : function(sSource, sOld, sNew) {
+
+		sSource = sSource.replace(sOld, sNew);
+
+		return sSource;
+
+	},
+
+	stringformat : function(sInput) {
+
+		var args = arguments;
+
+		if (args && args.length >= 2) {
+			for (var i in args) {
+				if (i > 0) {
+					sInput = zapjs.f.replace(sInput, '{' + (i - 1) + '}', args[i]);
+				}
+			}
+		}
+
+		return sInput;
+
+	},
+
+	tourl : function(sUrl) {
+
+		if (!sUrl) {
+			sUrl = location.href;
+		}
+
+		location.href = sUrl;
+	},
+	// 判断是否存在元素
 	exist : function(sId) {
 		return document.getElementById(sId) ? true : false;
 
 	},
-
+	// 浏览器信息
 	browser : function(sBrowser) {
 		var userAgent = navigator.userAgent.toLowerCase();
 		var bs = {
 			version : (userAgent.match(/.+(?:rv|it|ra|ie)[\/: ]([\d.]+)/) || [
-					0, '0' ])[1],
+			0, '0' ])[1],
 			safari : /webkit/.test(userAgent),
 			opera : /opera/.test(userAgent),
 			msie : /msie/.test(userAgent) && !/opera/.test(userAgent),
-			mozilla : /mozilla/.test(userAgent)
-					&& !/(compatible|webkit)/.test(userAgent)
+			mozilla : /mozilla/.test(userAgent) && !/(compatible|webkit)/.test(userAgent)
 		};
 
 		if (sBrowser) {
@@ -217,11 +258,7 @@ zapjs.f = {
 
 		if (!zapjs.f.exist(s.id)) {
 
-			var sText = '<div id="'
-					+ s.id
-					+ '"  class="easyui-window" title="'
-					+ s.title
-					+ '"  data-options="iconCls:\'icon-save\',modal:true"></div>';
+			var sText = '<div id="' + s.id + '"  class="easyui-window" title="' + s.title + '"  data-options="iconCls:\'icon-save\',modal:true"></div>';
 
 			$(document.body).append(sText);
 		}
@@ -250,45 +287,68 @@ zapjs.f = {
 			oktext : '确认',
 			canceltext : '取消',
 			okfunc : '',
+			id : 'zapjs_f_id_modal_box',
 			cancelfunc : ''
 		};
 		var s = $.extend({}, defaults, options || {});
 
-		if (!($('#zapjs_f_id_modal_box').length > 0)) {
-			var sModel = '<div id="zapjs_f_id_modal_box" class="modal hide fade"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>'
-					+ '<h3>'
-					+ s.title
-					+ '</h3></div><div class="modal-body">'
-					+ '<p>'
-					+ '</p>'
-					+ '</div>'
-					+ '<div class="modal-footer">'
-					+ '</div></div>';
+		/*
+		 if (!($('#zapjs_f_id_modal_box').length > 0)) {
+		 var sModel = '<div id="zapjs_f_id_modal_box" class="modal hide fade"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' + '<h3>' + s.title + '</h3></div><div class="modal-body">' + '<p>' + '</p>' + '</div>' + '<div class="modal-footer">' + '</div></div>';
+		 $(document.body).append(sModel);
+
+		 }
+
+		 $('#zapjs_f_id_modal_box h3').html(s.title);
+		 $('#zapjs_f_id_modal_box p').html(s.content);
+
+		 if (s.flagbutton) {
+		 var aFuncHtml = [];
+		 if (s.okfunc) {
+		 aFuncHtml.push('<a  class="btn btn-primary" data-dismiss="modal" onclick="' + s.okfunc + '" aria-hidden="true">确认</a>');
+
+		 }
+
+		 aFuncHtml.push('<a  class="btn btn-primary" data-dismiss="modal" onclick="' + s.cancelfunc + '" aria-hidden="true">关闭</a>');
+
+		 $('#zapjs_f_id_modal_box .modal-footer').html(aFuncHtml.join(''));
+
+		 }
+
+		 $('#zapjs_f_id_modal_box').modal('show');
+
+		 */
+
+		if (!zapjs.f.exist(s.id)) {
+			var sModel = '<div id="' + s.id + '">Dialog Content.</div>';
 			$(document.body).append(sModel);
 
 		}
 
-		$('#zapjs_f_id_modal_box h3').html(s.title);
-		$('#zapjs_f_id_modal_box p').html(s.content);
+		$('#' + s.id).html('<div class="w_h_100">' + s.content + '</div>');
 
-		if (s.flagbutton) {
-			var aFuncHtml = [];
-			if (s.okfunc) {
-				aFuncHtml
-						.push('<a  class="btn btn-primary" data-dismiss="modal" onclick="'
-								+ s.okfunc + '" aria-hidden="true">确认</a>');
+		$('#' + s.id).dialog({
+			title : s.title,
+			width : 400,
+			resizable : true,
+			closed : false,
+			cache : false,
+			modal : true,
+			buttons : [{
+				text : s.oktext,
+				handler : function() {
+					
+					$('#' + s.id).dialog('close');
+					
 
-			}
+					if (s.okfunc) {
+						eval(s.okfunc);
 
-			aFuncHtml
-					.push('<a  class="btn btn-primary" data-dismiss="modal" onclick="'
-							+ s.cancelfunc + '" aria-hidden="true">关闭</a>');
+					}
 
-			$('#zapjs_f_id_modal_box .modal-footer').html(aFuncHtml.join(''));
-
-		}
-
-		$('#zapjs_f_id_modal_box').modal('show');
+				}
+			}]
+		});
 
 	},
 
@@ -296,6 +356,10 @@ zapjs.f = {
 		return zapjs.f.urlget(sKey, '?' + sSet);
 	},
 
+	/*
+	 * zapjs 基本功能及基本插件 其中zapjs.f 表示扩展功能 @param sKey Url参数 @param sUrl Url链接
+	 * 如果传空或者不传时为当前链接 @return 参数的值
+	 */
 	urlget : function(sKey, sUrl) {
 
 		var sReturn = "";
@@ -309,7 +373,7 @@ zapjs.f = {
 
 		var sParams = sUrl.split('?')[1].split('&');
 
-		for ( var i = 0, j = sParams.length; i < j; i++) {
+		for (var i = 0, j = sParams.length; i < j; i++) {
 
 			var sKv = sParams[i].split("=");
 			if (sKv[0] == sKey) {
@@ -336,7 +400,7 @@ zapjs.f = {
 
 		var sAddStr = sKey + "=" + sValue;
 
-		for ( var i = 0, j = sParams.length; i < j; i++) {
+		for (var i = 0, j = sParams.length; i < j; i++) {
 
 			var sKv = sParams[i].split("=");
 			if (sKv[0] == sKey) {
@@ -354,10 +418,9 @@ zapjs.f = {
 
 		return sUrl.split('?')[0] + "?" + sParams.join("&");
 	}
-
 };
 
-if (typeof define === "function" && define.amd) {
+if ( typeof define === "function" && define.amd) {
 	define("zapjs/zapjs", [], function() {
 		return zapjs;
 	});
