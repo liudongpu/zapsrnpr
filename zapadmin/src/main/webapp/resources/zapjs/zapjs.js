@@ -85,7 +85,7 @@ zapjs.f = {
 	cookie : function(key, value, options) {
 
 		// 判断如果是写操作 写到根目录
-		if (value) {
+		if (value!==undefined) {
 			if (!options) {
 				options = {};
 			}
@@ -237,11 +237,10 @@ zapjs.f = {
 
 	},
 	window_close : function(sId) {
-		if (!sId) {
-			sId = 'zapjs_f_id_window_box';
-		}
-
-		$('#' + sId).window('close');
+		
+		
+		zapjs.f.window_box({close:true});
+		
 
 	},
 	window_box : function(options) {
@@ -346,14 +345,10 @@ zapjs.f = {
 
 		$('#' + s.id).html('<div class="w_p_20">' + s.content + '</div>');
 
-		$('#' + s.id).dialog({
-			title : s.title,
-			width : s.width,
-			resizable : true,
-			closed : false,
-			cache : false,
-			modal : true,
-			buttons : [{
+		var aButtons = [];
+
+		if (s.flagbutton) {
+			aButtons.push({
 				text : s.oktext,
 				handler : function() {
 
@@ -365,7 +360,17 @@ zapjs.f = {
 					}
 
 				}
-			}]
+			});
+		}
+
+		$('#' + s.id).dialog({
+			title : s.title,
+			width : s.width,
+			resizable : true,
+			closed : false,
+			cache : false,
+			modal : true,
+			buttons : aButtons
 		});
 
 	},
@@ -437,6 +442,10 @@ zapjs.f = {
 		return sUrl.split('?')[0] + "?" + sParams.join("&");
 	}
 };
+
+
+
+
 
 if ( typeof define === "function" && define.amd) {
 	define("zapjs/zapjs", [], function() {

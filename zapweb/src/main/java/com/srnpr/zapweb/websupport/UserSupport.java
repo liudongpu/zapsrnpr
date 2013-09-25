@@ -5,7 +5,9 @@ import java.util.List;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.basemodel.MDataMap;
+import com.srnpr.zapweb.helper.WebSessionHelper;
 import com.srnpr.zapweb.usermodel.MUserInfo;
+import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webdo.WebTemp;
 import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webfactory.UserFactory;
@@ -25,6 +27,15 @@ public class UserSupport extends BaseClass {
 		}
 		return userInfo != null && userInfo.getFlagLogin() == 1;
 
+	}
+
+	/**
+	 * 退出登录
+	 */
+	public String logout() {
+		WebSessionHelper.create().inSession(WebConst.CONST_WEB_SESSION_USER,
+				null);
+		return "";
 	}
 
 	/**

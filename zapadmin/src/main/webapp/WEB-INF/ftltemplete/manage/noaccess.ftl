@@ -8,11 +8,11 @@
 
 if(top.zapjs)
 {
-	top.zapjs.zw.login_out();
+	top.zapjs.zw.login_out('../manage/logout');
 }
 else
 {
-	top.location.href="../manage/login";
+	top.location.href="../manage/logout";
 }
 
 </script>

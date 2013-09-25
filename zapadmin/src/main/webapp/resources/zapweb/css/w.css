@@ -46,6 +46,7 @@
 	padding:20px;
 }
 
+/*进度条*/
 .w_loading_small
 {
 	background-image: url("../img/loading-small.gif");

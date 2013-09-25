@@ -8,12 +8,13 @@ zapjs.zw = {
 	modal_show : function(oSet) {
 		top.zapjs.f.modal(oSet);
 	},
-	
-	modal_process:function()
-	{
-		zapjs.zw.modal_show({content:'<div class="w_loading_small"></div>'});
-	}
-	,
+
+	modal_process : function() {
+		zapjs.zw.modal_show({
+			content : '<div class="w_loading_small"></div>',
+			flagbutton : false
+		});
+	},
 
 	// 添加函数调用
 	func_add : function(oElm) {
@@ -38,12 +39,10 @@ zapjs.zw = {
 
 	// 提交操作
 	func_call : function(oElm) {
-		
+
 		zapjs.zw.modal_process();
-		
-		zapjs.f.ajaxsubmit($(oElm).parents("form"), "../func/"
-				+ $(oElm).attr('zapweb_attr_operate_id'),
-				zapjs.zw.func_success, zapjs.zw.func_error);
+
+		zapjs.f.ajaxsubmit($(oElm).parents("form"), "../func/" + $(oElm).attr('zapweb_attr_operate_id'), zapjs.zw.func_success, zapjs.zw.func_error);
 	},
 
 	func_do : function(oElm, sOperate, data) {
@@ -73,31 +72,30 @@ zapjs.zw = {
 	func_success : function(o) {
 
 		switch (o.resultType) {
-		case "116018010":
-			eval(o.resultObject);
-			break;
-		default:
-			// alert(o.resultMessage);
+			case "116018010":
+				eval(o.resultObject);
+				break;
+			default:
+				// alert(o.resultMessage);
 
-			if (o.resultCode == "1") {
+				if (o.resultCode == "1") {
 
-				if (o.resultMessage == "") {
-					o.resultMessage = "操作成功";
+					if (o.resultMessage == "") {
+						o.resultMessage = "操作成功";
+					}
+
+					zapjs.zw.modal_show({
+						content : o.resultMessage,
+						okfunc : 'zapjs.f.autorefresh()'
+					});
+
+				} else {
+					zapjs.zw.modal_show({
+						content : o.resultMessage
+					});
 				}
 
-				zapjs.zw.modal_show({
-					content : o.resultMessage,
-					okfunc : 'zapjs.f.autorefresh()'
-				});
-
-
-			} else {
-				zapjs.zw.modal_show({
-					content : o.resultMessage
-				});
-			}
-
-			break;
+				break;
 		}
 
 	},
@@ -122,7 +120,7 @@ zapjs.zw = {
 
 		var sUrl = zapjs.f.upurl();
 
-		for ( var i = 0, j = sSplit.length; i < j; i++) {
+		for (var i = 0, j = sSplit.length; i < j; i++) {
 			var sEq = sSplit[i].split('=');
 			if (sEq[1] != "" || sUrl.indexOf(sEq[0]) > -1) {
 				sUrl = zapjs.f.urlreplace(sUrl, sEq[0], sEq[1]);
@@ -157,8 +155,8 @@ zapjs.zw = {
 			slib = "lib/hack/ckeditor3/";
 		}
 
-		require([ slib + 'ckeditor' ], function(a) {
-			require([ slib + 'adapters/jquery' ], function(c) {
+		require([slib + 'ckeditor'], function(a) {
+			require([slib + 'adapters/jquery'], function(c) {
 				$('#' + sFieldName).ckeditor({
 					filebrowserImageUploadUrl : sUploadUrl + 'editor'
 				});
@@ -175,17 +173,7 @@ zapjs.zw = {
 			sSet = '';
 		}
 
-		return '<input type="hidden" zapweb_attr_target_url="'
-				+ sTargetUpload
-				+ '"  zapweb_attr_set_params="'
-				+ sSet
-				+ '"  id="'
-				+ sId
-				+ '" name="'
-				+ sId
-				+ '" value="'
-				+ sValue
-				+ '"><span class="control-upload_iframe"></span><span class="control-upload"></span>';
+		return '<input type="hidden" zapweb_attr_target_url="' + sTargetUpload + '"  zapweb_attr_set_params="' + sSet + '"  id="' + sId + '" name="' + sId + '" value="' + sValue + '"><span class="control-upload_iframe"></span><span class="control-upload"></span>';
 
 	},
 
@@ -208,8 +196,7 @@ zapjs.zw = {
 
 		var bFlagMul = false;
 
-		var sNumber = zapjs.f.upset($('#' + sField).attr(
-				zapjs.c.field_attr + "set_params"), 'zw_s_number');
+		var sNumber = zapjs.f.upset($('#' + sField).attr(zapjs.c.field_attr + "set_params"), 'zw_s_number');
 
 		if (sNumber != "") {
 
@@ -226,17 +213,9 @@ zapjs.zw = {
 		if ($('#' + sField).val() == "" || bFlagMul) {
 
 			if ($('#' + sField).nextAll('.control-upload_iframe').html() == "") {
-				var sUploadUrl = $('#' + sField).attr(
-						zapjs.c.field_attr + "target_url");
+				var sUploadUrl = $('#' + sField).attr(zapjs.c.field_attr + "target_url");
 
-				$('#' + sField)
-						.nextAll('.control-upload_iframe')
-						.html(
-								'<iframe src="'
-										+ sUploadUrl
-										+ 'upload?zw_s_source='
-										+ sField
-										+ '" class="zw_page_upload_iframe" frameborder="0"></iframe>');
+				$('#' + sField).nextAll('.control-upload_iframe').html('<iframe src="' + sUploadUrl + 'upload?zw_s_source=' + sField + '" class="zw_page_upload_iframe" frameborder="0"></iframe>');
 			}
 		} else {
 			$('#' + sField).nextAll('.control-upload_iframe').html('');
@@ -250,17 +229,8 @@ zapjs.zw = {
 
 				aHtml.push('<ul>');
 
-				for ( var i in sFiles) {
-					aHtml
-							.push('<li><div class="control-upload-image"><a href="'
-									+ sFiles[i]
-									+ '" target="_blank"><img src="'
-									+ sFiles[i]
-									+ '" /></a></div><div class="control-upload-delete"><span class="btn btn-mini " onclick="zapjs.zw.upload_delete(\''
-									+ sField
-									+ '\','
-									+ i
-									+ ')"><i class="icon-trash "></i>&nbsp;&nbsp;删除</span></div></li>');
+				for (var i in sFiles) {
+					aHtml.push('<li><div class="control-upload-image"><a href="' + sFiles[i] + '" target="_blank"><img src="' + sFiles[i] + '" /></a></div><div class="control-upload-delete"><span class="btn btn-mini " onclick="zapjs.zw.upload_delete(\'' + sField + '\',' + i + ')"><i class="icon-trash "></i>&nbsp;&nbsp;删除</span></div></li>');
 				}
 
 				aHtml.push('</ul>');
@@ -318,19 +288,18 @@ zapjs.zw = {
 
 		if (sCookie) {
 			zapjs.f.cookie(zapjs.c.cookie_user, sCookie);
-			zapjs.f.tourl('../manage/home');
+			zapjs.f.tourl($('#zapjs_zw_login_sucess_target').val());
 
 		}
 
 	},
-	login_out : function() {
-
-		zapjs.f.tourl('../manage/login');
+	login_out : function(sUrl) {
+		zapjs.f.cookie(zapjs.c.cookie_user, '');
+		zapjs.f.tourl(sUrl);
 	}
-
 };
 
-if (typeof define === "function" && define.amd) {
+if ( typeof define === "function" && define.amd) {
 	define("zapjs/zapjs.zw", function() {
 		return zapjs.zw;
 	});

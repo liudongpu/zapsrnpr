@@ -14,6 +14,9 @@
 <body class="easyui-layout zab_manage_login_body">
 
  	<div class="container">
+ 	
+ 	
+ 		
 
       <form class="zab_manage_login_signin  form-horizontal">
       <img src="http://p4.img.cctvpic.com/photoAlbum/page/performance/img/2013/3/7/1362629299085_999.jpg"/>
@@ -39,7 +42,8 @@
         </div>
 	  	</div>
      
-        
+        <input type="hidden" id="zapjs_zw_login_sucess_target" name="zapjs_zw_login_sucess_target" value="../manage/home"/>
+ 	
        
       </form>
 

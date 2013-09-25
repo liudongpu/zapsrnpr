@@ -25,7 +25,7 @@
 	
 		<#assign home_menu= user_support.upUserMenu("4677031300010")>
 
-		<div  region="north" class="zab_home_home_top">
+		<div   data-options="border:false,region:'north'" class="zab_home_home_top">
 			<div class="w_left c_site">
 				<a href="home"><i class="icon-home  icon-white"></i>&nbsp;超级管理后台</a>
 
@@ -48,6 +48,8 @@
 				<a
 					href="javascript:zapjs.zw.func_do(this,'f99848c8f8c011e29b7a000c298b20x')">
 		<#if user_info??>${user_info.getRealName()?default("")}</#if></a>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="javascript:zapjs.zw.login_out('../manage/logout')">退出系统</a>
 			</div>
 
 
@@ -57,7 +59,7 @@
 
 	
 
-			<div  region="west" border="false"    class=" zab_home_home_left  ">
+			<div  data-options="maxWidth:180,border:false,region:'west'"   class=" zab_home_home_left  ">
 			
 				<div class="c_box w_display">
 				<input type="text" placeholder="快捷码">
@@ -86,7 +88,7 @@
 				<div class="c_bottom">CopyRight 2013</div>
 
 			</div>
-			<div  region="center" border="false" class="zab_home_home_right">
+			<div  data-options="border:false,region:'center'"   class="zab_home_home_right">
 				<iframe src="../page/page_zapadmin_index_center" id="main_iframe"
 					name="main_iframe" width="100%" height="100%" frameborder="0" onload="zapadmin.load_complate(this)"
 					 ></iframe>

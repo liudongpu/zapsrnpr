@@ -165,6 +165,7 @@ html {
 .zab_home_home_left {
 	background-color: #F0F0F0;
 	width: 180px;
+	float:left;
 }
 
 .zab_home_home_left .c_title {
@@ -221,6 +222,7 @@ html {
 
 .zab_home_home_right {
 	overflow: hidden;
+	min-width:600px;
 }
 
 .zab_home_home_main {
