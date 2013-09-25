@@ -8,6 +8,12 @@ zapjs.zw = {
 	modal_show : function(oSet) {
 		top.zapjs.f.modal(oSet);
 	},
+	
+	modal_process:function()
+	{
+		zapjs.zw.modal_show({content:'<div class="w_loading_small"></div>'});
+	}
+	,
 
 	// 添加函数调用
 	func_add : function(oElm) {
@@ -32,12 +38,17 @@ zapjs.zw = {
 
 	// 提交操作
 	func_call : function(oElm) {
+		
+		zapjs.zw.modal_process();
+		
 		zapjs.f.ajaxsubmit($(oElm).parents("form"), "../func/"
 				+ $(oElm).attr('zapweb_attr_operate_id'),
 				zapjs.zw.func_success, zapjs.zw.func_error);
 	},
 
 	func_do : function(oElm, sOperate, data) {
+
+		zapjs.zw.modal_process();
 
 		if (!sOperate) {
 			sOperate = $(oElm).attr('zapweb_attr_operate_id');
@@ -78,6 +89,7 @@ zapjs.zw = {
 					content : o.resultMessage,
 					okfunc : 'zapjs.f.autorefresh()'
 				});
+
 
 			} else {
 				zapjs.zw.modal_show({

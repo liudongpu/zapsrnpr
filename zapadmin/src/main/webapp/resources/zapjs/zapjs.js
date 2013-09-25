@@ -286,9 +286,10 @@ zapjs.f = {
 	},
 
 	//提示消息
-	alert : function(sContent) {
+	alert : function(sContent, okfunc) {
 		zapjs.f.modal({
-			content : '<div class="w_h_100">'+sContent+'</div>'
+			content : sContent,
+			okfunc : okfunc
 		});
 	},
 
@@ -301,7 +302,7 @@ zapjs.f = {
 			oktext : '确认',
 			canceltext : '取消',
 			okfunc : '',
-			width:400,
+			width : 400,
 			id : 'zapjs_f_id_modal_box',
 			cancelfunc : ''
 		};
@@ -334,13 +335,16 @@ zapjs.f = {
 
 		 */
 
-		if (!zapjs.f.exist(s.id)) {
-			var sModel = '<div id="' + s.id + '">Dialog Content.</div>';
-			$(document.body).append(sModel);
+		if (zapjs.f.exist(s.id)) {
 
+			$('#' + s.id).dialog('close');
+			$('#' + s.id).remove();
 		}
 
-		$('#' + s.id).html(s.content );
+		var sModel = '<div id="' + s.id + '" ></div>';
+		$(document.body).append(sModel);
+
+		$('#' + s.id).html('<div class="w_p_20">' + s.content + '</div>');
 
 		$('#' + s.id).dialog({
 			title : s.title,
@@ -354,7 +358,7 @@ zapjs.f = {
 				handler : function() {
 
 					$('#' + s.id).dialog('close');
-
+					$('#' + s.id).remove();
 					if (s.okfunc) {
 						eval(s.okfunc);
 

@@ -41,6 +41,19 @@
 	height: 200px;
 }
 
+.w_p_20
+{
+	padding:20px;
+}
+
+.w_loading_small
+{
+	background-image: url("../img/loading-small.gif");
+	height:20px;
+	width:240px;
+	background-repeat:no-repeat;
+}
+
 
 
 .w_ul,.w_ullist
