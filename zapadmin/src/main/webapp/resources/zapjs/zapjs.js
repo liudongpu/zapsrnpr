@@ -288,7 +288,7 @@ zapjs.f = {
 	//提示消息
 	alert : function(sContent) {
 		zapjs.f.modal({
-			content : sContent
+			content : '<div class="w_h_100">'+sContent+'</div>'
 		});
 	},
 
@@ -340,7 +340,7 @@ zapjs.f = {
 
 		}
 
-		$('#' + s.id).html('<div class="w_h_100">' + s.content + '</div>');
+		$('#' + s.id).html(s.content );
 
 		$('#' + s.id).dialog({
 			title : s.title,
