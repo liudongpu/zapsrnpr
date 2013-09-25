@@ -38,15 +38,11 @@ public class WebConst implements IBaseConst {
 	 * 设置定义 126022019 常用于设置各种属性 url用 或者url的设置参数
 	 */
 	public final static String CONST_WEB_FIELD_SET = "zw_s_";
-	
-	
-	
+
 	/**
-	 * 页面元素附件参数   
+	 * 页面元素附件参数
 	 */
-	public final static String CONST_WEB_FIELD_ATTR="zapweb_attr_";
-	
-	
+	public final static String CONST_WEB_FIELD_ATTR = "zapweb_attr_";
 
 	/**
 	 * 定义需要替换的规则表达式 如果字段含有该字段 则执行替换逻辑
@@ -69,10 +65,18 @@ public class WebConst implements IBaseConst {
 	public final static String CONST_WEB_SESSION_USER = "userinfo";
 
 	/**
+	 * 定义空的默认赋值
+	 */
+	public final static String CONST_WEB_EMPTY = "zapweb_empty";
+
+	/**
 	 * 定义文件上传存放基路径
 	 */
 	public static String Static_Web_Upload_Dir = null;
 
+	/**
+	 * 定义真实上传标记
+	 */
 	public final static String CONST_STATIC_WEB_UPLOAD_SAVE = "realsave";
 
 }

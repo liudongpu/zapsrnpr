@@ -13,8 +13,10 @@ import com.srnpr.zapcom.basehelper.MapHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.helper.WebHelper;
+import com.srnpr.zapweb.usermodel.MUserInfo;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webdo.WebUp;
+import com.srnpr.zapweb.webfactory.UserFactory;
 import com.srnpr.zapweb.webmodel.MPageData;
 import com.srnpr.zapweb.webmodel.MWebField;
 import com.srnpr.zapweb.webmodel.MWebHtml;
@@ -45,6 +47,9 @@ public class RootExec extends BaseClass {
 
 		String sSortString = "-zid";
 
+		// 查询条件
+		String sWhere = "";
+
 		if (StringUtils.isNotEmpty(webPage.getDataScope())) {
 			mReqMap.inAllValues(FormatHelper.upUrlStrings(WebHelper
 					.recheckReplace(webPage.getDataScope(), mReqMap)));
@@ -57,22 +62,67 @@ public class RootExec extends BaseClass {
 
 			if (mPaginationMap != null && mPaginationMap.size() > 0) {
 
+				// 判断页数总计
 				if (mPaginationMap.containsKey("count")) {
 					mReturnData.setPageCount(Integer.valueOf(mPaginationMap
 							.get("count")));
 				}
+				// 判断当前页
 				if (mPaginationMap.containsKey("index")) {
 					mReturnData.setPageIndex(Integer.valueOf(mPaginationMap
 							.get("index")));
 				}
-
+				// 判断总页数
 				if (mPaginationMap.containsKey("size")) {
 					mReturnData.setPageSize(Integer.valueOf(mPaginationMap
 							.get("size")));
 				}
-
+				// 判断排序
 				if (mPaginationMap.containsKey("sort")) {
 					sSortString = mPaginationMap.get("sort");
+				}
+
+				// 如果定义了角色判断字段
+				if (mPaginationMap.containsKey("user_role")) {
+					MUserInfo mUserInfo = UserFactory.INSTANCE.create();
+
+					String sField = mPaginationMap.get("user_role");
+
+					String sRoleInfo = StringUtils.defaultIfBlank(
+							mUserInfo.getUserRole(), WebConst.CONST_WEB_EMPTY);
+
+					List<String> list = new ArrayList<String>();
+					for (String s : sRoleInfo.split(WebConst.CONST_SPLIT_LINE)) {
+						if (StringUtils.isNotEmpty(s)) {
+							list.add(" INSTR(" + sField + ",'" + s + "')>0 ");
+						}
+					}
+
+					if (StringUtils.isNotEmpty(sWhere)) {
+						sWhere = sWhere + " and ";
+					}
+
+					sWhere = sWhere + " (" + StringUtils.join(list, " or ")
+							+ ") ";
+
+				}
+
+				// 如果定义了管理权限
+				if (mPaginationMap.containsKey("user_manage")) {
+					MUserInfo mUserInfo = UserFactory.INSTANCE.create();
+
+					String sField = mPaginationMap.get("user_manage");
+
+					String sManage = StringUtils
+							.defaultIfBlank(mUserInfo.getManageCode(),
+									WebConst.CONST_WEB_EMPTY);
+
+					if (StringUtils.isNotEmpty(sWhere)) {
+						sWhere = sWhere + " and ";
+					}
+
+					sWhere = sWhere + sField + "='" + sManage + "' ";
+
 				}
 
 			}
@@ -128,7 +178,6 @@ public class RootExec extends BaseClass {
 		}
 
 		MDataMap mQueryMap = new MDataMap();
-		String sWhere = "";
 
 		/********** 开始处理查询输入 ********************************/
 		{
@@ -226,6 +275,11 @@ public class RootExec extends BaseClass {
 				}
 
 				if (aWhereStrings.size() > 0) {
+
+					if (StringUtils.isNotEmpty(sWhere)) {
+						aWhereStrings.add(sWhere);
+					}
+
 					sWhere = StringUtils.join(aWhereStrings, " and ");
 				}
 
@@ -375,7 +429,9 @@ public class RootExec extends BaseClass {
 
 			sReturn = new MWebHtml("button").inAttributes("onclick", sReturn,
 					"class", "btn btn-small", "value",
-					mWebOperate.getOperateName(),WebConst.CONST_WEB_FIELD_ATTR+"operate_id",mWebOperate.getOperateUid()).upString();
+					mWebOperate.getOperateName(),
+					WebConst.CONST_WEB_FIELD_ATTR + "operate_id",
+					mWebOperate.getOperateUid()).upString();
 
 		}
 

@@ -48,7 +48,7 @@ public class FuncAdd extends RootFunc {
 
 		if (mResult.upFlagTrue()) {
 
-			// 循环所有结构
+			// 循环所有结构 初始化插入map
 			for (MWebField mField : mPage.getPageFields()) {
 
 				if (mField.getFieldTypeAid().equals("104005003")) {
@@ -63,10 +63,20 @@ public class FuncAdd extends RootFunc {
 					mInsertMap.put(mField.getColumnName(), sValue);
 				}
 
-				// 如果默认值不为空 则进行各种校验
+				// 如果设置不为空 则进行各种校验
 				if (StringUtils.isNotEmpty(mField.getFieldScope())) {
 
-					String sDefaultValue = mField.getFieldScope();
+					MDataMap mScopeMap = new MDataMap().inUrlParams(
+							mField.getFieldScope()).upSubMap(
+							WebConst.CONST_WEB_FIELD_SET);
+
+					String sDefaultValue = "";
+
+					if (mScopeMap.containsKey("defaultvalue")) {
+						sDefaultValue = mScopeMap.get("defaultvalue");
+					}
+
+					// 判断默认值
 					if (StringUtils.isNotEmpty(sDefaultValue)) {
 						String sValue = "";
 
@@ -88,7 +98,31 @@ public class FuncAdd extends RootFunc {
 							mInsertMap.put(mField.getColumnName(), sValue);
 						}
 
+						
+
 					}
+					
+					
+					
+					// 如果有附件设置
+					if (mScopeMap.containsKey("targetset")) {
+						String sTargetSetString = mScopeMap.get("targetset");
+
+						// 校验字段的唯一
+						if (sTargetSetString.equals("unique")) {
+
+							if (DbUp.upTable(mPage.getPageTable()).count(
+									mField.getColumnName(),
+									mInsertMap.get(mField.getColumnName())) > 0) {
+
+								mResult.inErrorMessage(969905004,
+										mField.getFieldNote());
+							}
+
+						}
+
+					}
+					
 
 				}
 

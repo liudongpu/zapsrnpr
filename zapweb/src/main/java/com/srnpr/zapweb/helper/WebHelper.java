@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.basehelper.FormatHelper;
+import com.srnpr.zapcom.basehelper.SecrurityHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.usermodel.MUserInfo;
@@ -163,7 +164,14 @@ public class WebHelper {
 				// 如果参数是datenow 则替换为当前时间
 				else if (sKey.equals("datenow")) {
 					sReplace = FormatHelper.upDateTime();
+					// 如果是Md5 则加密map中的该字段
+				} else if (sKey.equals("md5")) {
+					String sValueString = mDataMap.get(sAttr);
+					if (StringUtils.isNotEmpty(sValueString)) {
+						sReplace = SecrurityHelper.MD5(sValueString);
+					}
 				}
+
 				// 如果参数是user 则根据后续参数替换
 				else if (sKey.equals("user")) {
 
@@ -176,7 +184,7 @@ public class WebHelper {
 							sReplace = mUserInfo.getLoginName();
 						} else if (sAttr.equals("realName")) {
 							sReplace = mUserInfo.getRealName();
-						}else if (sAttr.equals("userCode")) {
+						} else if (sAttr.equals("userCode")) {
 							sReplace = mUserInfo.getUserCode();
 						}
 
