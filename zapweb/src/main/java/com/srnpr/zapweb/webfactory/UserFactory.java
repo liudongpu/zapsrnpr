@@ -100,6 +100,7 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 
 			mLoginUserInfo.setFlagLogin(1);
 			mLoginUserInfo.setLoginName(mUserData.get("user_name"));
+			mLoginUserInfo.setUserCode(mUserData.get("user_code"));
 			mLoginUserInfo.setRealName(mUserData.get("real_name"));
 			mLoginUserInfo.setManageCode(mUserData.get("manage_code"));
 			mLoginUserInfo.setCookieUser(mUserData.get("cookie_user"));
