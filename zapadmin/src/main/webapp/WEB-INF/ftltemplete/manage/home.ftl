@@ -7,6 +7,11 @@
 
 <@m_common_html_head />
 
+<#assign manage_home_title="超级管理后台">
+<#assign manage_home_menu="467703130001">
+
+
+
 <title>zapadmin</title>
 
 
@@ -23,20 +28,20 @@
 
 	
 	
-		<#assign home_menu= user_support.upUserMenu("4677031300010")>
+		<#assign home_menu= user_support.upUserMenu(manage_home_menu+"0")>
 
 		<div   data-options="border:false,region:'north'" class="zab_home_home_top">
 			<div class="w_left c_site">
-				<a href="home"><i class="icon-home  icon-white"></i>&nbsp;超级管理后台</a>
+				<a href="home"><i class="icon-home  icon-white"></i>&nbsp;${manage_home_title}</a>
 
 
 
 			</div>
 			<div class="w_left c_nav">
 				<ul class="w_ul">
-					<li class="c_active"><a href="home">后台首页</a></li> <#list home_menu as el
-					> <#if el['parent_menu']=='467703130001'>
-					<li><a href="#" onclick="zapadmin.top_menu(this,${el['menu_code']})">${el['menu_name']}</a></li>
+					 <#list home_menu as el
+					> <#if el['parent_menu']==manage_home_menu>
+					<li <#if el_index==0>class="c_active"</#if> ><a href="#" onclick="zapadmin.top_menu(this,${el['menu_code']})">${el['menu_name']}</a></li>
 					</#if> </#list>
 				</ul>
 			</div>
@@ -67,20 +72,29 @@
 			
 				<div>
 					<ul>
-					<#list home_menu as el > <#if el['menu_code']?length==16>
-					</ul>
-				</div>
-				
-				<div id="home_menu_box_${el["menu_code"]}" class="c_item  <#if el_index!=0>w_display</#if>  ">
-				
-					<div class="c_title">${el["menu_name"]}</div>
-				
-					<ul class="w_ullist">
+					<#list home_menu as el > 
+						<#if el['menu_code']?length==16>
+							</ul>
+						</div>
+						
+						<div id="home_menu_box_${el["menu_code"]}" class="c_item  <#if el_index!=0>w_display</#if>  ">
+		
+							<div class="c_title">${el["menu_name"]}</div>
+							<ul class="w_ullist">
 						<#elseif el['menu_code']?length==20>
-						<li class="c_header">+&nbsp;${el["menu_name"]}</li> <#elseif
-						el['menu_code']?length==24>
-						<li <#if el_index==2>class="c_active"</#if>><a  href="../${el['menu_link']}" onclick="zapadmin.menu_click(this)" target="main_iframe">${el["menu_name"]}</a></li>
-						</#if> </#list>
+						
+						<#if el_index==1>
+						<li class="c_header">+&nbsp;后台系统</li>
+						<li class="c_active"><a  href="home" >后台首页</a></li>
+						</#if>
+						
+						
+								<li class="c_header">+&nbsp;${el["menu_name"]}</li> 
+						<#elseif el['menu_code']?length==24>
+								<li><a  href="../${el['menu_link']}" onclick="zapadmin.menu_click(this)" target="main_iframe">${el["menu_name"]}</a></li>
+						</#if> 
+								
+					</#list>
 					</ul>
 				</div>
 

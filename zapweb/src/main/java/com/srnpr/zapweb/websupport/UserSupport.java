@@ -44,6 +44,7 @@ public class UserSupport extends BaseClass {
 	 * @return
 	 */
 	public MUserInfo getUserInfo() {
+		checkLogin();
 		return userInfo;
 	}
 
@@ -54,13 +55,30 @@ public class UserSupport extends BaseClass {
 	 * @return
 	 */
 	public List<MDataMap> upUserMenu(String sCode) {
+
 		List<MDataMap> lReturnlList = new ArrayList<MDataMap>();
+		if (checkLogin()) {
+			
 
-		List<MDataMap> lMenuMaps = WebTemp.upTempDataList("za_menu", "",
-				"menu_code", "left(menu_code,13)=:menu_code", "menu_code",
-				sCode);
+			List<MDataMap> lMenuMaps = WebTemp.upTempDataList("za_menu", "",
+					"menu_code", "left(menu_code,13)=:menu_code", "menu_code",
+					sCode);
 
-		lReturnlList = lMenuMaps;
+			checkLogin();
+			String sMenuCode = WebConst.CONST_SPLIT_LINE
+					+ getUserInfo().getUserMenu();
+
+			for (MDataMap mMenuMap : lMenuMaps) {
+
+				if (sMenuCode.indexOf(WebConst.CONST_SPLIT_LINE
+						+ mMenuMap.get("menu_code")) > -1) {
+					lReturnlList.add(mMenuMap);
+				}
+
+			}
+		}
+
+		// lReturnlList = lMenuMaps;
 		return lReturnlList;
 	}
 
