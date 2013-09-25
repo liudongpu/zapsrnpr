@@ -301,6 +301,7 @@ zapjs.f = {
 			oktext : '确认',
 			canceltext : '取消',
 			okfunc : '',
+			width:400,
 			id : 'zapjs_f_id_modal_box',
 			cancelfunc : ''
 		};
@@ -343,7 +344,7 @@ zapjs.f = {
 
 		$('#' + s.id).dialog({
 			title : s.title,
-			width : 400,
+			width : s.width,
 			resizable : true,
 			closed : false,
 			cache : false,
