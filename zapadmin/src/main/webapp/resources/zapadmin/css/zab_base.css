@@ -1,10 +1,8 @@
 body {
-	font-family: "Microsoft Yahei", Verdana, Simsun, "Segoe UI Light",
-		"Segoe UI Web Light", "Segoe UI Web Regular", "Segoe UI",
-		"Segoe UI Symbol", "HelveticaNeue-Light", "Helvetica Neue", Arial;
+	font-family: "Microsoft Yahei", Verdana, Simsun, "Segoe UI Light", "Segoe UI Web Light", "Segoe UI Web Regular", "Segoe UI", "Segoe UI Symbol", "HelveticaNeue-Light", "Helvetica Neue", Arial;
 	font-size: 13px;
 	height: 100%;
-	word-wrap:break-word;
+	word-wrap: break-word;
 }
 
 html {
@@ -28,7 +26,7 @@ html {
 }
 
 .control-upload {
-	
+
 }
 
 .control-upload ul li {
@@ -69,11 +67,11 @@ html {
 	cursor: pointer;
 }
 
-.fileupload-buttonbar .btn,.fileupload-buttonbar .toggle {
+.fileupload-buttonbar .btn, .fileupload-buttonbar .toggle {
 	margin-bottom: 5px;
 }
 
-.progress-animated .progress-bar,.progress-animated .bar {
+.progress-animated .progress-bar, .progress-animated .bar {
 	background: url(../img/progressbar.gif) !important;
 	filter: none;
 }
@@ -91,19 +89,19 @@ html {
 	display: block;
 }
 
-.files audio,.files video {
+.files audio, .files video {
 	max-width: 300px;
 }
 
-@media ( max-width : 767px) {
-	.fileupload-buttonbar .toggle,.files .toggle,.files .btn span {
+@media (max-width: 767px) {
+	.fileupload-buttonbar .toggle, .files .toggle, .files .btn span {
 		display: none;
 	}
 	.files .name {
 		width: 80px;
 		word-wrap: break-word;
 	}
-	.files audio,.files video {
+	.files audio, .files video {
 		max-width: 80px;
 	}
 }
@@ -149,7 +147,7 @@ html {
 	background-color: #006a11;
 }
 
-.zab_home_home_top,.zab_home_home_top li {
+.zab_home_home_top, .zab_home_home_top li {
 	line-height: 40px;
 }
 
@@ -165,7 +163,7 @@ html {
 .zab_home_home_left {
 	background-color: #F0F0F0;
 	width: 180px;
-	float:left;
+	float: left;
 }
 
 .zab_home_home_left .c_title {
@@ -211,8 +209,7 @@ html {
 	color: #444;
 }
 
-.zab_home_home_left .w_ullist li.c_active   a,.zab_home_home_left .w_ullist li.c_active   a:hover
-	{
+.zab_home_home_left .w_ullist li.c_active   a, .zab_home_home_left .w_ullist li.c_active   a:hover {
 	background-color: #cdcdcd;
 }
 
@@ -222,7 +219,7 @@ html {
 
 .zab_home_home_right {
 	overflow: hidden;
-	min-width:600px;
+	min-width: 600px;
 }
 
 .zab_home_home_main {
@@ -280,33 +277,73 @@ html {
 .zab_manage_login_body {
 	padding-top: 40px;
 	padding-bottom: 40px;
-	background-color: #f5f5f5;
 }
 
-.zab_manage_login_signin {
-	max-width: 450px;
-	padding: 19px 29px 29px;
-	margin: 40px auto 20px;
-	background-color: #fff;
+.zab_manage_login_body .c_login_bg {
+	background-color: #295487;
+	height: 600px;
+	background-image: url("http://mimg.127.net/index/163/themes/130905_midmoon_cnt.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.zab_manage_login_body .c_login_width {
+	width: 1000px;
+}
+
+.zab_manage_login_body .c_login_center {
+	position: relative;
+}
+
+.zab_manage_login_body .c_login_sign {
+	width: 340px;
+	height: 400px;
+	margin-left: 600px;
+	position: relative;
+}
+
+.zab_manage_login_body .c_login_fix {
+	
+	
+	width:100%;
+	height:100%;
+	position: relative;
 	border: 1px solid #e5e5e5;
+	background-color: #fff;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
 	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
 	box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
-	
 }
 
-.zab_manage_login_signin .zab_manage_login_signin_heading,.zab_manage_login_signin .checkbox
-	{
-	margin-bottom: 10px;
+.zab_manage_login_body .c_login_info
+{
+	width:300px;
+	height:100%;
+	padding:20px;
+	position:absolute;
+	top:0px;
+	left:0px;
 }
 
-.zab_manage_login_signin input[type="text"],.zab_manage_login_signin input[type="password"]
-	{
-	font-size: 16px;
-	height: auto;
-	margin-bottom: 15px;
+.zab_manage_login_body .c_login_title
+{
+	font-size: 21px;
+	border-bottom: solid 1px #D0D2D3;
+	line-height: 30px;
+	height:40px;
+	color:#333;
+}
+
+
+.zab_manage_login_body .c_login_text {
+	width: 200px;
 	padding: 7px 9px;
 }
+
+.zab_manage_login_body .c_login_box {
+
+}
+

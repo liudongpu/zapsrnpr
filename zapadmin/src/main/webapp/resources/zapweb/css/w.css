@@ -3,29 +3,28 @@
 	display: none;
 }
 
-
 .w_none {
 	display: none !important;
 }
 
-.w_clear,.w_c {
+.w_clear, .w_c {
 	clear: both;
 }
 
-.w_left,.w_fl{
-	float:left;
+.w_left, .w_fl {
+	float: left;
 }
-.w_right,.w_fr
-{
-	float:right;
+.w_right, .w_fr {
+	float: right;
 }
 
-.w_al_center
-{
+.w_m_auto {
+	margin: 0px auto;
+}
+
+.w_al_center {
 	text-align: center;
 }
-
-
 
 .w_h_40 {
 	height: 40px;
@@ -41,37 +40,38 @@
 	height: 200px;
 }
 
-.w_p_20
-{
-	padding:20px;
+.w_p_20 {
+	padding: 20px;
 }
+
+
+.w_opacity_90
+{
+	filter: alpha(opacity=90);
+	-moz-opacity: 0.9;
+	-khtml-opacity: 0.9;
+	opacity: 0.8;
+}
+
 
 /*进度条*/
-.w_loading_small
-{
+.w_loading_small {
 	background-image: url("../img/loading-small.gif");
-	height:20px;
-	width:240px;
-	background-repeat:no-repeat;
+	height: 20px;
+	width: 240px;
+	background-repeat: no-repeat;
 }
 
-
-
-.w_ul,.w_ullist
-{
-	margin:0px;
-	padding:0px;
+.w_ul, .w_ullist {
+	margin: 0px;
+	padding: 0px;
 }
-.w_ul li
-{
-	list-style-type:none;
-	float:left;
+.w_ul li {
+	list-style-type: none;
+	float: left;
 }
 
-.w_ullist li
-{
-	list-style-type:none;
+.w_ullist li {
+	list-style-type: none;
 }
-
-
 
