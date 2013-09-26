@@ -38,7 +38,7 @@ public class SecrurityHelper {
 	}
 
 	/**
-	 * MD5加密
+	 * MD5加密自定义
 	 * 
 	 * @param s
 	 * @return
