@@ -64,7 +64,7 @@
 								<div class="w_al_center c_login_desc">招商客服电话：010-82001009
 									/1139/1129</div>
 							</div>
-							<div class="c_login_version">当前系统版本：1.0.0.2</div>
+							<div class="c_login_version">当前系统版本：2.0.0.1</div>
 
 						</div>
 

@@ -162,7 +162,7 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 		if (mResult.upFlagTrue()) {
 			// 判断是用户是否存在
 			if (mUserInfo == null) {
-				mResult.inErrorMessage(969905015);
+				mResult.inErrorMessage(969905017);
 			}
 			// 判断用户是否被冻结
 			else if (!StringUtils.equals(mUserInfo.get("flag_enable"), "1")) {
@@ -173,7 +173,7 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 		if (mResult.upFlagTrue()) {
 
 			// 定义最大失败次数
-			int iMaxFaieldCount = 3;
+			int iMaxFaieldCount = 5;
 			// 定义失败分钟数
 			int iMimute = 10;
 
@@ -203,7 +203,7 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 			if (mResult.upFlagTrue()) {
 
 				// 判断如果密码不对则
-				if (!SecrurityHelper.MD5(sPassword).equalsIgnoreCase(
+				if (!SecrurityHelper.MD5Customer(sPassword).equalsIgnoreCase(
 						mUserInfo.get("user_password").trim())) {
 					// 如果密码不对时 增加冻结次数
 					mUserInfo.put("failed_count", String.valueOf(lFaield + 1));
@@ -232,7 +232,7 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 				mUserInfo.put("failed_time", "");
 
 				DbUp.upTable("za_userinfo").dataUpdate(mUserInfo,
-						"cookie_user,failed_count,failed_time", "uid");
+						"cookie_user,failed_count,failed_time,login_time", "uid");
 
 				inUserInfo(mUserInfo);
 

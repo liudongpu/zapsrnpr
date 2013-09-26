@@ -168,7 +168,7 @@ public class WebHelper {
 				} else if (sKey.equals("md5")) {
 					String sValueString = mDataMap.get(sAttr);
 					if (StringUtils.isNotEmpty(sValueString)) {
-						sReplace = SecrurityHelper.MD5(sValueString);
+						sReplace = SecrurityHelper.MD5Customer(sValueString);
 					}
 				}
 
