@@ -22,8 +22,8 @@ public class DataInit extends BaseClass implements IBaseInit {
 			cm.setPassword(sPass);
 			//设置连接池的测试连接
 			cm.setIdleConnectionTestPeriod(120);
-			cm.setMinPoolSize(5);
-			cm.setMaxPoolSize(100);
+			cm.setMinPoolSize(1);
+			cm.setMaxPoolSize(10);
 			
 			
 
