@@ -22,6 +22,21 @@
 	margin: 0px auto;
 }
 
+.w_mt_15
+{
+	margin-top:15px;
+}
+
+.w_mt_20
+{
+	margin-top:20px;
+}
+.w_mt_30
+{
+	margin-top:30px;
+}
+
+
 .w_al_center {
 	text-align: center;
 }

@@ -279,10 +279,36 @@ html {
 	padding-bottom: 40px;
 }
 
+
+.zab_manage_login_body .c_login_header
+{
+	height:64px;
+	position: relative;
+	
+}
+
+.zab_manage_login_body .c_login_logo
+{
+	width:146px;
+	height:40px;
+	background-image: url("../img/login/logo.jpg");
+}
+
+.zab_manage_login_body  .w_ul li
+{
+	padding:0px 10px 0px 20px;
+	
+}
+.zab_manage_login_body  .w_ul li a,.c_login_footer
+{
+	color:#959595;
+}
+
+
 .zab_manage_login_body .c_login_bg {
 	background-color: #295487;
 	height: 600px;
-	background-image: url("http://mimg.127.net/index/163/themes/130905_midmoon_cnt.jpg");
+	background-image: url("../img/login/login_bg.jpg");
 	background-repeat: no-repeat;
 	background-position: center;
 }
@@ -338,7 +364,7 @@ html {
 }
 .zab_manage_login_body .c_login_pos
 {
-	height:340px;
+	height:320px;
 }
 
 .zab_manage_login_body .c_login_desc
