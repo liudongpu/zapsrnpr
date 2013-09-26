@@ -331,10 +331,24 @@ html {
 .zab_manage_login_body .c_login_title
 {
 	font-size: 21px;
-	border-bottom: solid 1px #D0D2D3;
+	border-bottom: solid 1px #de0816;
 	line-height: 30px;
 	height:40px;
 	color:#333;
+}
+.zab_manage_login_body .c_login_pos
+{
+	height:340px;
+}
+
+.zab_manage_login_body .c_login_desc
+{
+	color:#555;
+}
+.zab_manage_login_body .c_login_version
+{
+	border-top: solid 1px #de0816;
+	padding-top:10px;color:#555;
 }
 
 
