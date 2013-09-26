@@ -1,5 +1,7 @@
 package com.srnpr.zapweb.webfunc;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basehelper.JsonHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
@@ -34,7 +36,9 @@ public class FuncManageLogin extends RootFunc {
 		if (mResult.upFlagTrue()) {
 
 			if (mSubMap.containsKey("login_name")
-					&& mSubMap.containsKey("login_pass")) {
+					&& mSubMap.containsKey("login_pass")
+					&& StringUtils.isNotEmpty(mSubMap.get("login_name"))
+					&& StringUtils.isNotEmpty(mSubMap.get("login_pass"))) {
 
 			} else {
 				mResult.inErrorMessage(969905013);
@@ -83,5 +87,4 @@ public class FuncManageLogin extends RootFunc {
 		return mResult;
 
 	}
-
 }
