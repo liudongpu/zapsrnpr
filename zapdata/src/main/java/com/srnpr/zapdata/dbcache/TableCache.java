@@ -62,4 +62,10 @@ public class TableCache extends RootCache<String, ITableCall> {
 
 	}
 
+	@Override
+	public ITableCall upOne(String k) {
+		
+		return null;
+	}
+
 }

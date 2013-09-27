@@ -80,4 +80,10 @@ public class PageCache extends RootCache<String, MWebPage> {
 
 	}
 
+	@Override
+	public MWebPage upOne(String k) {
+		
+		return null;
+	}
+
 }
