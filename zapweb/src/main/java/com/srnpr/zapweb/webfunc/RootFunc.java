@@ -87,8 +87,7 @@ public abstract class RootFunc extends BaseClass implements IWebFunc {
 				} else {
 					sRegexValue = StringUtils.substringAfter(sRegexValue, "+");
 				}
-			} else if (iReturn == 1 && sRegexValue.startsWith("-")
-					&& sValue.equals("")) {
+			} else if (iReturn == 1 && sRegexValue.startsWith("-")) {
 
 				if (StringUtils.isEmpty(sValue)) {
 					return iReturn;
