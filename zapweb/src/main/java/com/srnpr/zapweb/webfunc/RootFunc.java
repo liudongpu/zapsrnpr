@@ -73,20 +73,29 @@ public abstract class RootFunc extends BaseClass implements IWebFunc {
 
 		if (StringUtils.isNotEmpty(sRegexValue)) {
 
-			// 校验如果是+号开始 则判断是否允许为空
+			// 如果是编号系列 则获取编号对应的正则表达式
 			if (sRegexValue.startsWith("46992318")) {
 
 				sRegexValue = WebTemp.upTempDataOne("zw_define", "define_name",
 						"define_dids", sRegexValue);
 			}
 
-			// 判断是否为非空
+			// 校验如果是+号开始 则判断是否允许为空
 			if (sRegexValue.startsWith("+")) {
 				if (StringUtils.isEmpty(sValue)) {
 					iReturn = 969905003;
 				} else {
 					sRegexValue = StringUtils.substringAfter(sRegexValue, "+");
 				}
+			} else if (iReturn == 1 && sRegexValue.startsWith("-")
+					&& sValue.equals("")) {
+
+				if (StringUtils.isEmpty(sValue)) {
+					return iReturn;
+				} else {
+					sRegexValue = StringUtils.substringAfter(sRegexValue, "-");
+				}
+
 			}
 
 			// 开始判断正则表达式
