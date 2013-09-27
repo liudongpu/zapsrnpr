@@ -20,8 +20,9 @@ public class DefaultApiCache extends RootCache<String, MApiModel> implements
 
 	public static final DefaultApiCache INSTANCE = new DefaultApiCache();
 
-	
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.srnpr.zapcom.rootclass.RootCache#upOne(java.lang.Object)
 	 */
 	public MApiModel upOne(String sKey) {
@@ -53,6 +54,7 @@ public class DefaultApiCache extends RootCache<String, MApiModel> implements
 			inElement(sKey, mApiModel);
 		} catch (ClassNotFoundException e) {
 
+			bLogError(969905001, sKey);
 			inElement(sKey, null);
 
 			e.printStackTrace();

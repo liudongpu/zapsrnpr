@@ -25,10 +25,41 @@ public class OperateCache extends RootCache<String, MWebOperate> {
 	 */
 	public synchronized void refresh() {
 
-		for (MDataMap mDataMap : DbUp.upTable("zw_operate").queryByWhere(
-				"flag_enable", "1")) {
+		/*
+		 * for (MDataMap mDataMap : DbUp.upTable("zw_operate").queryByWhere(
+		 * "flag_enable", "1")) {
+		 * 
+		 * MWebOperate mWebOperate = new MWebOperate();
+		 * 
+		 * mWebOperate.setOperateFunc(mDataMap.get("operate_func"));
+		 * mWebOperate.setOperateLink(mDataMap.get("operate_link"));
+		 * mWebOperate.setOperateName(mDataMap.get("operate_name"));
+		 * mWebOperate.setOperateTypeAid(mDataMap.get("operate_type_aid"));
+		 * mWebOperate.setPageCode(mDataMap.get("page_code"));
+		 * mWebOperate.setOperateUid(mDataMap.get("uid"));
+		 * mWebOperate.setAreaTypeAid(mDataMap.get("area_type_aid"));
+		 * 
+		 * this.inElement(mWebOperate.getOperateUid(), mWebOperate);
+		 * 
+		 * }
+		 */
+	}
 
-			MWebOperate mWebOperate = new MWebOperate();
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.srnpr.zapcom.rootclass.RootCache#upOne(java.lang.Object)
+	 */
+	@Override
+	public MWebOperate upOne(String k) {
+
+		MWebOperate mWebOperate = null;
+
+		MDataMap mDataMap = DbUp.upTable("zw_operate").one("flag_enable", "1",
+				"uid", k);
+
+		if (mDataMap != null) {
+			mWebOperate = new MWebOperate();
 
 			mWebOperate.setOperateFunc(mDataMap.get("operate_func"));
 			mWebOperate.setOperateLink(mDataMap.get("operate_link"));
@@ -39,15 +70,11 @@ public class OperateCache extends RootCache<String, MWebOperate> {
 			mWebOperate.setAreaTypeAid(mDataMap.get("area_type_aid"));
 
 			this.inElement(mWebOperate.getOperateUid(), mWebOperate);
-
+		} else {
+			bLogError(969905001, k);
 		}
 
-	}
-
-	@Override
-	public MWebOperate upOne(String k) {
-	
-		return null;
+		return mWebOperate;
 	}
 
 }

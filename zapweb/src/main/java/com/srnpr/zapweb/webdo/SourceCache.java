@@ -8,10 +8,34 @@ import com.srnpr.zapweb.webmodel.MWebSource;
 public class SourceCache extends RootCache<String, MWebSource> {
 
 	public void refresh() {
+		/*
+		 * for (MDataMap mDataMap : DbUp.upTable("zw_source").queryByWhere()) {
+		 * 
+		 * MWebSource mWebSource = new MWebSource();
+		 * 
+		 * mWebSource.setFieldText(mDataMap.get("field_text"));
+		 * mWebSource.setFieldValue(mDataMap.get("field_value"));
+		 * mWebSource.setSourceCode(mDataMap.get("source_code"));
+		 * mWebSource.setSourceFrom(mDataMap.get("source_from"));
+		 * mWebSource.setWhereBook(mDataMap.get("where_book"));
+		 * mWebSource.setWhereEdit(mDataMap.get("where_edit"));
+		 * mWebSource.setFieldSort(mDataMap.get("field_sort"));
+		 * 
+		 * inElement(mWebSource.getSourceCode(), mWebSource);
+		 * 
+		 * }
+		 */
+	}
 
-		for (MDataMap mDataMap : DbUp.upTable("zw_source").queryByWhere()) {
+	@Override
+	public MWebSource upOne(String k) {
 
-			MWebSource mWebSource = new MWebSource();
+		MWebSource mWebSource = null;
+
+		MDataMap mDataMap = DbUp.upTable("zw_source").one("source_code", k);
+		if (mDataMap != null) {
+
+			mWebSource = new MWebSource();
 
 			mWebSource.setFieldText(mDataMap.get("field_text"));
 			mWebSource.setFieldValue(mDataMap.get("field_value"));
@@ -23,14 +47,10 @@ public class SourceCache extends RootCache<String, MWebSource> {
 
 			inElement(mWebSource.getSourceCode(), mWebSource);
 
+		} else {
+			bLogError(969905001, k);
 		}
-
-	}
-
-	@Override
-	public MWebSource upOne(String k) {
-	
-		return null;
+		return mWebSource;
 	}
 
 }

@@ -20,7 +20,9 @@ import com.srnpr.zapweb.webface.IWebFunc;
  */
 public class FuncCache extends RootCache<String, IWebFunc> {
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.srnpr.zapcom.rootclass.RootCache#upOne(java.lang.Object)
 	 */
 	@Override
@@ -39,8 +41,7 @@ public class FuncCache extends RootCache<String, IWebFunc> {
 					this.inElement(sKey, webFunc);
 				}
 			} catch (Exception e) {
-
-				bLogInfo(969905001, sKey);
+				bLogError(969905001, sKey);
 				this.inElement(sKey, null);
 				e.printStackTrace();
 
