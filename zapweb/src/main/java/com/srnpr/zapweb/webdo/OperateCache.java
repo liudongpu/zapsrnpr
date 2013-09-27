@@ -44,4 +44,10 @@ public class OperateCache extends RootCache<String, MWebOperate> {
 
 	}
 
+	@Override
+	public MWebOperate upOne(String k) {
+	
+		return null;
+	}
+
 }

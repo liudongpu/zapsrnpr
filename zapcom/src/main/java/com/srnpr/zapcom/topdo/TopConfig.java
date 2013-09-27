@@ -46,6 +46,12 @@ import com.srnpr.zapcom.topcall.LoadProperties;
 		
 	}
 
+	@Override
+	public String upOne(String k) {
+		
+		return null;
+	}
+
 	
 	
 	

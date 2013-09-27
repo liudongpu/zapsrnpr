@@ -20,4 +20,10 @@ public class DefaultAuthorizeCache extends RootCache<String, MApiAuthorize>
 
 	}
 
+	@Override
+	public MApiAuthorize upOne(String k) {
+
+		return null;
+	}
+
 }

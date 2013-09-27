@@ -8,4 +8,10 @@ public class ObjectCache extends RootCache<String, Object> {
 
 	}
 
+	@Override
+	public Object upOne(String k) {
+
+		return null;
+	}
+
 }

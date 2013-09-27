@@ -40,4 +40,10 @@ class TopInfo extends RootCache<Long, String> {
 
 	}
 
+	@Override
+	public String upOne(Long k) {
+		
+		return null;
+	}
+
 }

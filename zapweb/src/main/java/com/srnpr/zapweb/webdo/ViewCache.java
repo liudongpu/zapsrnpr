@@ -64,8 +64,7 @@ public class ViewCache extends RootCache<String, MWebView> {
 							.get("field_type_aid"));
 
 					mWebField.setSort(mFieldDataMap.get(sSortField));
-					mWebField.setFieldScope(mFieldDataMap
-							.get("field_scope"));
+					mWebField.setFieldScope(mFieldDataMap.get("field_scope"));
 
 					mWebField.setFieldName(mFieldDataMap.get("field_name"));
 
@@ -83,6 +82,12 @@ public class ViewCache extends RootCache<String, MWebView> {
 				this.inElement(mWebView.getViewKey(), mWebView);
 			}
 		}
+	}
+
+	@Override
+	public MWebView upOne(String k) {
+
+		return null;
 	}
 
 }

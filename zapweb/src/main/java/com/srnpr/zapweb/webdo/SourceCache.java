@@ -27,4 +27,10 @@ public class SourceCache extends RootCache<String, MWebSource> {
 
 	}
 
+	@Override
+	public MWebSource upOne(String k) {
+	
+		return null;
+	}
+
 }

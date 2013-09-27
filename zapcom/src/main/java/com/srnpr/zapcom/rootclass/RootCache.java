@@ -68,9 +68,7 @@ public abstract class RootCache<K, V> extends TopBase implements IBaseCache {
 	 * @param k
 	 * @return
 	 */
-	public V upOne(K k) {
-		return null;
-	}
+	public abstract V upOne(K k);
 
 	/**
 	 * 获取缓存的值
