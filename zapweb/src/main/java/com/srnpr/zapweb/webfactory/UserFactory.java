@@ -130,8 +130,7 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 
 				}
 
-				mLoginUserInfo.setUserMenu(StringUtils.join(
-						listMenuCode.toArray(new String[] {}),
+				mLoginUserInfo.setUserMenu(StringUtils.join(listMenuCode,
 						WebConst.CONST_SPLIT_LINE));
 
 			}
@@ -232,7 +231,8 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 				mUserInfo.put("failed_time", "");
 
 				DbUp.upTable("za_userinfo").dataUpdate(mUserInfo,
-						"cookie_user,failed_count,failed_time,login_time", "uid");
+						"cookie_user,failed_count,failed_time,login_time",
+						"uid");
 
 				inUserInfo(mUserInfo);
 
