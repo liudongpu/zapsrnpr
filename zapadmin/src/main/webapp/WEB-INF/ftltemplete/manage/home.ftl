@@ -19,6 +19,8 @@
 <#assign user_support=b_method.upClass("com.srnpr.zapweb.websupport.UserSupport")>
 <#if user_support.checkLogin()>
 	<#assign user_info=user_support.getUserInfo()>
+<#else>
+	<meta http-equiv="Refresh" content="0; url=login" /> 
 </#if>
 
 
