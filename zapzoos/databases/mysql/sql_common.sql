@@ -20,8 +20,10 @@ and a.column_name=b.column_name
 ) where b.field_note='';
 [/sql]
 
-
-
+#更新uid
+[sql]
+update zw_define set uid=replace(uuid(),'-','');
+[/sql]
 
 
 

@@ -110,30 +110,40 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 					"user_code", mLoginUserInfo.getUserCode())) {
 				aRoleList.add(mDataMap.get("role_code"));
 			}
-			String[] sRoleStrings = aRoleList.toArray(new String[] {});
 
-			mLoginUserInfo.setUserRole(StringUtils.join(sRoleStrings,
+			mLoginUserInfo.setUserRole(StringUtils.join(aRoleList,
 					WebConst.CONST_SPLIT_LINE));
+
+			MDataMap mMenuMap = new MDataMap();
+
 			// 如果角色数量大于0
-			if (sRoleStrings.length > 0) {
+			if (aRoleList.size() > 0) {
 
 				List<String> listMenuCode = new ArrayList<String>();
 
 				for (MDataMap mDataMap : DbUp.upTable("za_rolemenu").queryAll(
 						"",
 						"",
-						"role_code in ('"
-								+ StringUtils.join(sRoleStrings, "','") + "')",
-						null)) {
+						"role_code in ('" + StringUtils.join(aRoleList, "','")
+								+ "')", null)) {
 
 					listMenuCode.add(mDataMap.get("menu_code"));
 
+					mMenuMap.put(mDataMap.get("menu_code"),
+							mDataMap.get("menu_code"));
+
 				}
 
-				mLoginUserInfo.setUserMenu(StringUtils.join(listMenuCode,
-						WebConst.CONST_SPLIT_LINE));
-
 			}
+
+			for (MDataMap mDataMap : DbUp.upTable("za_usermenu").queryByWhere(
+					"user_code", mLoginUserInfo.getUserCode())) {
+				mMenuMap.put(mDataMap.get("menu_code"),
+						mDataMap.get("menu_code"));
+			}
+
+			mLoginUserInfo.setUserMenu(StringUtils.join(mMenuMap.keySet(),
+					WebConst.CONST_SPLIT_LINE));
 
 			// mLoginUserInfo.setUserMenu(userMenu)
 

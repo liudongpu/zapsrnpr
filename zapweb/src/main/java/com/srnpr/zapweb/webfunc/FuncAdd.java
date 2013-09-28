@@ -37,7 +37,7 @@ public class FuncAdd extends RootFunc {
 
 		MWebPage mPage = WebUp.upPage(mOperate.getPageCode());
 
-		MDataMap mAddMaps = upFieldMap(mDataMap);
+		MDataMap mAddMaps = mDataMap.upSubMap(WebConst.CONST_WEB_FIELD_NAME);
 
 		// 定义插入数据库
 		MDataMap mInsertMap = new MDataMap();
@@ -66,9 +66,11 @@ public class FuncAdd extends RootFunc {
 				// 如果设置不为空 则进行各种校验
 				if (StringUtils.isNotEmpty(mField.getFieldScope())) {
 
-					MDataMap mScopeMap = new MDataMap().inUrlParams(
-							mField.getFieldScope()).upSubMap(
-							WebConst.CONST_WEB_FIELD_SET);
+					MDataMap mFieldScope = new MDataMap().inUrlParams(mField
+							.getFieldScope());
+
+					MDataMap mScopeMap = mFieldScope
+							.upSubMap(WebConst.CONST_WEB_PAGINATION_NAME);
 
 					String sDefaultValue = "";
 
@@ -98,12 +100,8 @@ public class FuncAdd extends RootFunc {
 							mInsertMap.put(mField.getColumnName(), sValue);
 						}
 
-						
-
 					}
-					
-					
-					
+
 					// 如果有附件设置
 					if (mScopeMap.containsKey("targetset")) {
 						String sTargetSetString = mScopeMap.get("targetset");
@@ -120,9 +118,45 @@ public class FuncAdd extends RootFunc {
 							}
 
 						}
+						// 自动生成code
+						else if (sTargetSetString.equals("code")) {
+
+							MDataMap mSetMap = mFieldScope
+									.upSubMap(WebConst.CONST_WEB_FIELD_SET);
+
+							String sCodeName = mSetMap.get("codename");
+
+							String sParentValue = mAddMaps.get(sCodeName);
+
+							MDataMap mTopDataMap = DbUp.upTable(
+									mPage.getPageTable()).oneWhere(
+									mField.getColumnName(),
+									mField.getColumnName(), "", sCodeName,
+									sParentValue);
+
+							if (mTopDataMap != null) {
+
+								String sMaxString = mTopDataMap.get(mField
+										.getColumnName());
+
+								long lMax = Long.parseLong(sMaxString) + 1;
+
+								mInsertMap.put(mField.getColumnName(),
+										String.valueOf(lMax));
+
+							} else {
+								String sMaxAdd = sParentValue
+										+ (mSetMap.containsKey("maxadd") ? mSetMap
+												.get("maxadd") : "0001");
+
+								mInsertMap.put(mField.getColumnName(),
+										String.valueOf(sMaxAdd));
+
+							}
+
+						}
 
 					}
-					
 
 				}
 
@@ -153,5 +187,4 @@ public class FuncAdd extends RootFunc {
 		return mResult;
 
 	}
-
 }

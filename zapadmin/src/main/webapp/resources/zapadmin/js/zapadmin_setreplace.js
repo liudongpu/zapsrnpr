@@ -103,7 +103,8 @@ var zapadmin_setreplace = {
 
 		zapjs.f.window_box({
 			content : aHtml.join(''),
-			width : '800'
+			width : '800',
+			id:sId+'_zapadmin_setreplace_box'
 		});
 	},
 	add_set : function(sId, oElm) {
@@ -130,7 +131,7 @@ var zapadmin_setreplace = {
 
 		$('#' + sId).val(aJoin.join('&'));
 
-		zapjs.f.window_close();
+		zapjs.f.window_close(sId+'_zapadmin_setreplace_box');
 	}
 };
 

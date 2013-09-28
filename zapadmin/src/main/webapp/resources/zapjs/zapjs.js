@@ -239,7 +239,7 @@ zapjs.f = {
 	window_close : function(sId) {
 		
 		
-		zapjs.f.window_box({close:true});
+		zapjs.f.window_box({id:sId,close:true});
 		
 
 	},

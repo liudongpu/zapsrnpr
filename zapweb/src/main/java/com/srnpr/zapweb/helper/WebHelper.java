@@ -14,6 +14,7 @@ import com.srnpr.zapcom.basehelper.SecrurityHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.usermodel.MUserInfo;
+import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webfactory.UserFactory;
 import com.srnpr.zapweb.webmodel.MWebField;
 
@@ -139,7 +140,7 @@ public class WebHelper {
 
 	public static String recheckReplace(String sText, MDataMap mDataMap) {
 
-		if (StringUtils.contains(sText, "[@")) {
+		if (StringUtils.contains(sText, WebConst.CONST_WEB_SET_REPLACE)) {
 
 			Pattern p = Pattern.compile("\\[@(.+?)\\$(.*?)\\]");
 			Matcher m = p.matcher(sText);
