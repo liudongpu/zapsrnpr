@@ -32,7 +32,7 @@
 	
 		<#assign home_menu= user_support.upUserMenu(manage_home_menu+"0")>
 
-		<div   data-options="border:false,region:'north'" class="zab_home_home_top">
+		<div   data-options="border:false,region:'north',maxHeight:40,minHeight:40" class="zab_home_home_top">
 			<div class="w_left c_site">
 				<a href="home"><i class="icon-home  icon-white"></i>&nbsp;${manage_home_title}</a>
 
