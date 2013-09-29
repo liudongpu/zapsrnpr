@@ -12,8 +12,6 @@
 
 
 
-
-
 <title>${manage_home_title}</title>
 
 
