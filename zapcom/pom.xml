@@ -15,12 +15,13 @@
 	</description>
 	<properties>
 		<maven.test.failure.ignore>true</maven.test.failure.ignore>
-		<spring.framework.version>3.2.3.RELEASE</spring.framework.version>
+		<spring.framework.version>3.1.1.RELEASE</spring.framework.version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 		<project.build.sourceEncoding>
-            UTF-8
-        </project.build.sourceEncoding>
-	</properties>	<dependencies>
+			UTF-8
+		</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -114,24 +115,24 @@
 					<target>1.5</target>
 				</configuration>
 			</plugin>
- 
+
 		</plugins>
-	</build> 
+	</build>
 	<artifactId>zapcom</artifactId>
-	
-	
-	  <distributionManagement>  
-  <repository>  
-    <id>nexus-releases</id>  
-      <name>Nexus Release Repository</name>  
-      <url>http://maven.wcn.srnpr.com/nexus/content/repositories/releases/</url>  
-  </repository>  
-  <snapshotRepository>  
-    <id>nexus-snapshots</id>  
-    <name>Nexus Snapshot Repository</name>  
-    <url>http://maven.wcn.srnpr.com/nexus/content/repositories/snapshots/</url>  
-  </snapshotRepository>  
-</distributionManagement>
-	
-	
+
+
+	<distributionManagement>
+		<repository>
+			<id>nexus-releases</id>
+			<name>Nexus Release Repository</name>
+			<url>http://maven.wcn.srnpr.com/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<name>Nexus Snapshot Repository</name>
+			<url>http://maven.wcn.srnpr.com/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+
 </project>
