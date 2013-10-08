@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.basemodel.MDataMap;
+import com.srnpr.zapweb.helper.WebCheckHelper;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webdo.WebTemp;
 import com.srnpr.zapweb.webdo.WebUp;
@@ -46,7 +47,7 @@ public abstract class RootFunc extends BaseClass implements IWebFunc {
 				String sValue = mFieldMap.get(mField.getFieldName());
 
 				// 重新校验字段是否正确
-				int iReturn = recheckInputField(mField.getRegexValue(), sValue);
+				int iReturn = WebCheckHelper.recheckInputField(mField.getRegexValue(), sValue);
 
 				if (iReturn != 1) {
 					mResult.inErrorMessage(iReturn, mField.getFieldNote());
@@ -60,55 +61,7 @@ public abstract class RootFunc extends BaseClass implements IWebFunc {
 
 	}
 
-	/**
-	 * 字段验证
-	 * 
-	 * @param sRegexValue
-	 * @param sValue
-	 * @return
-	 */
-	public int recheckInputField(String sRegexValue, String sValue) {
-
-		int iReturn = 1;
-
-		if (StringUtils.isNotEmpty(sRegexValue)) {
-
-			// 如果是编号系列 则获取编号对应的正则表达式
-			if (sRegexValue.startsWith("46992318")) {
-
-				sRegexValue = WebTemp.upTempDataOne("zw_define", "define_name",
-						"define_dids", sRegexValue);
-			}
-
-			// 校验如果是+号开始 则判断是否允许为空
-			if (sRegexValue.startsWith("+")) {
-				if (StringUtils.isEmpty(sValue)) {
-					iReturn = 969905003;
-				} else {
-					sRegexValue = StringUtils.substringAfter(sRegexValue, "+");
-				}
-			} else if (iReturn == 1 && sRegexValue.startsWith("-")) {
-
-				if (StringUtils.isEmpty(sValue)) {
-					return iReturn;
-				} else {
-					sRegexValue = StringUtils.substringAfter(sRegexValue, "-");
-				}
-
-			}
-
-			// 开始判断正则表达式
-			if (iReturn == 1 && StringUtils.isNotEmpty(sRegexValue)) {
-				if (!sValue.matches(sRegexValue)) {
-					iReturn = 969905002;
-
-				}
-			}
-		}
-
-		return iReturn;
-
-	}
+	
 
 	/**
 	 * 重新组装输入字段

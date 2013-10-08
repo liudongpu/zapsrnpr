@@ -42,9 +42,9 @@
 										placeholder="请输入密码" value="">
 									<div class="w_h_20"></div>
 									<div class="w_al_center">
-										<span class="btn btn-large btn-danger" type="button"
+										<input class="btn btn-large btn-danger" type="button"
 											zapweb_attr_operate_id="115793e80b38485aaba8223e0ea101b6"
-											onclick="zapjs.zw.func_call(this)"> 登录</span>
+											onclick="zapjs.zw.func_call(this)" value="登录"/>
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a>新商户申请</a>
 									</div>
 									<input type="hidden" id="zapjs_zw_login_sucess_target"

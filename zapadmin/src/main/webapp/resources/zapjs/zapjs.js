@@ -252,7 +252,7 @@ zapjs.f = {
 			content : '',
 			width : 600,
 			height : 400,
-			title : '请选择',
+			title : '&nbsp;',
 			close : false
 		};
 
