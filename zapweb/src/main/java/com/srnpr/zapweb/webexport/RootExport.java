@@ -12,9 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFCellUtil;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
 
 import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
@@ -118,13 +123,24 @@ public abstract class RootExport extends RootProcess {
 		int iNowRow = 0;
 
 		HSSFRow headRow = sheet.createRow(iNowRow);
+		
+		
+		//定义表头样式
+		HSSFCellStyle hHeaderStyle=wb.createCellStyle();
+		HSSFFont font = wb.createFont();
+		//加粗
+		font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//加粗
+		
+		hHeaderStyle.setFont(font);
 
 		for (int i = 0, j = mPageData.getPageHead().size(); i < j; i++) {
 			HSSFCell hCell = headRow.createCell(i);
 			hCell.setCellValue(mPageData.getPageHead().get(i));
+			hCell.setCellStyle(hHeaderStyle);
+			
 		}
 
-		HSSFCell cell = null;
+		//HSSFCell cell = null;
 
 		for (List<String> lRow : mPageData.getPageData()) {
 			iNowRow++;
