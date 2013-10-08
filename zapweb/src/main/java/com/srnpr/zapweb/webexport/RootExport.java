@@ -78,7 +78,7 @@ public abstract class RootExport extends RootProcess {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}*/
-		//hResponse.setContentType("application/binary;charset=UTF-8");
+		hResponse.setContentType("application/binary;charset=UTF-8");
 		try {
 			//exportName = new String(exportName.getBytes(), "ISO8859_1");
 			
