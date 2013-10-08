@@ -7,7 +7,7 @@
 
 <@m_common_html_head />
 
-<#assign manage_home_title="超级Super管理后台">
+<#assign manage_home_title="超级管理后台">
 <#assign manage_home_menu="467703130001">
 
 
