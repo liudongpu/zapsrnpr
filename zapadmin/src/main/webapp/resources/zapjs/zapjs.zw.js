@@ -52,7 +52,7 @@ zapjs.zw = {
 		var defaults = {
 			varsion : 1,
 			api_target : sTarget,
-			api_key : 'jsapi',
+			api_key : 'jsapi'
 			
 		};
 		
