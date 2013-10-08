@@ -53,7 +53,6 @@ zapjs.zw = {
 			varsion : 1,
 			api_target : sTarget,
 			api_key : 'jsapi'
-			
 		};
 		
 		oData = $.extend({}, defaults, oData || {});
