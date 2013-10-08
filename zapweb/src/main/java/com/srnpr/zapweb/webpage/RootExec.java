@@ -147,7 +147,7 @@ public class RootExec extends BaseClass {
 			if (mOptionMap.containsKey("optionExport")
 					&& mOptionMap.get("optionExport").equals("1")) {
 				sOperateArea = "";
-				mReturnData.setPageSize(-1);
+				//mReturnData.setPageSize(-1);
 				mReturnData.setPageCount(1);
 
 			}

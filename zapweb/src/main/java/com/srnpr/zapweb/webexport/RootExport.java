@@ -2,6 +2,7 @@ package com.srnpr.zapweb.webexport;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 
@@ -44,6 +45,12 @@ public abstract class RootExport extends RootProcess {
 		PageExec pExec = new PageExec();
 
 		MDataMap mOptionMap = new MDataMap("optionExport", "1");
+		
+		
+		exportName = mPage.getPageName()+ "-"
+				+ FormatHelper
+						.upDateTime(new Date(), "yyyy-MM-dd-HH-mm-ss");
+		
 
 		pageData = pExec.upChartData(mPage, mReqMap, mOptionMap);
 
@@ -63,14 +70,25 @@ public abstract class RootExport extends RootProcess {
 					+ FormatHelper
 							.upDateTime(new Date(), "yyyy-MM-dd-HH-mm-ss");
 		}
-
+		/*
 		hResponse.setContentType("application/binary;charset=ISO8859_1");
 		try {
 			exportName = new String(exportName.getBytes(), "ISO8859_1");
 		} catch (UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		}*/
+		//hResponse.setContentType("application/binary;charset=UTF-8");
+		try {
+			//exportName = new String(exportName.getBytes(), "ISO8859_1");
+			
+			exportName= URLEncoder.encode(exportName, "UTF8");  
+			
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+		
 
 		hResponse.setHeader("Content-disposition", "attachment; filename="
 				+ exportName + ".xls");// 组装附件名称和格式
