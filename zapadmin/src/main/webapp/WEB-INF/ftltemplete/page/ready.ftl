@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
+<#include "../zapmacro/zapmacro_common.ftl" />
 <#include "../macro/macro_common.ftl" />
-<@m_common_html_require />
-<title></title>
-</head>
-<body>
+<@m_common_page_head_common  />
 	${b_html}
-
-</body>
-</html>
-
+<@m_common_page_foot_base  />
 
 
 

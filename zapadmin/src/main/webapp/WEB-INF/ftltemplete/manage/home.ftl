@@ -1,35 +1,16 @@
-<!DOCTYPE html>
-<html class="zab_home_home_html">
-<head>
-<#include "../zapmacro/zapmacro_common.ftl" /> <#include
-"../macro/macro_common.ftl" /> 
-
-
-<@m_common_html_head />
-
 <#assign manage_home_title="超级管理后台">
 <#assign manage_home_menu="467703130001">
-
-
-
-
-<title>${manage_home_title}</title>
-
-
-
+<#include "../zapmacro/zapmacro_common.ftl" />
+<#include "../macro/macro_common.ftl" />
 <#assign user_support=b_method.upClass("com.srnpr.zapweb.websupport.UserSupport")>
 <#if user_support.checkLogin()>
 	<#assign user_info=user_support.getUserInfo()>
 <#else>
-	<meta http-equiv="Refresh" content="0; url=login" /> 
+	<#assign manage_home_addhead="<meta http-equiv=\"Refresh\" content=\"0; url=login\" />" />
 </#if>
+<@m_common_page_head_common e_title=manage_home_title e_bodyclass="easyui-layout" e_addhead=manage_home_addhead?default("") />
 
 
-
-</head>
-<body class="  easyui-layout">
-
-	
 	
 		<#assign home_menu= user_support.upUserMenu(manage_home_menu+"0")>
 
@@ -106,16 +87,11 @@
 
 			</div>
 			<div  data-options="border:false,region:'center'"   class="zab_home_home_right">
+			<#if user_support.checkLogin()>
 				<iframe src="../page/page_zapadmin_index_center" id="main_iframe"
 					name="main_iframe" width="100%" height="100%" frameborder="0" onload="zapadmin.load_complate(this)"
 					 ></iframe>
+			</#if>
 			</div>
 		
-
-
-
-	
-
-	
-</body>
-</html>
+<@m_common_page_foot_base  />

@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html class="zab_home_home_html">
-<head>
 <#include "../zapmacro/zapmacro_common.ftl" />
-<#include "../macro/macro_common.ftl" /> 
+<#include "../macro/macro_common.ftl" />
+<@m_common_page_head_common e_title="API测试接口"  />
 
-<@m_common_html_head />
 
-<title>API测试接口</title>
-
-</head>
-<body>
 
 
 <div class="easyui-layout" style="width:100%;height:100%;">
@@ -156,5 +149,4 @@
     
 	       
     </div>
-</body>
-</html>
+<@m_common_page_foot_base  />

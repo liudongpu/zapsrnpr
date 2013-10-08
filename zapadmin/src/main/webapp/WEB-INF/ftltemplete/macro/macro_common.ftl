@@ -54,7 +54,33 @@
 
 
 
+<#macro m_common_page_head_common  e_title="zapadmin" e_addhead="" e_bodyclass="" >
+<!DOCTYPE html>
+<html class="zab_home_home_html">
+<head>
+<@m_common_html_head />
+<title>${e_title}</title>
+${e_addhead}
+</head>
+<body <#if e_bodyclass??>class="${e_bodyclass}"</#if>>
+</#macro>
 
+
+
+<#macro m_common_page_head_base  e_title="zapadmin" e_addhead="" e_bodyclass="" >
+<!DOCTYPE html>
+<html class="zab_home_home_html">
+<head>
+<title>${e_title}</title>
+${e_addhead}
+</head>
+<body <#if e_bodyclass??>class="${e_bodyclass}"</#if>>
+</#macro>
+
+<#macro m_common_page_foot_base >
+</body>
+</html>
+</#macro>
 
 
 

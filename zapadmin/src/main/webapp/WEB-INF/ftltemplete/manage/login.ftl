@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html class="zab_home_home_html">
-	<head>
-		<#include "../zapmacro/zapmacro_common.ftl" />
-		<#include "../macro/macro_common.ftl" />
+<#include "../zapmacro/zapmacro_common.ftl" />
+<#include "../macro/macro_common.ftl" />
 
-		<@m_common_html_head />
+<@m_common_page_head_common e_title="后台登陆界面" e_bodyclass="easyui-layout zab_manage_login_body" />
 
-		<title>后台登陆界面</title>
-
-	</head>
-	<body class="easyui-layout zab_manage_login_body">
-
-		
 	<div class="c_login_box">
 		<div class=" w_m_auto c_login_header c_login_width">
 
@@ -99,5 +90,5 @@
 		</div>
 	</div>
 
-</body>
-</html>
+
+<@m_common_page_foot_base  />
