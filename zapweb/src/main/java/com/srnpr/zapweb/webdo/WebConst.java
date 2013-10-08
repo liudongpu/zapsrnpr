@@ -78,5 +78,20 @@ public class WebConst implements IBaseConst {
 	 * 定义真实上传标记
 	 */
 	public final static String CONST_STATIC_WEB_UPLOAD_SAVE = "realsave";
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * Objectcache调用的名称
+	 */
+	public final static String CONST_OBJECT_CACHE_NAME="objectcache-";
+	
+	
+	
 
 }

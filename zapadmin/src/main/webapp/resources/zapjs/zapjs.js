@@ -74,7 +74,9 @@ zapjs.f = {
 
 	},
 	ajaxjson : function(sTarget, data, fCallBack) {
-		$.getJSON(sTarget, data, fCallBack);
+		$.getJSON(sTarget, data, fCallBack).fail(function() {
+			alert('系统异步调用出现错误，请联系技术，谢谢！');
+		});
 	},
 
 	setdomain : function() {
@@ -85,7 +87,7 @@ zapjs.f = {
 	cookie : function(key, value, options) {
 
 		// 判断如果是写操作 写到根目录
-		if (value!==undefined) {
+		if (value !== undefined) {
 			if (!options) {
 				options = {};
 			}
@@ -237,10 +239,11 @@ zapjs.f = {
 
 	},
 	window_close : function(sId) {
-		
-		
-		zapjs.f.window_box({id:sId,close:true});
-		
+
+		zapjs.f.window_box({
+			id : sId,
+			close : true
+		});
 
 	},
 	window_box : function(options) {
@@ -442,10 +445,6 @@ zapjs.f = {
 		return sUrl.split('?')[0] + "?" + sParams.join("&");
 	}
 };
-
-
-
-
 
 if ( typeof define === "function" && define.amd) {
 	define("zapjs/zapjs", [], function() {

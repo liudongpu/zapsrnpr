@@ -43,6 +43,28 @@ zapjs.zw = {
 
 	},
 
+	/*
+	 * APi调用类
+	 */
+	api_call : function(sTarget, oData, fCallBack) {
+
+
+		var defaults = {
+			varsion : 1,
+			api_target : sTarget,
+			api_key : 'jsapi',
+			
+		};
+		
+		oData = $.extend({}, defaults, oData || {});
+		
+
+		zapjs.f.ajaxjson("../jsonapi/" + sTarget, oData, function(data) {
+			fCallBack(data);
+		});
+
+	},
+
 	// 提交操作
 	func_call : function(oElm) {
 
@@ -109,23 +131,20 @@ zapjs.zw = {
 	func_export : function() {
 
 		//zapjs.f.tourl(zapjs.f.upurl().replace("/page/", "/export/"));
-		
-		var sUrl=zapjs.f.upurl().replace("/page/", "/export/");
-		
-		var aHtml=[];
-		aHtml.push('<div class="w_p_20">');
-		aHtml.push('<a class="btn" target="_blank" href="'+sUrl+'">导出当前页</a>&nbsp;&nbsp;&nbsp;&nbsp;');
-		aHtml.push('<a class="btn" target="_blank" href="'+zapjs.f.urlreplace(sUrl,zapjs.c.web_paginaion+'size',-1)+'">导出所有页</a>');
-		aHtml.push('</div>');
-		
 
-		
+		var sUrl = zapjs.f.upurl().replace("/page/", "/export/");
+
+		var aHtml = [];
+		aHtml.push('<div class="w_p_20">');
+		aHtml.push('<a class="btn" target="_blank" href="' + sUrl + '">导出当前页</a>&nbsp;&nbsp;&nbsp;&nbsp;');
+		aHtml.push('<a class="btn" target="_blank" href="' + zapjs.f.urlreplace(sUrl, zapjs.c.web_paginaion + 'size', -1) + '">导出所有页</a>');
+		aHtml.push('</div>');
+
 		zapjs.f.window_box({
 			content : aHtml.join(''),
-			width:400,
-			height:150
+			width : 400,
+			height : 150
 		});
-		
 
 	},
 

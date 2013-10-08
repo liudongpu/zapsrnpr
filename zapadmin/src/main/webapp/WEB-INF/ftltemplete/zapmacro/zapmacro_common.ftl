@@ -214,7 +214,15 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 	<div class="control-group">
 	    	<label class="control-label">${e_field.getFieldNote()}：</label>
 	    	<div class="controls">
-	      		<div class="control_book">${e_field.getPageFieldValue()?default("")}</div>
+	      		<div class="control_book">
+		      		<#if  e_field.getFieldTypeAid()=="104005019">
+		      			<#list e_page.upDataSource(e_field) as e_key>
+							<#if  e_field.getPageFieldValue()==e_key.getV()> ${e_key.getK()} </#if>
+						</#list>
+		      		<#else>
+		      		${e_field.getPageFieldValue()?default("")}
+		      		</#if>
+	      		</div>
 	    	</div>
 	  </div>
 </#macro>

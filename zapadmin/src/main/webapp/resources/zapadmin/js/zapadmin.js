@@ -32,7 +32,10 @@ var zapadmin = {
 
 	load_complate : function(oTarget) {
 		var sUrl = oTarget.contentWindow.document.location.href;
-		this.temp.iframe_urls.push(sUrl);
+
+		if (sUrl != zapadmin.temp.iframe_urls[zapadmin.temp.iframe_urls.length - 1]) {
+			this.temp.iframe_urls.push(sUrl);
+		}
 	},
 	back_url : function() {
 		this.temp.iframe_urls.pop();
@@ -46,21 +49,18 @@ var zapadmin = {
 
 	},
 
-	tree_data : function(oData,sValues) {
+	tree_data : function(oData, sValues) {
 
-		if(!sValues)
-			{
-			sValues='';
-			}
-		else
-			{
-			sValues=','+sValues+',';
-			}
-		
+		if (!sValues) {
+			sValues = '';
+		} else {
+			sValues = ',' + sValues + ',';
+		}
+
 		var x = [];
 		var step = [];
 
-		for ( var n = 0, m = oData.length; n < m; n++) {
+		for (var n = 0, m = oData.length; n < m; n++) {
 
 			var oEvery = oData[n];
 
@@ -71,21 +71,19 @@ var zapadmin = {
 					uid : oEvery[3]
 				}
 			};
-			
-			if(sValues.indexOf(','+oThis.id+',')>-1)
-				{
-					oThis.checked=true;
-					
-				}
-			
-			
+
+			if (sValues.indexOf(',' + oThis.id + ',') > -1) {
+				oThis.checked = true;
+
+			}
+
 			if (n == 0) {
 				x.push(oThis);
 				step[0] = x[0];
 			} else {
 
 				var iStepLength = step.length;
-				for ( var i = 0; i < iStepLength; i++) {
+				for (var i = 0; i < iStepLength; i++) {
 
 					if (step[i].id == oEvery[2]) {
 
@@ -105,7 +103,6 @@ var zapadmin = {
 
 		}
 
-		
 		return x;
 
 	},
@@ -137,13 +134,15 @@ var zapadmin = {
 	window_show : function(options) {
 		zapjs.f.window_box(options);
 	},
-	window_url:function(sUrl)
-	{
-		zapadmin.window_show({url:sUrl});
+	window_url : function(sUrl) {
+		zapadmin.window_show({
+			url : sUrl
+		});
 	},
-	window_close:function()
-	{
-		zapadmin.window_show({close:true});
+	window_close : function() {
+		zapadmin.window_show({
+			close : true
+		});
 	},
 
 	window_open : function(options) {
@@ -151,13 +150,11 @@ var zapadmin = {
 		//this.window_url('../show/page_tree_v_za_role');
 
 	}
-
 };
 
-
-
-if ( typeof define === "function" && define.amd  ) {
-    define( "zapadmin/js/zapadmin", ["zapjs/zapjs.zw"], function () { return zapadmin; } );
+if ( typeof define === "function" && define.amd) {
+	define("zapadmin/js/zapadmin", ["zapjs/zapjs.zw"], function() {
+		return zapadmin;
+	});
 }
-
 

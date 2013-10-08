@@ -6,6 +6,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,6 +30,9 @@ import com.srnpr.zapcom.topapi.DefaultApiCache;
 import com.srnpr.zapcom.topapi.DefaultAuthorizeCache;
 import com.srnpr.zapcom.topapi.RootResult;
 import com.srnpr.zapdata.dbdo.DbUp;
+import com.srnpr.zapweb.webdo.ObjectCache;
+import com.srnpr.zapweb.webdo.WebConst;
+import com.srnpr.zapweb.webdo.WebTemp;
 import com.srnpr.zapweb.webmodel.MWebResult;
 import com.srnpr.zapweb.webpage.RootProcess;
 
@@ -60,49 +66,79 @@ public class ApiFactory implements IBaseInstance {
 
 		String sApiPass = "";
 
+		String sApiClassString = "";
+
 		MDataMap mDataMap = ROOT_PROCESS.convertRequest(hRequest);
+
+		// 定义是否需要加密验证
+		boolean bSecret = true;
 
 		MWebResult mResult = new MWebResult();
 
-		// 开始判断输入参数存在
+		// 开始验证api名称和apikey
 		if (mResult.upFlagTrue()) {
 			if (!mDataMap.containsKey("api_target")) {
 				mResult.inErrorMessage(969905007, "api_target");
 			} else if (!mDataMap.containsKey("api_key")) {
 				mResult.inErrorMessage(969905007, "api_key");
-			} else if (!mDataMap.containsKey("api_timespan")) {
-				mResult.inErrorMessage(969905007, "api_timespan");
-			} else if (!mDataMap.containsKey("api_secret")) {
-				mResult.inErrorMessage(969905007, "api_secret");
-			} else if (!mDataMap.containsKey("api_input")) {
+			}else if (!mDataMap.containsKey("api_input")) {
 				mResult.inErrorMessage(969905007, "api_input");
 			} else {
 				sTarget = mDataMap.get("api_target");
-				sTimeSpan = mDataMap.get("api_timespan");
-				sInputString = mDataMap.get("api_input");
-				sApiKey = mDataMap.get("api_key");
-				sApiSecret = mDataMap.get("api_secret").toUpperCase();
 
+				sApiClassString = StringUtils.trim(sTarget.replace("_", "."));
+
+				sApiKey = mDataMap.get("api_key");
+				
+				
+				sInputString = mDataMap.get("api_input");
+				
 			}
 		}
 
-		// 开始判断日期时间差
+		// 开始判断是否存在
 		if (mResult.upFlagTrue()) {
-			try {
 
-				Date date = FormatHelper.parseDate(sTimeSpan);
+			String sKeyString = WebConst.CONST_OBJECT_CACHE_NAME
+					+ "com.srnpr.zapweb.webfactory.ApiFactory.upProcess.apiKey"
+					+ sApiClassString;
 
-				long diff = date.getTime() - (new Date()).getTime();
-				long minutes = diff / (1000 * 60);
-				if (Math.abs(minutes) > 10) {
-					mResult.inErrorMessage(969905009, "10");
+			if (!ObjectCache.getInstance().containsKey(sKeyString)) {
+
+				String sTypeDid = WebTemp.upTempDataOne("za_apiinfo",
+						"api_type_did", "class_name", sApiClassString);
+
+				if (StringUtils.isNotEmpty(sTypeDid)) {
+
+					ObjectCache.getInstance().inElement(sKeyString, sTypeDid);
+
+				} else {
+					mResult.inErrorMessage(969905018, sTarget);
 				}
-
-			} catch (ParseException e) {
-				mResult.inErrorMessage(969905008);
-				e.printStackTrace();
 			}
 
+			if (ObjectCache.getInstance().containsKey(sKeyString)) {
+
+				bSecret = !ObjectCache.getInstance().upValue(sKeyString)
+						.toString().equals("467701200002");
+			}
+
+		}
+
+		// 开始判断输入参数存在
+		if (bSecret && mResult.upFlagTrue()) {
+			if (!mDataMap.containsKey("api_timespan")) {
+				mResult.inErrorMessage(969905007, "api_timespan");
+			} else if (!mDataMap.containsKey("api_secret")) {
+				mResult.inErrorMessage(969905007, "api_secret");
+			}  else {
+
+				sTimeSpan = mDataMap.get("api_timespan");
+				
+
+				sApiSecret = mDataMap.get("api_secret").toUpperCase();
+
+			}
 		}
 
 		// 开始验证apikey是否存在并设置pass
@@ -139,8 +175,27 @@ public class ApiFactory implements IBaseInstance {
 
 		}
 
+		// 开始判断日期时间差
+		if (bSecret && mResult.upFlagTrue()) {
+			try {
+
+				Date date = FormatHelper.parseDate(sTimeSpan);
+
+				long diff = date.getTime() - (new Date()).getTime();
+				long minutes = diff / (1000 * 60);
+				if (Math.abs(minutes) > 10) {
+					mResult.inErrorMessage(969905009, "10");
+				}
+
+			} catch (ParseException e) {
+				mResult.inErrorMessage(969905008);
+				e.printStackTrace();
+			}
+
+		}
+
 		// 开始验证密码戳正确性
-		if (mResult.upFlagTrue()) {
+		if (bSecret && mResult.upFlagTrue()) {
 
 			String sSource = sTarget + sApiKey + sInputString + sTimeSpan
 					+ sApiPass;
@@ -155,10 +210,8 @@ public class ApiFactory implements IBaseInstance {
 		// 开始返回值
 		if (mResult.upFlagTrue()) {
 
-			sTarget = sTarget.replace("_", ".");
-
 			try {
-				sReturnString = doProcess(sTarget, sInputString);
+				sReturnString = doProcess(sApiClassString, sInputString);
 			} catch (Exception e) {
 				mResult.inErrorMessage(969905012);
 				e.printStackTrace();

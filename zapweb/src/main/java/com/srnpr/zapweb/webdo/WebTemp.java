@@ -16,8 +16,6 @@ import com.srnpr.zapdata.dbdo.DbUp;
  */
 public class WebTemp {
 
-	private final static ObjectCache objectCache = new ObjectCache();
-
 	/**
 	 * 获取指定字段的数据库值 该方法获取的值一般情况下不会修改
 	 * 
@@ -31,20 +29,44 @@ public class WebTemp {
 
 		String sReturn = "";
 
-		String sKeyString = sTableName + sFields
+		MDataMap mMap = upTempDataMap(sTableName, sFields, sParams);
+
+		if (mMap != null && mMap.containsKey(sFields)) {
+			sReturn = mMap.get(sFields);
+		}
+
+		return sReturn;
+
+	}
+
+	/**
+	 * @param sTableName
+	 * @param sFields
+	 * @param sParams
+	 * @return
+	 */
+	public static MDataMap upTempDataMap(String sTableName, String sFields,
+			String... sParams) {
+
+		MDataMap mReturnDataMap = null;
+
+		String sKeyString = WebConst.CONST_OBJECT_CACHE_NAME
+				+ "com.srnpr.zapweb.webdo.WebTemp.upTempDataMap" + sTableName
+				+ sFields
 				+ StringUtils.join(sParams, WebConst.CONST_SPLIT_LINE);
 
-		if (objectCache.containsKey(sKeyString)) {
-			sReturn = objectCache.upValue(sKeyString).toString();
+		if (ObjectCache.getInstance().containsKey(sKeyString)) {
+			mReturnDataMap = (MDataMap) ObjectCache.getInstance().upValue(
+					sKeyString);
 		} else {
 			MDataMap mWhereMap = new MDataMap();
 			mWhereMap.inAllValues(sParams);
 
-			sReturn = DbUp.upTable(sTableName).one(sParams).get(sFields);
-			objectCache.inElement(sKeyString, sReturn);
+			mReturnDataMap = DbUp.upTable(sTableName).one(sParams);
+			ObjectCache.getInstance().inElement(sKeyString, mReturnDataMap);
 		}
 
-		return sReturn;
+		return mReturnDataMap;
 
 	}
 
@@ -62,11 +84,14 @@ public class WebTemp {
 			String sFields, String sOrders, String sWhere, String... sParams) {
 
 		List<MDataMap> listReturn = null;
-		String sKeyString = sTableName + sFields + sOrders + sWhere
+		String sKeyString = WebConst.CONST_OBJECT_CACHE_NAME
+				+ "com.srnpr.zapweb.webdo.WebTemp.upTempDataList" + sTableName
+				+ sFields + sOrders + sWhere
 				+ StringUtils.join(sParams, WebConst.CONST_SPLIT_LINE);
 
-		if (objectCache.containsKey(sKeyString)) {
-			listReturn = (List<MDataMap>) objectCache.upValue(sKeyString);
+		if (ObjectCache.getInstance().containsKey(sKeyString)) {
+			listReturn = (List<MDataMap>) ObjectCache.getInstance().upValue(
+					sKeyString);
 		} else {
 
 			MDataMap mWhereMap = new MDataMap();
@@ -77,7 +102,7 @@ public class WebTemp {
 			DbUp.upTable(sTableName).queryAll(sFields, sOrders, sWhere,
 					mWhereMap);
 
-			objectCache.inElement(sKeyString, listReturn);
+			ObjectCache.getInstance().inElement(sKeyString, listReturn);
 
 		}
 		return listReturn;
