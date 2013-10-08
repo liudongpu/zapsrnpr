@@ -45,12 +45,35 @@ public abstract class RootExport extends RootProcess {
 		PageExec pExec = new PageExec();
 
 		MDataMap mOptionMap = new MDataMap("optionExport", "1");
-		
-		
-		exportName = mPage.getPageName()+ "-"
-				+ FormatHelper
-						.upDateTime(new Date(), "yyyy-MM-dd-HH-mm-ss");
-		
+
+		exportName = mPage.getPageName() + "-"
+				+ FormatHelper.upDateTime(new Date(), "yyyy-MM-dd-HH-mm-ss");
+
+		String sAgent = request.getHeader("USER-AGENT");
+
+		if (StringUtils.isNotEmpty(sAgent)) {
+			boolean bFlagIE = request.getHeader("USER-AGENT")
+					.toLowerCase().indexOf("msie") > 0 ? true : false;
+
+			if (bFlagIE) {
+				try {
+					exportName = URLEncoder.encode(exportName, "UTF8");
+				} catch (UnsupportedEncodingException e) {
+
+					e.printStackTrace();
+				}
+			} else {
+
+				try {
+					exportName = new String(exportName.getBytes("UTF-8"),
+							"ISO8859-1");
+				} catch (UnsupportedEncodingException e) {
+
+					e.printStackTrace();
+				}
+
+			}
+		}
 
 		pageData = pExec.upChartData(mPage, mReqMap, mOptionMap);
 
@@ -71,24 +94,12 @@ public abstract class RootExport extends RootProcess {
 							.upDateTime(new Date(), "yyyy-MM-dd-HH-mm-ss");
 		}
 		/*
-		hResponse.setContentType("application/binary;charset=ISO8859_1");
-		try {
-			exportName = new String(exportName.getBytes(), "ISO8859_1");
-		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
+		 * hResponse.setContentType("application/binary;charset=ISO8859_1"); try
+		 * { exportName = new String(exportName.getBytes(), "ISO8859_1"); }
+		 * catch (UnsupportedEncodingException e1) { // TODO Auto-generated
+		 * catch block e1.printStackTrace(); }
+		 */
 		hResponse.setContentType("application/binary;charset=UTF-8");
-		try {
-			//exportName = new String(exportName.getBytes(), "ISO8859_1");
-			
-			exportName= URLEncoder.encode(exportName, "UTF8");  
-			
-		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
 
 		hResponse.setHeader("Content-disposition", "attachment; filename="
 				+ exportName + ".xls");// 组装附件名称和格式
