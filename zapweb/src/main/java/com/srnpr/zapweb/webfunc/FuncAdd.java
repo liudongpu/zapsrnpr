@@ -131,7 +131,7 @@ public class FuncAdd extends RootFunc {
 							MDataMap mTopDataMap = DbUp.upTable(
 									mPage.getPageTable()).oneWhere(
 									mField.getColumnName(),
-									mField.getColumnName(), "", sCodeName,
+									"-"+mField.getColumnName(), "", sCodeName,
 									sParentValue);
 
 							if (mTopDataMap != null) {

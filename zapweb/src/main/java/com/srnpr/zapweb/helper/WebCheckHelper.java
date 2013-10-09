@@ -5,9 +5,11 @@ import org.apache.commons.lang.StringUtils;
 import com.srnpr.zapcom.baseface.IBaseHelper;
 import com.srnpr.zapcom.baseface.IBaseInstance;
 import com.srnpr.zapcom.basemodel.MDataMap;
+import com.srnpr.zapcom.topdo.TopUp;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.webdo.WebTemp;
 import com.srnpr.zapweb.webdo.WebUp;
+import com.srnpr.zapweb.webmodel.MWebResult;
 
 /**
  * 检查判断类
@@ -15,7 +17,7 @@ import com.srnpr.zapweb.webdo.WebUp;
  * @author srnpr
  * 
  */
-public class WebCheckHelper implements IBaseHelper{
+public class WebCheckHelper implements IBaseHelper {
 
 	/**
 	 * 字段验证
@@ -67,6 +69,54 @@ public class WebCheckHelper implements IBaseHelper{
 
 	}
 
-	
+	/**
+	 * 检查Map字段
+	 * 
+	 * @param map
+	 *            数据集
+	 * @param sSplitKeys
+	 *            map中的字段名称 逗号分隔
+	 * @param sSplitRegex
+	 *            正则表达式 支持46992318系列 逗号分隔
+	 * @param sSplitNames
+	 *            名称 支持info系列 逗号分隔
+	 * @return
+	 */
+	public static MWebResult checkMap(MDataMap map, String sSplitKeys,
+			String sSplitRegex, String sSplitNames) {
+		MWebResult mResult = new MWebResult();
+
+		String[] sFieldsStrings = sSplitKeys.split(",");
+		String[] sRegexStrings = sSplitRegex.split(",");
+		String[] sNameStrings = sSplitNames.split(",");
+		int iMaxLength = sFieldsStrings.length;
+		for (int i = 0; i < iMaxLength; i++) {
+
+			int iCheck = 1;
+
+			if (map.containsKey(sFieldsStrings[i])) {
+
+				iCheck = recheckInputField(sRegexStrings[i],
+						map.get(sFieldsStrings[i]));
+			} else {
+				iCheck = 969905030;
+			}
+
+			if (iCheck != 1) {
+				if (StringUtils.isNumeric(sNameStrings[i])) {
+					sNameStrings[i] = TopUp.upInfo(Long
+							.parseLong(sNameStrings[i]));
+				}
+
+				mResult.inErrorMessage(iCheck, sNameStrings[i]);
+
+				break;
+
+			}
+
+		}
+
+		return mResult;
+	}
 
 }
