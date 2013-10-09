@@ -111,7 +111,7 @@ public class RootControl {
 			sReturnPageString = "empty";
 		}
 
-		return web_method.checkLogin("page/" + sReturnPageString);
+		return "page/" + sReturnPageString;
 
 	}
 
