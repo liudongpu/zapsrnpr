@@ -22,31 +22,44 @@ public class WebClientSupport extends BaseClass implements IBaseCreate {
 		return new WebClientSupport();
 	}
 
-	public String upRequest(String sUrl, String sPost) {
+	/**
+	 * 获取请求链接
+	 * 
+	 * @param sUrl
+	 * @param sPost
+	 * @return
+	 */
+	public String upRequest(String sUrl, String sPost) throws Exception {
 
 		HttpEntity httpEntity = null;
 
 		try {
 			httpEntity = new StringEntity(sPost);
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 
-		return upRequest(sUrl, httpEntity);
+		return doRequest(sUrl, httpEntity);
 
 	}
 
-	public String upRequest(String sUrl, HttpEntity httpEntity) {
+	/**
+	 * 获取请求
+	 * @param sUrl
+	 * @param httpEntity
+	 * @return
+	 * @throws Exception
+	 */
+	public String doRequest(String sUrl, HttpEntity httpEntity)
+			throws Exception {
 		String sReturnString = null;
+		HttpClientBuilder hClientBuilder = HttpClientBuilder.create();
 
+		HttpClient httpclient = hClientBuilder.build();
+
+		HttpPost httppost = new HttpPost(sUrl);
 		try {
-
-			HttpClientBuilder hClientBuilder = HttpClientBuilder.create();
-
-			HttpClient httpclient = hClientBuilder.build();
-
-			HttpPost httppost = new HttpPost(sUrl);
 
 			httppost.setEntity(httpEntity);
 
@@ -65,10 +78,16 @@ public class WebClientSupport extends BaseClass implements IBaseCreate {
 
 			}
 
+		} catch (Exception e) {
+			httppost.reset();
+			httpclient = null;
+			e.printStackTrace();
+			throw e;
+
+		} finally {
+			httppost.reset();
 			httpclient = null;
 
-		} catch (Exception e) {
-			// TODO: handle exception
 		}
 
 		return sReturnString;

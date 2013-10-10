@@ -22,19 +22,21 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.springframework.util.FileCopyUtils;
 import com.srnpr.zapcom.baseclass.BaseClass;
+import com.srnpr.zapcom.baseface.IBaseCreate;
 import com.srnpr.zapcom.baseface.IBaseInstance;
 import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basehelper.JsonHelper;
+import com.srnpr.zapcom.basesupport.WebClientSupport;
 import com.srnpr.zapweb.helper.WebHelper;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webmodel.MWebHtml;
 import com.srnpr.zapweb.webmodel.MWebResult;
 
-public class WebUpload extends BaseClass implements IBaseInstance {
+public class WebUpload extends BaseClass implements IBaseCreate {
 
-	public static final WebUpload INSTANCE = new WebUpload();
-
-	
+	public static WebUpload create() {
+		return new WebUpload();
+	};
 
 	/**
 	 * 远程上传文件
@@ -48,59 +50,31 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 
 		MWebResult mResult = new MWebResult();
 
+		String sReturnString = "";
 		try {
 
-			// HttpClient httpclient = new DefaultHttpClient();
-			// httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION,
-			// HttpVersion.HTTP_1_1);
-
-			HttpClientBuilder hClientBuilder = HttpClientBuilder.create();
-
-			HttpClient httpclient = hClientBuilder.build();
-
-			HttpPost httppost = new HttpPost(bConfig("zapweb.upload_remote")
-					+ "?" + WebConst.CONST_WEB_FIELD_SET + "target=" + sTarget);
-
+			String sUrl = bConfig("zapweb.upload_remote") + "?"
+					+ WebConst.CONST_WEB_FIELD_SET + "target=" + sTarget;
 			MultipartEntityBuilder mb = MultipartEntityBuilder.create();
 
 			mb.addBinaryBody("file", b, ContentType.MULTIPART_FORM_DATA,
 					sFileName);
 
-			httppost.setEntity(mb.build());
-
-			HttpResponse response = httpclient.execute(httppost);
-
-			HttpEntity resEntity = response.getEntity();
-
-			if (resEntity != null) {
-
-				String sReturnString = EntityUtils.toString(resEntity);
-
-				mResult = new JsonHelper<MWebResult>().StringToObj(
-						sReturnString, mResult);
-				
-				if(mResult==null||mResult.getResultObject()==null)
-				{
-					mResult.inErrorMessage(969905005);
-				}
-				
-
-			}
-			if (resEntity != null) {
-
-				EntityUtils.consume(resEntity);
-
-			}
-
-			httpclient = null;
-			// httpclient.getConnectionManager().shutdown();
+			sReturnString = WebClientSupport.create().doRequest(sUrl,
+					mb.build());
 
 		} catch (Exception e) {
-			
 
 			mResult.inErrorMessage(969905005);
 			e.printStackTrace();
 
+		}
+
+		mResult = new JsonHelper<MWebResult>().StringToObj(sReturnString,
+				mResult);
+
+		if (mResult == null || mResult.getResultObject() == null) {
+			mResult.inErrorMessage(969905005);
 		}
 
 		return mResult;
@@ -122,7 +96,7 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 		MWebResult mResult = new MWebResult();
 
 		// 开始执行上传逻辑
-		{
+		if (mResult.upFlagTrue()) {
 
 			String sContentType = request.getContentType();
 			if (StringUtils.contains(sContentType, "multipart/form-data")) {
@@ -203,20 +177,19 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 			MWebHtml mDivHtml = new MWebHtml("div");
 
 			/*
-			mDivHtml.addChild("css", "href", bConfig("zapweb.resources_path")
-					+ "lib/bootstrap/css/bootstrap.min.css");
-			mDivHtml.addChild("css", "href", bConfig("zapweb.resources_path")
-					+ "zapadmin/css/zab_base.css");
-			mDivHtml.addChild("css", "href", bConfig("zapweb.resources_path")
-					+ "zapweb/css/w.css");
-			mDivHtml.addChild("js", "src", bConfig("zapweb.resources_path")
-					+ "zapjs/zapjs.zw.js");
-			mDivHtml.addChild("js", "src", bConfig("zapweb.resources_path")
-					+ "lib/jquery/jquery-last.min.js");
-
-			mDivHtml.addChild("js", "src", bConfig("zapweb.resources_path")
-					+ "lib/jquery/jquery-plugins-zap.min.js");
-			*/
+			 * mDivHtml.addChild("css", "href", bConfig("zapweb.resources_path")
+			 * + "lib/bootstrap/css/bootstrap.min.css");
+			 * mDivHtml.addChild("css", "href", bConfig("zapweb.resources_path")
+			 * + "zapadmin/css/zab_base.css"); mDivHtml.addChild("css", "href",
+			 * bConfig("zapweb.resources_path") + "zapweb/css/w.css");
+			 * mDivHtml.addChild("js", "src", bConfig("zapweb.resources_path") +
+			 * "zapjs/zapjs.zw.js"); mDivHtml.addChild("js", "src",
+			 * bConfig("zapweb.resources_path") +
+			 * "lib/jquery/jquery-last.min.js");
+			 * 
+			 * mDivHtml.addChild("js", "src", bConfig("zapweb.resources_path") +
+			 * "lib/jquery/jquery-plugins-zap.min.js");
+			 */
 			MWebHtml mForm = mDivHtml.addChild("form");
 			mForm.inAttributes("enctype", "multipart/form-data", "method",
 					"post");
@@ -229,8 +202,15 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 			MWebHtml mTextHtml = mSpanHtml.addChild("span");
 			mTextHtml.setHtml(bInfo(969901003));
 
-			 mSpanHtml.addChild("file", "id", "file",
-					"name", "file", "onchange", "zapjs.f.require(['zapweb/js/zapweb_upload'],function(a){a.upload_upload(this)})");
+			mSpanHtml
+					.addChild(
+							"file",
+							"id",
+							"file",
+							"name",
+							"file",
+							"onchange",
+							"zapjs.f.require(['zapweb/js/zapweb_upload'],function(a){a.upload_upload(this)})");
 
 			mForm.addChild("input", "type", "submit", "id", "formsubmit",
 					"value", "", "class", "w_none");
@@ -239,14 +219,20 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 
 				MWebHtml mScriptHtml = mForm.addChild("script");
 
-				mScriptHtml.setHtml("zapjs.f.require(['zapweb/js/zapweb_upload'],function(a){a.upload_result("
-						+ mResult.upJson() + ");});");
+				mScriptHtml
+						.setHtml("zapjs.f.require(['zapweb/js/zapweb_upload'],function(a){a.upload_result("
+								+ mResult.upJson() + ");});");
 			}
 
 			sReturnString = mDivHtml.upString();
 
 		} else {
 			sReturnString = mResult.upJson();
+			
+			
+			
+			
+			
 		}
 
 		return sReturnString;

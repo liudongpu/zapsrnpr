@@ -105,7 +105,7 @@ public class RootControl {
 			HttpServletRequest request) {
 
 		model.addAttribute("b_html",
-				WebUpload.INSTANCE.uploadFile(request, sUrl));
+				WebUpload.create().uploadFile(request, sUrl));
 		String sReturnPageString = "ready";
 		if (sUrl.equals(WebConst.CONST_STATIC_WEB_UPLOAD_SAVE)) {
 			sReturnPageString = "empty";
@@ -129,14 +129,13 @@ public class RootControl {
 			HttpServletRequest request) {
 
 		/*
-		return web_method.checkLogin(new JsonHelper<List<List<String>>>()
-				.ObjToString(page_Process.process(sUrl, request).upChartData()
-						.getPageData()));
-						*/
-		
-		return new JsonHelper<List<List<String>>>()
-				.ObjToString(page_Process.process(sUrl, request).upChartData()
-						.getPageData());
+		 * return web_method.checkLogin(new JsonHelper<List<List<String>>>()
+		 * .ObjToString(page_Process.process(sUrl, request).upChartData()
+		 * .getPageData()));
+		 */
+
+		return new JsonHelper<List<List<String>>>().ObjToString(page_Process
+				.process(sUrl, request).upChartData().getPageData());
 	}
 
 	/**
