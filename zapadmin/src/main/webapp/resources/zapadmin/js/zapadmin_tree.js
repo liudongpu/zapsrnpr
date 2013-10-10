@@ -83,6 +83,129 @@ var zapadmin_tree = {
 				});
 
 	},
+	
+	tree_nodeup : function(oTag) {
+		var node = $('#zw_page_common_tree').tree('getSelected');
+		if (node) {
+			var k  = 0;
+			var oData = zapadmin_tree.temp.data;
+			var nodeData = [];
+			for ( var i = 0, j = oData.length; i < j; i++) {
+				if(node.id==oData[i][0]){
+					nodeData = oData[i];
+				}
+			}
+			for(var i = 0,j=oData.length;i<j;i++){
+				var nlen = nodeData[4].length;
+				var olen = oData[i][4].length;
+				if (olen==nlen && nodeData[2]==oData[i][2] &&parseInt(nodeData[4].substr(nlen-4,nlen))>parseInt(oData[i][4].substr(olen-4,olen))) {
+					k++;
+				}
+			}
+			if(k>0){
+				zapadmin_tree.tree_forSortUp(oTag,nodeData,oData);
+			}else{
+				zapadmin.model_message('不能进行向上移动！');
+			}
+		} else {
+			zapadmin.model_message('请选择后在进行操作！');
+		}
+	},
+	
+	tree_forSortUp : function(oTag,node,nodeAll){
+		var length = node[4].length;
+		var downNodeId = "";
+		for(var i=1;i<10000;i++){
+			var flag = false;
+			var id = (parseInt(node[4].substr(length-4,length))-i).toString();
+			for ( var l = 0, m = (4 - id.length); l < m; l++) {
+				id = "0" + id;
+			}
+			var ai = node[4].substr(0,length-4)+id;
+			for ( var k = 0, j = nodeAll.length; k < j; k++) {
+				if(nodeAll[k][4]!=null&&ai==nodeAll[k][4]){
+					downNodeId = ai;
+					flag = true;
+					break;
+				}
+			}
+			if(flag){break;}
+		}
+		for ( var i = 0, j = nodeAll.length; i < j; i++) {
+			//节点向上(本节点和孩子-1)
+			if(node[4]==nodeAll[i][4] || nodeAll[i][4].substr(0,length)==node[4]){
+				var sort = downNodeId+nodeAll[i][4].substr(length,nodeAll[i][4].length);
+				zapjs.zw.func_do(oTag, null, {zw_f_uid:nodeAll[i][3],zw_f_sort:sort});
+			//节点向下(上节点+1)
+			}else if(downNodeId==nodeAll[i][4] || nodeAll[i][4].substr(0,length)==downNodeId){
+				var sort = node[4]+nodeAll[i][4].substr(length,nodeAll[i][4].length);
+				zapjs.zw.func_do(oTag, null, {zw_f_uid:nodeAll[i][3],zw_f_sort:sort});	
+			}
+		}
+	},
+	
+	tree_nodedown : function(oTag) {
+		var node = $('#zw_page_common_tree').tree('getSelected');
+		if (node) {
+			var k  = 0;
+			var oData = zapadmin_tree.temp.data;
+			var nodeData = [];
+			for ( var i = 0, j = oData.length; i < j; i++) {
+				if(node.id==oData[i][0]){
+					nodeData = oData[i];
+				}
+			}
+			for(var i = 0,j=oData.length;i<j;i++){
+				var nlen = nodeData[4].length;
+				var olen = oData[i][4].length;
+				if (olen==nlen && nodeData[2]==oData[i][2]&& parseInt(nodeData[4].substr(nlen-4,nlen))<parseInt(oData[i][4].substr(olen-4,olen))) {
+					k++;
+				}
+			}
+			if(k>0){
+				zapadmin_tree.tree_forSortDown(oTag,nodeData,oData);
+			}else{
+				zapadmin.model_message('不能进行向下移动！');
+			}
+		} else {
+			zapadmin.model_message('请选择后在进行操作！');
+		}
+	},
+	
+	tree_forSortDown : function(oTag,node,nodeAll){
+		var length = node[4].length;
+		var downNodeId = "";
+		for(var i=1;i<10000;i++){
+			var flag = false;
+			var id = (parseInt(node[4].substr(length-4,length))+i).toString();
+			for ( var l = 0, m = (4 - id.length); l < m; l++) {
+				id = "0" + id;
+			}
+			var ai = node[4].substr(0,length-4)+id;
+			for ( var k = 0, j = nodeAll.length; k < j; k++) {
+				if(nodeAll[k][4]!=null&&ai==nodeAll[k][4]){
+					downNodeId = ai;
+					flag = true;
+					break;
+				}
+			}
+			if(flag){
+				break;
+			}
+		}
+		for ( var i = 0, j = nodeAll.length; i < j; i++) {
+			//节点向下(本节点和孩子-1)
+			if(node[4]==nodeAll[i][4] || nodeAll[i][4].substr(0,length)==node[4]){
+				var sort = downNodeId+nodeAll[i][4].substr(length,nodeAll[i][4].length);
+				zapjs.zw.func_do(oTag, null, {zw_f_uid:nodeAll[i][3],zw_f_sort:sort});
+			//节点向上(上节点+1)
+			}else if(downNodeId==nodeAll[i][4] || nodeAll[i][4].substr(0,length)==downNodeId){
+				var sort = node[4]+nodeAll[i][4].substr(length,nodeAll[i][4].length);
+				zapjs.zw.func_do(oTag, null, {zw_f_uid:nodeAll[i][3],zw_f_sort:sort});	
+			}
+		}
+	},
+	
 	tree_edit : function(oTag) {
 		var node = $('#zw_page_common_tree').tree('getSelected');
 		if (node) {
@@ -127,29 +250,51 @@ var zapadmin_tree = {
 		var node = $('#zw_page_common_tree').tree('getSelected');
 		if (node) {
 			var sId = node.id;
-
+			var sortmax = 0;
 			var iMax = 0;
 
 			var oData = zapadmin_tree.temp.data;
 			for ( var i = 0, j = oData.length; i < j; i++) {
-				if (oData[i][2] == sId && oData[i][0] > iMax) {
-					iMax = oData[i][0].substr(oData[i][0].length
-							- zapadmin_tree.temp.step);
+				if (oData[i][2] == sId && oData[i][0] > iMax) { 
+					if(oData[i][4]==undefined){
+						iMax = oData[i][0].substr(oData[i][0].length
+								- 4);
+					}else{
+						iMax = oData[i][4].substr(oData[i][0].length
+								- 4);
+					}
 				}
 			}
 
 			iMax = (parseInt(iMax) + 1).toString();
-
-			for ( var i = 0, j = (zapadmin_tree.temp.step - iMax.length); i < j; i++) {
+			
+			
+			for ( var i = 0, j = (4 - iMax.length); i < j; i++) {
 				iMax = "0" + iMax;
 
 			}
+			for(var i=0,j=oData.length;i<j;i++ ){
+				if(oData[i][0]==sId){
+					if(oData[i][4]==undefined){
+						sortmax = undefined;
+					}else{
+						sortmax = oData[i][4].substr(0,sId.length)+iMax;
+					}
+				}
+			}
 
 			iMax = sId + iMax;
-
-			$.get($('#zw_page_tree_zw_s_addpage').val() + "?"
-					+ $('#zw_page_tree_zw_s_parent').val() + '=' + sId + "&"
-					+ $('#zw_page_tree_zw_s_code').val() + '=' + iMax,
+			var url;
+			if(sortmax == undefined){
+				url = $('#zw_page_tree_zw_s_addpage').val() + "?"
+				+ $('#zw_page_tree_zw_s_parent').val() + '=' + sId + "&"
+				+ $('#zw_page_tree_zw_s_code').val() + '=' + iMax;
+			}else{
+				url = $('#zw_page_tree_zw_s_addpage').val() + "?"
+				+ $('#zw_page_tree_zw_s_parent').val() + '=' + sId + "&"
+				+ $('#zw_page_tree_zw_s_code').val() + '=' + iMax+"&"+$('#zw_page_tree_zw_s_sort').val()+'='+sortmax;
+			}
+			$.get(url,
 					function(result) {
 						$('#zw_page_tree_right').html(result);
 					});
@@ -164,7 +309,7 @@ var zapadmin_tree = {
 };
 
 if (typeof define === "function" && define.amd) {
-	define("zapadmin/js/zapadmin_tree", [ "zapadmin/js/zapadmin" ], function() {
+	define("zapadmin/js/zapadmin_tree",function() {
 		return zapadmin_tree;
 	});
 }
