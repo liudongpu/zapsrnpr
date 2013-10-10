@@ -209,11 +209,24 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 </#macro>
 
 
+
+
+<#macro m_zapmacro_common_field_start text="" for="">
+
+<div class="control-group">
+	<label class="control-label" for="${for}">${text}</label>
+	<div class="controls">
+
+</#macro>
+<#macro m_zapmacro_common_field_end>
+	</div>
+</div>
+</#macro>
+
+
 <#-- 字段：显示专用 -->
 <#macro m_zapmacro_common_field_show e_field e_page>
-	<div class="control-group">
-	    	<label class="control-label">${e_field.getFieldNote()}：</label>
-	    	<div class="controls">
+	<@m_zapmacro_common_field_start text=e_field.getFieldNote()+":" />
 	      		<div class="control_book">
 		      		<#if  e_field.getFieldTypeAid()=="104005019">
 		      			<#list e_page.upDataSource(e_field) as e_key>
@@ -223,8 +236,7 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 		      		${e_field.getPageFieldValue()?default("")}
 		      		</#if>
 	      		</div>
-	    	</div>
-	  </div>
+	<@m_zapmacro_common_field_end />
 </#macro>
 
 
@@ -237,39 +249,30 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 
 
 <#-- 字段：组件框 -->
-<#macro m_zapmacro_common_field_component e_field e_page>
-	<div class="control-group">
-	    	<label class="control-label">${e_field.getFieldNote()}</label>
-	    	<div class="controls">
-	      		${e_field.getPageFieldValue()?default("")}
-	    	</div>
-	  </div>
+<#macro m_zapmacro_common_field_component e_field e_page>  	
+	<@m_zapmacro_common_field_start text=e_field.getFieldNote() for=e_field.getPageFieldName() />
+		${e_field.getPageFieldValue()?default("")}
+	<@m_zapmacro_common_field_end />
 </#macro>
 
 
 <#-- 字段：纯展示 -->
 <#macro m_zapmacro_common_field_span e_field>
-	<div class="control-group">
-	    	<label class="control-label">${e_field.getFieldNote()}</label>
-	    	<div class="controls">
-	      		${e_field.getPageFieldValue()?default("")}
-	    	</div>
-	  </div>
+	<@m_zapmacro_common_field_start text=e_field.getFieldNote() for=e_field.getPageFieldName() />
+		${e_field.getPageFieldValue()?default("")}
+	<@m_zapmacro_common_field_end />
 </#macro>
 
 
 
 <#-- 字段：日期 -->
 <#macro m_zapmacro_common_field_date e_field>
-	<div class="control-group">
-	    	<label class="control-label" for="${e_field.getPageFieldName()}">${e_field.getFieldNote()}</label>
-	    	<div class="controls">
-	      		<input type="text"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}" value="${e_field.getPageFieldValue()}">
-	    	</div>
-	  </div>
+	<@m_zapmacro_common_field_start text=e_field.getFieldNote() for=e_field.getPageFieldName() />
+		<input type="text"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}" value="${e_field.getPageFieldValue()}">
+	<@m_zapmacro_common_field_end />
 	  
 	  
-	  <@m_zapmacro_common_html_script "require(['lib/datepicker/WdatePicker'],function(a){});" />
+	<@m_zapmacro_common_html_script "zapjs.f.require(['lib/datepicker/WdatePicker'],function(a){});" />
 	  
 </#macro>
 
@@ -277,12 +280,9 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 
 <#-- 字段：输入框 -->
 <#macro m_zapmacro_common_field_text e_field>
-	<div class="control-group">
-	    	<label class="control-label" for="${e_field.getPageFieldName()}">${e_field.getFieldNote()}</label>
-	    	<div class="controls">
-	      		<input type="text" id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}" value="${e_field.getPageFieldValue()}">
-	    	</div>
-	  </div>
+	<@m_zapmacro_common_field_start text=e_field.getFieldNote() for=e_field.getPageFieldName() />
+		<input type="text" id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}" value="${e_field.getPageFieldValue()}">
+	<@m_zapmacro_common_field_end />
 </#macro>
 
 
@@ -294,29 +294,22 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 
 <#-- 字段：长文本框 -->
 <#macro m_zapmacro_common_field_textarea e_field>
-	<div class="control-group">
-	    	<label class="control-label" for="${e_field.getPageFieldName()}">${e_field.getFieldNote()}</label>
-	    	<div class="controls">
-	    		<textarea id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}">${e_field.getPageFieldValue()}</textarea>
-	    	
-	    	</div>
-	  </div>
+	<@m_zapmacro_common_field_start text=e_field.getFieldNote() for=e_field.getPageFieldName() />
+		<textarea id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}">${e_field.getPageFieldValue()}</textarea>
+	<@m_zapmacro_common_field_end />
 </#macro>
 
 
 
 <#-- 字段：上传 -->
 <#macro m_zapmacro_common_field_upload e_field e_page>
-	<div class="control-group">
-	    	<label class="control-label" for="${e_field.getPageFieldName()}">${e_field.getFieldNote()}</label>
-	    	<div class="controls">
-	      		<input type="hidden" zapweb_attr_target_url="${e_page.upConfig("zapweb.upload_target")}" zapweb_attr_set_params="${e_field.getSourceParam()}"    id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}" value="${e_field.getPageFieldValue()}">
-				<span class="control-upload_iframe"></span>
-				<span class="control-upload"></span>
-	    	</div>
-	  </div>
+	<@m_zapmacro_common_field_start text=e_field.getFieldNote() for=e_field.getPageFieldName() />
+		<input type="hidden" zapweb_attr_target_url="${e_page.upConfig("zapweb.upload_target")}" zapweb_attr_set_params="${e_field.getSourceParam()}"    id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}" value="${e_field.getPageFieldValue()}">
+		<span class="control-upload_iframe"></span>
+		<span class="control-upload"></span>
+	<@m_zapmacro_common_field_end />
 	
-	   <@m_zapmacro_common_html_script "$(function(){zapjs.zw.upload_file('"+e_field.getPageFieldName()+"','"+e_page.upConfig("zapweb.upload_target")+"')});" />
+	<@m_zapmacro_common_html_script "zapjs.f.ready(function(){zapjs.f.require(['zapweb/js/zapweb_upload'],function(a){a.upload_file('"+e_field.getPageFieldName()+"','"+e_page.upConfig("zapweb.upload_target")+"');}); });" />
 	  
 	  
 	  
@@ -329,14 +322,11 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 
 <#-- 字段：编辑框 -->
 <#macro m_zapmacro_common_field_editor e_field  e_page>
-	<div class="control-group">
-	    	<label class="control-label" for="${e_field.getPageFieldName()}">${e_field.getFieldNote()}</label>
-	    	<div class="controls">
-	    		<textarea class="w_none " id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}">${e_field.getPageFieldValue()}</textarea>
-	    	</div>
-	  </div>
+	<@m_zapmacro_common_field_start text=e_field.getFieldNote() for=e_field.getPageFieldName() />
+		<textarea class="w_none " id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}">${e_field.getPageFieldValue()}</textarea>
+	<@m_zapmacro_common_field_end />
 	  
-	  <@m_zapmacro_common_html_script "$(function(){zapjs.zw.editor_show('"+e_field.getPageFieldName()+"','"+e_page.upConfig("zapweb.upload_target")+"')});" />
+	<@m_zapmacro_common_html_script "zapjs.f.ready(function(){zapjs.zw.editor_show('"+e_field.getPageFieldName()+"','"+e_page.upConfig("zapweb.upload_target")+"')});" />
 	  
 </#macro>
 
@@ -346,9 +336,7 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 
 <#-- 字段：下拉框            e_text_select:是否显示请选择       -->
 <#macro m_zapmacro_common_field_select   e_field    e_page    e_text_select="">
-	<div class="control-group">
-	    	<label class="control-label" for="${e_field.getPageFieldName()}">${e_field.getFieldNote()}</label>
-	    	<div class="controls">
+	<@m_zapmacro_common_field_start text=e_field.getFieldNote() for=e_field.getPageFieldName() />
 	      		<select name="${e_field.getPageFieldName()}" id="${e_field.getPageFieldName()}">
 	      			<#if e_text_select!="">
 	      					<option value="">${e_text_select}</option>
@@ -358,8 +346,7 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 						<option value="${e_key.getV()}" <#if  e_field.getPageFieldValue()==e_key.getV()> selected="selected" </#if>>${e_key.getK()}</option>
 					</#list>
 	      		</select>
-	    	</div>
-	  </div>
+	<@m_zapmacro_common_field_end />
 
 
 
@@ -374,19 +361,18 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 
 <#-- 字段：文本范围 -->
 <#macro m_zapmacro_common_field_between e_field  e_page >
-	<div class="control-group">
-	    	<label class="control-label" for=" ${e_page.upConst("126022001",e_field.getPageFieldName(),"between_from")}">${e_field.getFieldNote()}</label>
-	    	<div class="controls">
+
+	<@m_zapmacro_common_field_start text=e_field.getFieldNote() for=e_page.upConst("126022001",e_field.getPageFieldName(),"between_from") />
+
 	    		从
 	      		<input type="text" <#if e_field.getFieldTypeAid()=="104005004">  onClick="WdatePicker({maxDate:'#F{$dp.$D(\'${e_page.upConst("126022001",e_field.getPageFieldName(),"between_to")}\',{d:-1});}'})"  </#if>   id="${e_page.upConst("126022001",e_field.getPageFieldName(),"between_from")}" name="${e_page.upConst("126022001",e_field.getPageFieldName(),"between_from")}" value="${e_page.upReqValue(e_page.upConst("126022001",e_field.getPageFieldName(),"between_from"))?default("")}">
 	      		到
 	      		<input type="text" <#if e_field.getFieldTypeAid()=="104005004">  onClick="WdatePicker({minDate:'#F{$dp.$D(\'${e_page.upConst("126022001",e_field.getPageFieldName(),"between_from")}\',{d:1});}'})"</#if>  id="${e_page.upConst("126022001",e_field.getPageFieldName(),"between_to")}" name="${e_page.upConst("126022001",e_field.getPageFieldName(),"between_to")}" value="${e_page.upReqValue(e_page.upConst("126022001",e_field.getPageFieldName(),"between_to"))?default("")}">
 	      		
 	      		
-	    	</div>
-	  </div>
+	<@m_zapmacro_common_field_end />
 	  
-	  <@m_zapmacro_common_html_script "require(['lib/datepicker/WdatePicker'],function(a){});" />
+	<@m_zapmacro_common_html_script "zapjs.f.require(['lib/datepicker/WdatePicker'],function(a){});" />
 	  
 </#macro>
 

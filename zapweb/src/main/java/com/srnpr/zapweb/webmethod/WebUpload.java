@@ -202,6 +202,7 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 
 			MWebHtml mDivHtml = new MWebHtml("div");
 
+			/*
 			mDivHtml.addChild("css", "href", bConfig("zapweb.resources_path")
 					+ "lib/bootstrap/css/bootstrap.min.css");
 			mDivHtml.addChild("css", "href", bConfig("zapweb.resources_path")
@@ -215,7 +216,7 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 
 			mDivHtml.addChild("js", "src", bConfig("zapweb.resources_path")
 					+ "lib/jquery/jquery-plugins-zap.min.js");
-
+			*/
 			MWebHtml mForm = mDivHtml.addChild("form");
 			mForm.inAttributes("enctype", "multipart/form-data", "method",
 					"post");
@@ -228,18 +229,18 @@ public class WebUpload extends BaseClass implements IBaseInstance {
 			MWebHtml mTextHtml = mSpanHtml.addChild("span");
 			mTextHtml.setHtml(bInfo(969901003));
 
-			MWebHtml mFileHtml = mSpanHtml.addChild("file", "id", "file",
-					"name", "file", "onchange", "zapjs.zw.upload_upload(this)");
+			 mSpanHtml.addChild("file", "id", "file",
+					"name", "file", "onchange", "zapjs.f.require(['zapweb/js/zapweb_upload'],function(a){a.upload_upload(this)})");
 
 			mForm.addChild("input", "type", "submit", "id", "formsubmit",
 					"value", "", "class", "w_none");
 
 			if (mResult != null) {
 
-				MWebHtml mScriptHtml = mFileHtml.addChild("script");
+				MWebHtml mScriptHtml = mForm.addChild("script");
 
-				mScriptHtml.setHtml("zapjs.zw.upload_result("
-						+ mResult.upJson() + ");");
+				mScriptHtml.setHtml("zapjs.f.require(['zapweb/js/zapweb_upload'],function(a){a.upload_result("
+						+ mResult.upJson() + ");});");
 			}
 
 			sReturnString = mDivHtml.upString();
