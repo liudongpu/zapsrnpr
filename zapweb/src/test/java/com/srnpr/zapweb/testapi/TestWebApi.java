@@ -14,7 +14,7 @@ public class TestWebApi extends ThreadTestHelper {
 	/**
 	 * 测试专用
 	 */
-	@Test
+	
 	public void test() {
 		// ThreadTest(new TestWebApi(), 500);
 		// 多个线程调用测试示例
@@ -34,13 +34,7 @@ public class TestWebApi extends ThreadTestHelper {
 		// 执行的测试业务逻辑
 		// bLogTest(upThreadName() + "ad");
 
-		String sResString = WebClientSupport
-				.create()
-				.upRequest(
-						"http://mzapadmin.m.srnpr.com:2020/zapadmin/func/115793e80b38485aaba8223e0ea101b6?zw_f_login_name=s3&zw_f_login_pass=b",
-						"");
-
-		bLogTest(sResString);
+		
 
 	}
 }
