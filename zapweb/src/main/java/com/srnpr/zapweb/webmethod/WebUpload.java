@@ -26,12 +26,16 @@ import com.srnpr.zapcom.baseface.IBaseCreate;
 import com.srnpr.zapcom.baseface.IBaseInstance;
 import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basehelper.JsonHelper;
+import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.basesupport.ImageSupport;
 import com.srnpr.zapcom.basesupport.WebClientSupport;
 import com.srnpr.zapweb.helper.WebHelper;
 import com.srnpr.zapweb.webdo.WebConst;
+import com.srnpr.zapweb.webdo.WebTemp;
+import com.srnpr.zapweb.webface.IWebNotice;
 import com.srnpr.zapweb.webmodel.MWebHtml;
 import com.srnpr.zapweb.webmodel.MWebResult;
+import com.srnpr.zapweb.webmodel.MWebUpload;
 
 public class WebUpload extends BaseClass implements IBaseCreate {
 
@@ -74,12 +78,193 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 		mResult = new JsonHelper<MWebResult>().StringToObj(sReturnString,
 				mResult);
 
-		if (mResult == null || mResult.getResultObject() == null) {
+		if (mResult == null
+				|| (mResult.upFlagTrue() && mResult.getResultObject() == null)) {
 			mResult.inErrorMessage(969905005);
 		}
 
 		return mResult;
 
+	}
+
+	public MWebResult doRealSave(HttpServletRequest request, String sTarget) {
+		MWebResult mResult = new MWebResult();
+
+		FileItem fi = upFileFromRequest(request);
+
+		if (fi != null) {
+			String fileName = fi.getName();
+			if (fileName != null) {
+
+				// 如果是实际保存
+				if (sTarget.equals(WebConst.CONST_STATIC_WEB_UPLOAD_SAVE)) {
+
+					// 初始化上传文件保存路径
+					if (StringUtils.isEmpty(WebConst.Static_Web_Upload_Dir)) {
+						String sDir = bConfig("zapweb.upload_path");
+						sDir = request.getSession().getServletContext()
+								.getRealPath(sDir)
+								+ "/";
+						WebConst.Static_Web_Upload_Dir = sDir;
+						bLogInfo(969912001, sDir);
+
+					}
+
+					// 读取文件存放路径
+					String sDirPath = WebConst.Static_Web_Upload_Dir;
+
+					// 判断存放目标路径
+					String sSubPathString = sTarget;
+					if (StringUtils.isNotEmpty(request
+							.getParameter(WebConst.CONST_WEB_FIELD_SET
+									+ "target"))) {
+						sSubPathString = request.getParameter(
+								WebConst.CONST_WEB_FIELD_SET + "target")
+								.toString();
+					}
+
+					mResult = uploadFile(sDirPath, sSubPathString, fileName,
+							fi.get());
+				}
+			}
+		}
+		return mResult;
+	}
+
+	public MWebResult doRemoteUpload(HttpServletRequest request, String sTarget) {
+
+		FileItem fi = upFileFromRequest(request);
+
+		if (fi != null) {
+			return remoteUpload(sTarget, fi.getName(), fi.get());
+		} else {
+			return null;
+		}
+
+	}
+
+	/**
+	 * 获取request的上传文件
+	 * 
+	 * @param request
+	 * @return
+	 */
+	private FileItem upFileFromRequest(HttpServletRequest request) {
+
+		FileItem fi = null;
+
+		String sContentType = request.getContentType();
+		if (StringUtils.contains(sContentType, "multipart/form-data")) {
+			DiskFileItemFactory factory = new DiskFileItemFactory();
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			List<FileItem> items = null;
+			try {
+				items = upload.parseRequest(request);
+			} catch (FileUploadException e) {
+				e.printStackTrace();
+			}// 得到所有的文件
+			Iterator<FileItem> i = items.iterator();
+			while (i.hasNext()) {
+				fi = (FileItem) i.next();
+			}
+		}
+
+		return fi;
+
+	}
+
+	private String upUploadHtml(MWebResult mResult) {
+		MWebHtml mDivHtml = new MWebHtml("div");
+		MWebHtml mForm = mDivHtml.addChild("form");
+		mForm.inAttributes("enctype", "multipart/form-data", "method", "post");
+
+		MWebHtml mSpanHtml = mForm.addChild("span", "class",
+				"btn btn-info fileinput-button");
+
+		mSpanHtml.addChild("i", "class", "glyphicon glyphicon-plus");
+
+		MWebHtml mTextHtml = mSpanHtml.addChild("span");
+		mTextHtml.setHtml(bInfo(969901003));
+
+		mSpanHtml
+				.addChild(
+						"file",
+						"id",
+						"file",
+						"name",
+						"file",
+						"onchange",
+						"zapjs.f.require(['zapweb/js/zapweb_upload'],function(a){a.upload_upload(this)})");
+
+		mForm.addChild("input", "type", "submit", "id", "formsubmit", "value",
+				"", "class", "w_none");
+
+		if (mResult != null) {
+
+			MWebHtml mScriptHtml = mForm.addChild("script");
+
+			mScriptHtml
+					.setHtml("zapjs.f.require(['zapweb/js/zapweb_upload'],function(a){a.upload_result("
+							+ mResult.upJson() + ");});");
+		}
+
+		return mDivHtml.upString();
+	}
+
+	private MWebResult doExtendUpload(HttpServletRequest request, String sTarget) {
+
+		MWebResult mResult = new MWebResult();
+
+		MDataMap mUpMap = WebTemp.upTempDataMap("zw_define", "", "parent_did",
+				"46992103", "define_name", sTarget);
+
+		if (mUpMap != null) {
+
+			FileItem fi = upFileFromRequest(request);
+
+			if (fi != null) {
+
+				MDataMap mSetMap=new MDataMap().inUrlParams(mUpMap.get("define_one"));
+
+				
+				String sNoticeEvent =mSetMap.get("zw_s_noticeevent");
+				
+				IWebNotice iNotice=new ProductUpload();
+				
+				
+				
+				
+				
+				
+
+				if (mResult.upFlagTrue()) {
+					//mResult = remoteUpload(sTarget, fi.getName(), fi.get());
+				}
+				
+				if(mResult.upFlagTrue())
+				{
+					
+					MWebUpload mUpload=new MWebUpload();
+					mUpload.setTarget(sTarget);
+					mUpload.setFile(fi);
+ 
+					mResult=iNotice.noticeEvent("upload_success", mUpload);
+				}
+				
+				
+
+			} else {
+				mResult=null;
+			}
+
+			// mResult = doRemoteUpload(request, sTarget);
+
+		} else {
+			mResult=null;
+
+		}
+
+		return mResult;
 	}
 
 	/**
@@ -94,136 +279,43 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 
 		String sReturnString = "";
 
-		MWebResult mResult = new MWebResult();
+		// 定义是否实际存储
+		boolean bRealSave = sTarget
+				.equals(WebConst.CONST_STATIC_WEB_UPLOAD_SAVE);
 
-		// 开始执行上传逻辑
-		if (mResult.upFlagTrue()) {
+		if (bRealSave) {
 
-			String sContentType = request.getContentType();
-			if (StringUtils.contains(sContentType, "multipart/form-data")) {
-				DiskFileItemFactory factory = new DiskFileItemFactory();
-				ServletFileUpload upload = new ServletFileUpload(factory);
-				List<FileItem> items = null;
-				try {
-					items = upload.parseRequest(request);
-				} catch (FileUploadException e) {
-					e.printStackTrace();
-				}// 得到所有的文件
-				Iterator<FileItem> i = items.iterator();
-				while (i.hasNext()) {
-					FileItem fi = (FileItem) i.next();
-
-					String fileName = fi.getName();
-
-					if (fileName != null) {
-
-						// 如果是实际保存
-						if (sTarget
-								.equals(WebConst.CONST_STATIC_WEB_UPLOAD_SAVE)) {
-
-							// 初始化上传文件保存路径
-							if (StringUtils
-									.isEmpty(WebConst.Static_Web_Upload_Dir)) {
-								String sDir = bConfig("zapweb.upload_path");
-								sDir = request.getSession().getServletContext()
-										.getRealPath(sDir)
-										+ "/";
-								WebConst.Static_Web_Upload_Dir = sDir;
-								bLogInfo(969912001, sDir);
-
-							}
-
-							// 读取文件存放路径
-							String sDirPath = WebConst.Static_Web_Upload_Dir;
-
-							// 判断存放目标路径
-							String sSubPathString = sTarget;
-							if (StringUtils.isNotEmpty(request
-									.getParameter(WebConst.CONST_WEB_FIELD_SET
-											+ "target"))) {
-								sSubPathString = request
-										.getParameter(
-												WebConst.CONST_WEB_FIELD_SET
-														+ "target").toString();
-							}
-
-							mResult = uploadFile(sDirPath, sSubPathString,
-									fileName, fi.get());
-						} else {
-
-							//mResult = remoteUpload(sTarget, fileName, fi.get());
-							
-							ImageSupport iSupport=new ImageSupport(fi.get());
-							iSupport.cute(0, 0, 100, 100);
-							mResult=remoteUpload(sTarget, fileName, iSupport.upTargetByte());
-							
-
-						}
-
-					}
-				}
-			}
-		}
-
-		// 如果是编辑器上传 则返回ckeditor专用错误
-		if (sTarget.equals("editor")) {
-			if (mResult.upFlagTrue()) {
-
-				String sEditorFuncNum = request.getParameter("CKEditorFuncNum");
-				sReturnString = FormatHelper.formatString(
-						bConfig("zapweb.editor_upload"), sEditorFuncNum,
-						mResult.getResultObject().toString(),
-						mResult.getResultMessage());
-
-			} else {
-				sReturnString = mResult.getResultMessage();
-			}
-		} else if (sTarget.equals("upload")) {
-
-			MWebHtml mDivHtml = new MWebHtml("div");
-			MWebHtml mForm = mDivHtml.addChild("form");
-			mForm.inAttributes("enctype", "multipart/form-data", "method",
-					"post");
-
-			MWebHtml mSpanHtml = mForm.addChild("span", "class",
-					"btn btn-info fileinput-button");
-
-			mSpanHtml.addChild("i", "class", "glyphicon glyphicon-plus");
-
-			MWebHtml mTextHtml = mSpanHtml.addChild("span");
-			mTextHtml.setHtml(bInfo(969901003));
-
-			mSpanHtml
-					.addChild(
-							"file",
-							"id",
-							"file",
-							"name",
-							"file",
-							"onchange",
-							"zapjs.f.require(['zapweb/js/zapweb_upload'],function(a){a.upload_upload(this)})");
-
-			mForm.addChild("input", "type", "submit", "id", "formsubmit",
-					"value", "", "class", "w_none");
-
-			if (mResult != null) {
-
-				MWebHtml mScriptHtml = mForm.addChild("script");
-
-				mScriptHtml
-						.setHtml("zapjs.f.require(['zapweb/js/zapweb_upload'],function(a){a.upload_result("
-								+ mResult.upJson() + ");});");
-			}
-
-			sReturnString = mDivHtml.upString();
+			sReturnString = doRealSave(request, sTarget).upJson();
 
 		} else {
-			sReturnString = mResult.upJson();
-			
-			
-			
-			
-			
+
+			if (sTarget.equals("upload")) {
+
+				sReturnString = upUploadHtml(doRemoteUpload(request, sTarget));
+
+			} else if (sTarget.equals("editor")) {
+				MWebResult mResult = doRemoteUpload(request, sTarget);
+
+				if (mResult.upFlagTrue()) {
+
+					String sEditorFuncNum = request
+							.getParameter("CKEditorFuncNum");
+					sReturnString = FormatHelper.formatString(
+							bConfig("zapweb.editor_upload"), sEditorFuncNum,
+							mResult.getResultObject().toString(),
+							mResult.getResultMessage());
+
+				} else {
+					sReturnString = mResult.getResultMessage();
+				}
+
+			} else {
+
+				sReturnString = upUploadHtml(doExtendUpload(request, sTarget));
+				// sReturnString = doExtendUpload(request, sTarget).upJson();
+
+			}
+
 		}
 
 		return sReturnString;
