@@ -15,12 +15,45 @@ import java.awt.image.ColorConvertOp;
 import java.awt.image.CropImageFilter;
 import java.awt.image.FilteredImageSource;
 import java.awt.image.ImageFilter;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
 
-public class ImageHelper {
+import com.srnpr.zapcom.baseface.IBaseHelper;
+
+public class ImageHelper implements IBaseHelper {
+	
+	
+	
+	
+	
+	public static BufferedImage doCut(BufferedImage source,int x,int y,int w,int h)
+	{
+
+		
+		
+		
+		return source.getSubimage(x, y, w, h);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 几种常见的图片格式
 	 */

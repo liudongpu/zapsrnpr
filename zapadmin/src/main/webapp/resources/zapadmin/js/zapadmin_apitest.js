@@ -17,6 +17,18 @@ var zapadmin_apitest = {
 			a.tree_init();
 		});
 	},
+	
+	
+	replace_url:function(sSource)
+	{
+		
+		sSource=sSource.replace(/\./g, '_1_1');
+		
+		sSource=sSource.replace(/[A-Z]/g, function(m){return '_'+m.toLowerCase();});
+		
+		return sSource;
+	},
+	
 
 	click_func : function(node) {
 		var sId = node.id;
@@ -28,13 +40,13 @@ var zapadmin_apitest = {
 
 				$('#api_target').val(oData.resultObject.class_name.replace(/\./g, '_'));
 
-				var sBaseUrl = "http://zapdoc.wcn.srnpr.com/javadoc/";
-				var sExet = ".html";
+				var sBaseUrl = "http://zapdoc.wcn.srnpr.com/doxygen/html/class";
+				var sExet = ".html#pri-attribs";
 
 				var aHtml = [];
-				aHtml.push('<a href="' + sBaseUrl + oData.resultObject.javadoc_input.replace(/\./g, '/') + sExet + '" target="_blank">输入参数描述</a>');
+				aHtml.push('<a href="' + sBaseUrl + zapadmin_apitest.replace_url(oData.resultObject.javadoc_input) + sExet + '" target="_blank">输入参数描述</a>');
 				aHtml.push("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-				aHtml.push('<a href="' + sBaseUrl + oData.resultObject.javadoc_result.replace(/\./g, '/') + sExet + '" target="_blank">返回参数描述</a>');
+				aHtml.push('<a href="' + sBaseUrl + zapadmin_apitest.replace_url(oData.resultObject.javadoc_result) + sExet + '" target="_blank">返回参数描述</a>');
 
 				$('#manage_apitest_javadoc').html(aHtml.join(''));
 

@@ -88,7 +88,7 @@
 	    		<br/>
 	    		post数据：api_key=[APIKey]&api_input=[Json数据]&api_target=[api名称]&api_secret=[验证串]&api_timespan=[时间戳]
 	    		<br/>
-	    		接口描述的链接请只观看【字段概要】或者【字段详细资料】，其他请忽略。
+	    		接口描述的链接请只观看【Private 属性】，其他请忽略。
 	    		<br/>
 	    		标记为公开的API只需要传api_key，api_target，api_input三个参数
 	    		</span>
