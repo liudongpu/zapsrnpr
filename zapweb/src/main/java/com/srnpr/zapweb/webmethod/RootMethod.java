@@ -149,7 +149,12 @@ public abstract class RootMethod extends BaseClass implements IWebMethod {
 	}
 	
 	
-	
+	/**
+	 * 获取用户信息
+	 * 
+	 * 
+	 * @return
+	 */
 	public MUserInfo upUserInfo()
 	{
 		return UserFactory.INSTANCE.create();
