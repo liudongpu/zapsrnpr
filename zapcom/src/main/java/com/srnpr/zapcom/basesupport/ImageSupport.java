@@ -98,9 +98,70 @@ public class ImageSupport {
 		int width = (int) (upSourceWidth() * dScale);
 		int height = (int) (upSourceHeight() * dScale);
 
-		Image image = sourceImage.getScaledInstance(width, height, iScanleDeep);
-		targetImage = new BufferedImage(width, height,
-				BufferedImage.TYPE_INT_RGB);
+		scale(width, height, iScanleDeep);
+
+	}
+
+	/**按最大比例缩放图片并图片居中留白
+	 * @param width
+	 * @param height
+	 */
+	public void scaleWhite(int width, int height) {
+		scaleSmall(width, height);
+
+		if (width / height != sourceRatio()) {// 补白
+			BufferedImage image = new BufferedImage(width, height,
+					BufferedImage.TYPE_INT_RGB);
+			Graphics2D g = image.createGraphics();
+			g.setColor(Color.white);
+			g.fillRect(0, 0, width, height);
+			if (width == targetImage.getWidth()) {
+
+				g.drawImage(targetImage, 0,
+						(height - targetImage.getHeight(null)) / 2,
+						targetImage.getWidth(null),
+						targetImage.getHeight(null), Color.white, null);
+
+			}
+
+			else {
+				g.drawImage(targetImage,
+						(width - targetImage.getWidth(null)) / 2, 0,
+						targetImage.getWidth(null),
+						targetImage.getHeight(null), Color.white, null);
+			}
+
+			g.dispose();
+			targetImage = image;
+		}
+	}
+
+	/**
+	 * 缩小图片
+	 * @param w
+	 * @param h
+	 */
+	public void scaleSmall(int w, int h) {
+
+		if (w / h != sourceRatio()) {
+			w = Math.min(w, (int) (w * sourceRatio()));
+
+			h = Math.min(h, (int) (h / sourceRatio()));
+
+		}
+
+		scale(w, h, Image.SCALE_SMOOTH);
+
+	}
+
+	public double sourceRatio() {
+		return (double) upSourceWidth() / (double) upSourceHeight();
+	}
+
+	public void scale(int w, int h, int iScanleDeep) {
+
+		Image image = sourceImage.getScaledInstance(w, h, iScanleDeep);
+		targetImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
 		Graphics g = targetImage.getGraphics();
 		g.drawImage(image, 0, 0, null); // 绘制缩小后的图
 		g.dispose();

@@ -135,6 +135,27 @@ public class FormatHelper {
 		return sFormat.format(dDate);
 	}
 
+	/**
+	 * 时间格式化
+	 * 
+	 * @param sPattern
+	 * @return
+	 */
+	public static String upDateTime(String sPattern) {
+		SimpleDateFormat sFormat = new SimpleDateFormat(sPattern);
+		return sFormat.format(new Date());
+	}
+
+	/**
+	 * 获取16进制表示的当前时间
+	 * 
+	 * @return
+	 */
+	public static String upDateHex() {
+
+		return Integer.toHexString(Integer.valueOf(upDateTime("yyMMdd")));
+	}
+
 	public static Date parseDate(String sDateTime) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 

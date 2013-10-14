@@ -3,7 +3,6 @@
  * 文件上传类
  */
 
-
 var zapweb_upload = {
 
 	// 上传显示
@@ -26,6 +25,17 @@ var zapweb_upload = {
 		zapweb_upload.upload_show(sFieldName);
 
 	},
+
+	is_image : function(sFix) {
+
+		var sImageFile=".jpg;.png;.jpeg;.bmp;.gif;";
+		
+		return sImageFile.indexOf('.'+sFix+';')>-1;
+		
+		
+
+	},
+
 	// 上传文件结果
 	upload_result : function(o) {
 		//zapjs.f.setdomain();
@@ -70,7 +80,14 @@ var zapweb_upload = {
 				aHtml.push('<ul>');
 
 				for (var i in sFiles) {
-					aHtml.push('<li><div class="control-upload-image"><a href="' + sFiles[i] + '" target="_blank"><img src="' + sFiles[i] + '" /></a></div><div class="control-upload-delete"><span class="btn btn-mini " onclick="zapweb_upload.upload_delete(\'' + sField + '\',' + i + ')"><i class="icon-trash "></i>&nbsp;&nbsp;删除</span></div></li>');
+
+					var aFname = sFiles[i].split('.');
+
+					var sFix = aFname[aFname.length - 1];
+
+					var sShowHex=zapweb_upload.is_image(sFix)?('<img src="' + sFiles[i] + '" />'):sFix;
+
+					aHtml.push('<li><div class="control-upload-image"><a href="' + sFiles[i] + '" target="_blank">' + sShowHex + '</a></div><div class="control-upload-delete"><span class="btn btn-mini " onclick="zapweb_upload.upload_delete(\'' + sField + '\',' + i + ')"><i class="icon-trash "></i>&nbsp;&nbsp;删除</span></div></li>');
 				}
 
 				aHtml.push('</ul>');
@@ -119,8 +136,10 @@ var zapweb_upload = {
 	},
 	// 上传提交
 	upload_upload : function(oElm) {
-		$('#formsubmit').click();
 
+		$('form').hide();
+		$('body').append('<span class="panel-loading">正在上传，请稍后……</span>');
+		$('#formsubmit').click();
 	}
 };
 

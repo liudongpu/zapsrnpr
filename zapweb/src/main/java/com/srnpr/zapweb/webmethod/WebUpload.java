@@ -20,6 +20,7 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.apache.poi.ss.formula.ptg.StringPtg;
 import org.springframework.util.FileCopyUtils;
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.baseface.IBaseCreate;
@@ -42,6 +43,13 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 	public static WebUpload create() {
 		return new WebUpload();
 	};
+
+	public MWebResult remoteUploadCustom(String sFileName, byte[] b,
+			String... sTargetStep) {
+
+		return remoteUpload( StringUtils.join(sTargetStep,WebConst.CONST_SPLIT_ZDOWN),sFileName,b   );
+		
+	}
 
 	/**
 	 * 远程上传文件
@@ -118,9 +126,9 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 					if (StringUtils.isNotEmpty(request
 							.getParameter(WebConst.CONST_WEB_FIELD_SET
 									+ "target"))) {
-						sSubPathString = request.getParameter(
-								WebConst.CONST_WEB_FIELD_SET + "target")
-								.toString();
+						sSubPathString = request
+								.getParameter(WebConst.CONST_WEB_FIELD_SET
+										+ "target");
 					}
 
 					mResult = uploadFile(sDirPath, sSubPathString, fileName,
@@ -224,43 +232,34 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 
 			if (fi != null) {
 
-				MDataMap mSetMap=new MDataMap().inUrlParams(mUpMap.get("define_one"));
+				MDataMap mSetMap = new MDataMap().inUrlParams(mUpMap
+						.get("define_one"));
 
-				
-				String sNoticeEvent =mSetMap.get("zw_s_noticeevent");
-				
-				IWebNotice iNotice=new ProductUpload();
-				
-				
-				
-				
-				
-				
+				String sNoticeEvent = mSetMap.get("zw_s_noticeevent");
+
+				IWebNotice iNotice = new ProductUpload();
 
 				if (mResult.upFlagTrue()) {
-					//mResult = remoteUpload(sTarget, fi.getName(), fi.get());
+					// mResult = remoteUpload(sTarget, fi.getName(), fi.get());
 				}
-				
-				if(mResult.upFlagTrue())
-				{
-					
-					MWebUpload mUpload=new MWebUpload();
+
+				if (mResult.upFlagTrue()) {
+
+					MWebUpload mUpload = new MWebUpload();
 					mUpload.setTarget(sTarget);
 					mUpload.setFile(fi);
- 
-					mResult=iNotice.noticeEvent("upload_success", mUpload);
+
+					mResult = iNotice.noticeEvent("upload_process", mUpload);
 				}
-				
-				
 
 			} else {
-				mResult=null;
+				mResult = null;
 			}
 
 			// mResult = doRemoteUpload(request, sTarget);
 
 		} else {
-			mResult=null;
+			mResult = null;
 
 		}
 
@@ -361,15 +360,38 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 
 			if (mResult.upFlagTrue()) {
 
-				Date date = new Date();
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-				String sDate = formatter.format(date);
+				String sNewName = "";
 
-				sFilePath = sFilePath + "/" + sDate + "/";
+				if (sFilePath.indexOf(WebConst.CONST_SPLIT_ZDOWN) > -1) {
+					sNewName = StringUtils.substringAfterLast(sFilePath,
+							WebConst.CONST_SPLIT_ZDOWN);
+
+					sFilePath = StringUtils.substringBeforeLast(sFilePath,
+							WebConst.CONST_SPLIT_ZDOWN).replace(
+							WebConst.CONST_SPLIT_ZDOWN, "/")
+							+ "/";
+
+				} else {
+
+					sNewName = WebHelper.upUuid();
+					sFilePath = sFilePath + "/" + FormatHelper.upDateHex()
+							+ "/";
+				}
 
 				FileUtils.forceMkdir(new File(sDirPath + sFilePath));
 
-				String sNewFileNameString = WebHelper.upUuid() + "." + sFix;
+				/*
+				 * if (StringUtils.contains(WebConst.CONST_WEB_UPLOAD_IMAGE, "."
+				 * + sFix + ";")) {
+				 * 
+				 * ImageSupport support=new ImageSupport(bFile);
+				 * 
+				 * sNewName = "i_"+support.upSourceWidth()+"_"
+				 * +support.upSourceHeight()+"_"+sNewName; } else { sNewName =
+				 * "f_"+sNewName; }
+				 */
+
+				String sNewFileNameString = sNewName + "." + sFix;
 
 				FileCopyUtils.copy(bFile, new File(sDirPath + sFilePath
 						+ sNewFileNameString));

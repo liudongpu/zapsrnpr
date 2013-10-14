@@ -1,6 +1,7 @@
 package com.srnpr.zapcom.basemodel;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class MKvdList {
@@ -28,5 +29,17 @@ public class MKvdList {
 		this.childList.add(mKvdModel);
 		return mKvdModel;
 	}
+	
+	
+	public List<Object> upChildObject()
+	{
+		
+		ArrayList< Object> aList=new ArrayList<Object>();
+		
+		aList.addAll(this.childList);
+		return aList;
+	}
+	
+	
 
 }

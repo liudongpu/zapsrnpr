@@ -8,6 +8,21 @@ public class WebConst implements IBaseConst {
 	 * 分隔符
 	 */
 	public final static String CONST_SPLIT_LINE = "|";
+	
+	
+	
+	/**
+	 * 下划线分隔符
+	 */
+	public final static String CONST_SPLIT_DOWN = "_";
+	
+	
+	/**
+	 * z分隔符
+	 */
+	public final static String CONST_SPLIT_ZDOWN = "_z_";
+	
+	
 
 	/**
 	 * 定义页面字段的默认左边 zw_f_ 126022006
@@ -82,7 +97,10 @@ public class WebConst implements IBaseConst {
 	
 	
 	
-	
+	/**
+	 * 定义图片格式
+	 */
+	public final static String CONST_WEB_UPLOAD_IMAGE=".jpg;.png;.jpeg;.bmp;.gif;";
 	
 	
 	
