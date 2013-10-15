@@ -288,7 +288,7 @@ zapjs.f = {
 	},
 
 	//提示消息
-	alert : function(sContent, okfunc) {
+	message : function(sContent, okfunc) {
 		zapjs.f.modal({
 			content : sContent,
 			okfunc : okfunc

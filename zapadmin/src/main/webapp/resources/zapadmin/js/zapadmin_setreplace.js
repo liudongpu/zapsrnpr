@@ -29,11 +29,11 @@ var zapadmin_setreplace = {
 				}
 				else
 				{
-					zapjs.f.alert('组件尚未定义');
+					zapjs.f.message('组件尚未定义');
 				}
 			});
 		} else {
-			zapjs.f.alert('组件名称为空');
+			zapjs.f.message('组件名称为空');
 		}
 
 	},

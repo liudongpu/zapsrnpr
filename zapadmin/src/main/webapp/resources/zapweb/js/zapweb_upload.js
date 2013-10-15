@@ -43,7 +43,7 @@ var zapweb_upload = {
 	// 上传文件结果
 	upload_result : function(o) {
 		//zapjs.f.setdomain();
-		parent.zapweb_upload.upload_success(o, zapjs.f.urlget('zw_s_source'));
+		zapweb_upload.upload_success(o, zapjs.f.urlget('zw_s_source'));
 	},
 	// 上传展示
 	upload_show : function(sField) {

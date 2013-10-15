@@ -122,7 +122,7 @@ r_469923180007:{reg:"+^[0-9]+(.[0-9]{2})?$",name:" 必须为数字且小数点�
 
 						var myregex = new RegExp(sRegText);
 						// 创建正则表达式
-						if (!myregex.test($(el).val())) {
+						if (!myregex.test(sVal)) {
 							bFlag = false;
 							sErrorMsg = rv.name;
 						}
@@ -131,13 +131,20 @@ r_469923180007:{reg:"+^[0-9]+(.[0-9]{2})?$",name:" 必须为数字且小数点�
 
 					if(!bFlag)
 					{
+						
 						var sTitle=$(el).parents('.control-group').find('.control-label').text();
+						
+						if($(el).attr('zapweb_attr_regex_title'))
+						{
+							sTitle=$(el).attr('zapweb_attr_regex_title');
+						}
+						
 						$(el).addClass('w_regex_error');
 						$(el).focus();
 						$(el).click(function(){
 							$(el).removeClass('w_regex_error');}
 						);
-						zapjs.zw.modal_show({content:'字段【'+sTitle+'】'+sErrorMsg});
+						zapjs.f.message(sTitle+sErrorMsg);
 						return bFlag;
 						
 					}
