@@ -125,6 +125,19 @@ public class RootExec extends BaseClass {
 
 				}
 
+				//判断如果附加了SQL预条件定义
+				if (mPaginationMap.containsKey("sql_where")) {
+
+					String sField = mPaginationMap.get("sql_where");
+
+					if (StringUtils.isNotEmpty(sWhere)) {
+						sWhere = sWhere + " and ";
+					}
+
+					sWhere = sWhere + sField;
+
+				}
+
 			}
 
 		}
@@ -147,7 +160,7 @@ public class RootExec extends BaseClass {
 			if (mOptionMap.containsKey("optionExport")
 					&& mOptionMap.get("optionExport").equals("1")) {
 				sOperateArea = "";
-				//mReturnData.setPageSize(-1);
+				// mReturnData.setPageSize(-1);
 				mReturnData.setPageCount(1);
 
 			}
