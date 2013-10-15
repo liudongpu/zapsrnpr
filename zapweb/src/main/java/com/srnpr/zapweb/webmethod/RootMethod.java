@@ -13,6 +13,7 @@ import com.srnpr.zapcom.basehelper.MapHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.helper.WebSessionHelper;
+import com.srnpr.zapweb.usermodel.MUserInfo;
 import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webface.IWebMethod;
 import com.srnpr.zapweb.webfactory.UserFactory;
@@ -146,6 +147,20 @@ public abstract class RootMethod extends BaseClass implements IWebMethod {
 			return "manage/noaccess";
 		}
 	}
+	
+	
+	/**
+	 * 获取用户信息
+	 * 
+	 * 
+	 * @return
+	 */
+	public MUserInfo upUserInfo()
+	{
+		return UserFactory.INSTANCE.create();
+	}
+	
+	
 
 	public Object upClass(String sClassName) {
 		Object oReturn = null;
