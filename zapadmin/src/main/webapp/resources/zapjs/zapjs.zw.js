@@ -61,12 +61,13 @@ r_469923180007:{reg:"+^[0-9]+(.[0-9]{2})?$",name:" 必须为数字且小数点�
 		var defaults = {
 			varsion : 1,
 			api_target : sTarget,
+			api_input:zapjs.f.tojson(oData),
 			api_key : 'jsapi'
 		};
 
-		oData = $.extend({}, defaults, oData || {});
+		//oData = $.extend({}, defaults, oData || {});
 
-		zapjs.f.ajaxjson("../jsonapi/" + sTarget, oData, function(data) {
+		zapjs.f.ajaxjson("../jsonapi/" + sTarget, defaults, function(data) {
 			fCallBack(data);
 		});
 
