@@ -106,12 +106,13 @@ public class RootControl {
 
 		model.addAttribute("b_html",
 				WebUpload.create().uploadFile(request, sUrl));
+		/*
 		String sReturnPageString = "ready";
 		if (sUrl.equals(WebConst.CONST_STATIC_WEB_UPLOAD_SAVE)) {
 			sReturnPageString = "empty";
-		}
+		}*/
 
-		return "page/" + sReturnPageString;
+		return "page/empty";
 
 	}
 

@@ -29,6 +29,12 @@ html {
 
 }
 
+.control-upload_div
+{
+	margin-bottom:10px;
+}
+
+
 .control-upload ul li {
 	margin-right: 10px;
 	float: left;

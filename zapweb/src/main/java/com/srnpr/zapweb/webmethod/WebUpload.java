@@ -171,10 +171,18 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 			} catch (FileUploadException e) {
 				e.printStackTrace();
 			}// 得到所有的文件
-			Iterator<FileItem> i = items.iterator();
-			while (i.hasNext()) {
-				fi = (FileItem) i.next();
+			
+			
+			for(FileItem fUploadFileItem :items)
+			{
+				if(!fUploadFileItem.isFormField())
+				{
+					fi = fUploadFileItem;
+				}
 			}
+			
+			
+			
 		}
 
 		return fi;
@@ -290,7 +298,8 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 
 			if (sTarget.equals("upload")) {
 
-				sReturnString = upUploadHtml(doRemoteUpload(request, sTarget));
+				//sReturnString = upUploadHtml(doRemoteUpload(request, sTarget));
+				sReturnString = doRemoteUpload(request, sTarget).upJson();
 
 			} else if (sTarget.equals("editor")) {
 				MWebResult mResult = doRemoteUpload(request, sTarget);
@@ -310,8 +319,10 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 
 			} else {
 
-				sReturnString = upUploadHtml(doExtendUpload(request, sTarget));
+				//sReturnString = upUploadHtml(doExtendUpload(request, sTarget));
 				// sReturnString = doExtendUpload(request, sTarget).upJson();
+				
+				sReturnString = doExtendUpload(request, sTarget).upJson();
 
 			}
 

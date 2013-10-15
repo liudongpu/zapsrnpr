@@ -47,7 +47,24 @@ R).push([b,c,d])};define.amd={jQuery:!0};j.exec=function(b){return eval(b)};j(t)
 
 
 
-
+requirejs.config({
+	
+	baseUrl: "../resources/",
+	paths: {
+        // the left side is the module ID,
+        // the right side is the path to
+        // the jQuery file, relative to baseUrl.
+        // Also, the path should NOT include
+        // the '.js' file extension. This example
+        // is using jQuery 1.9.0 located at
+        // js/lib/jquery-1.9.0.js, relative to
+        // the HTML page.
+        //jquery: 'lib/jquery/jquery-last.min'
+    }
+		
+		
+		
+	});
 
 
 
@@ -62,6 +79,15 @@ zs.f=
 	ready:function()
 	{
 		
+	},
+	define:function(sPath,require,oReturn)
+	{
+		if ( typeof define === "function" && define.amd) {
+			define(sPath,require, function() {
+				return oReturn;
+			});
+		};
+
 	}
 };
 
