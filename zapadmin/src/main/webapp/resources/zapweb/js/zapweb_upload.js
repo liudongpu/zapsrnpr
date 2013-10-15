@@ -12,7 +12,7 @@ var zapweb_upload = {
 			sSet = '';
 		}
 
-		return '<input type="hidden" zapweb_attr_target_url="' + sTargetUpload + '"  zapweb_attr_set_params="' + sSet + '"  id="' + sId + '" name="' + sId + '" value="' + sValue + '"><span class="control-upload_iframe"></span><span class="control-upload"></span>';
+		return '<input type="hidden" zapweb_attr_target_url="' + sTargetUpload + '"  zapweb_attr_set_params="' + sSet + '"  id="' + sId + '" name="' + sId + '" value="' + sValue + '"><span class="control-upload_iframe"></span><span class="control-upload_process"></span><span class="control-upload"></span>';
 
 	},
 

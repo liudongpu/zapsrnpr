@@ -5,6 +5,39 @@
 
 zapjs.zw = {
 
+	temp : {
+		regex : {
+			r_469923180001 : {
+				reg : "",
+				name : "无"
+			},
+			r_469923180002 : {
+				reg : "+",
+				name : "非空"
+			},
+			r_469923180003 : {
+				reg : "^\d{1,10}$",
+				name : "数字1-10位"
+			},
+			r_469923180004 : {
+				reg : "-^[a-zA-Z0-9_\.]+@[a-zA-Z0-9-]+[\.a-zA-Z]+$",
+				name : "邮箱地址(可为空)"
+			},
+			r_469923180005 : {
+				reg : "^.{6,20}$",
+				name : "6-20位字符"
+			},
+			r_469923180006 : {
+				reg : "^0\.([1-9][0-9]?|[0-9][1-9])$",
+				name : "大于0小于1的两位小数"
+			},
+			r_469923180007 : {
+				reg : "+^[0-9]+(.[0-9]{2})?$",
+				name : "最多两位小数"
+			}
+		}
+	},
+
 	modal_show : function(oSet) {
 		top.zapjs.f.modal(oSet);
 	},
@@ -48,15 +81,13 @@ zapjs.zw = {
 	 */
 	api_call : function(sTarget, oData, fCallBack) {
 
-
 		var defaults = {
 			varsion : 1,
 			api_target : sTarget,
 			api_key : 'jsapi'
 		};
-		
+
 		oData = $.extend({}, defaults, oData || {});
-		
 
 		zapjs.f.ajaxjson("../jsonapi/" + sTarget, oData, function(data) {
 			fCallBack(data);
@@ -66,10 +97,75 @@ zapjs.zw = {
 
 	// 提交操作
 	func_call : function(oElm) {
+		
+		var oForm = $(oElm).parents("form");
+		if (zapjs.zw.func_regex(oForm)) {
+			zapjs.zw.modal_process();
+			zapjs.f.ajaxsubmit(oForm, "../func/" + $(oElm).attr('zapweb_attr_operate_id'), zapjs.zw.func_success, zapjs.zw.func_error);
+		}
+	},
 
-		zapjs.zw.modal_process();
+	//验证form
+	func_regex : function(oForm) {
+		var bFlag = true;
 
-		zapjs.f.ajaxsubmit($(oElm).parents("form"), "../func/" + $(oElm).attr('zapweb_attr_operate_id'), zapjs.zw.func_success, zapjs.zw.func_error);
+		$(oForm).find("[zapweb_attr_regex_id]").each(function(n, el) {
+
+			var sRegId = $(el).attr("zapweb_attr_regex_id");
+
+			if (sRegId != "" && sRegId != "469923180001" && sRegId.indexOf('46992318') > -1) {
+
+				var rv = zapjs.zw.temp.regex['r_' + sRegId];
+				if (rv) {
+
+					var sRegText = rv.reg;
+
+					var sErrorMsg = "";
+
+					if (bFlag && sRegText) {
+						//bFlag = false;
+
+						if (sRegText.indexOf('+') == 0) {
+							sRegText = sRegText.substr(1);
+
+							if ($(el).val() == "") {
+								bFlag = false;
+								sErrorMsg = "不能为空";
+							}
+
+						}
+
+					}
+					if (bFlag && sRegText) {
+
+						var myregex = new RegExp(sRegText);
+						// 创建正则表达式
+						if (!myregex.test($(el).val())) {
+							bFlag = false;
+							sErrorMsg = rv.name;
+						}
+
+					}
+					
+					
+					if(!bFlag)
+					{
+						var sTitle=$(el).parents('.control-group').find('.control-label').text();
+						
+						zapjs.zw.modal_show({content:'字段【'+sTitle+'】'+sErrorMsg});
+						return bFlag;
+						
+					}
+					
+					
+
+				}
+
+			}
+
+		});
+
+		return bFlag;
 	},
 
 	func_do : function(oElm, sOperate, data) {
@@ -208,7 +304,6 @@ zapjs.zw = {
 
 	},
 
-	
 	// 用户登录成功
 	login_sucess : function(oUserInfo) {
 		var sCookie = oUserInfo.cookieUser;

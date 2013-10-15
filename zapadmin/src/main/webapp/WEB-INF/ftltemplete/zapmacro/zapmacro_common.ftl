@@ -281,7 +281,7 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 <#-- 字段：输入框 -->
 <#macro m_zapmacro_common_field_text e_field>
 	<@m_zapmacro_common_field_start text=e_field.getFieldNote() for=e_field.getPageFieldName() />
-		<input type="text" id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}" value="${e_field.getPageFieldValue()}">
+		<input type="text" id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}"  zapweb_attr_regex_id="${e_field.getRegexValue()}" value="${e_field.getPageFieldValue()}">
 	<@m_zapmacro_common_field_end />
 </#macro>
 
@@ -295,7 +295,7 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 <#-- 字段：长文本框 -->
 <#macro m_zapmacro_common_field_textarea e_field>
 	<@m_zapmacro_common_field_start text=e_field.getFieldNote() for=e_field.getPageFieldName() />
-		<textarea id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}">${e_field.getPageFieldValue()}</textarea>
+		<textarea id="${e_field.getPageFieldName()}"  zapweb_attr_regex_id="${e_field.getRegexValue()}" name="${e_field.getPageFieldName()}">${e_field.getPageFieldValue()}</textarea>
 	<@m_zapmacro_common_field_end />
 </#macro>
 
@@ -324,7 +324,7 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 <#-- 字段：编辑框 -->
 <#macro m_zapmacro_common_field_editor e_field  e_page>
 	<@m_zapmacro_common_field_start text=e_field.getFieldNote() for=e_field.getPageFieldName() />
-		<textarea class="w_none " id="${e_field.getPageFieldName()}" name="${e_field.getPageFieldName()}">${e_field.getPageFieldValue()}</textarea>
+		<textarea class="w_none " id="${e_field.getPageFieldName()}"  name="${e_field.getPageFieldName()}">${e_field.getPageFieldValue()}</textarea>
 	<@m_zapmacro_common_field_end />
 	  
 	<@m_zapmacro_common_html_script "zapjs.f.ready(function(){zapjs.zw.editor_show('"+e_field.getPageFieldName()+"','"+e_page.upConfig("zapweb.upload_target")+"')});" />

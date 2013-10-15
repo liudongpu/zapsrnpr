@@ -25,7 +25,7 @@ public class TestRegex extends TestHelper {
 
 		StringBuffer sBuffer = new StringBuffer();
 		
-		sBuffer.append("zapjs.zw.regex={");
+		sBuffer.append("zapjs.zw.temp.regex={");
 
 		List<String> lStrings = new ArrayList<String>();
 		
