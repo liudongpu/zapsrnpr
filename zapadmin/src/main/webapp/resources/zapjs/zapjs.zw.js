@@ -6,36 +6,13 @@
 zapjs.zw = {
 
 	temp : {
-		regex : {
-			r_469923180001 : {
-				reg : "",
-				name : "无"
-			},
-			r_469923180002 : {
-				reg : "+",
-				name : "非空"
-			},
-			r_469923180003 : {
-				reg : "^\d{1,10}$",
-				name : "数字1-10位"
-			},
-			r_469923180004 : {
-				reg : "-^[a-zA-Z0-9_\.]+@[a-zA-Z0-9-]+[\.a-zA-Z]+$",
-				name : "邮箱地址(可为空)"
-			},
-			r_469923180005 : {
-				reg : "^.{6,20}$",
-				name : "6-20位字符"
-			},
-			r_469923180006 : {
-				reg : "^0\.([1-9][0-9]?|[0-9][1-9])$",
-				name : "大于0小于1的两位小数"
-			},
-			r_469923180007 : {
-				reg : "+^[0-9]+(.[0-9]{2})?$",
-				name : "最多两位小数"
-			}
-		}
+		regex : {r_469923180001:{reg:"",name:"无"},
+r_469923180002:{reg:"+",name:"必须非空"},
+r_469923180003:{reg:"^[0-9]{1,10}$",name:"必须为数字"},
+r_469923180004:{reg:"-^[a-zA-Z0-9_\.]+@[a-zA-Z0-9-]+[\.a-zA-Z]+$",name:"必须为邮箱地址"},
+r_469923180005:{reg:"^.{6,20}$",name:"必须为6-20位字符"},
+r_469923180006:{reg:"^0\.([1-9][0-9]?|[0-9][1-9])$",name:"必须为大于0小于1的两位小数"},
+r_469923180007:{reg:"+^[0-9]+(.[0-9]{2})?$",name:" 必须为数字且小数点不超过两位"}}
 	},
 
 	modal_show : function(oSet) {
@@ -121,6 +98,9 @@ zapjs.zw = {
 					var sRegText = rv.reg;
 
 					var sErrorMsg = "";
+					
+					var sVal=$(el).val();
+					
 
 					if (bFlag && sRegText) {
 						//bFlag = false;
@@ -128,11 +108,13 @@ zapjs.zw = {
 						if (sRegText.indexOf('+') == 0) {
 							sRegText = sRegText.substr(1);
 
-							if ($(el).val() == "") {
+							if (sVal == "") {
 								bFlag = false;
 								sErrorMsg = "不能为空";
 							}
 
+						}else if (sRegText.indexOf('-') == 0) {
+							sRegText = sRegText.substr(1);
 						}
 
 					}
@@ -146,18 +128,21 @@ zapjs.zw = {
 						}
 
 					}
-					
-					
+
 					if(!bFlag)
 					{
 						var sTitle=$(el).parents('.control-group').find('.control-label').text();
-						
+						$(el).addClass('w_regex_error');
+						$(el).focus();
+						$(el).click(function(){
+							$(el).removeClass('w_regex_error');}
+						);
 						zapjs.zw.modal_show({content:'字段【'+sTitle+'】'+sErrorMsg});
 						return bFlag;
 						
 					}
 					
-					
+					zapjs.d(rv);
 
 				}
 

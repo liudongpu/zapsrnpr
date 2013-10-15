@@ -90,3 +90,10 @@
 	list-style-type: none;
 }
 
+.w_regex_error
+{
+	border:solid 1px #b94a48 !important;
+}
+
+
+
