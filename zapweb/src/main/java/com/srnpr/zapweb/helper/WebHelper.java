@@ -138,6 +138,12 @@ public class WebHelper {
 
 	}
 
+	/**
+	 * 格式化字段并重新返回
+	 * @param sText
+	 * @param mDataMap
+	 * @return
+	 */
 	public static String recheckReplace(String sText, MDataMap mDataMap) {
 
 		if (StringUtils.contains(sText, WebConst.CONST_WEB_SET_REPLACE)) {

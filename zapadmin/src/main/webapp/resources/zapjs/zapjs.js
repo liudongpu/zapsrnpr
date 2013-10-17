@@ -74,9 +74,32 @@ zapjs.f = {
 
 	},
 	ajaxjson : function(sTarget, data, fCallBack) {
+		
+		
+		var options = {
+			
+			dataType: "json",
+		  url: sTarget,
+		  type: "POST",
+		  data: data,
+		  success: fCallBack,
+		   error: function (msg) {
+		  	
+		              
+						zapjs.f.message('系统异步调用出现错误，请联系技术，谢谢！');
+						
+		            }
+		};
+		
+		
+				$.ajax(options);
+
+		
+		/*
 		$.getJSON(sTarget, data, fCallBack).fail(function() {
 			alert('系统异步调用出现错误，请联系技术，谢谢！');
 		});
+		*/
 	},
 
 	setdomain : function() {

@@ -131,7 +131,7 @@ public class RootExec extends BaseClass {
 					String sField = mPaginationMap.get("sql_where");
 
 					if (StringUtils.isNotEmpty(sWhere)) {
-						sWhere = sWhere + " and ";
+						sWhere =WebHelper.recheckReplace( sWhere,mReqMap) + " and ";
 					}
 
 					sWhere = sWhere + sField;

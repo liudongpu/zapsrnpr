@@ -85,6 +85,7 @@ public class FuncAdd extends RootFunc {
 						if (StringUtils.contains(sDefaultValue,
 								WebConst.CONST_WEB_SET_REPLACE)) {
 
+							//重新格式化参数
 							sValue = WebHelper.recheckReplace(sDefaultValue,
 									mDataMap);
 

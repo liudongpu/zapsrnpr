@@ -133,11 +133,15 @@ r_469923180007:{reg:"+^[0-9]+(.[0-9]{2})?$",name:" 必须为数字且小数点�
 					if(!bFlag)
 					{
 						
-						var sTitle=$(el).parents('.control-group').find('.control-label').text();
+						var sTitle='';
 						
 						if($(el).attr('zapweb_attr_regex_title'))
 						{
 							sTitle=$(el).attr('zapweb_attr_regex_title');
+						}
+						else
+						{
+							sTitle=$(el).parents('.control-group').find('.control-label').text();
 						}
 						
 						$(el).addClass('w_regex_error');
