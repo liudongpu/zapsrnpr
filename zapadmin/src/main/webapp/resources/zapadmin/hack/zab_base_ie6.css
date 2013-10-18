@@ -52,3 +52,13 @@ input.btn
 {
 	background-color:#ebebeb ;
 }
+
+
+html,body
+{
+	overflow:auto;
+}
+body{
+	width:100%;
+}
+

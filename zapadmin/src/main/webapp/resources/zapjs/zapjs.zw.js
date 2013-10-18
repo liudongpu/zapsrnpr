@@ -103,16 +103,49 @@ zapjs.zw = {
 		var oForm = $(oElm).parents("form");
 		if (zapjs.zw.func_regex(oForm)) {
 			zapjs.zw.modal_process();
-			if(zapjs.f.ajaxsubmit(oForm, "../func/" + $(oElm).attr('zapweb_attr_operate_id'), zapjs.zw.func_success, zapjs.zw.func_error))
-			{
-				
-			}
-			else
-			{
+			if (zapjs.f.ajaxsubmit(oForm, "../func/" + $(oElm).attr('zapweb_attr_operate_id'), zapjs.zw.func_success, zapjs.zw.func_error)) {
+
+			} else {
 				zapjs.f.modal_close();
 			}
 		}
 	},
+
+	validate_field : function(el, sRegId, sTitle) {
+		var sVal = $(el).val();
+
+		var bFlag = zapjs.zw.validate_check(sRegId, sVal);
+		if (!bFlag) {
+
+			var sErrorMsg = "";
+
+			if (sVal) {
+
+				var rv = zapjs.zw.temp.regex['r_' + sRegId];
+				if (rv) {
+					sErrorMsg = rv["name"];
+				}
+			} else {
+				sErrorMsg = "不能为空";
+			}
+
+			//var sTitle = '';
+			if (!sTitle) {
+				if ($(el).attr('zapweb_attr_regex_title')) {
+					sTitle = $(el).attr('zapweb_attr_regex_title');
+				} else {
+					sTitle = $(el).parents('.control-group').find('.control-label').text();
+				}
+			}
+
+			zapjs.zw.validate_error(el, sTitle + sErrorMsg);
+
+		}
+
+		return bFlag;
+
+	},
+
 	/*
 	 * 验证检查
 	 * @return 是否验证通过  true/false
@@ -177,32 +210,9 @@ zapjs.zw = {
 
 			var sRegId = $(el).attr("zapweb_attr_regex_id");
 
-			var sVal = $(el).val();
-
-			bFlag = zapjs.zw.validate_check(sRegId, sVal);
+			bFlag = zapjs.zw.validate_field(el, sRegId);
 
 			if (!bFlag) {
-				var sErrorMsg = "";
-
-				if (sVal) {
-
-					var rv = zapjs.zw.temp.regex['r_' + sRegId];
-					if (rv) {
-						sErrorMsg = rv["name"];
-					}
-				} else {
-					sErrorMsg = "不能为空";
-				}
-
-				var sTitle = '';
-
-				if ($(el).attr('zapweb_attr_regex_title')) {
-					sTitle = $(el).attr('zapweb_attr_regex_title');
-				} else {
-					sTitle = $(el).parents('.control-group').find('.control-label').text();
-				}
-
-				zapjs.zw.validate_error(el, sTitle + sErrorMsg);
 
 				return bFlag;
 
