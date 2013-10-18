@@ -19,6 +19,7 @@ var zapweb_upload = {
 	clear_upload : function() {
 
 		$('form .control-upload_iframe').html('');
+		return true;
 
 	},
 

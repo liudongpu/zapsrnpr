@@ -53,7 +53,7 @@ zapjs.f = {
 
 	// 提交参数
 	ajaxsubmit : function(oElment, sAction, fSucceess, fError) {
-
+		var bReturn=true;
 		if (sAction == "") {
 
 		}
@@ -68,9 +68,15 @@ zapjs.f = {
 			}
 		};
 
-		zapjs.f.callextend("zapjs_e_zapjs_f_ajaxsubmit_submit");
-
-		$(oElment).ajaxSubmit(options);
+		if(zapjs.f.callextend("zapjs_e_zapjs_f_ajaxsubmit_submit"))
+		{
+			$(oElment).ajaxSubmit(options);
+		}
+		else
+		{
+			bReturn=false;
+		}
+		return bReturn;
 
 	},
 	ajaxjson : function(sTarget, data, fCallBack) {
@@ -84,10 +90,7 @@ zapjs.f = {
 		  data: data,
 		  success: fCallBack,
 		   error: function (msg) {
-		  	
-		              
 						zapjs.f.message('系统异步调用出现错误，请联系技术，谢谢！');
-						
 		            }
 		};
 		
@@ -314,11 +317,23 @@ zapjs.f = {
 	message : function(sContent, okfunc) {
 		zapjs.f.modal({
 			content : sContent,
-			okfunc : okfunc
+			okfunc : okfunc,
+			id:'zapjs_f_id_modal_message'
 		});
 	},
 
-	modal : function(options) {
+	//关闭模态窗口
+	modal_close:function(sId)
+	{
+		zapjs.f.modal(
+			{
+			id:sId,
+			close:true}
+			
+		);
+	},
+	//打开模态窗口
+	modal:function(options) {
 
 		var defaults = {
 			title : '提示消息',
@@ -326,6 +341,7 @@ zapjs.f = {
 			flagbutton : true,
 			oktext : '确认',
 			canceltext : '取消',
+			close :false,
 			okfunc : '',
 			width : 400,
 			id : 'zapjs_f_id_modal_box',
@@ -333,37 +349,17 @@ zapjs.f = {
 		};
 		var s = $.extend({}, defaults, options || {});
 
-		/*
-		 if (!($('#zapjs_f_id_modal_box').length > 0)) {
-		 var sModel = '<div id="zapjs_f_id_modal_box" class="modal hide fade"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' + '<h3>' + s.title + '</h3></div><div class="modal-body">' + '<p>' + '</p>' + '</div>' + '<div class="modal-footer">' + '</div></div>';
-		 $(document.body).append(sModel);
-
-		 }
-
-		 $('#zapjs_f_id_modal_box h3').html(s.title);
-		 $('#zapjs_f_id_modal_box p').html(s.content);
-
-		 if (s.flagbutton) {
-		 var aFuncHtml = [];
-		 if (s.okfunc) {
-		 aFuncHtml.push('<a  class="btn btn-primary" data-dismiss="modal" onclick="' + s.okfunc + '" aria-hidden="true">确认</a>');
-
-		 }
-
-		 aFuncHtml.push('<a  class="btn btn-primary" data-dismiss="modal" onclick="' + s.cancelfunc + '" aria-hidden="true">关闭</a>');
-
-		 $('#zapjs_f_id_modal_box .modal-footer').html(aFuncHtml.join(''));
-
-		 }
-
-		 $('#zapjs_f_id_modal_box').modal('show');
-
-		 */
+		
 
 		if (zapjs.f.exist(s.id)) {
 
 			$('#' + s.id).dialog('close');
 			$('#' + s.id).remove();
+			
+			if(s.close)
+			{
+				return;
+			}
 		}
 
 		var sModel = '<div id="' + s.id + '" ></div>';

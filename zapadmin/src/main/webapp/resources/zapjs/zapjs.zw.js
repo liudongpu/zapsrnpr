@@ -6,17 +6,41 @@
 zapjs.zw = {
 
 	temp : {
-		regex : {r_469923180001:{reg:"",name:"无"},
-r_469923180002:{reg:"+",name:"必须非空"},
-r_469923180003:{reg:"^[0-9]{1,10}$",name:"必须为数字"},
-r_469923180004:{reg:"-^[a-zA-Z0-9_\.]+@[a-zA-Z0-9-]+[\.a-zA-Z]+$",name:"必须为邮箱地址"},
-r_469923180005:{reg:"^.{6,20}$",name:"必须为6-20位字符"},
-r_469923180006:{reg:"^0\.([1-9][0-9]?|[0-9][1-9])$",name:"必须为大于0小于1的两位小数"},
-r_469923180007:{reg:"+^[0-9]+(.[0-9]{2})?$",name:" 必须为数字且小数点不超过两位"}}
+		regex : {
+			r_469923180001 : {
+				reg : "",
+				name : "无"
+			},
+			r_469923180002 : {
+				reg : "+",
+				name : "必须非空"
+			},
+			r_469923180003 : {
+				reg : "^[0-9]{1,10}$",
+				name : "必须为数字"
+			},
+			r_469923180004 : {
+				reg : "-^[a-zA-Z0-9_\.]+@[a-zA-Z0-9-]+[\.a-zA-Z]+$",
+				name : "必须为邮箱地址"
+			},
+			r_469923180005 : {
+				reg : "^.{6,20}$",
+				name : "必须为6-20位字符"
+			},
+			r_469923180006 : {
+				reg : "^0\.([1-9][0-9]?|[0-9][1-9])$",
+				name : "必须为大于0小于1的两位小数"
+			},
+			r_469923180007 : {
+				reg : "+^[0-9]+(.[0-9]{2})?$",
+				name : " 必须为数字且小数点不超过两位"
+			}
+		}
 	},
 
 	modal_show : function(oSet) {
-		top.zapjs.f.modal(oSet);
+		//top.zapjs.f.modal(oSet);
+		zapjs.f.modal(oSet);
 	},
 
 	modal_process : function() {
@@ -61,7 +85,7 @@ r_469923180007:{reg:"+^[0-9]+(.[0-9]{2})?$",name:" 必须为数字且小数点�
 		var defaults = {
 			varsion : 1,
 			api_target : sTarget,
-			api_input:zapjs.f.tojson(oData),
+			api_input : zapjs.f.tojson(oData),
 			api_key : 'jsapi'
 		};
 
@@ -75,15 +99,77 @@ r_469923180007:{reg:"+^[0-9]+(.[0-9]{2})?$",name:" 必须为数字且小数点�
 
 	// 提交操作
 	func_call : function(oElm) {
-		
+
 		var oForm = $(oElm).parents("form");
 		if (zapjs.zw.func_regex(oForm)) {
 			zapjs.zw.modal_process();
-			zapjs.f.ajaxsubmit(oForm, "../func/" + $(oElm).attr('zapweb_attr_operate_id'), zapjs.zw.func_success, zapjs.zw.func_error);
+			if(zapjs.f.ajaxsubmit(oForm, "../func/" + $(oElm).attr('zapweb_attr_operate_id'), zapjs.zw.func_success, zapjs.zw.func_error))
+			{
+				
+			}
+			else
+			{
+				zapjs.f.modal_close();
+			}
 		}
 	},
+	/*
+	 * 验证检查
+	 * @return 是否验证通过  true/false
+	 */
+	validate_check : function(sRegId, sVal) {
+		var iReturn = 1;
+		if (sRegId != "" && sRegId != "469923180001" && sRegId.indexOf('46992318') > -1) {
 
-	//验证form
+			var rv = zapjs.zw.temp.regex['r_' + sRegId];
+			if (rv) {
+
+				var sRegText = rv.reg;
+
+				if (iReturn == 1 && sRegText) {
+
+					if (sRegText.indexOf('+') == 0) {
+						sRegText = sRegText.substr(1);
+
+						if (sVal == "") {
+							iReturn = 0;
+						}
+
+					} else if (sRegText.indexOf('-') == 0) {
+						sRegText = sRegText.substr(1);
+					}
+
+				}
+				if (iReturn == 1 && sRegText) {
+
+					var myregex = new RegExp(sRegText);
+					// 创建正则表达式
+					if (!myregex.test(sVal)) {
+						iReturn = 0;
+
+					}
+
+				}
+			}
+
+		}
+
+		return iReturn == 1;
+
+	},
+	/*
+	 * 验证失败时的调用
+	 */
+	validate_error : function(el, sMessage) {
+		$(el).addClass('w_regex_error');
+		$(el).focus();
+		$(el).click(function() {
+			$(el).removeClass('w_regex_error');
+		});
+		zapjs.f.message(sMessage);
+	},
+
+	//正则表达式验证form
 	func_regex : function(oForm) {
 		var bFlag = true;
 
@@ -91,72 +177,34 @@ r_469923180007:{reg:"+^[0-9]+(.[0-9]{2})?$",name:" 必须为数字且小数点�
 
 			var sRegId = $(el).attr("zapweb_attr_regex_id");
 
-			if (sRegId != "" && sRegId != "469923180001" && sRegId.indexOf('46992318') > -1) {
+			var sVal = $(el).val();
 
-				var rv = zapjs.zw.temp.regex['r_' + sRegId];
-				if (rv) {
+			bFlag = zapjs.zw.validate_check(sRegId, sVal);
 
-					var sRegText = rv.reg;
+			if (!bFlag) {
+				var sErrorMsg = "";
 
-					var sErrorMsg = "";
-					
-					var sVal=$(el).val();
-					
+				if (sVal) {
 
-					if (bFlag && sRegText) {
-						//bFlag = false;
-
-						if (sRegText.indexOf('+') == 0) {
-							sRegText = sRegText.substr(1);
-
-							if (sVal == "") {
-								bFlag = false;
-								sErrorMsg = "不能为空";
-							}
-
-						}else if (sRegText.indexOf('-') == 0) {
-							sRegText = sRegText.substr(1);
-						}
-
+					var rv = zapjs.zw.temp.regex['r_' + sRegId];
+					if (rv) {
+						sErrorMsg = rv["name"];
 					}
-					if (bFlag && sRegText) {
-
-						var myregex = new RegExp(sRegText);
-						// 创建正则表达式
-						if (!myregex.test(sVal)) {
-							bFlag = false;
-							sErrorMsg = rv.name;
-						}
-
-					}
-
-					if(!bFlag)
-					{
-						
-						var sTitle='';
-						
-						if($(el).attr('zapweb_attr_regex_title'))
-						{
-							sTitle=$(el).attr('zapweb_attr_regex_title');
-						}
-						else
-						{
-							sTitle=$(el).parents('.control-group').find('.control-label').text();
-						}
-						
-						$(el).addClass('w_regex_error');
-						$(el).focus();
-						$(el).click(function(){
-							$(el).removeClass('w_regex_error');}
-						);
-						zapjs.f.message(sTitle+sErrorMsg);
-						return bFlag;
-						
-					}
-					
-					zapjs.d(rv);
-
+				} else {
+					sErrorMsg = "不能为空";
 				}
+
+				var sTitle = '';
+
+				if ($(el).attr('zapweb_attr_regex_title')) {
+					sTitle = $(el).attr('zapweb_attr_regex_title');
+				} else {
+					sTitle = $(el).parents('.control-group').find('.control-label').text();
+				}
+
+				zapjs.zw.validate_error(el, sTitle + sErrorMsg);
+
+				return bFlag;
 
 			}
 
