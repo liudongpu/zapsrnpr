@@ -170,6 +170,12 @@ zapjs.zw = {
 
 					} else if (sRegText.indexOf('-') == 0) {
 						sRegText = sRegText.substr(1);
+						//如果是负号  则可以为空
+						if(sVal=="")
+						{
+							sRegText="";
+						}
+						
 					}
 
 				}
