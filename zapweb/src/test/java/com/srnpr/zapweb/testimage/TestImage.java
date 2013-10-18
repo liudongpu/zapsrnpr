@@ -33,7 +33,7 @@ public class TestImage extends TestHelper {
 	}
 	
 	
-	@Test
+	
 	public void test() {
 /*
 		ImageHelper
