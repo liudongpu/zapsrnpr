@@ -9,7 +9,7 @@ html {
 	height: 100%;
 }
 
-img
+.cke_dialog_contents_body .ImagePreviewBox img
 {
 	max-width:none;
 }
@@ -45,19 +45,25 @@ img
 	float: left;
 	list-style-type: none;
 	text-align: center;
+	width:112px;
 }
 
 .control-upload-image {
 	border: solid 1px #008A17;
 	padding: 5px;
 }
+.control-upload_fix
+{
+	height:40px;
+}
+
 
 .control-upload-delete {
 	margin-top: 5px;
 }
 
 .control-upload img {
-	max-width: 100px;
+	width: 100px;
 }
 
 .fileinput-button {

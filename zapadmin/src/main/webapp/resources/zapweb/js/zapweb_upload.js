@@ -65,18 +65,30 @@ var zapweb_upload = {
 			}
 
 		}
-
+		
+		
+		
+		var sElmId=sField+'_zapweb_upload_position';
 		if ($('#' + sField).val() == "" || bFlagMul) {
 
-			if ($('#' + sField).nextAll('.control-upload_iframe').html() == "") {
-				var sUploadUrl = $('#' + sField).attr(zapjs.c.field_attr + "target_url");
-
-				//$('#' + sField).nextAll('.control-upload_iframe').html('<iframe src="' + sUploadUrl + 'upload?zw_s_source=' + sField + '" class="zw_page_upload_iframe" frameborder="0"></iframe>');
-
-				$('#' + sField).nextAll('.control-upload_iframe').html('<div class="control-upload_div"><span class="btn btn-info fileinput-button"><i class="glyphicon glyphicon-plus"/><span>选择文件</span><input onchange="zapweb_upload.upload_upload(\'' + sField + '\')" id="' + sField + '_zapweb_upload_field" name="' + sField + '_zapweb_upload_field" type="file"/></span></div>');
-			}
+		
+			
+			var sUploadUrl = $('#' + sField).attr(zapjs.c.field_attr + "target_url");
+			var aHtml=[];
+			aHtml.push('<form  method="POST" enctype="multipart/form-data">');
+			aHtml.push('<div class="control-upload_div"><span class="btn btn-info fileinput-button"><i class="glyphicon glyphicon-plus"/><span>选择文件</span><input onchange="zapweb_upload.upload_upload(\'' + sField + '\')" id="' + sField + '_zapweb_upload_field" name="' + sField + '_zapweb_upload_field" type="file"/></span></div>');
+			aHtml.push('</form>');
+			zapjs.f.create_position({id:sElmId,
+				source: $('#' + sField).parents('div'),
+				content:aHtml.join('')});
+			
+			
+			$('#' + sField ).nextAll('.control-upload_fix').show();
+			
 		} else {
-			$('#' + sField).nextAll('.control-upload_iframe').html('');
+			//$('#' + sField).nextAll('.control-upload_iframe').html('');
+			$('#'+sElmId).hide();
+			$('#' + sField ).nextAll('.control-upload_fix').hide();
 		}
 
 		if ($('#' + sField).val() != "") {
@@ -120,10 +132,10 @@ var zapweb_upload = {
 	},
 	// 上传成功
 	upload_success : function(o, sField) {
-		// alert(sField);
+		
 
-		$('#' + sField + '_zapweb_upload_field').parents('.control-upload_iframe').show();
-		$('#' + sField + '_zapweb_upload_field').parents('.control-upload_iframe').next('.control-upload_process').html('');
+		
+		$('#' + sField ).nextAll('.control-upload_process').html('');
 
 		if (o.resultCode == 1) {
 			if (o.resultObject) {
@@ -142,7 +154,7 @@ var zapweb_upload = {
 			alert(o.resultMessage);
 		}
 
-		$('#' + sField).parents('form').attr("enctype", "application/x-www-form-urlencoded");
+		//$('#' + sField).parents('form').attr("enctype", "application/x-www-form-urlencoded");
 
 	},
 	// 上传提交
@@ -152,15 +164,9 @@ var zapweb_upload = {
 		if (sVal == "") {
 			return false;
 		}
-
-		//$('form').hide();
-
-		//$('#'+sField+'_zapweb_upload_field').parents('.control-upload_iframe').hide();
-
 		$('#' + sField).next('.control-upload_iframe').hide();
 		$('#' + sField).nextAll('.control-upload_process').html('<span class="panel-loading">正在上传，请稍后……</span>');
-		//$('#'+sField+'_zapweb_upload_field').parents('.control-upload_iframe').next('.control-upload_process').html('<span class="panel-loading">正在上传，请稍后……</span>');
-		//$('#formsubmit').click();
+		
 
 		var sBaseUpload = 'upload';
 
@@ -185,10 +191,11 @@ var zapweb_upload = {
 				zapweb_upload.upload_show(sField);
 			}
 		};
-		$('#' + sField).parents('form').attr("enctype", "multipart/form-data");
+		//$('#' + sField+'_zapweb_upload_field').parents('form').attr("enctype", "multipart/form-data");
 
 		setTimeout(function() {
-			$('#' + sField).parents('form').ajaxSubmit(options);
+			
+			$('#' + sField+'_zapweb_upload_field').parents('form').ajaxSubmit(options);
 		}, 100);
 
 		//$('#'+sField).parents('form').ajaxSubmit(options);

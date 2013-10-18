@@ -95,5 +95,9 @@
 	border:solid 1px #b94a48 !important;
 }
 
+.w_position
+{
+	position: absolute;
+}
 
 

@@ -236,6 +236,38 @@ zapjs.f = {
 		return document.getElementById(sId) ? true : false;
 
 	},
+	
+	create_position:function(options)
+	{
+		
+		var defaults = {
+			id : 'zapjs_f_id_window_position',
+			content : '',
+			source:null
+		};
+
+		var s = $.extend({}, defaults, options || {});
+		
+		
+		var offset_x = $(s.source).offset().top;
+		var offset_y=$(s.source).offset().left;
+		
+		
+		if(zapjs.f.exist(s.id))
+		{
+			$('#'+s.id).css('top',offset_x);
+			$('#'+s.id).css('left',offset_y);
+			$('#'+s.id).show();
+			return ;
+		}
+		
+		
+		
+		var sHtml='<div id="'+s.id+'" class="w_position" style="top:'+offset_x+'px;left:'+offset_y+'px;">'+s.content+'</div>';
+		
+		$('body').append(sHtml);
+		
+	},
 	// 浏览器信息
 	browser : function(sBrowser) {
 		var userAgent = navigator.userAgent.toLowerCase();
@@ -272,6 +304,7 @@ zapjs.f = {
 		});
 
 	},
+	//弹出窗口
 	window_box : function(options) {
 		var defaults = {
 			id : 'zapjs_f_id_window_box',
