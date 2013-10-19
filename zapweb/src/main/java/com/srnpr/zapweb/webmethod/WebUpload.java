@@ -298,8 +298,8 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 
 			if (sTarget.equals("upload")) {
 
-				//sReturnString = upUploadHtml(doRemoteUpload(request, sTarget));
-				sReturnString = doRemoteUpload(request, sTarget).upJson();
+				sReturnString = upUploadHtml(doRemoteUpload(request, sTarget));
+				//sReturnString = doRemoteUpload(request, sTarget).upJson();
 
 			} else if (sTarget.equals("editor")) {
 				MWebResult mResult = doRemoteUpload(request, sTarget);
