@@ -8,13 +8,13 @@
 <#else>
 	<#assign manage_home_addhead="<meta http-equiv=\"Refresh\" content=\"0; url=login\" />" />
 </#if>
-<@m_common_page_head_common e_title=manage_home_title e_bodyclass="easyui-layout" e_addhead=manage_home_addhead?default("") />
+<@m_common_page_head_common e_title=manage_home_title e_bodyclass="" e_addhead=manage_home_addhead?default("") />
 
-
+<div class="zab_home_home_body">
 	
 		<#assign home_menu= user_support.upUserMenu(manage_home_menu+"0")>
 
-		<div   data-options="border:false,region:'north',maxHeight:40,minHeight:40" class="zab_home_home_top">
+		<div    class="zab_home_home_top">
 			<div class="w_left c_site">
 				<a href="home"><i class="icon-home  icon-white"></i>&nbsp;${manage_home_title}</a>
 
@@ -46,13 +46,11 @@
 
 		</div>
 
-	
-
-			<div  data-options="maxWidth:180,border:false,region:'west'"   class=" zab_home_home_left  ">
+		<div class="zab_home_home_center">
+		<div class="zab_home_home_main">
+			<div   class=" zab_home_home_left  ">
 			
-				<div class="c_box w_display">
-				<input type="text" placeholder="快捷码">
-				</div>
+				
 			
 				<div>
 					<ul>
@@ -86,12 +84,16 @@
 				<div class="c_bottom">CopyRight 2013</div>
 
 			</div>
-			<div  data-options="border:false,region:'center'"   class="zab_home_home_right">
+			<div    class="zab_home_home_split">
+			</div>
+			<div    class="zab_home_home_right">
 			<#if user_support.checkLogin()>
-				<iframe src="../page/page_zapadmin_index_center" id="main_iframe"
-					name="main_iframe" width="100%" height="100%" frameborder="0" onload="zapadmin.load_complate(this)"
+				<iframe src="../page/page_zapadmin_index_center" id="main_iframe" class="zab_home_home_iframe"
+					name="main_iframe" width="100%" height="100%" frameborder="0"  onload="zapadmin.load_complate(this)"
 					 ></iframe>
 			</#if>
 			</div>
-		
+			</div>
+		</div>	
+	</div>	
 <@m_common_page_foot_base  />

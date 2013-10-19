@@ -13,6 +13,7 @@
   </div></legend>
   <div class="w_h_20 "></div>
 <#include b_page.getWebPage().getPageTemplate()+".ftl" />
+  <div class="w_h_40"></div>
 <@m_common_page_foot_base  />
 
 

@@ -3,10 +3,17 @@ body {
 	font-size: 13px;
 	height: 100%;
 	word-wrap: break-word;
+	margin:0px;
+	padding:0px;
 }
 
 html {
 	height: 100%;
+	
+}
+a
+{
+	text-decoration: none;
 }
 
 .cke_dialog_contents_body .ImagePreviewBox img
@@ -129,6 +136,7 @@ html {
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
+	position: absolute;
 }
 
 .zab_home_home_box {
@@ -147,6 +155,8 @@ html {
 	height: 40px;
 	font-size: 14px;
 	overflow: hidden;
+	width:100%;
+	position: absolute;
 }
 
 .zab_home_home_top .c_site {
@@ -177,10 +187,33 @@ html {
 	font-size: 12px;
 }
 
+
+.zab_home_home_center
+{
+	height:100%;
+	position: absolute;
+	top:40px;
+	left:0px;
+	right:0px;
+	bottom:0px;
+	z-index:1;
+	
+	
+}
+
+
+
 .zab_home_home_left {
 	background-color: #F0F0F0;
 	width: 180px;
-	float: left;
+	
+	bottom:0px;
+	top:0px;
+	left:0px;
+	z-index: 3;
+	position: absolute;
+	
+	
 }
 
 .zab_home_home_left .c_title {
@@ -234,22 +267,43 @@ html {
 	background-color: #e7e7e7;
 }
 
+.zab_home_home_split
+{
+	left:180px;
+	top:0px;
+	right:0px;
+	bottom:0px;
+	z-index: 5;
+	width:20px;
+	position: absolute;
+}
+
 .zab_home_home_right {
-	overflow: hidden;
-	min-width: 600px;
+	
+	
+	left:200px;
+	top:0px;
+	right:0px;
+	bottom:0px;
+	z-index: 2;
+	position: absolute;
+	
 }
 
 .zab_home_home_main {
 	position: absolute;
-	top: 40px;
+	top: 0px;
 	right: 0px;
 	left: 0px;
 	bottom: 0px;
+	z-index:1;
+	min-width:768px;
 }
 
 .zab_page_default_body {
-	width: 97%;
-	margin-left: 2%;
+	
+	padding-right:20px;
+	
 }
 
 .zab_page_windowtree_buttons {
