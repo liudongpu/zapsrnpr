@@ -51,15 +51,7 @@ requirejs.config({
 	
 	baseUrl: "../resources/",
 	paths: {
-        // the left side is the module ID,
-        // the right side is the path to
-        // the jQuery file, relative to baseUrl.
-        // Also, the path should NOT include
-        // the '.js' file extension. This example
-        // is using jQuery 1.9.0 located at
-        // js/lib/jquery-1.9.0.js, relative to
-        // the HTML page.
-        //jquery: 'lib/jquery/jquery-last.min'
+      
     }
 		
 		
@@ -70,9 +62,25 @@ requirejs.config({
 
 var zs={};
 window.zs = zs;
-zs.r=function(aNeeds, f) {
-	require(aNeeds, f);
+
+zs=
+{
+	r:function(aNeeds, f) {
+		require(aNeeds, f);
+	},
+	d : function(oLog) {
+		if (1==1) {
+
+			if (window.console && window.console.log&&JSON) {
+				console.log(oLog.toJSON());
+			}
+
+		}
+	}
 };
+
+
+
 
 zs.f=
 {

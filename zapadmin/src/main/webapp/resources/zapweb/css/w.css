@@ -1,3 +1,9 @@
+
+body,html
+{
+	height:100%;
+}
+
 /*通用定义样式*/
 .w_display {
 	display: none;
