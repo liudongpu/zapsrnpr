@@ -60,6 +60,13 @@
 }
 
 
+.w_w_number
+{
+	width:100px;
+}
+
+
+
 .w_opacity_90
 {
 	filter: alpha(opacity=90);

@@ -8,6 +8,7 @@
 				option:{},
 				//id,name,data,level,parentid
 				dataKey:[],
+				tempNode:{},
 				createNextLevel:function (node)
 				{
 					if(node.level>combox.option.maxlevel)
@@ -17,21 +18,59 @@
 						combox.create(node,node.data);
 					}
 					else{
-						$.getJSON(zapjs.f.urlreplace(combox.option.url,combox.option.parentReplaceName,node.searchid), function(json){
+						
+						if(combox.option.api!=""){
+							var option={};
+							//{"version":1,"pid":"449716030001","sellerCode":"","level":3}
+							option.version=1;
+							option.pid=node.searchid;
+							option.level=node.level;
+							option.sellerCode="";
 							
-							var size = json.length;
+							combox.tempNode=node;
 							
-							var ary=[];
-							for(var i=0;i<size;i++){
-								var item={};
-								item.id=json[i][0];
-								item.text=json[i][1];
-								ary.push(item);
-							}
-							
-							combox.create(node,ary);
-						});
+							zapjs.zw.api_call(combox.option.api,option,combox.apiCallBack);
+						}
+						else{
+							$.getJSON(zapjs.f.urlreplace(combox.option.url,combox.option.parentReplaceName,node.searchid), function(json){
+								
+								var size = json.length;
+								
+								var ary=[];
+								for(var i=0;i<size;i++){
+									var item={};
+									item.id=json[i][0];
+									item.text=json[i][1];
+									ary.push(item);
+								}
+								
+								combox.create(node,ary);
+							});
+						}
+						
+						
 					}
+				},
+				apiCallBack:function(json){
+					if(json.resultCode == 1){
+						
+						var size = json.list.length;
+						
+						var ary=[];
+						for(var i=0;i<size;i++){
+							var item={};
+							item.id=json.list[i].categoryCode;
+							item.text=json.list[i].categoryName;
+							ary.push(item);
+						}
+						
+						combox.create(combox.tempNode,ary);
+					}
+					else{
+						alert(json.resultMessage);
+					}
+					
+					
 				},
 				create:function(node,json){
 					
@@ -161,7 +200,8 @@
 			"height":200,//高度
 			"classid":"",
 			"onchange":function(node,datakeys){},
-			"url":""
+			"url":"",
+			"api":""
 	}; 
 	$.fn.comboboxC.dataKey = {
 			"id":"dd",//当前的Id
