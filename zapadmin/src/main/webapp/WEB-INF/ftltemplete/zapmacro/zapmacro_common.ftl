@@ -358,8 +358,8 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 	<@m_zapmacro_common_field_start text=e_field.getFieldNote() for=e_field.getPageFieldName() />
 	
 				<#list e_page.upDataSource(e_field) as e_key>
-					<input type="checkbox" value="${e_key.getV()}" <#if  (((e_field.getPageFieldValue()+",")?index_of(e_key.getV()+","))>-1)> checked="checked" </#if> name="${e_field.getPageFieldName()}" id="${e_field.getPageFieldName()}_${e_key_index}}"/>
-					<label for="${e_field.getPageFieldName()}_${e_key_index}}">${e_key.getK()}</label>
+					<input type="checkbox" value="${e_key.getV()}" <#if  (((e_field.getPageFieldValue()+",")?index_of(e_key.getV()+","))>-1)> checked="checked" </#if> name="${e_field.getPageFieldName()}" id="${e_field.getPageFieldName()}_${e_key_index}"/>
+					<label for="${e_field.getPageFieldName()}_${e_key_index}">${e_key.getK()}</label>
 						
 					</#list>
 	

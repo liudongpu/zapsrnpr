@@ -45,6 +45,9 @@ public class FuncEdit extends RootFunc {
 					String sValue = mAddMaps.get(mField.getColumnName());
 
 					mInsertMap.put(mField.getColumnName(), sValue);
+				} else if (mField.getFieldTypeAid().equals("104005103")) {
+					//特殊判断修改时如果没有传值 则自动赋空
+					mInsertMap.put(mField.getColumnName(), "");
 				}
 
 			}
