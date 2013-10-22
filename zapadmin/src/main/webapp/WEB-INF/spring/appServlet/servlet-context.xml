@@ -22,7 +22,7 @@
 	 -->
 	 
 	 <resources mapping="/staticfiles/**" location="/uploadfiles/" />
-	
+	 <resources mapping="/zaptesthtml/**" location="/zaptesthtml/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
