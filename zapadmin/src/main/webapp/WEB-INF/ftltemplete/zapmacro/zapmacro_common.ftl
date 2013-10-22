@@ -185,6 +185,8 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 	  		<@m_zapmacro_common_field_date  e_field />
 	  	<#elseif  e_field.getFieldTypeAid()=="104005019">
 	  		<@m_zapmacro_common_field_select  e_field  e_page ""/>
+	  	<#elseif  e_field.getFieldTypeAid()=="104005103">
+	  		<@m_zapmacro_common_field_checkbox  e_field  e_page />
 	  	<#elseif  e_field.getFieldTypeAid()=="104005020">
 	  		<@m_zapmacro_common_field_textarea  e_field />
 	  	<#elseif  e_field.getFieldTypeAid()=="104005005">
@@ -348,11 +350,23 @@ ${e_page.upReplaceUrl("",[(e_page.upConst("126022016","count="))+(e_pagedata.get
 					</#list>
 	      		</select>
 	<@m_zapmacro_common_field_end />
-
-
-
-	
 </#macro>
+
+
+<#-- 字段：复选框            e_text_select:是否显示请选择       -->
+<#macro m_zapmacro_common_field_checkbox   e_field    e_page    >
+	<@m_zapmacro_common_field_start text=e_field.getFieldNote() for=e_field.getPageFieldName() />
+	
+				<#list e_page.upDataSource(e_field) as e_key>
+					<input type="checkbox" value="${e_key.getV()}" <#if  (((e_field.getPageFieldValue()+",")?index_of(e_key.getV()+","))>-1)> checked="checked" </#if> name="${e_field.getPageFieldName()}" id="${e_field.getPageFieldName()}_${e_key_index}}"/>
+					<label for="${e_field.getPageFieldName()}_${e_key_index}}">${e_key.getK()}</label>
+						
+					</#list>
+	
+	      		
+	<@m_zapmacro_common_field_end />
+</#macro>
+
 
 
 
