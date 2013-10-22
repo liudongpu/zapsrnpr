@@ -1,21 +1,71 @@
-.zat_dragable_priview {
-	height:30px;
-	background-color:#ccc;
+
+.zat_body_top
+{
+	position: absolute;
+	top:0px;
+	width:100%;
+	height:150px;
+	
+	
+	
+}
+.zat_body_head
+{
+	height:150px;
+	border-bottom:solid 1px #B1b1b1;
+}
+
+
+.zat_dragable_box_prev
+{
+	
+}
+
+.zat_dragable_box_prev .zat_dragable_options
+{
+	display:none;
+}
+
+.zat_dragable_box_prev .zat_dragable_item {
+	width:200px;
+	height:35px;
+	margin-right:20px;
+	float:left;
+}
+.zat_dragable_box_prev .zat_dragable_priview
+{
+	background-color:#fff;
+	height:35px;
+	border:solid 1px #ccc;
+}
+
+
+
+.zat_target_box .zat_dragable_priview {
+	height:35px;
+	background-color:#ebebeb;
+	
 }
 
 .zat_target_inline
 {
 	margin:auto;
-	width:80%;
+	
 }
 
-.zat_dragable_item {
-	
-	border:dashed 1px #ccc;
-	margin-top:20px;
-	
-	
+.zat_dragable_button
+{
+	border:solid 1px #ccc;
+	background-color:#ccc;
+	padding:0px 10px 0px 10px;
+	display: inline-block;
+	height:20px;
+	margin-top:5px;
 }
+
+
+
+
 .zat_dragable_border
 {
 	border:solid 1px #ff0000;
@@ -26,6 +76,13 @@
 	width:100%;
 	height:100%;
 }
+
+
+.zat_target_box .zat_dragable_options .zat_dragable_button
+{
+	cursor:pointer;
+}
+
 
 .zat_dragable_control
 {

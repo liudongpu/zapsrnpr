@@ -72,7 +72,7 @@ zs=
 		if (1==1) {
 
 			if (window.console && window.console.log&&JSON) {
-				console.log(oLog.toJSON());
+				console.log(JSON.stringify(oLog));
 			}
 
 		}
