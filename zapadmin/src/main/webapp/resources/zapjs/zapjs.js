@@ -312,6 +312,7 @@ zapjs.f = {
 			content : '',
 			width : 600,
 			height : 400,
+			type:'text',
 			title : '&nbsp;',
 			close : false
 		};
@@ -331,6 +332,12 @@ zapjs.f = {
 
 			$(document.body).append(sText);
 		}
+		
+		if(s.url&&s.type=="iframe")
+		{
+			s.content='<iframe src="'+s.url+'" frameborder="0" style="width:100%;height:98%;"></iframe>';
+		}
+		
 
 		$('#' + s.id).html(s.content);
 
@@ -341,7 +348,7 @@ zapjs.f = {
 			closed : false
 		});
 
-		if (s.url) {
+		if (s.url&&s.type!='iframe') {
 			$('#' + s.id).window('refresh', s.url);
 		}
 

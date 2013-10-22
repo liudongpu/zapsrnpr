@@ -95,7 +95,8 @@
 .zat_target_box .zat_dragable_view 
 {
 	margin:auto;
-	width:800px;
+	text-align:center;
+	
 }
 .zat_target_box .zat_dragable_view img
 {

@@ -12,6 +12,12 @@ and length(a.menu_code)=24;
 #更新所有字段的备注名称
 [sql]
 use zapdata;
+update zd_column b set b.column_note=
+ifnull((select 
+a.COLUMN_COMMENT FROM information_schema.COLUMNS a
+where a.table_name=b.table_name
+and a.COLUMN_NAME =b.COLUMN_NAME
+),'') where b.column_note='';
 update zw_field b set b.field_note=
 (select column_note from zd_column a 
 where a.table_name=(select table_name 

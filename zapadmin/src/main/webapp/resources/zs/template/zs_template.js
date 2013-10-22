@@ -32,57 +32,14 @@ var zs_template = {
 			zs_template.temp.currentItem = oItem;
 			var oSet = oItem.find('.zat_dragable_view').attr('zat_template_type');
 			zs_template.temp.currentType = oSet;
-			zs_template["set_"+oSet]();
+			zs_template_set["set_"+oSet]();
 			//zs_template.save_html();
 		});
 
 	},
 
-	set_headerlogo : function() {
-
-		var oItem = zs_template.temp.currentItem;
-
-		zs.r(["zapweb/js/zapweb_upload"], function(a) {
-			var aHtml = zapweb_upload.upload_html(zapjs.c.path_upload, 'zw_f_headerlogo', '', '');
-			var aContent = [];
-			aContent.push('<div class="zat_template_headerlogo w_p_20">');
-			aContent.push(aHtml);
-			aContent.push('<div class="w_clear"></div><a class="l-btn" href="javascript:zs_template.success_headerlogo()"><span class="l-btn-left">确认</span></a>');
-			aContent.push('</div>');
-			zapjs.f.window_box({
-				content : aContent.join('')
-			});
-
-			zapweb_upload.upload_file('zw_f_headerlogo');
-			zapjs.e('zapjs_e_zapweb_upload_upload_success', zs_template.upload_success);
-
-		});
-
-	},
-	success_headerlogo:function()
-	{
-		if($('#zw_f_headerlogo').val()!='')
-		{
-
-			zs_template.view_html('<img src="'+$('#zw_f_headerlogo').val()+'"/>');
-			
-			zapjs.f.window_close();
-			zs_template.save_html();
-			
-		}else
-		{
-			zapjs.f.modal({content:'请先选择图片'});
-		}
-		
-	},
 	
-	
-	set_productlist:function()
-	{
-		
-	},
-	
-	
+
 	view_html : function(sHtml) {
 		$(zs_template.temp.currentItem).find('.zat_dragable_view').html(sHtml);
 	},
@@ -168,5 +125,5 @@ var zs_template = {
 	}
 };
 
-zs.f.define("zs/template/zs_template", ["lib/easyui/jquery.easyui.min", "zs/storage/zs_storage", "zapjs/zapjs"], zs_template);
+zs.f.define("zs/template/zs_template", ["lib/easyui/jquery.easyui.min", "zs/template/zs_template_set", "zs/storage/zs_storage", "zapjs/zapjs"], zs_template);
 

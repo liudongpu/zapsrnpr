@@ -98,8 +98,8 @@ replace(uuid(),'-','') as uid
 ,zwp.page_code as page_code
 ,
 	(case zwd.define_dids 
-	when 469916151601 then (select page_code from zw_page where page_type_aid=116016001 and view_code=zwp.view_code) 
-	when 469916151605 then concat((select page_code from zw_page where page_type_aid=116016005 and view_code=zwp.view_code),'?zw_f_uid=[@this$uid]')
+	when 469916151601 then (select page_code from zw_page where page_type_aid=116016001 and view_code=zwp.view_code  order by zid limit 0,1) 
+	when 469916151605 then concat((select page_code from zw_page where page_type_aid=116016005 and view_code=zwp.view_code  order by zid limit 0,1),'?zw_f_uid=[@this$uid]')
 	else zwd.define_five end)
  as operate_link
 ,zwd.define_six as flag_enable
