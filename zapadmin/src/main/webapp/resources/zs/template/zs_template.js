@@ -54,7 +54,6 @@ var zs_template = {
 			});
 
 			zapweb_upload.upload_file('zw_f_headerlogo');
-
 			zapjs.e('zapjs_e_zapweb_upload_upload_success', zs_template.upload_success);
 
 		});
@@ -74,6 +73,12 @@ var zs_template = {
 		{
 			zapjs.f.modal({content:'请先选择图片'});
 		}
+		
+	},
+	
+	
+	set_productlist:function()
+	{
 		
 	},
 	
