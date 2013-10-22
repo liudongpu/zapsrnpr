@@ -11,6 +11,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -47,8 +48,10 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 	public MWebResult remoteUploadCustom(String sFileName, byte[] b,
 			String... sTargetStep) {
 
-		return remoteUpload( StringUtils.join(sTargetStep,WebConst.CONST_SPLIT_ZDOWN),sFileName,b   );
-		
+		return remoteUpload(
+				StringUtils.join(sTargetStep, WebConst.CONST_SPLIT_ZDOWN),
+				sFileName, b);
+
 	}
 
 	/**
@@ -171,18 +174,13 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 			} catch (FileUploadException e) {
 				e.printStackTrace();
 			}// 得到所有的文件
-			
-			
-			for(FileItem fUploadFileItem :items)
-			{
-				if(!fUploadFileItem.isFormField())
-				{
+
+			for (FileItem fUploadFileItem : items) {
+				if (!fUploadFileItem.isFormField()) {
 					fi = fUploadFileItem;
 				}
 			}
-			
-			
-			
+
 		}
 
 		return fi;
@@ -245,7 +243,16 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 
 				String sNoticeEvent = mSetMap.get("zw_s_noticeevent");
 
-				IWebNotice iNotice = new ProductUpload();
+				// IWebNotice iNotice = new ProductUpload();
+
+				IWebNotice iNotice = null;
+
+				try {
+					iNotice = (IWebNotice) ClassUtils.getClass(sNoticeEvent)
+							.newInstance();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
 				if (mResult.upFlagTrue()) {
 					// mResult = remoteUpload(sTarget, fi.getName(), fi.get());
@@ -299,7 +306,7 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 			if (sTarget.equals("upload")) {
 
 				sReturnString = upUploadHtml(doRemoteUpload(request, sTarget));
-				//sReturnString = doRemoteUpload(request, sTarget).upJson();
+				// sReturnString = doRemoteUpload(request, sTarget).upJson();
 
 			} else if (sTarget.equals("editor")) {
 				MWebResult mResult = doRemoteUpload(request, sTarget);
@@ -319,9 +326,10 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 
 			} else {
 
-				//sReturnString = upUploadHtml(doExtendUpload(request, sTarget));
+				// sReturnString = upUploadHtml(doExtendUpload(request,
+				// sTarget));
 				// sReturnString = doExtendUpload(request, sTarget).upJson();
-				
+
 				sReturnString = doExtendUpload(request, sTarget).upJson();
 
 			}

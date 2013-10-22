@@ -1,3 +1,42 @@
+.control-upload {
+
+}
+.control-upload_iframe iframe
+{
+	height:50px;
+}
+.control-upload_div
+{
+	margin-bottom:10px;
+}
+
+
+.control-upload ul li {
+	margin-right: 10px;
+	float: left;
+	list-style-type: none;
+	text-align: center;
+	width:112px;
+}
+
+.control-upload-image {
+	border: solid 1px #008A17;
+	padding: 5px;
+}
+.control-upload_fix
+{
+	height:40px;
+}
+
+
+.control-upload-delete {
+	margin-top: 5px;
+}
+
+.control-upload img {
+	width: 100px;
+}
+
 
 .zat_body_top
 {
@@ -13,6 +52,12 @@
 {
 	height:150px;
 	border-bottom:solid 1px #B1b1b1;
+}
+
+.zat_dragable_item
+{
+	width:100%;
+	
 }
 
 
@@ -45,6 +90,16 @@
 	height:35px;
 	background-color:#ebebeb;
 	
+}
+
+.zat_target_box .zat_dragable_view 
+{
+	margin:auto;
+	width:800px;
+}
+.zat_target_box .zat_dragable_view img
+{
+	max-width:100%;
 }
 
 .zat_target_inline

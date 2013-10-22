@@ -14,6 +14,7 @@ var zapjs = {
 		main_iframe : 'main_iframe',
 		split : '|',
 		path_resources : '../resources/',
+		path_upload:'../upload/',
 		cookie_base : 'cookie-zw-',
 		cookie_user : 'userinfo',
 		extend : {},

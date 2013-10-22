@@ -128,6 +128,12 @@ var zapweb_upload = {
 				$('#' + sField).val(sVal);
 
 				zapweb_upload.upload_show(sField);
+				
+				if(zapjs.f.callextend("zapjs_e_zapweb_upload_upload_success"))
+				{
+					
+				}
+				
 			}
 		} else {
 			alert(o.resultMessage);
