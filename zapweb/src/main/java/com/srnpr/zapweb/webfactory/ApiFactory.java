@@ -279,7 +279,7 @@ public class ApiFactory implements IBaseInstance {
 
 		iBaseInput = jsonInput.StringToObj(sInputJson, iBaseInput);
 
-		IBaseResult iResult = (IBaseResult) iBaseApi.Process(iBaseInput);
+		IBaseResult iResult = (IBaseResult) iBaseApi.Process(iBaseInput, null);
 
 		JsonHelper<IBaseResult> jsonResult = new JsonHelper<IBaseResult>();
 

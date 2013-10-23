@@ -1,5 +1,6 @@
 package com.srnpr.zapweb.demo;
 
+import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.topapi.RootApi;
 
 /**
@@ -15,7 +16,7 @@ public class DemoApiProcess extends RootApi<DemoApiResult, DemoApiInput> {
 	 * 
 	 * @see com.srnpr.zapcom.baseface.IBaseApi#Process(java.lang.Object)
 	 */
-	public DemoApiResult Process(DemoApiInput apiInput) {
+	public DemoApiResult Process(DemoApiInput apiInput, MDataMap mRequestMap) {
 
 		DemoApiResult rResult = new DemoApiResult();
 
