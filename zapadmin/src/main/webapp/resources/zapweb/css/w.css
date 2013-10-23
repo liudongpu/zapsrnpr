@@ -62,6 +62,12 @@ body,html
 	height: 200px;
 }
 
+.w_h_100p
+{
+	height:100%;
+}
+
+
 .w_p_20 {
 	padding: 20px;
 }
