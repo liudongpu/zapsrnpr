@@ -19,7 +19,8 @@ public interface IBaseApi<TResult, TInput> {
 	 * 
 	 * @param inputParam
 	 *            输入参数 该参数需要继承RootInput
-	 * @param mRequestMap TODO
+	 * @param mRequestMap
+	 *            URLMap结构体
 	 * @return 返回参数 该参数需要继承RootResult
 	 */
 	public TResult Process(TInput inputParam, MDataMap mRequestMap);
