@@ -194,7 +194,7 @@ var zapadmin_tree = {
 			}
 		}
 		for ( var i = 0, j = nodeAll.length; i < j; i++) {
-			//节点向下(本节点和孩子-1)
+			//节点向下(本节点和孩子-1) 
 			if(node[4]==nodeAll[i][4] || nodeAll[i][4].substr(0,length)==node[4]){
 				var sort = downNodeId+nodeAll[i][4].substr(length,nodeAll[i][4].length);
 				zapjs.zw.func_do(oTag, null, {zw_f_uid:nodeAll[i][3],zw_f_sort:sort});
