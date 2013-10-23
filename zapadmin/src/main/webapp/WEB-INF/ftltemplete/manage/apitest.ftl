@@ -1,7 +1,9 @@
 <#include "../zapmacro/zapmacro_common.ftl" />
 <#include "../macro/macro_common.ftl" />
-<@m_common_page_head_common e_title="API测试接口"  />
-
+<@m_common_page_head_common e_title="API测试接口" e_bodyclass="w_h_100p"  />
+<style>
+.zab_home_home_html{height:100%;}
+</style>
 
 
 

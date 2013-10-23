@@ -211,7 +211,7 @@ public class ApiFactory implements IBaseInstance {
 		if (mResult.upFlagTrue()) {
 
 			try {
-				sReturnString = doProcess(sApiClassString, sInputString);
+				sReturnString = doProcess(sApiClassString, sInputString,mDataMap);
 			} catch (Exception e) {
 				mResult.inErrorMessage(969905012);
 				e.printStackTrace();
@@ -253,9 +253,10 @@ public class ApiFactory implements IBaseInstance {
 	 * 
 	 * @param sClassName
 	 * @param sInputJson
+	 * @param mDataMap 
 	 * @return
 	 */
-	public String doProcess(String sClassName, String sInputJson) {
+	public String doProcess(String sClassName, String sInputJson, MDataMap mDataMap) {
 
 		String sReturnString = "";
 
@@ -279,7 +280,7 @@ public class ApiFactory implements IBaseInstance {
 
 		iBaseInput = jsonInput.StringToObj(sInputJson, iBaseInput);
 
-		IBaseResult iResult = (IBaseResult) iBaseApi.Process(iBaseInput);
+		IBaseResult iResult = (IBaseResult) iBaseApi.Process(iBaseInput, mDataMap);
 
 		JsonHelper<IBaseResult> jsonResult = new JsonHelper<IBaseResult>();
 
