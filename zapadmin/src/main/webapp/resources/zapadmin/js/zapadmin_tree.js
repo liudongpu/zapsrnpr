@@ -194,7 +194,7 @@ var zapadmin_tree = {
 			}
 		}
 		for ( var i = 0, j = nodeAll.length; i < j; i++) {
-			//节点向下(本节点和孩子-1) 
+			//节点向下(本节点和孩子-1)
 			if(node[4]==nodeAll[i][4] || nodeAll[i][4].substr(0,length)==node[4]){
 				var sort = downNodeId+nodeAll[i][4].substr(length,nodeAll[i][4].length);
 				zapjs.zw.func_do(oTag, null, {zw_f_uid:nodeAll[i][3],zw_f_sort:sort});
@@ -257,13 +257,13 @@ var zapadmin_tree = {
 			for ( var i = 0, j = oData.length; i < j; i++) {
 				if (oData[i][2] == sId && oData[i][0] > iMax) {
 					iMax = oData[i][0].substr(oData[i][0].length
-							- zapadmin_tree.temp.step);
+							- 4);
 				}
 			}
 
 			iMax = (parseInt(iMax) + 1).toString();
 
-			for ( var i = 0, j = (zapadmin_tree.temp.step - iMax.length); i < j; i++) {
+			for ( var i = 0, j = (4 - iMax.length); i < j; i++) {
 				iMax = "0" + iMax;
 
 			}
