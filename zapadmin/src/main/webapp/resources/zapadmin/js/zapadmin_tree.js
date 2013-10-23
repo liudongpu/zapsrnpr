@@ -255,7 +255,7 @@ var zapadmin_tree = {
 
 			var oData = zapadmin_tree.temp.data;
 			for ( var i = 0, j = oData.length; i < j; i++) {
-				if (oData[i][2] == sId && oData[i][0] > iMax) {
+				if (oData[i][2] == sId && oData[i][0].substr(oData[i][2].length,oData[i][0].length) > iMax) {
 					iMax = oData[i][0].substr(oData[i][0].length
 							- 4);
 				}
