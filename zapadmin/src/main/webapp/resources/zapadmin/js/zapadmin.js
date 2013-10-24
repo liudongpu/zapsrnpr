@@ -84,7 +84,7 @@ var zapadmin = {
 
 				var iStepLength = step.length;
 				for (var i = 0; i < iStepLength; i++) {
-
+					
 					if (step[i].id == oEvery[2]) {
 
 						if (!step[i].hasOwnProperty("children")) {
@@ -92,7 +92,7 @@ var zapadmin = {
 						}
 						step[i].children.push(oThis);
 
-						step[i + 1] = step[i].children[step[i].children.length - 1];
+						step[step.length] = step[i].children[step[i].children.length - 1];
 
 						i = iStepLength;
 					}
