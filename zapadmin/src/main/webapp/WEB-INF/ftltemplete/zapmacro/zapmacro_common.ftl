@@ -36,6 +36,17 @@
 
 
 
+<#-- 列表页 -->
+<#macro m_zapmacro_common_ajax_chart e_page>
+
+	<div class="zw_page_common_ajax_inquire">
+		<@m_zapmacro_common_page_inquire e_page />
+	</div>
+
+</#macro>
+
+
+
 
 <#-- 列表页 -->
 <#macro m_zapmacro_common_page_chart e_page>

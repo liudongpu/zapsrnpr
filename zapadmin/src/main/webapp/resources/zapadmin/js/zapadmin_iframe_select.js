@@ -36,7 +36,7 @@ var zapadmin_iframe_select = {
 };
 
 if ( typeof define === "function" && define.amd) {
-	define("zapadmin/js/zapadmin_iframe_select", function() {
+	define("zapadmin/js/zapadmin_iframe_select", ["zapadmin/js/zapadmin_chartajax"],function() {
 		return zapadmin_iframe_select;
 	});
 }

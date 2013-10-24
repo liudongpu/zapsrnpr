@@ -1,4 +1,9 @@
 
+body
+{
+	height:100%;
+}
+
 .zab_home_home_right 
 {
 	
@@ -11,15 +16,25 @@
 	height:expression((document.body.clientHeight -40)+"px" );
 }
 
+.zab_home_home_right
+{
+	width:expression((document.body.clientWidth -200)+"px" );
+}
+
 .zab_page_default_body
 {
 	width:96%;
+	
+}
+
+.zab_home_home_body {
+	overflow: visible;
 }
 
 
 .zab_home_home_html
 {
-	overflow:hidden;
+	height:100%;
 }
 
 
@@ -55,11 +70,9 @@ input.btn
 }
 
 
-html,body
-{
-	overflow:auto;
-}
+
 body{
-	width:100%;
+	
+	
 }
 

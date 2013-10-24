@@ -83,7 +83,6 @@ zapjs.zw = {
 	api_call : function(sTarget, oData, fCallBack) {
 
 		var defaults = {
-			varsion : 1,
 			api_target : sTarget,
 			api_input : zapjs.f.tojson(oData),
 			api_key : 'jsapi'
@@ -95,6 +94,10 @@ zapjs.zw = {
 			fCallBack(data);
 		});
 
+	},
+
+	api_link : function(sTarget, sInput) {
+		return "../jsonapi/" + sTarget + "?api_target=" + sTarget + "&api_key=jsapi&api_input=" + (sInput == undefined ? '' : sInput);
 	},
 
 	// 提交操作
@@ -171,11 +174,10 @@ zapjs.zw = {
 					} else if (sRegText.indexOf('-') == 0) {
 						sRegText = sRegText.substr(1);
 						//如果是负号  则可以为空
-						if(sVal=="")
-						{
-							sRegText="";
+						if (sVal == "") {
+							sRegText = "";
 						}
-						
+
 					}
 
 				}
@@ -252,6 +254,7 @@ zapjs.zw = {
 		});
 
 	},
+
 	// 执行成功
 	func_success : function(o) {
 
