@@ -250,49 +250,35 @@ var zapadmin_tree = {
 		var node = $('#zw_page_common_tree').tree('getSelected');
 		if (node) {
 			var sId = node.id;
-			var sortmax = 0;
+			var sortmax = 0;//增加排序字段
 			var iMax = 0;
 
 			var oData = zapadmin_tree.temp.data;
 			for ( var i = 0, j = oData.length; i < j; i++) {
-				if (oData[i][2] == sId && oData[i][0] > iMax) { 
-					if(oData[i][4]==undefined){
-						iMax = oData[i][0].substr(oData[i][0].length
-								- 4);
-					}else{
-						iMax = oData[i][4].substr(oData[i][0].length
-								- 4);
-					}
+				if (oData[i][2] == sId && oData[i][0].substr(oData[i][2].length,oData[i][0].length) > iMax) {
+					iMax = oData[i][0].substr(oData[i][0].length
+							- 4);
 				}
 			}
 
 			iMax = (parseInt(iMax) + 1).toString();
-			
-			
+
 			for ( var i = 0, j = (4 - iMax.length); i < j; i++) {
 				iMax = "0" + iMax;
 
 			}
-			for(var i=0,j=oData.length;i<j;i++ ){
-				if(oData[i][0]==sId){
-					if(oData[i][4]==undefined){
-						sortmax = undefined;
-					}else{
-						sortmax = oData[i][4].substr(0,sId.length)+iMax;
-					}
+			for(var i=0,j=oData.length;i<j;i++ ){//获取排序字段
+				if(oData[i][0]==sId&&oData[i][4]!=undefined){
+					sortmax = oData[i][4].substr(0,sId.length)+iMax;
 				}
 			}
 
 			iMax = sId + iMax;
-			var url;
-			if(sortmax == undefined){
-				url = $('#zw_page_tree_zw_s_addpage').val() + "?"
+			var url= $('#zw_page_tree_zw_s_addpage').val() + "?"
 				+ $('#zw_page_tree_zw_s_parent').val() + '=' + sId + "&"
 				+ $('#zw_page_tree_zw_s_code').val() + '=' + iMax;
-			}else{
-				url = $('#zw_page_tree_zw_s_addpage').val() + "?"
-				+ $('#zw_page_tree_zw_s_parent').val() + '=' + sId + "&"
-				+ $('#zw_page_tree_zw_s_code').val() + '=' + iMax+"&"+$('#zw_page_tree_zw_s_sort').val()+'='+sortmax;
+			if($('#zw_page_tree_zw_s_sort').val()!=undefined){
+					url+="&"+$('#zw_page_tree_zw_s_sort').val()+'='+sortmax;
 			}
 			$.get(url,
 					function(result) {
