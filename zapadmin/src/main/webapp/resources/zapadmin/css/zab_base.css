@@ -335,7 +335,7 @@ a
 }
 .zw_page_tree_topp {
 	width: 50%;
-	float: top;
+	
 }
 .zw_page_tree_right {
 	width: 65%;
@@ -463,4 +463,31 @@ a
 .zab_manage_login_body .c_login_box {
 
 }
+
+
+
+
+
+
+
+
+
+.zw_page_common_ajax_inquire .form-horizontal .control-group
+{
+	padding:0px 10px 0px 20px;
+	float:left;
+	clear: none;
+}
+
+.zw_page_common_ajax_inquire .form-horizontal .control-group .control-label
+{
+	width:auto;
+	
+}
+.zw_page_common_ajax_inquire .form-horizontal .control-group .controls
+{
+	margin-left:15px;float:left;
+}
+
+
 

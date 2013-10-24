@@ -54,7 +54,7 @@ public class ApiFactory implements IBaseInstance {
 	 * @param hRequest
 	 * @return
 	 */
-	public String upProcess(HttpServletRequest hRequest) {
+	public String upProcess(String sUrl, HttpServletRequest hRequest) {
 
 		String sReturnString = "";
 
@@ -77,22 +77,19 @@ public class ApiFactory implements IBaseInstance {
 
 		// 开始验证api名称和apikey
 		if (mResult.upFlagTrue()) {
-			if (!mDataMap.containsKey("api_target")) {
-				mResult.inErrorMessage(969905007, "api_target");
-			} else if (!mDataMap.containsKey("api_key")) {
+			 if (!mDataMap.containsKey("api_key")) {
 				mResult.inErrorMessage(969905007, "api_key");
-			}else if (!mDataMap.containsKey("api_input")) {
-				mResult.inErrorMessage(969905007, "api_input");
-			} else {
-				sTarget = mDataMap.get("api_target");
+			}  else {
+				sTarget = StringUtils.defaultIfBlank(
+						mDataMap.get("api_target"), sUrl);
 
 				sApiClassString = StringUtils.trim(sTarget.replace("_", "."));
 
 				sApiKey = mDataMap.get("api_key");
-				
-				
-				sInputString = mDataMap.get("api_input");
-				
+
+				sInputString =StringUtils.defaultIfBlank(
+						 mDataMap.get("api_input"), "");
+
 			}
 		}
 
@@ -131,10 +128,9 @@ public class ApiFactory implements IBaseInstance {
 				mResult.inErrorMessage(969905007, "api_timespan");
 			} else if (!mDataMap.containsKey("api_secret")) {
 				mResult.inErrorMessage(969905007, "api_secret");
-			}  else {
+			} else {
 
 				sTimeSpan = mDataMap.get("api_timespan");
-				
 
 				sApiSecret = mDataMap.get("api_secret").toUpperCase();
 
@@ -211,7 +207,8 @@ public class ApiFactory implements IBaseInstance {
 		if (mResult.upFlagTrue()) {
 
 			try {
-				sReturnString = doProcess(sApiClassString, sInputString,mDataMap);
+				sReturnString = doProcess(sApiClassString, sInputString,
+						mDataMap);
 			} catch (Exception e) {
 				mResult.inErrorMessage(969905012);
 				e.printStackTrace();
@@ -253,10 +250,11 @@ public class ApiFactory implements IBaseInstance {
 	 * 
 	 * @param sClassName
 	 * @param sInputJson
-	 * @param mDataMap 
+	 * @param mDataMap
 	 * @return
 	 */
-	public String doProcess(String sClassName, String sInputJson, MDataMap mDataMap) {
+	public String doProcess(String sClassName, String sInputJson,
+			MDataMap mDataMap) {
 
 		String sReturnString = "";
 
@@ -269,18 +267,20 @@ public class ApiFactory implements IBaseInstance {
 			MApiModel mApiModel = upApiModel(sClassName);
 
 			iBaseApi = (IBaseApi) mApiModel.getApiClass().newInstance();
-
-			iBaseInput = (IBaseInput) mApiModel.getInputClass().newInstance();
+			if (StringUtils.isNotBlank(sInputJson))
+				iBaseInput = (IBaseInput) mApiModel.getInputClass()
+						.newInstance();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		JsonHelper<IBaseInput> jsonInput = new JsonHelper<IBaseInput>();
+		if (StringUtils.isNotBlank(sInputJson))
+			iBaseInput = jsonInput.StringToObj(sInputJson, iBaseInput);
 
-		iBaseInput = jsonInput.StringToObj(sInputJson, iBaseInput);
-
-		IBaseResult iResult = (IBaseResult) iBaseApi.Process(iBaseInput, mDataMap);
+		IBaseResult iResult = (IBaseResult) iBaseApi.Process(iBaseInput,
+				mDataMap);
 
 		JsonHelper<IBaseResult> jsonResult = new JsonHelper<IBaseResult>();
 

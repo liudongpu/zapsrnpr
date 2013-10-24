@@ -36,7 +36,7 @@
 
 
 
-<#-- 列表页 -->
+<#-- 异步加载列表页 -->
 <#macro m_zapmacro_common_ajax_chart e_page>
 
 	<div class="zw_page_common_ajax_inquire">

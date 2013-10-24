@@ -53,10 +53,10 @@ var zs_template_set = {
 
 		zapjs.f.window_box({
 			id:'zs_template_set_add_product_id',
-			content:'<iframe src="../show/page_chart_v_seller_pc_skuinfo?zw_s_iframe_select_source=zat_template_productlist_productids" frameborder="0" style="width:100%;height:450px;"></iframe>',
+			content:'<iframe src="../show/page_chart_v_seller_pc_skuinfo?zw_s_iframe_select_source=zat_template_productlist_productids" frameborder="0" style="width:100%;height:500px;"></iframe>',
 			
 			width:'700',
-			height:'500'
+			height:'550'
 		});
 
 	},

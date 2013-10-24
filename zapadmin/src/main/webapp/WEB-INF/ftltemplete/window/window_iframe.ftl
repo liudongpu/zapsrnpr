@@ -1,6 +1,6 @@
 <@m_common_page_head_common e_title=b_page.getWebPage().getPageName() e_bodyclass="zab_page_default_body" />
 
-<div id="window_iframe_box" class="window_iframe_box">
+<div id="window_iframe_box" class="window_iframe_box  w_clear">
 
 
 

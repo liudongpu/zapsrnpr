@@ -151,7 +151,7 @@ public class RootControl {
 	public String jsonapi(@PathVariable("url") String sUrl, Model model,
 			HttpServletRequest request) {
 
-		return ApiFactory.INSTANCE.upProcess(request);
+		return ApiFactory.INSTANCE.upProcess(sUrl,request);
 
 	}
 
