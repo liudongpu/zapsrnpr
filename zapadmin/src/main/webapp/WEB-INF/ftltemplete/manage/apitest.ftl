@@ -86,14 +86,9 @@
 	    	<div class="controls">
 	    		<input type="text"  style="width:60%;" id="api_secret" name="api_secret"  placeholder="" value="">
 	    		<input type="checkbox" checked="checked" id="manage_apitest_checkbox_apisecret">自动生成
-	    		<span class="help-block">var [验证串]=Md5([api名称]+[APIKey]+[Json数据]+[时间戳]+[API密码]);
-	    		<br/>
-	    		post数据：api_key=[APIKey]&api_input=[Json数据]&api_target=[api名称]&api_secret=[验证串]&api_timespan=[时间戳]
-	    		<br/>
-	    		接口描述的链接请只观看【Private 属性】，其他请忽略。
-	    		<br/>
-	    		标记为公开的API只需要传api_key及api_input支持两种格式
-	    		如果api_input未设置，则自动根据URL参数拼接输入参数 例如：jsonapi/com_srnpr_zapweb_demo_DemoApiProcess?api_key=webapi&demoInputFirst=我测试我快乐
+	    		<span class="help-block">
+	    		调用请参考：<a href="http://zapdoc.wcn.srnpr.com/?p=76" target="_blank">http://zapdoc.wcn.srnpr.com/?p=76</a>
+	    		<br/>请关注私有接口与公开接口的不同调用方式
 	    		</span>
 	    	</div>
 	  	</div>

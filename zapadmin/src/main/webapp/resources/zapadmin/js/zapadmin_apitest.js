@@ -43,7 +43,21 @@ var zapadmin_apitest = {
 				aHtml.push('<a href="' + sBaseUrl + zapadmin_apitest.replace_url(oData.resultObject.javadoc_input) + sExet + '" target="_blank">输入参数描述</a>');
 				aHtml.push("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
 				aHtml.push('<a href="' + sBaseUrl + zapadmin_apitest.replace_url(oData.resultObject.javadoc_result) + sExet + '" target="_blank">返回参数描述</a>');
-
+				aHtml.push("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接口类型：");
+				
+				if(oData.resultObject.api_type=="467701200003")
+				{
+					aHtml.push('[后台接口]');
+				}
+				else if(oData.resultObject.api_type=="467701200002")
+				{
+					aHtml.push('[公开接口]');
+				}
+				else
+				{
+					aHtml.push('[私有接口]');
+				}
+				
 				$('#manage_apitest_javadoc').html(aHtml.join(''));
 
 				$('#api_input').val(oData.resultObject.template_input);
