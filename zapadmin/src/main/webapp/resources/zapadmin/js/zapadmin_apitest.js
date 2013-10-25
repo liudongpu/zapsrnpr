@@ -1,8 +1,8 @@
 var zapadmin_apitest = {
 
 	init : function() {
-		require(['zapadmin/js/zapadmin_tree', 'zapadmin/js/zapadmin_md5'], function(a) {
-			zapadmin_tree.tree_show = function(oData) {
+		require(['zapadmin/js/zapadmin_apitree', 'zapadmin/js/zapadmin_md5'], function(a) {
+			zapadmin_apitree.tree_show = function(oData) {
 				var x = zapadmin.tree_data(oData);
 
 				$('#zw_page_common_tree').tree({

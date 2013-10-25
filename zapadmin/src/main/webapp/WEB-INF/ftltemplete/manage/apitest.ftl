@@ -92,7 +92,8 @@
 	    		<br/>
 	    		接口描述的链接请只观看【Private 属性】，其他请忽略。
 	    		<br/>
-	    		标记为公开的API只需要传api_key，api_target，api_input三个参数
+	    		标记为公开的API只需要传api_key及api_input支持两种格式
+	    		如果api_input未设置，则自动根据URL参数拼接输入参数 例如：jsonapi/com_srnpr_zapweb_demo_DemoApiProcess?api_key=webapi&demoInputFirst=我测试我快乐
 	    		</span>
 	    	</div>
 	  	</div>
