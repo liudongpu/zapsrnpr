@@ -42,8 +42,14 @@
 	<div class="zw_page_common_ajax_inquire">
 		<@m_zapmacro_common_page_inquire e_page />
 	</div>
+	
+	
 
 </#macro>
+
+
+
+
 
 
 

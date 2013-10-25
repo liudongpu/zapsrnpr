@@ -13,6 +13,7 @@ var zapadmin_chartajax = {
 			id : '',
 			height:'310px',
 			width:'100%',
+			//是否有选择框
 			checked:1,
 			source : null
 		};
@@ -39,52 +40,73 @@ var zapadmin_chartajax = {
 				aTable.push('<th data-options="field:\'f_' + p + '\''+(s.checked>0&&p==0?',checkbox:true':'')+'">' + othis + '</th>');
 			}
 			aTable.push('</tr></thead></table>');
+			
 			aTable.push('</div>');
 			$('#' + s.id).append(aTable.join(''));
 
-		
+		zapadmin_chartajax.temp.checkdata[s.id]={};
 
 		zapadmin_chartajax.temp.loadcount[s.id] =$('#' + s.id).find('table').datagrid({
 			rownumbers : true,
-			//singleSelect : false,
-			//view:'scrollview',
 			autoRowHeight : false,
-			//fitColumns:true,
-			//nowrap:false,
 			pagination : true,
 			checkOnSelect:true,
 			method:'get',
 			pageSize : 10,
-			onLoadSuccess:function(data)
+			onLoadSuccess:function(tableData)
 			{
 				//zapjs.d(data);
 				//var opts =zapadmin_chartajax.temp.loadcount[s.id].getChecked();
 				//window.console.debug(opts);
 				
+				var odata=tableData.rows;
 				
+				var tempcheck=zapadmin_chartajax.temp.checkdata[s.id];
+				//zapjs.d(odata);
+				for(var p in odata)
+				{
+					var othis=odata[p];
+					if(tempcheck[othis["f_0"]])
+					{
+						tempcheck[othis["f_0"]]=null;
+						
+						zapadmin_chartajax.temp.loadcount[s.id].datagrid('checkRow',p);
+					}
+					
+					
+				}
 				
 			},
 			onBeforeLoad:function(param)
 			{
-				
-				if(zapadmin_chartajax.temp.loadcount[s.id]!==undefined)
-				{
-					var pager = zapadmin_chartajax.temp.loadcount[s.id].datagrid('getChecked');
-					zapjs.d(pager);
-					$('.datagrid-header-check input').attr('checked',false);
-					
-				}
-			
-				
-				
-				
-				
+				zapadmin_chartajax.reset_checked(s.id);
 			},
 
 			url : zapjs.zw.api_link('com_srnpr_zapweb_webapi_ChartApi') + "&pagecode=" + s.pagecode
 		});
 
+	},
+	reset_checked:function(sId)
+	{
+		if(zapadmin_chartajax.temp.loadcount[sId]!==undefined)
+				{
+					var checked = zapadmin_chartajax.temp.loadcount[sId].datagrid('getChecked');
+					
+					var tempcheck=zapadmin_chartajax.temp.checkdata[sId];
+					
+					for(var p in checked)
+					{
+						var othis=checked[p];
+						tempcheck[othis["f_0"]]=othis;
+						
+					}
+
+					$('.datagrid-header-check input').attr('checked',false);
+					
+				}
 	}
+	
+	
 };
 
 if ( typeof define === "function" && define.amd) {

@@ -2,14 +2,7 @@
 
 <div id="window_iframe_box" class="window_iframe_box  w_clear">
 
-
-
-
 <@m_zapmacro_common_ajax_chart b_page/>
-	
-
-
-
 
 </div>
 <div class="w_p_20">
@@ -18,7 +11,7 @@
 
 
 <script type="text/javascript">
-zapjs.f.require(["zapadmin/js/zapadmin_iframe_select"],function(a){zapadmin_chartajax.init({pagecode:'page_chart_v_seller_pc_skuinfo',id:'window_iframe_box'});});
+zapjs.f.require(["zapadmin/js/zapadmin_chartajax"],function(a){zapadmin_chartajax.init({pagecode:'page_chart_v_seller_pc_skuinfo',id:'window_iframe_box'});});
 </script>
 
 <@m_common_page_foot_base  />
