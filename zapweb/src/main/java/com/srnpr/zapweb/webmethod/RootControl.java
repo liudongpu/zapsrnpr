@@ -128,14 +128,14 @@ public class RootControl {
 	public String jsonchart(@PathVariable("url") String sUrl, Model model,
 			HttpServletRequest request) {
 
-		/*
-		 * return web_method.checkLogin(new JsonHelper<List<List<String>>>()
-		 * .ObjToString(page_Process.process(sUrl, request).upChartData()
-		 * .getPageData()));
-		 */
+		
+		  return web_method.checkLogin(new JsonHelper<List<List<String>>>()
+		  .ObjToString(page_Process.process(sUrl, request).upChartData()
+		  .getPageData()));
+		 
 
-		return new JsonHelper<List<List<String>>>().ObjToString(page_Process
-				.process(sUrl, request).upChartData().getPageData());
+		//return new JsonHelper<List<List<String>>>().ObjToString(page_Process
+				//.process(sUrl, request).upChartData().getPageData());
 	}
 
 	/**

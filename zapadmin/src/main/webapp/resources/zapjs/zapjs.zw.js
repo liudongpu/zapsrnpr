@@ -82,11 +82,13 @@ zapjs.zw = {
 	 */
 	api_call : function(sTarget, oData, fCallBack) {
 
-		var defaults = {
+		//判断如果传入了oData则自动拼接 否则无所只传入key认证
+		var defaults = oData?{
 			api_target : sTarget,
 			api_input : zapjs.f.tojson(oData),
 			api_key : 'jsapi'
-		};
+		}:{api_key : 'jsapi',api_input:''};
+		
 
 		//oData = $.extend({}, defaults, oData || {});
 

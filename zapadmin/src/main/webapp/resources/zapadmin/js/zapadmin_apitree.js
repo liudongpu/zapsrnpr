@@ -12,11 +12,11 @@ var zapadmin_apitree = {
 
 
 
-		zapjs.zw.api_call('','', function(result) {
+		zapjs.zw.api_call('com_srnpr_zapweb_webapi_ListApi','', function(result) {
 
-			zapadmin_apitree.temp.data = result;
+			zapadmin_apitree.temp.data = result.resultObject;
 
-			zapadmin_apitree.tree_show(result);
+			zapadmin_apitree.tree_show(zapadmin_apitree.temp.data);
 		});
 
 	},
@@ -69,23 +69,16 @@ var zapadmin_apitree = {
 	},
 
 	tree_show : function(oData) {
+				var x = zapadmin.tree_data(oData);
 
-		var x = zapadmin.tree_data(oData);
-
-		$('#zw_page_common_tree').tree(
-				{
+				$('#zw_page_common_tree').tree({
 					data : x,
 					onClick : function(node) {
-						$.get($('#zw_page_tree_zw_s_bookpage').val() + "?"
-								+ $('#zw_page_tree_zw_s_uid').val() + '='
-								+ node.attributes.uid, function(result) {
-							$('#zw_page_tree_right').html(result);
-						});
+						
+						zapadmin_apitest.click_func(node);
 					}
-
 				});
-
-	},
+			},
 	
 	tree_nodeup : function(oTag) {
 		var node = $('#zw_page_common_tree').tree('getSelected');

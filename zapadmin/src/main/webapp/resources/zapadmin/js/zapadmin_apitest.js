@@ -2,17 +2,7 @@ var zapadmin_apitest = {
 
 	init : function() {
 		require(['zapadmin/js/zapadmin_apitree', 'zapadmin/js/zapadmin_md5'], function(a) {
-			zapadmin_apitree.tree_show = function(oData) {
-				var x = zapadmin.tree_data(oData);
-
-				$('#zw_page_common_tree').tree({
-					data : x,
-					onClick : function(node) {
-						// alert('');
-						zapadmin_apitest.click_func(node);
-					}
-				});
-			};
+			
 
 			a.tree_init();
 		});
@@ -35,8 +25,14 @@ var zapadmin_apitest = {
 
 		if (sId.toString().length > 12) {
 
-			zapjs.f.ajaxjson("../func/dcca78c87dd746649dca938e6d16b5b7?zw_f_uid=" + node.attributes.uid, {}, function(oData) {
+			zapjs.zw.api_call('com_srnpr_zapweb_webapi_InfoApi?zw_f_uid=' + node.attributes.uid,'', function(oData) {
 				// alert(data);
+				
+				if(oData.resultCode!=1)
+				{
+					zapjs.f.message(oData.resultMessage);
+				}
+				
 
 				$('#api_target').val(oData.resultObject.class_name.replace(/\./g, '_'));
 

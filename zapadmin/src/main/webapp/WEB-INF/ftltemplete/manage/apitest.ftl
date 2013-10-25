@@ -147,7 +147,7 @@
 <input type="hidden" name="zw_page_tree_zw_s_addpage" id="zw_page_tree_zw_s_addpage" value="../show/page_add_v_za_menu"    />
 <input type="hidden" name="zw_page_tree_zw_s_editpage" id="zw_page_tree_zw_s_editpage" value="../show/page_edit_v_za_menu"    />
 <input type="hidden" name="zw_page_tree_zw_s_parent" id="zw_page_tree_zw_s_parent" value="zw_f_parent_menu"    />
-<input type="hidden" name="zw_page_tree_zw_s_jsonchart" id="zw_page_tree_zw_s_jsonchart" value="../jsonchart/page_chart_v_za_apiinfo"    />
+<input type="hidden" name="zw_page_tree_zw_s_jsonchart" id="zw_page_tree_zw_s_jsonchart" value="com_srnpr_zapweb_webapi_ListApi"    />
     
     
 	       
