@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -87,8 +88,35 @@ public class ApiFactory implements IBaseInstance {
 
 				sApiKey = mDataMap.get("api_key");
 
-				sInputString =StringUtils.defaultIfBlank(
-						 mDataMap.get("api_input"), "");
+				if(mDataMap.containsKey("api_input"))
+				{
+					sInputString =StringUtils.defaultIfBlank(
+							 mDataMap.get("api_input"), "");
+				}
+				else
+				{
+					
+					//如果没有传入api_input 则自动根据url参数拼接简单json格式
+					
+					List<String> lInput=new ArrayList<String>();
+					
+					for(String skey:mDataMap.keySet())
+					{
+						if(skey.startsWith("api_"))
+						{
+							lInput.add("\""+skey+"\":\""+mDataMap.get(skey)+"\"");
+						}
+						
+					}
+					
+					if(lInput.size()>0)
+					{
+						sInputString="{"+StringUtils.join(lInput,",")+"}";
+					}
+					
+				}
+				
+				
 
 			}
 		}
