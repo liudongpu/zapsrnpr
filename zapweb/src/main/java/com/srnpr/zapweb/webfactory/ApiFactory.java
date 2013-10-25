@@ -102,7 +102,7 @@ public class ApiFactory implements IBaseInstance {
 					
 					for(String skey:mDataMap.keySet())
 					{
-						if(skey.startsWith("api_"))
+						if(!skey.startsWith("api_"))
 						{
 							lInput.add("\""+skey+"\":\""+mDataMap.get(skey)+"\"");
 						}
