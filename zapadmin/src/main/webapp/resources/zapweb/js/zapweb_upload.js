@@ -28,11 +28,9 @@ var zapweb_upload = {
 
 	is_image : function(sFix) {
 
-		var sImageFile=".jpg;.png;.jpeg;.bmp;.gif;";
-		
-		return sImageFile.indexOf('.'+sFix+';')>-1;
-		
-		
+		var sImageFile = ".jpg;.png;.jpeg;.bmp;.gif;";
+
+		return sImageFile.indexOf('.' + sFix + ';') > -1;
 
 	},
 
@@ -60,12 +58,17 @@ var zapweb_upload = {
 
 		}
 
+		var sUploadTarget = zapjs.f.upset($('#' + sField).attr(zapjs.c.field_attr + "set_params"), 'zw_s_target');
+		if (!sUploadTarget) {
+			sUploadTarget = "upload";
+		}
+
 		if ($('#' + sField).val() == "" || bFlagMul) {
 
 			if ($('#' + sField).nextAll('.control-upload_iframe').html() == "") {
 				var sUploadUrl = $('#' + sField).attr(zapjs.c.field_attr + "target_url");
 
-				$('#' + sField).nextAll('.control-upload_iframe').html('<iframe src="' + sUploadUrl + 'upload?zw_s_source=' + sField + '" class="zw_page_upload_iframe" frameborder="0"></iframe>');
+				$('#' + sField).nextAll('.control-upload_iframe').html('<iframe src="' + sUploadUrl + sUploadTarget + '?zw_s_source=' + sField + '" class="zw_page_upload_iframe" frameborder="0"></iframe>');
 			}
 		} else {
 			$('#' + sField).nextAll('.control-upload_iframe').html('');
@@ -85,7 +88,7 @@ var zapweb_upload = {
 
 					var sFix = aFname[aFname.length - 1];
 
-					var sShowHex=zapweb_upload.is_image(sFix)?('<img src="' + sFiles[i] + '" />'):sFix;
+					var sShowHex = zapweb_upload.is_image(sFix) ? ('<img src="' + sFiles[i] + '" />') : sFix;
 
 					aHtml.push('<li><div class="control-upload-image"><a href="' + sFiles[i] + '" target="_blank">' + sShowHex + '</a></div><div class="control-upload-delete"><span class="btn btn-mini " onclick="zapweb_upload.upload_delete(\'' + sField + '\',' + i + ')"><i class="icon-trash "></i>&nbsp;&nbsp;删除</span></div></li>');
 				}
@@ -128,12 +131,11 @@ var zapweb_upload = {
 				$('#' + sField).val(sVal);
 
 				zapweb_upload.upload_show(sField);
-				
-				if(zapjs.f.callextend("zapjs_e_zapweb_upload_upload_success"))
-				{
-					
+
+				if (zapjs.f.callextend("zapjs_e_zapweb_upload_upload_success")) {
+
 				}
-				
+
 			}
 		} else {
 			alert(o.resultMessage);
