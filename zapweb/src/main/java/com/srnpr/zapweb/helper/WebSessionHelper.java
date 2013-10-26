@@ -3,6 +3,7 @@ package com.srnpr.zapweb.helper;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -78,6 +79,15 @@ public class WebSessionHelper implements IBaseHelper, IBaseCreate {
 		}
 
 		return sReturn;
+	}
+
+	/**
+	 * 获取request的值
+	 * @param sKey
+	 * @return
+	 */
+	public String upRequest(String sKey) {
+		return StringUtils.defaultIfBlank(upRequest().getParameter(sKey), "");
 	}
 
 	/**

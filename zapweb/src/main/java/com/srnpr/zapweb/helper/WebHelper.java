@@ -140,6 +140,7 @@ public class WebHelper {
 
 	/**
 	 * 格式化字段并重新返回
+	 * 
 	 * @param sText
 	 * @param mDataMap
 	 * @return
@@ -178,7 +179,10 @@ public class WebHelper {
 						sReplace = SecrurityHelper.MD5Customer(sValueString);
 					}
 				}
-
+				// 获取request请求值
+				else if (sKey.equals("request")) {
+					sReplace = WebSessionHelper.create().upRequest(sAttr);
+				}
 				// 如果参数是user 则根据后续参数替换
 				else if (sKey.equals("user")) {
 
