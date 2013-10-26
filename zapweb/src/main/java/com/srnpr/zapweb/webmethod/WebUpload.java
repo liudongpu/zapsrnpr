@@ -268,7 +268,7 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 				}
 
 			} else {
-				mResult = null;
+				mResult = new MWebResult();
 			}
 
 			// mResult = doRemoteUpload(request, sTarget);
@@ -326,11 +326,11 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 
 			} else {
 
-				// sReturnString = upUploadHtml(doExtendUpload(request,
-				// sTarget));
+				 sReturnString = upUploadHtml(doExtendUpload(request,
+				 sTarget));
 				// sReturnString = doExtendUpload(request, sTarget).upJson();
 
-				sReturnString = doExtendUpload(request, sTarget).upJson();
+				//sReturnString = doExtendUpload(request, sTarget).upJson();
 
 			}
 
