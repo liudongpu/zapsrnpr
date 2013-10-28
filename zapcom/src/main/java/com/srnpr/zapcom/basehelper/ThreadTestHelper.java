@@ -2,6 +2,8 @@ package com.srnpr.zapcom.basehelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * 多线程测试类
@@ -80,4 +82,44 @@ public abstract class ThreadTestHelper extends TestHelper implements Runnable {
 		}
 
 	}
+
+	/**
+	 * @param iNumber
+	 */
+	public void threadPool(int iNumber) {
+
+		ExecutorService pool = Executors.newCachedThreadPool();
+
+		if (iNumber < 0) {
+
+		} else {
+			List<Thread> list = new ArrayList<Thread>();
+
+			for (int i = 0; i < iNumber; i++) {
+
+				Thread a1 = new Thread(this, "test_thread_" + i);
+
+				
+
+				list.add(a1);
+			}
+
+			for (int i = 0; i < iNumber; i++) {
+				try {
+					// bLogTest("test" + i);
+					// list.get(i).join();
+					pool.execute(list.get(i));
+
+				} catch (Exception e) {
+
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		//pool.shutdownNow();
+
+	}
+	
+
 }
