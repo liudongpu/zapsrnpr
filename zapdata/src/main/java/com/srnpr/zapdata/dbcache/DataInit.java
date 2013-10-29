@@ -16,14 +16,21 @@ public class DataInit extends BaseClass implements IBaseInit {
 
 
 		try {
+		
+			
 			cm.setDriverClass(sDrive);
 			cm.setJdbcUrl(sUrl);
 			cm.setUser(sUser);
 			cm.setPassword(sPass);
 			//设置连接池的测试连接
 			cm.setIdleConnectionTestPeriod(120);
-			cm.setMinPoolSize(1);
-			cm.setMaxPoolSize(10);
+			//最小连接数
+			cm.setMinPoolSize(0);
+			//初始化时初始的连接数
+			cm.setInitialPoolSize(0);
+		
+			//最大连接数
+			//cm.setMaxPoolSize(10);
 			
 			
 
