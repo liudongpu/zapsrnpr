@@ -25,9 +25,9 @@ public class DataInit extends BaseClass implements IBaseInit {
 			//设置连接池的测试连接
 			cm.setIdleConnectionTestPeriod(120);
 			//最小连接数
-			cm.setMinPoolSize(0);
+			cm.setMinPoolSize(1);
 			//初始化时初始的连接数
-			cm.setInitialPoolSize(0);
+			//cm.setInitialPoolSize(0);
 		
 			//最大连接数
 			//cm.setMaxPoolSize(10);
