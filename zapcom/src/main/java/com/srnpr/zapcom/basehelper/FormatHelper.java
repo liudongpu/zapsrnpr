@@ -1,5 +1,8 @@
 package com.srnpr.zapcom.basehelper;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,12 +59,18 @@ public class FormatHelper {
 	 * @param sParam
 	 * @return
 	 */
-	public static long convertFormatStringNumber(String sInput, String sParam) {
+	public static String convertFormatStringNumber(String sInput, String sParam) {
 
 		char[] cNumber = sParam.toCharArray();
 		char[] cInfo = sInput.toCharArray();
 		int iNumLength = cNumber.length;
-		long lReturnNum = 0;
+		
+		BigInteger bNumLength =BigInteger.valueOf(iNumLength);
+		
+		BigInteger lReturnNum = BigInteger.ZERO;
+		
+		
+		
 		for (int i = 0, j = cInfo.length; i < j; i++) {
 			int iNow = 0;
 			for (int n = 0; n < iNumLength; n++) {
@@ -69,39 +78,58 @@ public class FormatHelper {
 					iNow = n + 1;
 				}
 			}
-			lReturnNum += iNow * Math.pow(iNumLength, j - i - 1);
+			
+			lReturnNum=lReturnNum.add(BigInteger.valueOf(iNow).multiply(bNumLength.pow(j-i-1)));
+			
+			//lReturnNum +=  iNow * Math.pow(iNumLength, j - i - 1);
 		}
 
-		return lReturnNum;
+		
+		
+		
+		
+		return lReturnNum.toString();
 	}
 
-	/**
-	 * @param dSource
-	 * @param sParam
-	 * @return
-	 */
-	public static String convertFormatStringNumber(Double dSource, String sParam) {
+	public static  String convertFormatNumberBack(String dSource, String sParam) {
 
 		char[] cNumber = sParam.toCharArray();
 
 		int iLength = cNumber.length;
 
 		int iStep = 0;
+		
+		
+		BigInteger bSource=new BigInteger(dSource);
+		
 
 		ArrayList<Integer> aList = new ArrayList<Integer>();
-
-		while (dSource / Math.pow(iLength, iStep) >= 1) {
-			int iNow = (int) ((dSource % (Math.pow(iLength, iStep + 1))) / Math
-					.pow(iLength, iStep));
+		
+	
+		
+		while (bSource.divide(BigInteger.valueOf(iLength).pow(iStep)).compareTo(BigInteger.ONE)!=-1)
+		{
+			
+			int iNow =bSource.remainder(BigInteger.valueOf(iLength).pow(iStep+1)).divide(BigInteger.valueOf(iLength).pow(iStep)).intValue();
+			
 			if (iNow == 0) {
 				iNow = iLength;
 			}
-
-			dSource = dSource - iNow * Math.pow(iLength, iStep);
+		
+			
+			
+			bSource=bSource.subtract(BigInteger.valueOf(iNow).multiply(BigInteger.valueOf(iLength).pow(iStep)));
+			
+			
 			aList.add(iNow);
 			iStep++;
+			
+			
 		}
-
+		
+		
+		
+	
 		StringBuffer sBuffer = new StringBuffer();
 		for (int i = aList.size() - 1; i >= 0; i--) {
 			if (aList.get(i) == 0) {

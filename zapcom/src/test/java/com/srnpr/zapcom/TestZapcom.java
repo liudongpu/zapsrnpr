@@ -2,23 +2,31 @@ package com.srnpr.zapcom;
 
 import static org.junit.Assert.*;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import com.srnpr.zapcom.basehelper.FormatHelper;
+import com.srnpr.zapcom.basehelper.TestHelper;
 import com.srnpr.zapcom.topdo.TopTest;
 
-public class TestZapcom extends TopTest {
+public class TestZapcom extends TestHelper {
 
 	@Test
 	public void testFormat26() {
 		
 		String sBaseString="abcdefghijklmnopqrstuvwxyz";
 		
-		bLogInfo(0,String.valueOf( FormatHelper.convertFormatStringNumber("za", sBaseString)));
+		bLogTest(String.valueOf( FormatHelper.convertFormatStringNumber("zz", sBaseString)));
 		
-		//bLogInfo(0,String.valueOf( FormatHelper.convertFormatStringNumber(Double.valueOf("123434453169644432981977"), sBaseString)));
-		
+		//bLogTest(String.valueOf( convertFormatNumberBack("1755835901725160785883", sBaseString)));
+		bLogTest(String.valueOf( FormatHelper.convertFormatNumberBack("702", sBaseString)));
 	}
+	
+	
+	
+	
 	
 	
 	
