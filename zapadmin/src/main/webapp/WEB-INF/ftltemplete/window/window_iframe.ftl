@@ -2,18 +2,20 @@
 
 <#assign parentid=b_page.upReqValue("zw_s_iframe_select_source") >
 
-<div id="window_iframe_box" class="window_iframe_box  w_clear">
+<#assign boxid=parentid+"_window_window_iframe" >
+
+<div id="${boxid}" class="window_iframe_box  w_clear">
 
 <@m_zapmacro_common_ajax_chart b_page/>
 
 </div>
 <div class="w_p_20">
-<input type="button" class="btn  window_iframe_btn" value="确认选择" onclick="zapadmin_chartajax.ok_value('${parentid}')"/>
+<input type="button" class="btn  window_iframe_btn" value="确认选择" onclick="zapadmin_chartajax.ok_value('${boxid}')"/>
 </div>
 
 
 <script type="text/javascript">
-zapjs.f.require(["zapadmin/js/zapadmin_chartajax"],function(a){zapadmin_chartajax.init({pagecode:'page_chart_v_seller_pc_skuinfo',id:'${parentid}'});});
+zapjs.f.require(["zapadmin/js/zapadmin_chartajax"],function(a){zapadmin_chartajax.init({pagecode:'page_chart_v_seller_pc_skuinfo',id:'${boxid}'});});
 </script>
 
 <@m_common_page_foot_base  />

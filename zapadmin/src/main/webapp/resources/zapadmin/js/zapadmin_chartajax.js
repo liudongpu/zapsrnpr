@@ -43,6 +43,7 @@ var zapadmin_chartajax = {
 			
 			aTable.push('</div>');
 			$('#' + s.id).append(aTable.join(''));
+			
 
 		zapadmin_chartajax.temp.checkdata[s.id]={};
 
@@ -84,6 +85,7 @@ var zapadmin_chartajax = {
 
 			url : zapjs.zw.api_link('com_srnpr_zapweb_webapi_ChartApi') + "&pagecode=" + s.pagecode
 		});
+		
 
 	},
 	reset_checked:function(sId)
