@@ -141,8 +141,10 @@ public class FuncAdd extends RootFunc {
 										.getColumnName());
 								long lMax = Long.parseLong(StringUtils.right(sMaxString, 4)) + 1;
 
+								
+								
 								mInsertMap.put(mField.getColumnName(),
-										sParentValue+String.valueOf(lMax));
+										sParentValue+ StringUtils.leftPad(String.valueOf(lMax), 4, "0"));
 
 							} else {
 								String sMaxAdd = sParentValue
