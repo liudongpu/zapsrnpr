@@ -1,24 +1,20 @@
 body {
 	font-family: "Microsoft Yahei", Verdana, Simsun, "Segoe UI Light", "Segoe UI Web Light", "Segoe UI Web Regular", "Segoe UI", "Segoe UI Symbol", "HelveticaNeue-Light", "Helvetica Neue", Arial;
 	font-size: 13px;
-	
 	word-wrap: break-word;
-	margin:0px;
-	padding:0px;
+	margin: 0px;
+	padding: 0px;
 }
 
 html {
 
-	
 }
-a
-{
+a {
 	text-decoration: none;
 }
 
-.cke_dialog_contents_body .ImagePreviewBox img
-{
-	max-width:none;
+.cke_dialog_contents_body .ImagePreviewBox img {
+	max-width: none;
 }
 
 .control-group {
@@ -41,29 +37,25 @@ a
 
 }
 
-.control-upload_div
-{
-	margin-bottom:10px;
+.control-upload_div {
+	margin-bottom: 10px;
 }
-
 
 .control-upload ul li {
 	margin-right: 10px;
 	float: left;
 	list-style-type: none;
 	text-align: center;
-	width:112px;
+	width: 112px;
 }
 
 .control-upload-image {
 	border: solid 1px #008A17;
 	padding: 5px;
 }
-.control-upload_fix
-{
-	height:40px;
+.control-upload_fix {
+	height: 40px;
 }
-
 
 .control-upload-delete {
 	margin-top: 5px;
@@ -131,11 +123,11 @@ a
 }
 
 .zab_home_home_body {
-	
-	top:0px;
-	bottom:0px;
-	left:0px;
-	right:0px;
+
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
 	margin: 0px;
 	padding: 0px;
 	position: absolute;
@@ -158,7 +150,7 @@ a
 	height: 40px;
 	font-size: 14px;
 	overflow: hidden;
-	width:100%;
+	width: 100%;
 	position: absolute;
 }
 
@@ -190,33 +182,24 @@ a
 	font-size: 12px;
 }
 
+.zab_home_home_center {
 
-.zab_home_home_center
-{
-	
 	position: absolute;
-	top:40px;
-	left:0px;
-	right:0px;
-	bottom:0px;
-	z-index:1;
-	
-	
+	top: 40px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	z-index: 1;
 }
-
-
 
 .zab_home_home_left {
 	background-color: #F0F0F0;
 	width: 180px;
-	
-	bottom:0px;
-	top:0px;
-	left:0px;
+	bottom: 0px;
+	top: 0px;
+	left: 0px;
 	z-index: 3;
 	position: absolute;
-	
-	
 }
 
 .zab_home_home_left .c_title {
@@ -270,27 +253,24 @@ a
 	background-color: #e7e7e7;
 }
 
-.zab_home_home_split
-{
-	left:180px;
-	top:0px;
-	right:0px;
-	bottom:0px;
+.zab_home_home_split {
+	left: 180px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
 	z-index: 5;
-	width:20px;
+	width: 20px;
 	position: absolute;
 }
 
 .zab_home_home_right {
-	
-	
-	left:200px;
-	top:0px;
-	right:0px;
-	bottom:0px;
+
+	left: 200px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
 	z-index: 2;
 	position: absolute;
-	
 }
 
 .zab_home_home_main {
@@ -299,15 +279,29 @@ a
 	right: 0px;
 	left: 0px;
 	bottom: 0px;
-	z-index:1;
-	min-width:768px;
+	z-index: 1;
+	min-width: 768px;
 }
 
 .zab_page_default_body {
-	
-	width:98%;
-	
+
+	width: 97%;
+	margin-left: 1%;
 }
+.zab_page_default_header {
+	height: 40px;
+	margin-bottom:20px;
+	border-bottom:solid 1px #ccc;
+}
+.zab_page_default_header_title
+{
+	font-size:24px;
+	line-height:40px;
+	width:30%;
+	
+	float:left;
+}
+
 
 .zab_page_windowtree_buttons {
 	margin: 30px;
@@ -335,7 +329,6 @@ a
 }
 .zw_page_tree_topp {
 	width: 50%;
-	
 }
 .zw_page_tree_right {
 	width: 65%;
@@ -356,31 +349,23 @@ a
 	padding-bottom: 40px;
 }
 
-
-.zab_manage_login_body .c_login_header
-{
-	height:64px;
+.zab_manage_login_body .c_login_header {
+	height: 64px;
 	position: relative;
-	
 }
 
-.zab_manage_login_body .c_login_logo
-{
-	width:146px;
-	height:40px;
+.zab_manage_login_body .c_login_logo {
+	width: 146px;
+	height: 40px;
 	background-image: url("../img/login/logo.jpg");
 }
 
-.zab_manage_login_body  .w_ul li
-{
-	padding:0px 10px 0px 20px;
-	
+.zab_manage_login_body  .w_ul li {
+	padding: 0px 10px 0px 20px;
 }
-.zab_manage_login_body  .w_ul li a,.c_login_footer
-{
-	color:#959595;
+.zab_manage_login_body  .w_ul li a, .c_login_footer {
+	color: #959595;
 }
-
 
 .zab_manage_login_body .c_login_bg {
 	background-color: #295487;
@@ -406,10 +391,9 @@ a
 }
 
 .zab_manage_login_body .c_login_fix {
-	
-	
-	width:100%;
-	height:100%;
+
+	width: 100%;
+	height: 100%;
 	position: relative;
 	border: 1px solid #e5e5e5;
 	background-color: #fff;
@@ -421,39 +405,34 @@ a
 	box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
 }
 
-.zab_manage_login_body .c_login_info
-{
-	width:300px;
-	height:100%;
-	padding:20px;
-	position:absolute;
-	top:0px;
-	left:0px;
+.zab_manage_login_body .c_login_info {
+	width: 300px;
+	height: 100%;
+	padding: 20px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
 }
 
-.zab_manage_login_body .c_login_title
-{
+.zab_manage_login_body .c_login_title {
 	font-size: 21px;
 	border-bottom: solid 1px #de0816;
 	line-height: 30px;
-	height:40px;
-	color:#333;
+	height: 40px;
+	color: #333;
 }
-.zab_manage_login_body .c_login_pos
-{
-	height:320px;
+.zab_manage_login_body .c_login_pos {
+	height: 320px;
 }
 
-.zab_manage_login_body .c_login_desc
-{
-	color:#555;
+.zab_manage_login_body .c_login_desc {
+	color: #555;
 }
-.zab_manage_login_body .c_login_version
-{
+.zab_manage_login_body .c_login_version {
 	border-top: solid 1px #de0816;
-	padding-top:10px;color:#555;
+	padding-top: 10px;
+	color: #555;
 }
-
 
 .zab_manage_login_body .c_login_text {
 	width: 200px;
@@ -464,41 +443,30 @@ a
 
 }
 
-
-
-
-
-
-
-
-
-.zw_page_common_ajax_inquire .form-horizontal .control-group
-{
-	padding:0px 0px 0px 20px;
-	float:left;
+.zw_page_common_ajax_inquire .form-horizontal .control-group {
+	padding: 0px 0px 0px 20px;
+	float: left;
 	clear: none;
-	margin-bottom:10px;
+	margin-bottom: 10px;
 }
 
-.zw_page_common_ajax_inquire .form-horizontal .control-group .control-label
-{
-	width:auto;
-	
+.zw_page_common_ajax_inquire .form-horizontal .control-group .control-label {
+	width: auto;
 }
-.zw_page_common_ajax_inquire .form-horizontal .control-group .controls
-{
-	margin-left:15px;float:left;
+.zw_page_common_ajax_inquire .form-horizontal .control-group .controls {
+	margin-left: 15px;
+	float: left;
 }
 
-.zab_js_zapadmin_single_ul
-{
+.zab_js_zapadmin_single_ul {
 	list-style-type: none;
-	padding:0px;margin:0px;
+	padding: 0px;
+	margin: 0px 20px 0px 10px;
 }
-.zab_js_zapadmin_single_ul li
-{
-	float:left;
-	padding:3px;
-	margin:3px;
-	border:solid 1px #006A11;
+.zab_js_zapadmin_single_ul li {
+	float: left;
+	padding: 3px;
+	margin: 3px;
+	border: solid 1px #006A11;
+	white-space: nowrap;
 }

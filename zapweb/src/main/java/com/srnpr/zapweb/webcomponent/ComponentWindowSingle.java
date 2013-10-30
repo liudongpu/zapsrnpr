@@ -23,6 +23,11 @@ public class ComponentWindowSingle extends RootSimpleComponent {
 
 		String sFieldName = mWebField.getPageFieldName();
 		String sValue = mWebField.getPageFieldValue();
+		if(mDataMap.containsKey(mWebField.getFieldName()))
+		{
+			sValue=mDataMap.get(mWebField.getFieldName());
+		}
+		
 		String sText = "";
 
 		String[] sSources = StringUtils.split(mSetMap.get("source_tableinfo"),

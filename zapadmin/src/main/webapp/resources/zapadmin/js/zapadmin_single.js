@@ -17,11 +17,11 @@ var zapadmin_single = {
 
 		zapadmin_single.temp.opts[s.id] = s;
 
-		$('#' + s.id).after('<input class="btn" type="button" value="选择" onclick="zapadmin_single.show_box(\'' + s.id + '\')" />');
+		$('#' + s.id).parent().append('<div class="w_left"><input class="btn" type="button" value="选择" onclick="zapadmin_single.show_box(\'' + s.id + '\')" /></div>');
 		
-		$('#' + s.id).parent().append('<ul class="zab_js_zapadmin_single_ul" id="'+s.id+'_show_ul"></ul><div class="w_clear"></div>');
+		$('#' + s.id).parent().append('<div class="w_left w_w_70p"><ul class="zab_js_zapadmin_single_ul" id="'+s.id+'_show_ul"></ul></div><div class="w_clear"></div>');
 		
-
+		zapadmin_single.show_text(s.id);
 	},
 	show_box : function(sId) {
 
