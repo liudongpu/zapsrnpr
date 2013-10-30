@@ -490,5 +490,15 @@ a
 	margin-left:15px;float:left;
 }
 
-
-
+.zab_js_zapadmin_single_ul
+{
+	list-style-type: none;
+	padding:0px;margin:0px;
+}
+.zab_js_zapadmin_single_ul li
+{
+	float:left;
+	padding:3px;
+	margin:3px;
+	border:solid 1px #006A11;
+}

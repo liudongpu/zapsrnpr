@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.srnpr.zapcom.baseface.IBaseInstance;
 import com.srnpr.zapcom.basehelper.FormatHelper;
+import com.srnpr.zapcom.basehelper.JsonHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 
 public class MapSupport implements IBaseInstance {
@@ -29,6 +30,18 @@ public class MapSupport implements IBaseInstance {
 		return mReturnMap;
 
 	}
+	
+	
+	
+	public String toJson(MDataMap mDataMap)
+	{
+		JsonHelper<MDataMap> jsonHelper=new JsonHelper<MDataMap>();
+		
+		return jsonHelper.ObjToString(mDataMap);
+	}
+	
+	
+	
 
 	/**
 	 * 转换MAPlist到list结构体

@@ -8,21 +8,21 @@ public class WebConst implements IBaseConst {
 	 * 分隔符
 	 */
 	public final static String CONST_SPLIT_LINE = "|";
-	
-	
-	
+
 	/**
 	 * 下划线分隔符
 	 */
 	public final static String CONST_SPLIT_DOWN = "_";
-	
-	
+
+	/**
+	 * 逗号分隔符
+	 */
+	public final static String CONST_SPLIT_COMMA = ",";
+
 	/**
 	 * z分隔符
 	 */
 	public final static String CONST_SPLIT_ZDOWN = "_z_";
-	
-	
 
 	/**
 	 * 定义页面字段的默认左边 zw_f_ 126022006
@@ -30,7 +30,7 @@ public class WebConst implements IBaseConst {
 	public final static String CONST_WEB_FIELD_NAME = "zw_f_";
 
 	/**
-	 * 定义页面分页以及设置字段字段左边 同时可定义字段的约束范围     zw_p_ 126022016
+	 * 定义页面分页以及设置字段字段左边 同时可定义字段的约束范围 zw_p_ 126022016
 	 */
 	public final static String CONST_WEB_PAGINATION_NAME = "zw_p_";
 
@@ -93,23 +93,15 @@ public class WebConst implements IBaseConst {
 	 * 定义真实上传标记
 	 */
 	public final static String CONST_STATIC_WEB_UPLOAD_SAVE = "realsave";
-	
-	
-	
-	
+
 	/**
 	 * 定义图片格式
 	 */
-	public final static String CONST_WEB_UPLOAD_IMAGE=".jpg;.png;.jpeg;.bmp;.gif;";
-	
-	
-	
+	public final static String CONST_WEB_UPLOAD_IMAGE = ".jpg;.png;.jpeg;.bmp;.gif;";
+
 	/**
 	 * Objectcache调用的名称
 	 */
-	public final static String CONST_OBJECT_CACHE_NAME="objectcache-";
-	
-	
-	
+	public final static String CONST_OBJECT_CACHE_NAME = "objectcache-";
 
 }

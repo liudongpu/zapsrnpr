@@ -38,6 +38,10 @@ public class MDataMap extends MObjMap<String, String> implements
 		return mReturn;
 	}
 
+	/**添加URL参数  URL结构体为a=b&c=d
+	 * @param sParams
+	 * @return
+	 */
 	public MDataMap inUrlParams(String sParams) {
 		this.inAllValues(FormatHelper.upUrlStrings(sParams));
 		return this;

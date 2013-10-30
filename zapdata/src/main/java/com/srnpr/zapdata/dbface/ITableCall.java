@@ -62,7 +62,7 @@ public interface ITableCall {
 	 * @param sOrders
 	 * @param sWhere
 	 * @param mWhereMap
-	 * @param iStart
+	 * @param iStart  如果为-1的时候则查询所有
 	 * @param iNumber
 	 * @return
 	 */
@@ -90,6 +90,12 @@ public interface ITableCall {
 	 */
 	public List<MDataMap> queryAll(String sFields, String sOrders,
 			String sWhere, MDataMap mWhereMap);
+	
+	
+	public List<MDataMap> queryIn(String sFields, String sOrders,
+			String sWhere, MDataMap mWhereMap,int iStart, int iEnd, String sFieldName, 
+			String sFieldValue);
+	
 
 	/**
 	 * 插入数据库 默认uid代码生成 zid自动递增

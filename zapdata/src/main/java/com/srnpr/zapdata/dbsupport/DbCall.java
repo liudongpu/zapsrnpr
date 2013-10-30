@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbface.ITableCall;
@@ -21,6 +23,34 @@ public abstract class DbCall extends BaseClass implements ITableCall {
 
 	public int delete(String... sParams) {
 		return dataDelete("", new MDataMap(sParams), "");
+
+	}
+
+	public List<MDataMap> queryIn(String sFields, String sOrders,
+			String sWhere, MDataMap mWhereMap, int iStart, int iEnd,
+			String sFieldName, String sFieldValue) {
+
+		if (StringUtils.isNotBlank(sFieldName)) {
+			if (StringUtils.isNotEmpty(sWhere)) {
+				sWhere = sWhere + " and ";
+			}
+
+			String[] sValuesStrings = StringUtils.split(sFieldValue, ",");
+			List<String> lAdd = new ArrayList<String>();
+
+			for (int i = 0, j = sValuesStrings.length; i < j; i++) {
+				lAdd.add(" " + sFieldName + "=:" + sFieldName + "_"
+						+ String.valueOf(i) + " ");
+				mWhereMap.put(sFieldName + "_" + String.valueOf(i),
+						sValuesStrings[i]);
+
+			}
+
+			sWhere = sWhere + " (" + StringUtils.join(lAdd, " or ") + ")";
+
+		}
+
+		return query(sFields, sOrders, sWhere, mWhereMap, iStart, iEnd);
 
 	}
 

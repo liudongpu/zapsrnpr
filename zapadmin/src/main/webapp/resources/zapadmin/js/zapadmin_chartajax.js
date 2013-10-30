@@ -19,6 +19,27 @@ var zapadmin_chartajax = {
 		};
 
 		var s = $.extend({}, defaults, options || {});
+		
+		
+		zapadmin_chartajax.temp.checkdata[s.id]={};
+		
+		var sValues=parent.$('#'+s.id).val();
+		var sTexts=parent.$('#'+s.id+"_show_text").val();
+		
+		if(sValues)
+		{
+			var aV=sValues.split(',');
+			var aT=sTexts.split(',');
+			
+			for(var i in aV)
+			{
+				
+				zapadmin_chartajax.temp.checkdata[s.id][aV[i]]={key:aV[i],text:aT[i]};
+			}
+			
+		}
+		
+		
 
 		zapjs.zw.api_call('com_srnpr_zapweb_webapi_ChartApi', {
 			pageCode : s.pagecode
@@ -45,7 +66,7 @@ var zapadmin_chartajax = {
 			$('#' + s.id).append(aTable.join(''));
 			
 
-		zapadmin_chartajax.temp.checkdata[s.id]={};
+		
 
 		zapadmin_chartajax.temp.loadcount[s.id] =$('#' + s.id).find('table').datagrid({
 			rownumbers : true,
@@ -99,13 +120,39 @@ var zapadmin_chartajax = {
 					for(var p in checked)
 					{
 						var othis=checked[p];
-						tempcheck[othis["f_0"]]=othis;
+						tempcheck[othis["f_0"]]={key:othis["f_0"],text:othis["f_1"]};
 						
 					}
 
 					$('.datagrid-header-check input').attr('checked',false);
 					
 				}
+	},
+	ok_value:function(sFncName,sParentId,sBoxId)
+	{
+		zapadmin_chartajax.reset_checked(sBoxId);
+		
+		var tempcheck=zapadmin_chartajax.temp.checkdata[sBoxId];
+		
+		var aValues=[];
+		var aTexts=[];
+		
+		for(var p in tempcheck)
+		{
+			var othis=tempcheck[p];
+			if(othis)
+			{
+				aValues.push(othis["key"]);
+				aTexts.push(othis["text"]);
+			}
+			
+			
+		}
+		
+		
+		
+		eval( sFncName+'("'+ sParentId +'","'+ aValues.join(',') +'","'+ aTexts.join(',') +'")' );
+		
 	}
 	
 	
