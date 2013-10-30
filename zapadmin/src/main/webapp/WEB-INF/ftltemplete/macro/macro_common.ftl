@@ -47,6 +47,7 @@
 	<!--[if lte IE 7]> 
 	<@m_common_html_css ["zapadmin/hack/zab_base_ie6.css"] />
 	<![endif]-->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 </#macro>
