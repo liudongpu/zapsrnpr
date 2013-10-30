@@ -259,13 +259,13 @@ a {
 	right: 0px;
 	bottom: 0px;
 	z-index: 5;
-	width: 20px;
+	width: 0px;
 	position: absolute;
 }
 
 .zab_home_home_right {
 
-	left: 200px;
+	left: 180px;
 	top: 0px;
 	right: 0px;
 	bottom: 0px;
