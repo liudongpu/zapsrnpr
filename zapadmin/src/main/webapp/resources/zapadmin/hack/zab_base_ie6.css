@@ -19,7 +19,7 @@ body
 
 .zab_home_home_right
 {
-	width:expression((document.body.clientWidth -200)+"px" );
+	width:expression((document.body.clientWidth -180)+"px" );
 }
 
 .zab_page_default_body
