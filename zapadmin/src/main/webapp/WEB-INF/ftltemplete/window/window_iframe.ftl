@@ -15,7 +15,7 @@
 
 
 <script type="text/javascript">
-zapjs.f.require(["zapadmin/js/zapadmin_chartajax"],function(a){zapadmin_chartajax.init({pagecode:'page_chart_v_seller_pc_skuinfo',id:'${boxid}'});});
+zapjs.f.require(["zapadmin/js/zapadmin_chartajax"],function(a){zapadmin_chartajax.init({pagecode:'page_chart_v_seller_pc_skuinfo',id:'${boxid}',maxnum:'${b_page.upReqValue("zw_s_iframe_max_select")?default("0")}'});});
 </script>
 
 <@m_common_page_foot_base  />

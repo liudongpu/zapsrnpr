@@ -23,11 +23,10 @@ public class ComponentWindowSingle extends RootSimpleComponent {
 
 		String sFieldName = mWebField.getPageFieldName();
 		String sValue = mWebField.getPageFieldValue();
-		if(mDataMap.containsKey(mWebField.getFieldName()))
-		{
-			sValue=mDataMap.get(mWebField.getFieldName());
+		if (mDataMap.containsKey(mWebField.getFieldName())) {
+			sValue = mDataMap.get(mWebField.getFieldName());
 		}
-		
+
 		String sText = "";
 
 		String[] sSources = StringUtils.split(mSetMap.get("source_tableinfo"),
@@ -38,16 +37,15 @@ public class ComponentWindowSingle extends RootSimpleComponent {
 			sRelTable = mSetMap.get("relevance_tableinfo");
 		}
 
-		
-		//判断是否存在关联表
+		int iMax = 0;
+		if (mSetMap.containsKey("max_select")) {
+			iMax = Integer.valueOf(mSetMap.get("max_select"));
+		}
+
+		// 判断是否存在关联表
 		if (StringUtils.isNotBlank(sRelTable)) {
 
-			
-			
-			
-			
-		}
-		else if (StringUtils.isNotEmpty(sValue)) {
+		} else if (StringUtils.isNotEmpty(sValue)) {
 
 			List<String> lTextList = new ArrayList<String>();
 
@@ -61,13 +59,15 @@ public class ComponentWindowSingle extends RootSimpleComponent {
 
 		}
 
-		mDivHtml.addChild("hidden", "id", sFieldName, "name", sFieldName, "value", sValue);
-		
-		mDivHtml.addChild("hidden", "id", sFieldName+"_show_text", "value", sText);
-		
+		mDivHtml.addChild("hidden", "id", sFieldName, "name", sFieldName,
+				"value", sValue);
+
+		mDivHtml.addChild("hidden", "id", sFieldName + "_show_text", "value",
+				sText);
 
 		MDataMap mClient = new MDataMap();
-		mClient.inAllValues("id", sFieldName, "text", sText, "value", sValue);
+		mClient.inAllValues("id", sFieldName, "text", sText, "value", sValue,
+				"max", String.valueOf(iMax));
 
 		mDivHtml.addChild("script",
 				"zapjs.f.require(['zapadmin/js/zapadmin_single'],function(a){a.init("

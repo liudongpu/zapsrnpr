@@ -15,6 +15,8 @@ var zapadmin_chartajax = {
 			width:'100%',
 			//是否有选择框
 			checked:1,
+			//最大选择数量
+			maxnum:1,
 			source : null
 		};
 
@@ -26,7 +28,11 @@ var zapadmin_chartajax = {
 		var sValues=parent.$('#'+s.id).val();
 		var sTexts=parent.$('#'+s.id+"_show_text").val();
 		
-		if(sValues)
+		
+		if(s.maxnum==1)
+		{
+		}
+		else if(sValues)
 		{
 			var aV=sValues.split(',');
 			var aT=sTexts.split(',');
@@ -73,6 +79,7 @@ var zapadmin_chartajax = {
 			autoRowHeight : false,
 			pagination : true,
 			checkOnSelect:true,
+			singleSelect:true,
 			method:'get',
 			pageSize : 10,
 			onLoadSuccess:function(tableData)
