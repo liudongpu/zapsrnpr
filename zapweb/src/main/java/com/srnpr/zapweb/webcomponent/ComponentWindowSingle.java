@@ -87,9 +87,9 @@ public class ComponentWindowSingle extends RootSimpleComponent {
 	 */
 	public String upShowText(MWebField mWebField, MDataMap mDataMap, int iType) {
 
-		MDataMap mSetMap = upSetMap(mWebField.getSourceParam());
+		String sReturnString = "";
 
-		MWebHtml mDivHtml = new MWebHtml("div");
+		MDataMap mSetMap = upSetMap(mWebField.getSourceParam());
 
 		String sFieldName = mWebField.getPageFieldName();
 		String sValue = mWebField.getPageFieldValue();
@@ -129,21 +129,29 @@ public class ComponentWindowSingle extends RootSimpleComponent {
 
 		}
 
-		mDivHtml.addChild("hidden", "id", sFieldName, "name", sFieldName,
-				"value", sValue);
+		if (iType == 3) {
+			sReturnString = sText;
+		} else {
 
-		mDivHtml.addChild("hidden", "id", sFieldName + "_show_text", "value",
-				sText);
+			MWebHtml mDivHtml = new MWebHtml("div");
+			mDivHtml.addChild("hidden", "id", sFieldName, "name", sFieldName,
+					"value", sValue);
 
-		MDataMap mClient = new MDataMap();
-		mClient.inAllValues("id", sFieldName, "text", sText, "value", sValue,
-				"max", String.valueOf(iMax));
+			mDivHtml.addChild("hidden", "id", sFieldName + "_show_text",
+					"value", sText);
 
-		mDivHtml.addChild("script",
-				"zapjs.f.require(['zapadmin/js/zapadmin_single'],function(a){a.init("
-						+ MapSupport.INSTANCE.toJson(mClient) + ");});");
+			MDataMap mClient = new MDataMap();
+			mClient.inAllValues("id", sFieldName, "text", sText, "value",
+					sValue, "max", String.valueOf(iMax), "source",
+					mSetMap.get("source_page"));
 
-		return mDivHtml.upString();
+			mDivHtml.addChild("script",
+					"zapjs.f.require(['zapadmin/js/zapadmin_single'],function(a){a.init("
+							+ MapSupport.INSTANCE.toJson(mClient) + ");});");
+
+			sReturnString = mDivHtml.upString();
+		}
+		return sReturnString;
 
 	}
 

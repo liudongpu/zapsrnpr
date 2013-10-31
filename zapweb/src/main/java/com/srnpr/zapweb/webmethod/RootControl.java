@@ -77,7 +77,7 @@ public class RootControl {
 	}
 
 	/**
-	 * 展示
+	 * 展示，该操作通常用于展示list
 	 * 
 	 * @param sUrl
 	 * @param model

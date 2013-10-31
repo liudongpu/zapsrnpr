@@ -27,7 +27,7 @@ var zapadmin_single = {
 var s=zapadmin_single.temp.opts[sId];
 		zapjs.f.window_box({
 			id : sId + 'zapadmin_single_showbox',
-			content : '<iframe src="../show/page_chart_v_seller_pc_skuinfo?zw_s_iframe_select_source=' + sId + '&zw_s_iframe_max_select='+s.max+'&zw_s_iframe_select_callback=parent.zapadmin_single.result" frameborder="0" style="width:100%;height:500px;"></iframe>',
+			content : '<iframe src="../show/'+s.source+'?zw_s_iframe_select_source=' + sId + '&zw_s_iframe_select_page=' + s.source + '&zw_s_iframe_max_select='+s.max+'&zw_s_iframe_select_callback=parent.zapadmin_single.result" frameborder="0" style="width:100%;height:500px;"></iframe>',
 
 			width : '700',
 			height : '550'
