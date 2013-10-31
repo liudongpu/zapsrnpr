@@ -13,7 +13,7 @@ import com.srnpr.zapweb.helper.WebHelper;
 public class TestClass extends TestBase {
 
 	
-	@Test
+	
 	public void testRefresh() {
 		/*//fail("Not yet implemented");
 		

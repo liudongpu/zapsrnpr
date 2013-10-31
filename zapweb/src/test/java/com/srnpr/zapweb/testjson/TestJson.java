@@ -31,7 +31,7 @@ public class TestJson extends TestBase {
 
 	}
 
-	@Test
+	
 	public void testCode() {
 		//bLogInfo(0, WebHelper.upCode("test"));
 		

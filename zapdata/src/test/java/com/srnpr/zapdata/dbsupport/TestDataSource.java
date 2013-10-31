@@ -23,7 +23,7 @@ import com.srnpr.zapdata.dbdo.DbUp;
 
 public class TestDataSource extends TestHelper {
 
-	@Test
+	
 	public void testSource() {
 		
 	

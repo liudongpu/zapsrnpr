@@ -20,7 +20,7 @@ import com.srnpr.zapweb.webmodel.MWebResult;
 
 public class TestRegex extends TestHelper {
 
-	@Test
+	
 	public void test() {
 
 		StringBuffer sBuffer = new StringBuffer();
