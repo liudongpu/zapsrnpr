@@ -1,5 +1,10 @@
 package com.srnpr.zapweb.webcomponent;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webmodel.MWebField;
@@ -106,5 +111,29 @@ public abstract class RootSimpleComponent extends RootComponent {
 	public MWebResult inDelete(MWebField mWebField, MDataMap mDataMap) {
 		return inDo(mWebField, mDataMap, 4);
 	}
+	
+	
+	public String[] upRegexString(MWebField mField)
+	{
+		String[] sRegStrings=new String[4];
+		
+		
+		
+		
+		if(StringUtils.isNotBlank(mField.getRegexValue()))
+		{
+			sRegStrings[0]=WebConst.CONST_WEB_FIELD_ATTR+"regex_id";
+			sRegStrings[1]=mField.getRegexValue();
+			sRegStrings[2]=WebConst.CONST_WEB_FIELD_ATTR+"regex_title";
+			sRegStrings[2]=mField.getFieldNote();
+		}
+		
+		
+		return sRegStrings;
+		
+		
+	}
+	
+	
 
 }

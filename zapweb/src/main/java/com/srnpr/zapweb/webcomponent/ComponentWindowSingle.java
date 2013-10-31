@@ -134,8 +134,11 @@ public class ComponentWindowSingle extends RootSimpleComponent {
 		} else {
 
 			MWebHtml mDivHtml = new MWebHtml("div");
-			mDivHtml.addChild("hidden", "id", sFieldName, "name", sFieldName,
-					"value", sValue);
+			MWebHtml mInputHtml = mDivHtml.addChild("hidden", "id", sFieldName,
+					"name", sFieldName, "value", sValue);
+			if (iType == 1 || iType == 5) {
+				mInputHtml.inAttributes(upRegexString(mWebField));
+			}
 
 			mDivHtml.addChild("hidden", "id", sFieldName + "_show_text",
 					"value", sText);
