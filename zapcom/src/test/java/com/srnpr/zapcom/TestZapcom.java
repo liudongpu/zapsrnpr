@@ -13,7 +13,7 @@ import com.srnpr.zapcom.topdo.TopTest;
 
 public class TestZapcom extends TestHelper {
 
-	@Test
+	
 	public void testFormat26() {
 		
 		String sBaseString="abcdefghijklmnopqrstuvwxyz";
