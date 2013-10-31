@@ -10,7 +10,7 @@ import com.srnpr.zapcom.baseclass.BaseClass;
 
 public class TestLog extends BaseClass {
 
-	@Test
+
 	public void test() {
 		
 		

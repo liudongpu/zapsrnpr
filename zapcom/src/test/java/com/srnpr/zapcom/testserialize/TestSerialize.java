@@ -10,7 +10,7 @@ import com.srnpr.zapcom.topapi.RootResult;
 
 public class TestSerialize extends TestHelper {
 
-	@Test
+	
 	public void test() {
 
 		

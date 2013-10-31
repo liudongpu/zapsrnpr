@@ -14,7 +14,7 @@ import com.srnpr.zapcom.basehelper.TestHelper;
 
 public class TestRequest extends TestHelper {
 
-	@Test
+	
 	public void test() {
 		
 		
