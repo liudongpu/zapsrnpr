@@ -35,6 +35,11 @@ public class ControlPage extends RootPage implements IControlPage {
 	public MPageData upChartData() {
 		return pageExec.chartData(getWebPage(), getReqMap());
 	}
+	
+	
+	
+	
+	
 
 	/**
 	 * 得到添加页数据
