@@ -33,6 +33,9 @@ public class TopDir extends TopBase {
 			//TopConst.CONST_TOP_ZAPDIR = sZapDir + "/" + "zapzoos/zapdir/";
 			
 			String sZapDir=upServerletPath("");
+			
+			
+			//判断如果没有初始化路径  则默认用用户的根目录
 			if(StringUtils.isEmpty(sZapDir))
 			{
 				 sZapDir = System.getProperty("user.home");
