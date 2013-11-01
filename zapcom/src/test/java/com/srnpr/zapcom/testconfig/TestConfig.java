@@ -18,6 +18,10 @@ public class TestConfig extends BaseClass {
 		TopDir topDir = new TopDir();
 
 		bLogInfo(0, topDir.upCustomPath("config"));
+		
+		
+		String sConfig=bConfig("baby");
+		bLogInfo(0,sConfig);
 
 	}
 
