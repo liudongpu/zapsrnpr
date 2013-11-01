@@ -1,12 +1,13 @@
 package com.srnpr.zapcom.basehelper;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
 
-
-
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 
@@ -14,7 +15,7 @@ import com.srnpr.zapcom.basemodel.MDataMap;
  * JSON帮助类
  * 
  * @author srnpr
- *
+ * 
  * @param <T>
  */
 public class JsonHelper<T> {
@@ -51,6 +52,16 @@ public class JsonHelper<T> {
 
 			e.printStackTrace();
 		}
+
+		return t;
+
+	}
+
+	public T StringToObjExp(String sInput, T t) throws IOException {
+
+		ObjectMapper om = new ObjectMapper();
+
+		t = (T) om.readValue(sInput, t.getClass());
 
 		return t;
 

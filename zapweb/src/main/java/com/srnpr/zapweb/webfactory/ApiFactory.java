@@ -1,5 +1,6 @@
 package com.srnpr.zapweb.webfactory;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -280,9 +281,10 @@ public class ApiFactory implements IBaseInstance {
 	 * @param sInputJson
 	 * @param mDataMap
 	 * @return
+	 * @throws IOException 
 	 */
 	public String doProcess(String sClassName, String sInputJson,
-			MDataMap mDataMap) {
+			MDataMap mDataMap) throws IOException {
 
 		String sReturnString = "";
 
@@ -305,7 +307,7 @@ public class ApiFactory implements IBaseInstance {
 
 		JsonHelper<IBaseInput> jsonInput = new JsonHelper<IBaseInput>();
 		if (StringUtils.isNotBlank(sInputJson))
-			iBaseInput = jsonInput.StringToObj(sInputJson, iBaseInput);
+			iBaseInput = jsonInput.StringToObjExp(sInputJson, iBaseInput);
 
 		IBaseResult iResult = (IBaseResult) iBaseApi.Process(iBaseInput,
 				mDataMap);

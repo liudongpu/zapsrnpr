@@ -2,35 +2,35 @@ package com.srnpr.zapcom.topdo;
 
 import com.srnpr.zapcom.baseface.IBaseConst;
 
- /**
+/**
+ * 顶级定义
+ * 
  * @author srnpr
- *
+ * 
  */
 class TopConst implements IBaseConst {
 
-	
 	/**
-	 * Zap的根目录
+	 * 自定义扩展目录定义
 	 */
-	public static String CONST_TOP_ZAPDIR=null;
-	
-	
-	public static String CONST_TOP_CURRENT=null;
-	
-	
-	
-	
-	/**
-	 * 临时目录
-	 */
-	public static String CONST_TOP_DIR_TEMP=null;
+	public static String CONST_TOP_DIR_CUSTOM = null;
 
-	
-	
 	/**
-	 * 程序目录
+	 * 定义临时目录 该目录存放初始化的配置文件夹和系统信息 <br>
+	 * 每次在servlet启动的时候会强制删除掉
 	 */
-	public static String CONST_TOP_DIR_SERVLET=null;
-	
-	
+	public static String CONST_TOP_DIR_TEMP = null;
+
+	/**
+	 * 
+	 * 程序目录 该目录在tomcat运行模式下返回的是当前应用的路径（ServletLoader初始化）
+	 * <p>
+	 * 如果该参数为空 则表明不为servlet启动 可能是由juit启动
+	 * 
+	 * @see com.srnpr.zapcom.topdo.ServerletLoader#init(javax.servlet.ServletContext)
+	 *      <p>
+	 *      serverlet加载时的调用
+	 */
+	public static String CONST_TOP_DIR_SERVLET = null;
+
 }

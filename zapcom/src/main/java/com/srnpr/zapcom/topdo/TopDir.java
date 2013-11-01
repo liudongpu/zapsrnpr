@@ -23,62 +23,6 @@ import com.srnpr.zapcom.basehelper.IoHelper;
 public class TopDir extends TopBase {
 
 	/**
-	 * 获取zapdir的路径 默认是在user主目录
-	 * 
-	 * @return
-	 */
-	private String upZapDir() {
-		if (StringUtils.isEmpty(TopConst.CONST_TOP_ZAPDIR)) {
-			
-			//TopConst.CONST_TOP_ZAPDIR = sZapDir + "/" + "zapzoos/zapdir/";
-			
-			String sZapDir=upServerletPath("");
-			
-			
-			//判断如果没有初始化路径  则默认用用户的根目录
-			if(StringUtils.isEmpty(sZapDir))
-			{
-				 sZapDir = System.getProperty("user.home");
-			}
-			TopConst.CONST_TOP_ZAPDIR=sZapDir+ "/" + "zapzoos/zapdir/";
-		}
-
-		return TopConst.CONST_TOP_ZAPDIR;
-	}
-
-	/**
-	 * 获取当前zapsrnpr文件夹路径 默认为upZapDir()+/zapsrnpr/zapzoos/zapdir/default
-	 * 
-	 * @param sPath
-	 * @return
-	 */
-	private String upCurrentDir(String sPath) {
-
-		String sReturnString = "";
-
-		if (StringUtils.isEmpty(TopConst.CONST_TOP_CURRENT)) {
-			TopConst.CONST_TOP_CURRENT = upZapDir() + "/default/";
-
-		}
-
-		sReturnString = TopConst.CONST_TOP_CURRENT;
-
-		if (StringUtils.isNotEmpty(sPath)) {
-			sReturnString = sReturnString  + sPath+ "/";
-		}
-
-		try {
-			FileUtils.forceMkdir(new File(sReturnString));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		IoHelper.createDir(sReturnString);
-
-		return sReturnString;
-	}
-
-	/**
 	 * 获取临时文件夹路径
 	 * 
 	 * @param sTempDir
@@ -88,18 +32,19 @@ public class TopDir extends TopBase {
 	public String upTempDir(String sTempDir) {
 
 		if (StringUtils.isEmpty(TopConst.CONST_TOP_DIR_TEMP)) {
-			TopConst.CONST_TOP_DIR_TEMP = upCurrentDir("temp");
+			TopConst.CONST_TOP_DIR_TEMP = upServerletPath("zapzoos/zapdir/temp/");
 			bLogDebug(0, "init TopConst.CONST_TOP_DIR_TEMP="
 					+ TopConst.CONST_TOP_DIR_TEMP);
 		}
-
-		String sReturnString = TopConst.CONST_TOP_DIR_TEMP  + sTempDir+"/";
+		String sReturnString = TopConst.CONST_TOP_DIR_TEMP + sTempDir
+				+ (StringUtils.isBlank(sTempDir) ? "" : "/");
 		IoHelper.createDir(sReturnString);
 		return sReturnString;
 	}
 
 	/**
 	 * 获取程序路径
+	 * 
 	 * @param sSubDir
 	 * @return
 	 */
@@ -107,14 +52,54 @@ public class TopDir extends TopBase {
 
 		String sReturnString = "";
 
-	
-		
-		if (StringUtils.isNotEmpty(TopConst.CONST_TOP_DIR_SERVLET)) {
-			sReturnString = TopConst.CONST_TOP_DIR_SERVLET + sSubDir+"/";
-			IoHelper.createDir(sReturnString);
+		if (StringUtils.isBlank(TopConst.CONST_TOP_DIR_SERVLET)) {
+			TopConst.CONST_TOP_DIR_SERVLET = System.getProperty("user.home");
 		}
 
+		if (StringUtils.isNotBlank(sSubDir)) {
+			sSubDir = "/" + sSubDir;
+		}
+
+		sReturnString = TopConst.CONST_TOP_DIR_SERVLET + sSubDir;
+		IoHelper.createDir(sReturnString);
 		return sReturnString;
+
+	}
+
+	/**
+	 * 获取加载扩展配置目录
+	 * 
+	 * @return
+	 */
+	public String upCustomPath(String sPath) {
+		String sReturn = "";
+
+		if (StringUtils.isBlank(TopConst.CONST_TOP_DIR_CUSTOM)) {
+
+			String sServerPath = upServerletPath("");
+
+			String sStart = "/etc/zapsrnpr/";
+
+			
+			
+			// 判断如果是windows系统 则默认取系统所在路径的根目录
+			if (StringUtils.substring(sServerPath, 1, 2).equals(":")) {
+				sStart = sServerPath.substring(0, 2) + sStart;
+			}
+
+			sServerPath = sServerPath.toLowerCase().replace(":", "_")
+					.replace("/", "_").replace("\\", "_");
+
+			sStart = sStart + sServerPath;
+
+			TopConst.CONST_TOP_DIR_CUSTOM = sStart + "/";
+
+		}
+
+		sReturn = TopConst.CONST_TOP_DIR_CUSTOM + sPath;
+		IoHelper.createDir(sReturn);
+		return sReturn;
+
 	}
 
 }

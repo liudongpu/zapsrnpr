@@ -2,36 +2,43 @@ package com.srnpr.zapcom.topdo;
 
 import javax.servlet.ServletContext;
 
+/**
+ * Serverlet加载时调用
+ * 
+ * @author srnpr
+ * 
+ */
 public class ServerletLoader {
-	
-	
-	public  void init(ServletContext servletContext) {
+
+	/**
+	 * 初始化
+	 * 
+	 * @param servletContext
+	 */
+	public void init(ServletContext servletContext) {
 
 		try {
 
-
 			servletContext.log("Initializing zapsrnpr.zapcom");
 
-			//String sTopConfigString= servletContext.getInitParameter("zapcomtopconfig");
-			
-			//servletContext.log(sTopConfigString);
-			
-			TopConst.CONST_TOP_DIR_SERVLET=servletContext.getRealPath("")+"/";
-			
+			// String sTopConfigString=
+			// servletContext.getInitParameter("zapcomtopconfig");
+
+			// servletContext.log(sTopConfigString);
+
+			TopConst.CONST_TOP_DIR_SERVLET = servletContext.getRealPath("");
+
 			servletContext.log(TopConst.CONST_TOP_DIR_SERVLET);
-			
-			servletContext.getContextPath();
-			
+
+			// servletContext.getContextPath();
+
 			new TopInit().init();
 
-			//InitProcess(servletContext);
+			// InitProcess(servletContext);
 
+		} catch (RuntimeException ex) {
+			servletContext.log("Error zapsrnpr.zapcom" + ex.getMessage());
 		}
-		catch(RuntimeException ex)
-		{
-			servletContext.log("Error zapsrnpr.zapcom"+ex.getMessage());
-		}
-
 
 	}
 }

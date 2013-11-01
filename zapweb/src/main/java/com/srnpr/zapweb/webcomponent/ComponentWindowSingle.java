@@ -79,8 +79,9 @@ public class ComponentWindowSingle extends RootSimpleComponent {
 
 	/**
 	 * 获取展示文本
+	 *
 	 * 
-	 * @param mWebField
+	 * @param mWebField 字段信息  需要设置setSourceParam  请参考数据库编号469903190005的描述信息
 	 * @param mDataMap
 	 * @param iType
 	 * @return
