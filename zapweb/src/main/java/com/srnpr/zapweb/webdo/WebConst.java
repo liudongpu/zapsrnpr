@@ -104,4 +104,18 @@ public class WebConst implements IBaseConst {
 	 */
 	public final static String CONST_OBJECT_CACHE_NAME = "objectcache-";
 
+	
+	
+	/**
+	 * 定义用户登录失败最大次数  默认用户最多尝试5次则冻结
+	 */
+	public final static int CONST_USER_FAIL_TIME=5;
+	
+	
+	/**
+	 * 定义登录失败锁定分钟数  默认锁定10分钟
+	 */
+	public final static int CONST_USER_FAIL_LOCK_MINUTE=10;
+	
+	
 }

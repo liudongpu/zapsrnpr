@@ -189,31 +189,37 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 
 		if (mResult.upFlagTrue()) {
 
-			// 定义最大失败次数
-			int iMaxFaieldCount = 5;
-			// 定义失败分钟数
-			int iMimute = 10;
+			
+		
 
 			int lFaield = Integer.parseInt(mUserInfo.get("failed_count"));
 
 			// 判断最大失败次数
-			if (lFaield >= iMaxFaieldCount) {
+			if (lFaield >= WebConst.CONST_USER_FAIL_TIME) {
 
 				// 开始判断最大失败次数
 				try {
 
 					Date dFailDate = DateUtils.addMinutes(FormatHelper
-							.parseDate(mUserInfo.get("failed_time")), iMimute);
+							.parseDate(mUserInfo.get("failed_time")), WebConst.CONST_USER_FAIL_LOCK_MINUTE);
 
+					
+					
+					
 					if (dFailDate.after(new Date())) {
-						mResult.inErrorMessage(969905016, iMimute);
+						
+						//判断当前时间差
+						int iDiffMinute=(int)(Math.ceil((dFailDate.getTime()-( new Date()).getTime()))/(1000*60));
+						
+						
+						mResult.inErrorMessage(969905016, String.valueOf((iDiffMinute>0?iDiffMinute:1)));
 					} else {
 						lFaield = 0;
 					}
 
 				} catch (Exception e) {
 					e.printStackTrace();
-					mResult.inErrorMessage(969905016, iMimute);
+					mResult.inErrorMessage(969905016, WebConst.CONST_USER_FAIL_LOCK_MINUTE);
 				}
 			}
 
@@ -230,7 +236,7 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 					DbUp.upTable("za_userinfo").dataUpdate(mUserInfo,
 							"failed_count,failed_time", "uid");
 					mResult.inErrorMessage(969905015,
-							String.valueOf(iMaxFaieldCount - lFaield - 1));
+							String.valueOf(WebConst.CONST_USER_FAIL_TIME - lFaield - 1));
 
 				}
 
