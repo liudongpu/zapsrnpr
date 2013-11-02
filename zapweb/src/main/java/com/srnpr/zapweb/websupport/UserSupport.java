@@ -11,6 +11,7 @@ import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webdo.WebTemp;
 import com.srnpr.zapweb.webdo.WebUp;
 import com.srnpr.zapweb.webfactory.UserFactory;
+import com.srnpr.zapweb.webfactory.WebLogFactory;
 
 public class UserSupport extends BaseClass {
 
@@ -33,6 +34,20 @@ public class UserSupport extends BaseClass {
 	 * 退出登录
 	 */
 	public String logout() {
+		
+		checkLogin();
+		if(userInfo!=null)
+		{
+			//插入日志信息
+			String sIp = WebSessionHelper.create().upIpaddress();
+			WebLogFactory.INSTANCE.addLog(
+					"467723120003",
+					"system_logout",
+					bInfo(969912002, userInfo.getUserCode(),
+							userInfo.getLoginName(), sIp));
+		}
+		
+		
 		WebSessionHelper.create().inSession(WebConst.CONST_WEB_SESSION_USER,
 				null);
 		return "";
