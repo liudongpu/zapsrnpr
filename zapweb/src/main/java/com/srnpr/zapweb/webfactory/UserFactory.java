@@ -149,6 +149,17 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 
 			WebSessionHelper.create().inSession(
 					WebConst.CONST_WEB_SESSION_USER, mLoginUserInfo);
+
+			
+			
+			//插入日志信息
+			String sIp = WebSessionHelper.create().upIpaddress();
+			WebLogFactory.INSTANCE.addLog(
+					"467723120001",
+					"system_login",
+					bInfo(969912002, mLoginUserInfo.getUserCode(),
+							mLoginUserInfo.getLoginName(), sIp));
+
 		}
 		return mLoginUserInfo;
 
@@ -245,13 +256,6 @@ public class UserFactory extends BaseClass implements IBaseInstance,
 						"uid");
 
 				inUserInfo(mUserInfo);
-
-				String sIp = WebSessionHelper.create().upIpaddress();
-				WebLogFactory.INSTANCE.addLog(
-						"467723120001",
-						"system_login",
-						bInfo(969912002, mUserInfo.get("user_code"),
-								mUserInfo.get("user_name"), sIp));
 
 			}
 
