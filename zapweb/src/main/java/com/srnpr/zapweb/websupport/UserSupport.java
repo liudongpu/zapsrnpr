@@ -34,22 +34,25 @@ public class UserSupport extends BaseClass {
 	 * 退出登录
 	 */
 	public String logout() {
-		
+
 		checkLogin();
-		if(userInfo!=null)
-		{
-			//插入日志信息
-			String sIp = WebSessionHelper.create().upIpaddress();
+
+		WebSessionHelper wSessionHelper = WebSessionHelper.create();
+
+		if (userInfo != null) {
+			// 插入日志信息
+			String sIp = wSessionHelper.upIpaddress();
 			WebLogFactory.INSTANCE.addLog(
 					"467723120003",
 					"system_logout",
 					bInfo(969912002, userInfo.getUserCode(),
 							userInfo.getLoginName(), sIp));
 		}
-		
-		
-		WebSessionHelper.create().inSession(WebConst.CONST_WEB_SESSION_USER,
-				null);
+
+		wSessionHelper.inSession(WebConst.CONST_WEB_SESSION_USER, null);
+
+		wSessionHelper.upHttpRequest().getSession().invalidate();
+
 		return "";
 	}
 
@@ -73,7 +76,6 @@ public class UserSupport extends BaseClass {
 
 		List<MDataMap> lReturnlList = new ArrayList<MDataMap>();
 		if (checkLogin()) {
-			
 
 			List<MDataMap> lMenuMaps = WebTemp.upTempDataList("za_menu", "",
 					"menu_code", "left(menu_code,13)=:menu_code", "menu_code",

@@ -23,7 +23,7 @@ public class WebSessionHelper implements IBaseHelper, IBaseCreate {
 
 	private HttpServletRequest request = null;
 
-	public HttpServletRequest upRequest() {
+	public HttpServletRequest upHttpRequest() {
 		if (request == null) {
 			request = ((ServletRequestAttributes) RequestContextHolder
 					.getRequestAttributes()).getRequest();
@@ -40,7 +40,7 @@ public class WebSessionHelper implements IBaseHelper, IBaseCreate {
 	 */
 	public void inSession(String sKey, Object oValue) {
 
-		upRequest().getSession().setAttribute(
+		upHttpRequest().getSession().setAttribute(
 				WebConst.CONST_WEB_SESSION_KEY + sKey, oValue);
 
 	}
@@ -53,7 +53,7 @@ public class WebSessionHelper implements IBaseHelper, IBaseCreate {
 	 */
 	public Object upSession(String sKey) {
 
-		Object oReturnObject = upRequest().getSession().getAttribute(
+		Object oReturnObject = upHttpRequest().getSession().getAttribute(
 				WebConst.CONST_WEB_SESSION_KEY + sKey);
 
 		return oReturnObject;
@@ -67,7 +67,7 @@ public class WebSessionHelper implements IBaseHelper, IBaseCreate {
 	 */
 	public String upCookie(String sKey) {
 		String sReturn = null;
-		Cookie[] allCookies = upRequest().getCookies();
+		Cookie[] allCookies = upHttpRequest().getCookies();
 
 		if (allCookies != null) {
 			for (Cookie cookie : allCookies) {
@@ -88,7 +88,7 @@ public class WebSessionHelper implements IBaseHelper, IBaseCreate {
 	 * @return
 	 */
 	public String upRequest(String sKey) {
-		return StringUtils.defaultIfBlank(upRequest().getParameter(sKey), "");
+		return StringUtils.defaultIfBlank(upHttpRequest().getParameter(sKey), "");
 	}
 
 	/**
@@ -98,10 +98,10 @@ public class WebSessionHelper implements IBaseHelper, IBaseCreate {
 	 */
 	public String upIpaddress() {
 
-		String ip = upRequest().getHeader("X-Real-IP");
+		String ip = upHttpRequest().getHeader("X-Real-IP");
 
 		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-			ip = upRequest().getHeader("x-forwarded-for");
+			ip = upHttpRequest().getHeader("x-forwarded-for");
 			/*
 			 * if (ip == null || ip.length() == 0 ||
 			 * "unknown".equalsIgnoreCase(ip)) { ip =
