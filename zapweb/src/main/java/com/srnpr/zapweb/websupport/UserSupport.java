@@ -48,10 +48,11 @@ public class UserSupport extends BaseClass {
 					bInfo(969912002, userInfo.getUserCode(),
 							userInfo.getLoginName(), sIp));
 		}
-
+		
 		wSessionHelper.inSession(WebConst.CONST_WEB_SESSION_USER, null);
-
-		wSessionHelper.upHttpRequest().getSession().invalidate();
+		if (wSessionHelper.upHttpRequest().getSession(false) != null) {
+			wSessionHelper.upHttpRequest().getSession().invalidate();
+		}
 
 		return "";
 	}
