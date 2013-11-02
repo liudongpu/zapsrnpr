@@ -104,7 +104,7 @@ public class ComponentCheckbox extends RootComponent {
 		String sHtmlCheckbox = bConfig("zapweb.html_checkbox");
 
 		int iStep = 0;
-		String sValueString = "";
+		
 
 		MDataMap mExitDataMap = new MDataMap();
 
