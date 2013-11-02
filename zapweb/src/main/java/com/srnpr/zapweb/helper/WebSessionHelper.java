@@ -23,6 +23,10 @@ public class WebSessionHelper implements IBaseHelper, IBaseCreate {
 
 	private HttpServletRequest request = null;
 
+	/**
+	 * 获取HttpRequest
+	 * @return
+	 */
 	public HttpServletRequest upHttpRequest() {
 		if (request == null) {
 			request = ((ServletRequestAttributes) RequestContextHolder
@@ -92,7 +96,7 @@ public class WebSessionHelper implements IBaseHelper, IBaseCreate {
 	}
 
 	/**
-	 * 获取IP地址
+	 * 获取客户端IP地址
 	 * 
 	 * @return
 	 */
