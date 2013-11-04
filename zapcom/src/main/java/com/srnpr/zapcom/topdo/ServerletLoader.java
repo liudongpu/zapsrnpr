@@ -1,44 +1,84 @@
 package com.srnpr.zapcom.topdo;
 
+import java.sql.Blob;
+
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+
+import org.springframework.web.WebApplicationInitializer;
 
 /**
  * Serverlet加载时调用
  * 
+ * 该类兼容两种调用模式 一种是由<br>
+ * {@link ServerletListener#contextInitialized} 调用,<br>
+ * 此调用模式需要在web.xml增加listener <br>
+ * 另外一种是由继承{@link WebApplicationInitializer#onStartup}的调用<br>
+ * 此调用模式支持spring的注解式调用<br>
+ * 两种调用模式用{@linkplain #bFlagLoad}参数来防止重复调用
+ * 
+ * 
  * @author srnpr
  * 
  */
-public class ServerletLoader {
+public class ServerletLoader implements WebApplicationInitializer {
 
 	/**
-	 * 初始化
+	 * 是否已加载 该参数标记该初始化操作是否已加载  默认初始化只调用一次
+	 */
+	private static boolean bFlagLoad = false;
+
+	/**
+	 * 初始化类
+	 * 
 	 * 
 	 * @param servletContext
 	 */
-	public void init(ServletContext servletContext) {
+	public synchronized void init(ServletContext servletContext) {
 
-		try {
+		if (!bFlagLoad) {
 
-			servletContext.log("Initializing zapsrnpr.zapcom");
+			bFlagLoad = true;
 
-			// String sTopConfigString=
-			// servletContext.getInitParameter("zapcomtopconfig");
+			try {
 
-			// servletContext.log(sTopConfigString);
+				servletContext.log("Initializing zapsrnpr.zapcom");
 
-			TopConst.CONST_TOP_DIR_SERVLET = servletContext.getRealPath("");
+				// String sTopConfigString=
+				// servletContext.getInitParameter("zapcomtopconfig");
 
-			servletContext.log(TopConst.CONST_TOP_DIR_SERVLET);
+				// servletContext.log(sTopConfigString);
 
-			// servletContext.getContextPath();
+				TopConst.CONST_TOP_DIR_SERVLET = servletContext.getRealPath("");
 
-			new TopInit().init();
+				servletContext.log(TopConst.CONST_TOP_DIR_SERVLET);
 
-			// InitProcess(servletContext);
+				// servletContext.getContextPath();
 
-		} catch (RuntimeException ex) {
-			servletContext.log("Error zapsrnpr.zapcom" + ex.getMessage());
+				new TopInit().init();
+
+				// InitProcess(servletContext);
+
+				servletContext.log("Initializing zapsrnpr.zapcom finished");
+
+			} catch (RuntimeException ex) {
+				servletContext.log("Error zapsrnpr.zapcom" + ex.getMessage());
+			}
 		}
+	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.web.WebApplicationInitializer#onStartup(javax.servlet
+	 * .ServletContext)
+	 */
+	public void onStartup(ServletContext servletContext)
+			throws ServletException {
+
+		if (!bFlagLoad) {
+			init(servletContext);
+		}
 	}
 }

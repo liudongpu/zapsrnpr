@@ -19,6 +19,9 @@ public class ServerletListener extends ServerletLoader implements ServletContext
 
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.servlet.ServletContextListener#contextInitialized(javax.servlet.ServletContextEvent)
+	 */
 	public void contextInitialized(ServletContextEvent event) {
 
 
