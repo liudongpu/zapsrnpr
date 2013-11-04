@@ -1,20 +1,27 @@
 package com.srnpr.zapcom.basesupport;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.baseface.IBaseCreate;
 import com.srnpr.zapcom.basehelper.JsonHelper;
+import com.srnpr.zapcom.basemodel.MDataMap;
 
 public class WebClientSupport extends BaseClass implements IBaseCreate {
 
@@ -44,8 +51,25 @@ public class WebClientSupport extends BaseClass implements IBaseCreate {
 
 	}
 
+	public String upPost(String sUrl, MDataMap mDataMap) throws Exception {
+
+		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+
+		// nvps.add(new BasicNameValuePair("charset",));
+
+		for (String sKey : mDataMap.keySet()) {
+			nvps.add(new BasicNameValuePair(sKey, mDataMap.get(sKey)));
+		}
+
+		HttpEntity httpEntity = new UrlEncodedFormEntity(nvps, "utf-8");
+
+		return doRequest(sUrl, httpEntity);
+
+	}
+
 	/**
 	 * 获取请求
+	 * 
 	 * @param sUrl
 	 * @param httpEntity
 	 * @return

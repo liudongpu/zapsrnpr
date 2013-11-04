@@ -33,4 +33,9 @@ class TopConst implements IBaseConst {
 	 */
 	public static String CONST_TOP_DIR_SERVLET = null;
 
+	/**
+	 * 系统默认编码 默认为utf-8
+	 */
+	public final static String CONST_BASE_ENCODING = "utf-8";
+
 }
