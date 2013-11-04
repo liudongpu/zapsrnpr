@@ -5,9 +5,11 @@ import com.srnpr.zapdata.dbcache.TableCache;
 
 public class InitZapdata extends RootInit {
 
-	public void init() {
+	public boolean init() {
 
 		topInitCache(new TableCache());
+
+		return true;
 	}
 
 }

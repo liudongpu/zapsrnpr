@@ -18,9 +18,11 @@ public class InitZapweb extends RootInit implements IBaseInit {
 	/* (non-Javadoc)
 	 * @see com.srnpr.zapcom.baseface.IBaseInit#init()
 	 */
-	public void init() {
+	public boolean init() {
 		topInitCache(new ViewCache(), new PageCache(), new OperateCache(),
 				new FuncCache(), new ComponentCache(), new SourceCache());
+		
+		return true;
 	}
 
 }

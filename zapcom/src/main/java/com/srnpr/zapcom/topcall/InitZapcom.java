@@ -4,8 +4,9 @@ import com.srnpr.zapcom.rootclass.RootInit;
 
 public class InitZapcom extends RootInit {
 
-	public void init() {
+	public boolean init() {
 
+		return true;
 	}
 
 }

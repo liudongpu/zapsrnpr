@@ -50,7 +50,7 @@ class TopConfig extends RootCache<String, String> implements IBaseCache {
 			MStringMap mCustomMap = loadProperties.loadMap(sCustom);
 
 			if (mCustomMap.size() == 0) {
-				bLogError(0, "scan custom config  not exist");
+				bLogWarn(0, "scan custom config  not exist");
 			} else {
 
 				for (String s : mCustomMap.upKeys()) {

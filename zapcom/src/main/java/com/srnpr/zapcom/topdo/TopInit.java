@@ -25,11 +25,11 @@ public class TopInit extends RootInit implements IBaseInit {
 	 * 
 	 * @see com.srnpr.zapcom.baseface.IBaseInit#init()
 	 */
-	public synchronized void init() {
+	public synchronized boolean init() {
 
 		initDelete();
 		initTop();
-		initClass();
+		return initClass();
 
 	}
 
@@ -53,8 +53,11 @@ public class TopInit extends RootInit implements IBaseInit {
 		topInitCache(new TopConfig(),new TopInfo());
 	}
 
-	private void initClass() {
+	private boolean initClass() {
 
+		boolean bFlagInit=true;
+		
+		
 		String sConfigName = "zapcom.initclass";
 
 		MStringMap mStringMap = TopUp.upConfigMap(sConfigName);
@@ -67,10 +70,14 @@ public class TopInit extends RootInit implements IBaseInit {
 					Class<?> cClass = ClassUtils.getClass(sClassName);
 					if (cClass != null && cClass.getDeclaredMethods() != null) {
 						IBaseInit init = (IBaseInit) cClass.newInstance();
-						init.init();
+						if(! init.init())
+						{
+							bFlagInit=false;
+						}
 					}
 				} catch (Exception e) {
 
+					bFlagInit=false;
 					bLogInfo(967905001, sClassName);
 					e.printStackTrace();
 
@@ -78,6 +85,9 @@ public class TopInit extends RootInit implements IBaseInit {
 			}
 
 		}
+		
+		
+		return bFlagInit;
 	}
 
 }

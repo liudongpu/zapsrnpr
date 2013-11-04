@@ -2,27 +2,23 @@ package com.srnpr.zapzero.topcall;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.srnpr.zapcom.baseclass.BaseClass;
+import com.srnpr.zapcom.baseface.IBaseInit;
 import com.srnpr.zapcom.basehelper.IoHelper;
 import com.srnpr.zapcom.rootclass.RootInit;
 import com.srnpr.zapcom.topdo.TopDir;
 
-public class InitZapzero extends RootInit {
+public class InitZapzero extends BaseClass implements IBaseInit {
 
-	public void init() {
-		initFiles();
+	public boolean init() {
+		return initServer();
 	}
 
-	private void initFiles() {
+	private boolean initServer() {
 
-		String sTempConfigString = new TopDir().upServerletPath("zapzero");
+		bLogInfo(970212010, bConfig("default.local_server_type"));
 
-		if (StringUtils.isNotEmpty(sTempConfigString)) {
-			IoHelper ioHelper = new IoHelper();
-			ioHelper.copyResources("classpath*:META-INF/zapzero/**/*.*",
-					sTempConfigString, "/zapzero/");
-		} else {
-			bLogDebug(990212001);
-		}
+		return true;
 
 	}
 

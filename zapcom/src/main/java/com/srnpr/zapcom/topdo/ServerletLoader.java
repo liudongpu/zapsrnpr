@@ -24,7 +24,7 @@ import org.springframework.web.WebApplicationInitializer;
 public class ServerletLoader implements WebApplicationInitializer {
 
 	/**
-	 * 是否已加载 该参数标记该初始化操作是否已加载  默认初始化只调用一次
+	 * 是否已加载 该参数标记该初始化操作是否已加载 默认初始化只调用一次
 	 */
 	private static boolean bFlagLoad = false;
 
@@ -34,7 +34,9 @@ public class ServerletLoader implements WebApplicationInitializer {
 	 * 
 	 * @param servletContext
 	 */
-	public synchronized void init(ServletContext servletContext) {
+	public synchronized boolean init(ServletContext servletContext) {
+
+		boolean bFlagSuccess = true;
 
 		if (!bFlagLoad) {
 
@@ -55,16 +57,20 @@ public class ServerletLoader implements WebApplicationInitializer {
 
 				// servletContext.getContextPath();
 
-				new TopInit().init();
+				bFlagSuccess= new TopInit().init();
 
 				// InitProcess(servletContext);
 
 				servletContext.log("Initializing zapsrnpr.zapcom finished");
 
 			} catch (RuntimeException ex) {
+				bFlagSuccess=false;
+				
 				servletContext.log("Error zapsrnpr.zapcom" + ex.getMessage());
 			}
 		}
+
+		return bFlagSuccess;
 	}
 
 	/*
@@ -78,7 +84,12 @@ public class ServerletLoader implements WebApplicationInitializer {
 			throws ServletException {
 
 		if (!bFlagLoad) {
-			init(servletContext);
+			if(!init(servletContext))
+			{
+				servletContext.log(this.getClass().getName()+  "       Error onStartup");
+				
+				throw new ServletException("init error");
+			}
 		}
 	}
 }

@@ -6,8 +6,9 @@ import com.srnpr.zapcom.baseface.IBaseInit;
 
 public class DataInit extends BaseClass implements IBaseInit {
 
-	public void init() {
+	public boolean init() {
 
+		return true;
 	}
 
 	public ComboPooledDataSource upDataSource(String sDrive, String sUrl,

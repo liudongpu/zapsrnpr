@@ -23,6 +23,21 @@ public abstract class TopBase {
 	}
 
 	/**
+	 * 警告日志
+	 * 
+	 * @param lid
+	 * @param oMessage
+	 */
+	public void bLogWarn(int lid, Object... oMessage) {
+		if (logger == null) {
+			logger = LogFactory.getLog(this.getClass());
+		}
+
+		logger.warn("[TopBase-" + String.valueOf(lid) + "] "
+				+ StringUtils.join(oMessage));
+	}
+
+	/**
 	 * 正常日志
 	 * 
 	 * @param lid
