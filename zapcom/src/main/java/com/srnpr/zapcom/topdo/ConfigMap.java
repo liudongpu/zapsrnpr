@@ -9,7 +9,7 @@ public class ConfigMap extends RootCache<String, MStringMap> {
 
 	public synchronized void refresh() {
 
-		TopConfig tConfig = new TopConfig();
+		TopConfig tConfig = TopConfig.Instance;
 
 		if (tConfig.upKeys().size() == 0) {
 			tConfig.refresh();

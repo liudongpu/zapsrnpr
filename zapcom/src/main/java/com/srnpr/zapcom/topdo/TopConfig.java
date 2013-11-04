@@ -1,19 +1,20 @@
 package com.srnpr.zapcom.topdo;
 
-import java.util.Enumeration;
-
-import net.sf.ehcache.Element;
-
 import com.srnpr.zapcom.baseface.IBaseCache;
+import com.srnpr.zapcom.baseface.IBaseInstance;
 import com.srnpr.zapcom.basehelper.IoHelper;
 import com.srnpr.zapcom.basemodel.MStringMap;
+import com.srnpr.zapcom.observable.ConfigObservable;
 import com.srnpr.zapcom.rootclass.RootCache;
 import com.srnpr.zapcom.topcall.LoadProperties;
 
 /**
  * @author srnpr 初始化加载配置
  */
-class TopConfig extends RootCache<String, String> implements IBaseCache {
+class TopConfig extends RootCache<String, String> implements IBaseCache,
+		IBaseInstance {
+
+	public final static TopConfig Instance = new TopConfig();
 
 	/*
 	 * (non-Javadoc)
@@ -58,6 +59,9 @@ class TopConfig extends RootCache<String, String> implements IBaseCache {
 				}
 			}
 		}
+		
+		ConfigObservable.INSTANCE.doUpdate(this);
+		
 	}
 
 	@Override

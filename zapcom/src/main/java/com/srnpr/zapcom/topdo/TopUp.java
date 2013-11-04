@@ -13,7 +13,7 @@ import com.srnpr.zapcom.basemodel.MStringMap;
  */
 public class TopUp implements IBaseUp {
 
-	private final static TopConfig topConfig = new TopConfig();
+
 
 	/**
 	 * 获取配置
@@ -21,7 +21,8 @@ public class TopUp implements IBaseUp {
 	 * @return
 	 */
 	public static String upConfig(String sKey) {
-		return topConfig.upValue(sKey);
+		
+		return TopConfig.Instance.upValue(sKey);
 	}
 
 	private final static TopInfo topInfo = new TopInfo();
