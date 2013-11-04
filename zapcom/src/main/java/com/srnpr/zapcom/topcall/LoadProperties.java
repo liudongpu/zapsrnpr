@@ -16,16 +16,28 @@ public class LoadProperties extends TopBase {
 
 	/**
 	 * 加载属性配置
+	 * 
 	 * @param sDir
 	 * @return
 	 */
 	public MStringMap loadMap(String sDir) {
 
-		MStringMap mReturnMap = new MStringMap();
-
 		@SuppressWarnings({ "unchecked" })
 		Collection<File> files = FileUtils.listFiles((new File(sDir)),
-				new String[]{"properties"}, true);
+				new String[] { "properties" }, true);
+
+		return loadMapFromFiles(files);
+
+	}
+
+	/**
+	 * 从文件中读取配置文件
+	 * @param files
+	 * @return
+	 */
+	public MStringMap loadMapFromFiles(Collection<File> files) {
+		MStringMap mReturnMap = new MStringMap();
+
 		try {
 			for (File f : files) {
 				PropertiesConfiguration pConfiguration = new PropertiesConfiguration();
@@ -36,49 +48,47 @@ public class LoadProperties extends TopBase {
 
 				Iterator<String> em = pConfiguration.getKeys();
 
-				String sNameSpace=StringUtils.defaultString(pConfiguration.getString("@this$namespace"),"");
-				
+				String sNameSpace = StringUtils.defaultString(
+						pConfiguration.getString("@this$namespace"), "");
+
 				while (em.hasNext()) {
 					String sKeyString = em.next();
-					//String sValueString = new String(pConfiguration.getString(sKeyString).toString());
+					// String sValueString = new
+					// String(pConfiguration.getString(sKeyString).toString());
 
-				
-					String sValueString = StringUtils.join(pConfiguration.getStringArray(sKeyString),",");
-					
-					if(StringUtils.isNotEmpty(sNameSpace))
-					{
-						if(!StringUtils.startsWith(sKeyString, "@")&&!StringUtils.startsWith(sKeyString, sNameSpace))
-						{
-							sKeyString=sNameSpace+"."+sKeyString;
+					String sValueString = StringUtils.join(
+							pConfiguration.getStringArray(sKeyString), ",");
+
+					if (StringUtils.isNotEmpty(sNameSpace)) {
+						if (!StringUtils.startsWith(sKeyString, "@")
+								&& !StringUtils.startsWith(sKeyString,
+										sNameSpace)) {
+							sKeyString = sNameSpace + "." + sKeyString;
 						}
 					}
-					
-					
-					//进行特殊判断模式
-					if(StringUtils.startsWith(sKeyString, "@"))
-					{
-						String sTarget=StringUtils.substringBetween(sKeyString, "@", "$");
-						
-						//覆写配置
-						if(sTarget.equals("override"))
-						{
-							//override
+
+					// 进行特殊判断模式
+					if (StringUtils.startsWith(sKeyString, "@")) {
+						String sTarget = StringUtils.substringBetween(
+								sKeyString, "@", "$");
+
+						// 覆写配置
+						if (sTarget.equals("override")) {
+							// override
 						}
-						//本配置指向
-						else if(sTarget.equals("this"))
-						{
-							
+						// 本配置指向
+						else if (sTarget.equals("this")) {
+
 						}
-						
-						sKeyString=StringUtils.substringAfter(sKeyString, "$");
-						
-						
+
+						sKeyString = StringUtils
+								.substringAfter(sKeyString, "$");
+
 					}
-					
-					
+
 					// String
 					// sValueString=pJarConfiguration.getString(sKeyString);
-					
+
 					mReturnMap.put(sKeyString, sValueString);
 
 				}
@@ -92,7 +102,6 @@ public class LoadProperties extends TopBase {
 		}
 
 		return mReturnMap;
-
 	}
 
 }
