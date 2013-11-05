@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.basemodel.MStringMap;
 import com.srnpr.zapcom.topapi.RootApi;
 import com.srnpr.zapcom.topapi.RootInput;
+import com.srnpr.zapcom.topcache.CacheTempConfigStringMap;
 import com.srnpr.zapcom.topcall.LoadProperties;
 import com.srnpr.zapcom.topdo.TopDir;
+import com.srnpr.zapweb.webdo.ObjectCache;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webfactory.WebLogFactory;
 
@@ -21,7 +24,7 @@ import com.srnpr.zapweb.webfactory.WebLogFactory;
  * @author srnpr
  * 
  */
-public class LeaderConfig extends RootApi<LeaderConfigResult, RootInput> {
+public class LeaderConfig extends RootApi<LeaderConfigResult, SimpleApiInput> {
 
 	/*
 	 * (non-Javadoc)
@@ -29,29 +32,58 @@ public class LeaderConfig extends RootApi<LeaderConfigResult, RootInput> {
 	 * @see com.srnpr.zapcom.baseface.IBaseApi#Process(java.lang.Object,
 	 * com.srnpr.zapcom.basemodel.MDataMap)
 	 */
-	public LeaderConfigResult Process(RootInput inputParam, MDataMap mRequestMap) {
+	public LeaderConfigResult Process(SimpleApiInput inputParam,
+			MDataMap mRequestMap) {
 
 		LeaderConfigResult leaderConfigResult = new LeaderConfigResult();
 
 		TopDir topDir = new TopDir();
 
-		File file = new File(topDir.upCustomPath("config")
-				+ WebConst.CONST_CONFIG_FILE_LEADER);
+		String sFile = inputParam.getInputString();
+		MStringMap map = new MStringMap();
 
-		LoadProperties load = new LoadProperties();
+		if (StringUtils.isNotBlank(sFile)) {
 
-		Collection<File> cFiles = new ArrayList<File>();
+			String sKeyString = CacheTempConfigStringMap
+					.upTempCacheName("com.srnpr.zapweb.webapi.LeaderConfig.Process.configfile"
+							+ sFile);
 
-		if (file.exists()) {
-			cFiles.add(file);
+			if (!CacheTempConfigStringMap.getInstance().containsKey(sKeyString)) {
+
+				LoadProperties load = new LoadProperties();
+
+				Collection<File> cFiles = new ArrayList<File>();
+
+				for (String s : sFile.split(",")) {
+
+					String sDirName = "config";
+					String sFileNameString = s;
+					if (sFileNameString.indexOf("/") > -1) {
+						sDirName = StringUtils.substringBeforeLast(
+								sFileNameString, "/");
+						sFileNameString = StringUtils.substringAfterLast(
+								sFileNameString, "/");
+					}
+
+					File file = new File(topDir.upCustomPath(sDirName)
+							+ sFileNameString);
+
+					if (file.exists()) {
+						cFiles.add(file);
+					}
+				}
+				map = load.loadMapFromFiles(cFiles);
+				CacheTempConfigStringMap.getInstance().inElement(sKeyString,
+						map);
+			} else {
+				map = CacheTempConfigStringMap.getInstance().upValue(sFile);
+			}
+
 		}
-
-		MStringMap map = load.loadMapFromFiles(cFiles);
 
 		leaderConfigResult.setConfigMap(map);
 
 		return leaderConfigResult;
 
 	}
-
 }
