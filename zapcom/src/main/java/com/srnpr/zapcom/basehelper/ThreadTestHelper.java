@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 多线程测试类
@@ -89,10 +90,11 @@ public abstract class ThreadTestHelper extends TestHelper implements Runnable {
 	public void threadPool(int iNumber) {
 
 		ExecutorService pool = Executors.newCachedThreadPool();
-
+		 //ExecutorService pool = Executors.newFixedThreadPool(3);
 		if (iNumber < 0) {
 
 		} else {
+			/*
 			List<Thread> list = new ArrayList<Thread>();
 
 			for (int i = 0; i < iNumber; i++) {
@@ -102,13 +104,16 @@ public abstract class ThreadTestHelper extends TestHelper implements Runnable {
 				
 
 				list.add(a1);
-			}
+			}*/
 
 			for (int i = 0; i < iNumber; i++) {
 				try {
+					//bLogTest("test" + i);
 					// bLogTest("test" + i);
 					// list.get(i).join();
-					pool.execute(list.get(i));
+					//pool.execute(list.get(i));
+					pool.execute(this);
+					
 
 				} catch (Exception e) {
 
@@ -117,9 +122,21 @@ public abstract class ThreadTestHelper extends TestHelper implements Runnable {
 			}
 		}
 		
+		
+		
+		pool.shutdown();
+		try {
+			pool.awaitTermination(12, TimeUnit.HOURS);
+		} catch (InterruptedException e) {
+			
+			e.printStackTrace();
+		}
+		
 		//pool.shutdownNow();
 
 	}
+
+	public abstract void run();
 	
 
 }
