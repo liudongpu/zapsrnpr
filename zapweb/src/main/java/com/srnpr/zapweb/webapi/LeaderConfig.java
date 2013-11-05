@@ -1,6 +1,7 @@
 package com.srnpr.zapweb.webapi;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -13,13 +14,14 @@ import com.srnpr.zapcom.topapi.RootApi;
 import com.srnpr.zapcom.topapi.RootInput;
 import com.srnpr.zapcom.topcache.CacheTempConfigStringMap;
 import com.srnpr.zapcom.topcall.LoadProperties;
+import com.srnpr.zapcom.topdo.TopConst;
 import com.srnpr.zapcom.topdo.TopDir;
 import com.srnpr.zapweb.webdo.ObjectCache;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webfactory.WebLogFactory;
 
 /**
- * 加载leader的配置文件 各个follow会自己同步更新自己的配置
+ * 加载leader的配置文件 各个follow同步该服务器更新自己的配置
  * 
  * @author srnpr
  * 
@@ -50,10 +52,6 @@ public class LeaderConfig extends RootApi<LeaderConfigResult, SimpleApiInput> {
 
 			if (!CacheTempConfigStringMap.getInstance().containsKey(sKeyString)) {
 
-				LoadProperties load = new LoadProperties();
-
-				Collection<File> cFiles = new ArrayList<File>();
-
 				for (String s : sFile.split(",")) {
 
 					String sDirName = "config";
@@ -69,10 +67,19 @@ public class LeaderConfig extends RootApi<LeaderConfigResult, SimpleApiInput> {
 							+ sFileNameString);
 
 					if (file.exists()) {
-						cFiles.add(file);
+
+						try {
+							map.put(s, FileUtils.readFileToString(file,
+									TopConst.CONST_BASE_ENCODING));
+						} catch (IOException e) {
+
+							e.printStackTrace();
+						}
+
 					}
+
 				}
-				map = load.loadMapFromFiles(cFiles);
+				// map = load.loadMapFromFiles(cFiles);
 				CacheTempConfigStringMap.getInstance().inElement(sKeyString,
 						map);
 			} else {

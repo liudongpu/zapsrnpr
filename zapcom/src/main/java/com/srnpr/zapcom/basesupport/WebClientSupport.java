@@ -22,6 +22,7 @@ import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.baseface.IBaseCreate;
 import com.srnpr.zapcom.basehelper.JsonHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
+import com.srnpr.zapcom.topdo.TopConst;
 
 public class WebClientSupport extends BaseClass implements IBaseCreate {
 
@@ -61,7 +62,7 @@ public class WebClientSupport extends BaseClass implements IBaseCreate {
 			nvps.add(new BasicNameValuePair(sKey, mDataMap.get(sKey)));
 		}
 
-		HttpEntity httpEntity = new UrlEncodedFormEntity(nvps, "utf-8");
+		HttpEntity httpEntity = new UrlEncodedFormEntity(nvps, TopConst.CONST_BASE_ENCODING);
 
 		return doRequest(sUrl, httpEntity);
 

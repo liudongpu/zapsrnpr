@@ -8,7 +8,7 @@ import com.srnpr.zapcom.baseface.IBaseConst;
  * @author srnpr
  * 
  */
-class TopConst implements IBaseConst {
+public class TopConst implements IBaseConst {
 
 	/**
 	 * 自定义扩展目录定义

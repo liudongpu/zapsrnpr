@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.basemodel.MStringMap;
 import com.srnpr.zapcom.topdo.TopBase;
+import com.srnpr.zapcom.topdo.TopConst;
 
 public class LoadProperties extends TopBase {
 
@@ -44,7 +45,7 @@ public class LoadProperties extends TopBase {
 
 				FileInputStream fInputStream = FileUtils.openInputStream(f);
 
-				pConfiguration.load(fInputStream, "UTF-8");
+				pConfiguration.load(fInputStream, TopConst.CONST_BASE_ENCODING);
 
 				Iterator<String> em = pConfiguration.getKeys();
 

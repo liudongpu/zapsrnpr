@@ -4,6 +4,11 @@ import com.srnpr.zapcom.baseface.IBaseInstance;
 import com.srnpr.zapcom.basemodel.MStringMap;
 import com.srnpr.zapcom.rootclass.RootCache;
 
+/**
+ * 配置缓存类  该类缓存配置信息
+ * @author srnpr
+ *
+ */
 public class CacheTempConfigStringMap extends TempCache<String, MStringMap>
 		implements IBaseInstance {
 

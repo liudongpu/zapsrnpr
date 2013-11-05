@@ -7,6 +7,8 @@ import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.observable.ConfigObservable;
 import com.srnpr.zapcom.rootclass.RootInit;
+import com.srnpr.zapweb.webapi.LeaderConfigResult;
+import com.srnpr.zapweb.webapi.SimpleApiInput;
 import com.srnpr.zapweb.websupport.ApiCallSupport;
 
 public class InitZapzero extends RootInit implements Observer {
@@ -44,12 +46,39 @@ public class InitZapzero extends RootInit implements Observer {
 
 	}
 
+	/**
+	 * 更新配置
+	 * 
+	 * @return
+	 */
 	private boolean doUpdateConfig() {
+
+		ApiCallSupport<SimpleApiInput, LeaderConfigResult> apiCallSupport = new ApiCallSupport<SimpleApiInput, LeaderConfigResult>();
+
+		SimpleApiInput sInput = new SimpleApiInput();
+		LeaderConfigResult lResult = new LeaderConfigResult();
+		
+		String[] sMaserServer=bConfig("default.leader_server_address").split(",");
+		
+		for(String s:sMaserServer)
+		{
+			try {
+				lResult = apiCallSupport.doCallApi(
+						s,
+						"com_srnpr_zapweb_webapi_LeaderConfig",
+						bConfig("default.leader_server_apikey"),
+						bConfig("default.leader_server_apipass"), sInput, lResult);
+			} catch (Exception e) {
+				e.printStackTrace();
+				
+			}
+			
+		}
 		
 		
-		
-		
-		
+
+		// apiCallSupport.doCallApi(sAddress, sTarget, sApiKey, sApiPass, input,
+		// tResult)
 
 		return true;
 	}

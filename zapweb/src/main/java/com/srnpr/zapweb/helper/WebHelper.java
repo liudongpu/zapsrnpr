@@ -181,7 +181,7 @@ public class WebHelper {
 				}
 				// 获取request请求值
 				else if (sKey.equals("request")) {
-					sReplace = WebSessionHelper.create().upRequest(sAttr);
+					sReplace = WebSessionHelper.create().upRequest(sAttr).trim();
 				}
 				// 如果参数是user 则根据后续参数替换
 				else if (sKey.equals("user")) {
