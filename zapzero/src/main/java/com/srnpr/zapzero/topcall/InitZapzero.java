@@ -5,9 +5,11 @@ import java.util.Observer;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.observable.ConfigObservable;
 import com.srnpr.zapcom.rootclass.RootInit;
 import com.srnpr.zapcom.topdo.TopUp;
+import com.srnpr.zapweb.webapi.LeaderConfig;
 import com.srnpr.zapweb.webapi.LeaderConfigResult;
 import com.srnpr.zapweb.webapi.SimpleApiInput;
 import com.srnpr.zapweb.websupport.ApiCallSupport;
@@ -74,15 +76,19 @@ public class InitZapzero extends RootInit implements Observer {
 
 		String[] sMaserServer = bConfig("default.leader_server_address").split(
 				",");
+		
+		sInput.setInputString(bConfig("default.follower_load_config"));
+		
 
 		for (String s : sMaserServer) {
 			bLogInfo(970212011, s);
 			try {
+				/*
 				lResult = apiCallSupport.doCallApi(s,
 						"com_srnpr_zapweb_webapi_LeaderConfig",
 						bConfig("default.leader_server_apikey"),
 						bConfig("default.leader_server_apipass"), sInput,
-						lResult);
+						lResult);*/
 			} catch (Exception e) {
 				bReturn = false;
 				e.printStackTrace();
@@ -104,7 +110,8 @@ public class InitZapzero extends RootInit implements Observer {
 
 		if (bReturn) {
 			
-			lResult.getConfigMap().size();
+			LeaderConfig lcConfig=new LeaderConfig();
+			lResult=lcConfig.Process(sInput, new MDataMap());
 			
 			bLogInfo(0,lResult.getConfigMap().size());
 			

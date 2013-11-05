@@ -65,7 +65,7 @@ public class LeaderConfig extends RootApi<LeaderConfigResult, SimpleApiInput> {
 								sFileNameString, "/");
 					}
 
-					File file = new File(topDir.upCustomPath(sDirName)
+					File file = new File(topDir.upCustomPath(sDirName+"/")
 							+ sFileNameString);
 
 					if (file.exists()) {
