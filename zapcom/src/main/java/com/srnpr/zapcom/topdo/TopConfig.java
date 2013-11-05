@@ -60,7 +60,7 @@ class TopConfig extends RootCache<String, String> implements IBaseCache,
 			}
 		}
 		
-		ConfigObservable.INSTANCE.doUpdate(this);
+		//ConfigObservable.INSTANCE.doUpdate(this);
 		
 	}
 

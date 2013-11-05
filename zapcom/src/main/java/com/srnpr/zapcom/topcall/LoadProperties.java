@@ -33,6 +33,7 @@ public class LoadProperties extends TopBase {
 
 	/**
 	 * 从文件中读取配置文件
+	 * 
 	 * @param files
 	 * @return
 	 */
@@ -49,6 +50,7 @@ public class LoadProperties extends TopBase {
 
 				Iterator<String> em = pConfiguration.getKeys();
 
+				// 定义命名空间
 				String sNameSpace = StringUtils.defaultString(
 						pConfiguration.getString("@this$namespace"), "");
 
@@ -56,6 +58,9 @@ public class LoadProperties extends TopBase {
 					String sKeyString = em.next();
 					// String sValueString = new
 					// String(pConfiguration.getString(sKeyString).toString());
+
+					// 定义是否强制覆盖
+					boolean bOverWrite = false;
 
 					String sValueString = StringUtils.join(
 							pConfiguration.getStringArray(sKeyString), ",");
@@ -76,6 +81,7 @@ public class LoadProperties extends TopBase {
 						// 覆写配置
 						if (sTarget.equals("override")) {
 							// override
+							bOverWrite = true;
 						}
 						// 本配置指向
 						else if (sTarget.equals("this")) {
@@ -90,7 +96,9 @@ public class LoadProperties extends TopBase {
 					// String
 					// sValueString=pJarConfiguration.getString(sKeyString);
 
-					mReturnMap.put(sKeyString, sValueString);
+					if (bOverWrite || !mReturnMap.containsKey(sKeyString)) {
+						mReturnMap.put(sKeyString, sValueString);
+					}
 
 				}
 

@@ -50,7 +50,7 @@ public class TopInit extends RootInit implements IBaseInit {
 	 * 初始化顶级配置
 	 */
 	private void initTop() {
-		topInitCache(new TopConfig(),new TopInfo());
+		topInitCache(TopConfig.Instance,new TopInfo());
 	}
 
 	private boolean initClass() {

@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.observable.ConfigObservable;
 import com.srnpr.zapcom.rootclass.RootInit;
+import com.srnpr.zapcom.topdo.TopUp;
 import com.srnpr.zapweb.webapi.LeaderConfigResult;
 import com.srnpr.zapweb.webapi.SimpleApiInput;
 import com.srnpr.zapweb.websupport.ApiCallSupport;
@@ -28,23 +29,23 @@ public class InitZapzero extends RootInit implements Observer {
 		boolean bFlagReturn = true;
 
 		if (bFlagReturn) {
-			String sServerType = bConfig("default.local_server_type");
+			String sServerType = bConfig("default.local_run_type");
 
 			ServerInfo.INSTANCE
 					.setServerCode(bConfig("default.local_server_code"));
 
-			ServerInfo.INSTANCE.setRunType(bConfig("default.local_run_type"));
+			ServerInfo.INSTANCE.setRunType(sServerType);
 
 			bLogInfo(970212010, sServerType);
 
 			// 如果加载的是跟随者 则开始连接主服务器的配置
 			if (ServerInfo.INSTANCE.getRunType().equals("follower")) {
 
-				//ConfigObservable.INSTANCE.addObserver(this);
+				ConfigObservable.INSTANCE.addObserver(this);
 
 				bFlagReturn = doUpdateConfig();
 
-				if (bFlagReturn) {
+				if (!bFlagReturn) {
 					bLogInfo(970212012);
 				}
 			}
@@ -64,6 +65,8 @@ public class InitZapzero extends RootInit implements Observer {
 
 		boolean bReturn = true;
 
+		
+		//调用主服务器
 		ApiCallSupport<SimpleApiInput, LeaderConfigResult> apiCallSupport = new ApiCallSupport<SimpleApiInput, LeaderConfigResult>();
 
 		SimpleApiInput sInput = new SimpleApiInput();
@@ -91,7 +94,7 @@ public class InitZapzero extends RootInit implements Observer {
 				bReturn = false;
 			}
 
-			//如果连接成功  则设置连接配置
+			// 如果连接成功 则设置连接配置
 			if (bReturn) {
 				ServerInfo.INSTANCE.setApiHost(s);
 				break;
@@ -100,6 +103,11 @@ public class InitZapzero extends RootInit implements Observer {
 		}
 
 		if (bReturn) {
+			
+			lResult.getConfigMap().size();
+			
+			bLogInfo(0,lResult.getConfigMap().size());
+			
 
 		}
 
