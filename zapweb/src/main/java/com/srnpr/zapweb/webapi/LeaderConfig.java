@@ -89,6 +89,7 @@ public class LeaderConfig extends RootApi<LeaderConfigResult, SimpleApiInput> {
 				CacheTempConfigStringMap.getInstance().inElement(sKeyString,
 						map);
 			} else {
+				bLogInfo(0,map);
 				map = CacheTempConfigStringMap.getInstance().upValue(sFile);
 			}
 
