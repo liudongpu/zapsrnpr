@@ -10,6 +10,7 @@ import com.srnpr.zapcom.rootclass.RootInit;
 import com.srnpr.zapweb.webapi.LeaderConfigResult;
 import com.srnpr.zapweb.webapi.SimpleApiInput;
 import com.srnpr.zapweb.websupport.ApiCallSupport;
+import com.srnpr.zapzero.server.ServerInfo;
 
 public class InitZapzero extends RootInit implements Observer {
 
@@ -28,14 +29,18 @@ public class InitZapzero extends RootInit implements Observer {
 
 		if (bFlagReturn) {
 			String sServerType = bConfig("default.local_server_type");
+
+			ServerInfo.INSTANCE
+					.setServerCode(bConfig("default.local_server_code"));
+
+			ServerInfo.INSTANCE.setRunType(bConfig("default.local_run_type"));
+
 			bLogInfo(970212010, sServerType);
 
 			// 如果加载的是跟随者 则开始连接主服务器的配置
-			if (sServerType.equals("follower")) {
+			if (ServerInfo.INSTANCE.getRunType().equals("follower")) {
 
-				bLogInfo(970212011, bConfig("default.leader_server_address"));
-
-				ConfigObservable.INSTANCE.addObserver(this);
+				//ConfigObservable.INSTANCE.addObserver(this);
 
 				bFlagReturn = doUpdateConfig();
 
@@ -68,6 +73,7 @@ public class InitZapzero extends RootInit implements Observer {
 				",");
 
 		for (String s : sMaserServer) {
+			bLogInfo(970212011, s);
 			try {
 				lResult = apiCallSupport.doCallApi(s,
 						"com_srnpr_zapweb_webapi_LeaderConfig",
@@ -84,17 +90,18 @@ public class InitZapzero extends RootInit implements Observer {
 			if (lResult.getResultCode() != 1) {
 				bReturn = false;
 			}
+
+			//如果连接成功  则设置连接配置
+			if (bReturn) {
+				ServerInfo.INSTANCE.setApiHost(s);
+				break;
+			}
+
 		}
-		
-		
-		
-		if(bReturn)
-		{
-			
-			
-			
+
+		if (bReturn) {
+
 		}
-		
 
 		// apiCallSupport.doCallApi(sAddress, sTarget, sApiKey, sApiPass, input,
 		// tResult)

@@ -18,6 +18,11 @@ public class ServerInfo extends RootInput implements IBaseInstance {
 	private String ipAddress = "";
 
 	/**
+	 * 运行模式 leader或者follower
+	 */
+	private String runType = "";
+
+	/**
 	 * 本机回调地址
 	 */
 	private String apiHost = "";
@@ -44,6 +49,14 @@ public class ServerInfo extends RootInput implements IBaseInstance {
 
 	public void setApiHost(String apiHost) {
 		this.apiHost = apiHost;
+	}
+
+	public String getRunType() {
+		return runType;
+	}
+
+	public void setRunType(String runType) {
+		this.runType = runType;
 	}
 
 }

@@ -50,7 +50,9 @@ public class LeaderConfig extends RootApi<LeaderConfigResult, SimpleApiInput> {
 					.upTempCacheName("com.srnpr.zapweb.webapi.LeaderConfig.Process.configfile"
 							+ sFile);
 
-			if (!CacheTempConfigStringMap.getInstance().containsKey(sKeyString)) {
+			if (!CacheTempConfigStringMap.getInstance().containsKey(sKeyString)
+					|| CacheTempConfigStringMap.getInstance().upValue(
+							sKeyString) == null) {
 
 				for (String s : sFile.split(",")) {
 
