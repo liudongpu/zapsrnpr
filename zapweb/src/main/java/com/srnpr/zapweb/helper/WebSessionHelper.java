@@ -92,7 +92,7 @@ public class WebSessionHelper implements IBaseHelper, IBaseCreate {
 	 * @return
 	 */
 	public String upRequest(String sKey) {
-		return StringUtils.defaultIfBlank(upHttpRequest().getParameter(sKey), "");
+		return StringUtils.defaultIfBlank(upHttpRequest().getParameter(sKey), "").trim();
 	}
 
 	/**

@@ -15,7 +15,7 @@ import com.srnpr.zapcom.topdo.TopUp;
  */
 public abstract class BaseClass {
 
-	private Log logger = null;
+	// private Log logger = null;
 
 	/**
 	 * @param lInfoId
@@ -24,11 +24,12 @@ public abstract class BaseClass {
 	 *            替换参数
 	 */
 	public void bLogInfo(int iInfoCode, Object... sParms) {
-		if (logger == null) {
-			logger = LogFactory.getLog(this.getClass());
-		}
-		logger.info("[" + String.valueOf(iInfoCode) + "] "
-				+ TopUp.upLogInfo(iInfoCode, sParms));
+		/*
+		 * if (logger == null) { logger = LogFactory.getLog(this.getClass()); }
+		 */
+		LogFactory.getLog(this.getClass()).info(
+				"[" + String.valueOf(iInfoCode) + "] "
+						+ TopUp.upLogInfo(iInfoCode, sParms));
 	}
 
 	/**
@@ -40,11 +41,12 @@ public abstract class BaseClass {
 	 *            替换参数
 	 */
 	public void bLogError(int iInfoCode, Object... sParms) {
-		if (logger == null) {
-			logger = LogFactory.getLog(this.getClass());
-		}
-		logger.error("[" + String.valueOf(iInfoCode) + "] "
-				+ TopUp.upLogInfo(iInfoCode, sParms));
+		/*
+		 * if (logger == null) { logger = LogFactory.getLog(this.getClass()); }
+		 */
+		LogFactory.getLog(this.getClass()).error(
+				"[" + String.valueOf(iInfoCode) + "] "
+						+ TopUp.upLogInfo(iInfoCode, sParms));
 	}
 
 	/**
@@ -54,11 +56,12 @@ public abstract class BaseClass {
 	 * @param sParms
 	 */
 	public void bLogDebug(int iInfoCode, Object... sParms) {
-		if (logger == null) {
-			logger = LogFactory.getLog(this.getClass());
-		}
-		logger.debug("[" + String.valueOf(iInfoCode) + "] "
-				+ TopUp.upLogInfo(iInfoCode, sParms));
+		/*
+		 * if (logger == null) { logger = LogFactory.getLog(this.getClass()); }
+		 */
+		LogFactory.getLog(this.getClass()).debug(
+				"[" + String.valueOf(iInfoCode) + "] "
+						+ TopUp.upLogInfo(iInfoCode, sParms));
 	}
 
 	/**

@@ -38,6 +38,10 @@ public class InitZapzero extends RootInit implements Observer {
 				ConfigObservable.INSTANCE.addObserver(this);
 
 				bFlagReturn = doUpdateConfig();
+
+				if (bFlagReturn) {
+					bLogInfo(970212012);
+				}
 			}
 
 		}
@@ -53,34 +57,49 @@ public class InitZapzero extends RootInit implements Observer {
 	 */
 	private boolean doUpdateConfig() {
 
+		boolean bReturn = true;
+
 		ApiCallSupport<SimpleApiInput, LeaderConfigResult> apiCallSupport = new ApiCallSupport<SimpleApiInput, LeaderConfigResult>();
 
 		SimpleApiInput sInput = new SimpleApiInput();
 		LeaderConfigResult lResult = new LeaderConfigResult();
-		
-		String[] sMaserServer=bConfig("default.leader_server_address").split(",");
-		
-		for(String s:sMaserServer)
-		{
+
+		String[] sMaserServer = bConfig("default.leader_server_address").split(
+				",");
+
+		for (String s : sMaserServer) {
 			try {
-				lResult = apiCallSupport.doCallApi(
-						s,
+				lResult = apiCallSupport.doCallApi(s,
 						"com_srnpr_zapweb_webapi_LeaderConfig",
 						bConfig("default.leader_server_apikey"),
-						bConfig("default.leader_server_apipass"), sInput, lResult);
+						bConfig("default.leader_server_apipass"), sInput,
+						lResult);
 			} catch (Exception e) {
+				bReturn = false;
 				e.printStackTrace();
-				
+
 			}
-			
+
+			// 如果返回结果错误 也置为失败
+			if (lResult.getResultCode() != 1) {
+				bReturn = false;
+			}
 		}
 		
+		
+		
+		if(bReturn)
+		{
+			
+			
+			
+		}
 		
 
 		// apiCallSupport.doCallApi(sAddress, sTarget, sApiKey, sApiPass, input,
 		// tResult)
 
-		return true;
+		return bReturn;
 	}
 
 	public void update(Observable o, Object arg) {

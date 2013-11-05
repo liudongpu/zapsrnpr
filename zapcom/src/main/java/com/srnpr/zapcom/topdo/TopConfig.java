@@ -45,7 +45,7 @@ class TopConfig extends RootCache<String, String> implements IBaseCache,
 
 		// 开始扫描扩展自定义的设置
 		{
-			String sCustom = topDir.upCustomPath("config/");
+			String sCustom = topDir.upCustomPath(TopConst.CONST_TOP_CUSTOM_CONFIG_PATH);
 			bLogInfo(0, "scan custom config " + sCustom + "");
 
 			MStringMap mCustomMap = loadProperties.loadMap(sCustom);

@@ -12,8 +12,26 @@ import com.srnpr.zapcom.basesupport.WebClientSupport;
 public class ApiCallSupport<TInput extends IBaseInput, TResult extends IBaseResult>
 		extends BaseClass {
 
+	/**
+	 * 调用API
+	 * 
+	 * @param sAddress
+	 *            API地址
+	 * @param sTarget
+	 *            API目标
+	 * @param sApiKey
+	 * @param sApiPass
+	 * @param input
+	 * @param tResult
+	 * @return
+	 * @throws Exception
+	 */
 	public TResult doCallApi(String sAddress, String sTarget, String sApiKey,
 			String sApiPass, TInput input, TResult tResult) throws Exception {
+
+		if (sAddress.endsWith("/")) {
+			sAddress = sAddress + sTarget;
+		}
 
 		JsonHelper<TInput> jsonHelper = new JsonHelper<TInput>();
 
