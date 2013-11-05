@@ -43,8 +43,7 @@ public class ApiCallSupport<TInput extends IBaseInput, TResult extends IBaseResu
 				+ sApiPass;
 		String sSec = SecrurityHelper.MD5(sSource);
 
-		WebClientSupport webClientSupport = new WebClientSupport();
-
+		
 		MDataMap mDataMap = new MDataMap();
 		mDataMap.put("api_key", sApiKey);
 		mDataMap.put("api_input", sInputString);
@@ -52,7 +51,7 @@ public class ApiCallSupport<TInput extends IBaseInput, TResult extends IBaseResu
 		mDataMap.put("api_secret", sSec);
 		mDataMap.put("api_timespan", sTimeSpan);
 
-		String sCallString = webClientSupport.upPost(sAddress, mDataMap);
+		String sCallString = WebClientSupport.upPost(sAddress, mDataMap);
 
 		bLogDebug(0, sCallString);
 

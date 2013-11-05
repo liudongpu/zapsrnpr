@@ -1,26 +1,26 @@
 package com.srnpr.zapcom.basesupport;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.baseface.IBaseCreate;
-import com.srnpr.zapcom.basehelper.JsonHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.topdo.TopConst;
 
@@ -52,7 +52,8 @@ public class WebClientSupport extends BaseClass implements IBaseCreate {
 
 	}
 
-	public String upPost(String sUrl, MDataMap mDataMap) throws Exception {
+	public static String upPost(String sUrl, MDataMap mDataMap)
+			throws Exception {
 
 		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 
@@ -62,9 +63,55 @@ public class WebClientSupport extends BaseClass implements IBaseCreate {
 			nvps.add(new BasicNameValuePair(sKey, mDataMap.get(sKey)));
 		}
 
-		HttpEntity httpEntity = new UrlEncodedFormEntity(nvps, TopConst.CONST_BASE_ENCODING);
+		HttpEntity httpEntity = new UrlEncodedFormEntity(nvps,
+				TopConst.CONST_BASE_ENCODING);
 
-		return doRequest(sUrl, httpEntity);
+		return poolRequest(sUrl, httpEntity);
+
+	}
+
+	static PoolingHttpClientConnectionManager poolingHttpClientConnectionManager = null;
+
+	public static String poolRequest(String sUrl, HttpEntity httpEntity)
+			throws ClientProtocolException, IOException {
+
+		String sReturnString = "";
+
+		if (poolingHttpClientConnectionManager == null) {
+
+			poolingHttpClientConnectionManager = new PoolingHttpClientConnectionManager();
+
+			// Increase max total connection to 200
+			poolingHttpClientConnectionManager.setMaxTotal(200);
+			// Increase default max connection per route to 20
+			poolingHttpClientConnectionManager.setDefaultMaxPerRoute(20);
+			
+			
+
+		}
+
+		CloseableHttpClient httpClient = HttpClients.custom()
+				.setConnectionManager(poolingHttpClientConnectionManager)
+				.build();
+
+		HttpPost httppost = new HttpPost(sUrl);
+		httppost.setEntity(httpEntity);
+
+		CloseableHttpResponse response = httpClient.execute(httppost);
+
+		try {
+			HttpEntity resEntity = response.getEntity();
+
+			if (resEntity != null) {
+
+				sReturnString = EntityUtils.toString(resEntity);
+
+			}
+		} finally {
+			response.close();
+		}
+
+		return sReturnString;
 
 	}
 
@@ -81,14 +128,17 @@ public class WebClientSupport extends BaseClass implements IBaseCreate {
 		String sReturnString = null;
 		HttpClientBuilder hClientBuilder = HttpClientBuilder.create();
 
-		HttpClient httpclient = hClientBuilder.build();
+		CloseableHttpClient httpclient = hClientBuilder.build();
 
 		HttpPost httppost = new HttpPost(sUrl);
+
+		CloseableHttpResponse response = null;
+
 		try {
 
 			httppost.setEntity(httpEntity);
 
-			HttpResponse response = httpclient.execute(httppost);
+			response = httpclient.execute(httppost);
 
 			HttpEntity resEntity = response.getEntity();
 
@@ -110,7 +160,10 @@ public class WebClientSupport extends BaseClass implements IBaseCreate {
 			throw e;
 
 		} finally {
+			response.close();
+
 			httppost.reset();
+			httpclient.close();
 			httpclient = null;
 
 		}
