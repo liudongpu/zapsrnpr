@@ -83,12 +83,12 @@ public class InitZapzero extends RootInit implements Observer {
 		for (String s : sMaserServer) {
 			bLogInfo(970212011, s);
 			try {
-				/*
+				
 				lResult = apiCallSupport.doCallApi(s,
 						"com_srnpr_zapweb_webapi_LeaderConfig",
 						bConfig("default.leader_server_apikey"),
 						bConfig("default.leader_server_apipass"), sInput,
-						lResult);*/
+						lResult);
 			} catch (Exception e) {
 				bReturn = false;
 				e.printStackTrace();
@@ -110,8 +110,6 @@ public class InitZapzero extends RootInit implements Observer {
 
 		if (bReturn) {
 			
-			LeaderConfig lcConfig=new LeaderConfig();
-			lResult=lcConfig.Process(sInput, new MDataMap());
 			
 			bLogInfo(0,lResult.getConfigMap().size());
 			
