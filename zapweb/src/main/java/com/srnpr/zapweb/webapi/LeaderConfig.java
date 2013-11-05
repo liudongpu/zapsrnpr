@@ -53,7 +53,7 @@ public class LeaderConfig extends RootApi<LeaderConfigResult, SimpleApiInput> {
 			if (!CacheTempConfigStringMap.getInstance().containsKey(sKeyString)
 					|| CacheTempConfigStringMap.getInstance().upValue(
 							sKeyString) == null) {
-
+				bLogInfo(0,sFile);
 				for (String s : sFile.split(",")) {
 
 					String sDirName = "config";
