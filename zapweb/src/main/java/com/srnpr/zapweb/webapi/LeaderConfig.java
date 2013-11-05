@@ -64,8 +64,10 @@ public class LeaderConfig extends RootApi<LeaderConfigResult, SimpleApiInput> {
 						sFileNameString = StringUtils.substringAfterLast(
 								sFileNameString, "/");
 					}
+					
+					
 
-					File file = new File(topDir.upCustomPath(sDirName+"/")
+					File file = new File(topDir.upCustomPath(sDirName + "/")
 							+ sFileNameString);
 
 					if (file.exists()) {
@@ -78,6 +80,8 @@ public class LeaderConfig extends RootApi<LeaderConfigResult, SimpleApiInput> {
 							e.printStackTrace();
 						}
 
+					} else {
+						bLogInfo(969905080,sDirName+"/"+sFileNameString);
 					}
 
 				}
