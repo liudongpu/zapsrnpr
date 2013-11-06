@@ -90,7 +90,7 @@ public abstract class ThreadTestHelper extends TestHelper implements Runnable {
 	public void threadPool(int iNumber) {
 
 		ExecutorService pool = Executors.newCachedThreadPool();
-		 //ExecutorService pool = Executors.newFixedThreadPool(3);
+		 //ExecutorService pool = Executors.newFixedThreadPool(1000);
 		if (iNumber < 0) {
 
 		} else {
