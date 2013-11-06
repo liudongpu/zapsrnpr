@@ -53,7 +53,7 @@ public class LeaderConfig extends RootApi<LeaderConfigResult, SimpleApiInput> {
 			if (!CacheTempConfigStringMap.getInstance().containsKey(sKeyString)
 					|| CacheTempConfigStringMap.getInstance().upValue(
 							sKeyString) == null) {
-				bLogInfo(0,sFile);
+				bLogInfo(0, sFile);
 				for (String s : sFile.split(",")) {
 
 					String sDirName = "config";
@@ -64,8 +64,6 @@ public class LeaderConfig extends RootApi<LeaderConfigResult, SimpleApiInput> {
 						sFileNameString = StringUtils.substringAfterLast(
 								sFileNameString, "/");
 					}
-					
-					
 
 					File file = new File(topDir.upCustomPath(sDirName + "/")
 							+ sFileNameString);
@@ -73,15 +71,16 @@ public class LeaderConfig extends RootApi<LeaderConfigResult, SimpleApiInput> {
 					if (file.exists()) {
 
 						try {
-							map.put(s, FileUtils.readFileToString(file,
-									TopConst.CONST_BASE_ENCODING));
+							map.put(sFileNameString, FileUtils
+									.readFileToString(file,
+											TopConst.CONST_BASE_ENCODING));
 						} catch (IOException e) {
 
 							e.printStackTrace();
 						}
 
 					} else {
-						bLogInfo(969905080,sDirName+"/"+sFileNameString);
+						bLogInfo(969905080, sDirName + "/" + sFileNameString);
 					}
 
 				}
@@ -89,8 +88,9 @@ public class LeaderConfig extends RootApi<LeaderConfigResult, SimpleApiInput> {
 				CacheTempConfigStringMap.getInstance().inElement(sKeyString,
 						map);
 			} else {
-				bLogInfo(0,map);
-				map = CacheTempConfigStringMap.getInstance().upValue(sKeyString);
+				bLogInfo(0, map);
+				map = CacheTempConfigStringMap.getInstance()
+						.upValue(sKeyString);
 			}
 
 		}

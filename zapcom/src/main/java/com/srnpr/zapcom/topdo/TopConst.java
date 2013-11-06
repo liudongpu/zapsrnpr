@@ -37,10 +37,10 @@ public class TopConst implements IBaseConst {
 	 * 系统默认编码 默认为utf-8
 	 */
 	public final static String CONST_BASE_ENCODING = "utf-8";
-	
-	
-	
-	public final static String CONST_TOP_CUSTOM_CONFIG_PATH="config/";
-	
+
+	/**
+	 * 定义配置文件存储文件夹
+	 */
+	public final static String CONST_TOP_CUSTOM_CONFIG_PATH = "config/";
 
 }

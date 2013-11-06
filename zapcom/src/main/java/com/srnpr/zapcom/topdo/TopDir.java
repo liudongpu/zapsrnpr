@@ -36,8 +36,7 @@ public class TopDir extends TopBase {
 			bLogDebug(0, "init TopConst.CONST_TOP_DIR_TEMP="
 					+ TopConst.CONST_TOP_DIR_TEMP);
 		}
-		String sReturnString = TopConst.CONST_TOP_DIR_TEMP + sTempDir
-				+ (StringUtils.isBlank(sTempDir) ? "" : "/");
+		String sReturnString = TopConst.CONST_TOP_DIR_TEMP + sTempDir;
 		IoHelper.createDir(sReturnString);
 		return sReturnString;
 	}
@@ -69,6 +68,8 @@ public class TopDir extends TopBase {
 	/**
 	 * 获取加载扩展配置目录
 	 * 
+	 * @param sPath
+	 *            目录名称 如果传入的参数以/结尾则自动创建文件夹
 	 * @return
 	 */
 	public String upCustomPath(String sPath) {
@@ -80,8 +81,6 @@ public class TopDir extends TopBase {
 
 			String sStart = "/etc/zapsrnpr/";
 
-			
-			
 			// 判断如果是windows系统 则默认取系统所在路径的根目录
 			if (StringUtils.substring(sServerPath, 1, 2).equals(":")) {
 				sStart = sServerPath.substring(0, 2) + sStart;
@@ -97,7 +96,11 @@ public class TopDir extends TopBase {
 		}
 
 		sReturn = TopConst.CONST_TOP_DIR_CUSTOM + sPath;
-		IoHelper.createDir(sReturn);
+
+		if (sReturn.endsWith("/")) {
+			IoHelper.createDir(sReturn);
+		}
+
 		return sReturn;
 
 	}

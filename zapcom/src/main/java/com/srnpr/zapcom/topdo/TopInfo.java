@@ -18,7 +18,7 @@ class TopInfo extends RootCache<Long, String> {
 	 */
 	public synchronized void refresh() {
 		TopDir topDir = new TopDir();
-		String sTempConfigString = topDir.upTempDir("info");
+		String sTempConfigString = topDir.upTempDir("info/");
 		bLogDebug(0, "refresh " + sTempConfigString);
 		IoHelper ioHelper = new IoHelper();
 		ioHelper.copyResources(

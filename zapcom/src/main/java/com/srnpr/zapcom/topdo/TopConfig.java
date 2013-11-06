@@ -25,7 +25,7 @@ class TopConfig extends RootCache<String, String> implements IBaseCache,
 	public synchronized void refresh() {
 
 		TopDir topDir = new TopDir();
-		String sTempConfigString = topDir.upTempDir("config");
+		String sTempConfigString = topDir.upTempDir(TopConst.CONST_TOP_CUSTOM_CONFIG_PATH);
 		// topDir.upZapDir();
 		bLogInfo(0, "refresh " + sTempConfigString);
 		IoHelper ioHelper = new IoHelper();
