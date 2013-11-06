@@ -53,7 +53,7 @@ public class ApiCallSupport<TInput extends IBaseInput, TResult extends IBaseResu
 
 		String sCallString = WebClientSupport.upPost(sAddress, mDataMap);
 
-		bLogDebug(0, sCallString);
+		//bLogDebug(0, sCallString);
 
 		JsonHelper<TResult> jsonHelperResult = new JsonHelper<TResult>();
 

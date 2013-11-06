@@ -137,6 +137,7 @@ public class InitZapzero extends RootInit  {
 					FileUtils.writeStringToFile(new File(sSavePath),
 							mConfigMap.get(sName),
 							TopConst.CONST_BASE_ENCODING);
+					bLogInfo(970212014, sName);
 				} catch (IOException e) {
 					bReturn = false;
 					bLogError(970212013, sSavePath);
