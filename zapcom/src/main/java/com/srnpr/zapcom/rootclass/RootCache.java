@@ -63,7 +63,9 @@ public abstract class RootCache<K, V> extends TopBase implements IBaseCache {
 	}
 
 	/**
-	 * 获取一个 默认返回null 客户端如果继承该类需要自行封装业务逻辑 该方法通用用于客户端覆盖 延迟加载判断
+	 * 获取一个 默认返回null <br>
+	 * 客户端如果继承该类需要自行封装业务逻辑 该方法通用用于客户端覆盖 延迟加载判断<br>
+	 * 通常重写该方法以支撑返回缓存信息的情况
 	 * 
 	 * @param k
 	 * @return
@@ -81,9 +83,9 @@ public abstract class RootCache<K, V> extends TopBase implements IBaseCache {
 
 		if (!containsKey(k)) {
 			synchronized (this) {
-				
-				bLogInfo(0, "can't load cache "+k.toString());
-				
+
+				bLogInfo(0, "can't load cache " + k.toString());
+
 				refresh();
 			}
 

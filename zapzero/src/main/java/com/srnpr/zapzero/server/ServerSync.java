@@ -21,6 +21,7 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 
 	/**
 	 * 获取信息
+	 * 
 	 * @return
 	 */
 	public static ServerSync getInstance() {
@@ -29,16 +30,21 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 		}
 		return serverSync;
 	}
-	
-	
-	public void init()
-	{
-		//ServerInfo.INSTANCE.setIpAddress(ipAddress);
+
+	public void init() {
+		// ServerInfo.INSTANCE.setIpAddress(ipAddress);
 	}
-	
-	
-	
-	
+
+	/**
+	 * 初始化任务模型
+	 * 
+	 * @return
+	 */
+	public boolean initJob() {
+
+		return true;
+	}
+
 	/**
 	 * 初始化运行模式
 	 * 
@@ -61,7 +67,7 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 			// 如果加载的是跟随者 则开始连接主服务器的配置
 			if (ServerInfo.INSTANCE.getRunType().equals("follower")) {
 
-				//ConfigObservable.INSTANCE.addObserver(this);
+				// ConfigObservable.INSTANCE.addObserver(this);
 
 				bFlagReturn = doUpdateConfig();
 
@@ -136,8 +142,7 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 			}
 		}
 
-		
-		//将配置文件写入到config文件夹
+		// 将配置文件写入到config文件夹
 		if (bReturn) {
 
 			// bLogInfo(0,lResult.getConfigMap().size());
@@ -152,11 +157,11 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 								+ sName);
 
 				try {
-					
-					
-					FileUtils.writeStringToFile(new File(sSavePath),
-							mConfigMap.get(sName),
-							TopConst.CONST_BASE_ENCODING);
+
+					FileUtils
+							.writeStringToFile(new File(sSavePath),
+									mConfigMap.get(sName),
+									TopConst.CONST_BASE_ENCODING);
 					bLogInfo(970212014, sName);
 				} catch (IOException e) {
 					bReturn = false;
@@ -166,29 +171,16 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 			}
 
 		}
-		
-		
-		//重新刷新配置文件
+
+		// 重新刷新配置文件
 		TopConfig.Instance.refresh();
-		
-		
-		
-	
+
 		bLogDebug(970212015, bConfig("all.version"));
-		
-		
 
 		// apiCallSupport.doCallApi(sAddress, sTarget, sApiKey, sApiPass, input,
 		// tResult)
 
 		return bReturn;
 	}
-
-	
-	
-	
-	
-	
-	
 
 }

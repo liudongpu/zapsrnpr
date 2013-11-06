@@ -52,6 +52,14 @@ public class WebClientSupport extends BaseClass implements IBaseCreate {
 
 	}
 
+	/**
+	 * 根据链接获取post数据
+	 * 
+	 * @param sUrl
+	 * @param mDataMap
+	 * @return
+	 * @throws Exception
+	 */
 	public static String upPost(String sUrl, MDataMap mDataMap)
 			throws Exception {
 
@@ -72,6 +80,15 @@ public class WebClientSupport extends BaseClass implements IBaseCreate {
 
 	static PoolingHttpClientConnectionManager poolingHttpClientConnectionManager = null;
 
+	/**
+	 * post请求 该请求调用的是连接池功能
+	 * 
+	 * @param sUrl
+	 * @param httpEntity
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
 	public static String poolRequest(String sUrl, HttpEntity httpEntity)
 			throws ClientProtocolException, IOException {
 
@@ -85,8 +102,6 @@ public class WebClientSupport extends BaseClass implements IBaseCreate {
 			poolingHttpClientConnectionManager.setMaxTotal(200);
 			// Increase default max connection per route to 20
 			poolingHttpClientConnectionManager.setDefaultMaxPerRoute(20);
-			
-			
 
 		}
 
