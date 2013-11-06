@@ -2,29 +2,18 @@ package com.srnpr.zapzero.topcall;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Observable;
-import java.util.Observer;
-
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
-
-import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.basemodel.MStringMap;
-import com.srnpr.zapcom.observable.ConfigObservable;
 import com.srnpr.zapcom.rootclass.RootInit;
 import com.srnpr.zapcom.topdo.TopConfig;
 import com.srnpr.zapcom.topdo.TopConst;
 import com.srnpr.zapcom.topdo.TopDir;
-import com.srnpr.zapcom.topdo.TopInit;
-import com.srnpr.zapcom.topdo.TopUp;
-import com.srnpr.zapweb.helper.WebHelper;
-import com.srnpr.zapweb.webapi.LeaderConfig;
 import com.srnpr.zapweb.webapi.LeaderConfigResult;
 import com.srnpr.zapweb.webapi.SimpleApiInput;
 import com.srnpr.zapweb.websupport.ApiCallSupport;
 import com.srnpr.zapzero.server.ServerInfo;
 
-public class InitZapzero extends RootInit implements Observer {
+public class InitZapzero extends RootInit  {
 
 	public boolean init() {
 		return initServer();
@@ -174,10 +163,12 @@ public class InitZapzero extends RootInit implements Observer {
 		return bReturn;
 	}
 
-	public void update(Observable o, Object arg) {
-
-		doUpdateConfig();
-
-	}
+	
+	
+	
+	
+	
+	
+	
 
 }
