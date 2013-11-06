@@ -136,9 +136,11 @@ public class InitZapzero extends RootInit implements Observer {
 								+ sName);
 
 				try {
+					
+					
 					FileUtils.writeStringToFile(new File(sSavePath),
 							mConfigMap.get(sName),
-							TopConst.CONST_TOP_CUSTOM_CONFIG_PATH);
+							TopConst.CONST_BASE_ENCODING);
 				} catch (IOException e) {
 					bReturn = false;
 					bLogError(970212013, sSavePath);
