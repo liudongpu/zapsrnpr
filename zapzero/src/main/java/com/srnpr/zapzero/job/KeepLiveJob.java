@@ -24,7 +24,7 @@ public class KeepLiveJob extends RootJob {
 		ApiCallSupport<IBaseInput, ApiKeepLiveResult> keeperlive = new ApiCallSupport<IBaseInput, ApiKeepLiveResult>();
 
 		
-		
+		//keeperlive.doCallApi(sAddress, sTarget, sApiKey, sApiPass, input, tResult)
 		
 		
 		

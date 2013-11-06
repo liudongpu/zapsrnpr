@@ -16,6 +16,7 @@ public class ApiKeepLive extends RootApi<ApiKeepLiveResult, ApiKeepLiveInput> {
 		ApiKeepLiveResult aResult = new ApiKeepLiveResult();
 		
 
+		
 		CacheKeepLive.getInstance().inElement(inputParam.getServerCode(),
 				inputParam);
 		

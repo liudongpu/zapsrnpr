@@ -22,6 +22,8 @@ public class ApiKeepLiveInput extends RootInput {
 	 * 本机回调地址
 	 */
 	private String apiHost = "";
+	
+	
 
 	public String getServerCode() {
 		return serverCode;
