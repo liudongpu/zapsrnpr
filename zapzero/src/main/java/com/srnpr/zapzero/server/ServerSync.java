@@ -2,15 +2,21 @@ package com.srnpr.zapzero.server;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.baseface.IBaseInstance;
+import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.basemodel.MStringMap;
+import com.srnpr.zapcom.basesupport.JobSupport;
 import com.srnpr.zapcom.topdo.TopConfig;
 import com.srnpr.zapcom.topdo.TopConst;
 import com.srnpr.zapcom.topdo.TopDir;
+import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.webapi.LeaderConfigResult;
 import com.srnpr.zapweb.webapi.SimpleApiInput;
 import com.srnpr.zapweb.websupport.ApiCallSupport;
@@ -42,6 +48,33 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 	 */
 	public boolean initJob() {
 
+		// DbUp.upTable("za_job").queryByWhere("")
+
+		String sRunList = bConfig("default.local_run_list");
+
+		MDataMap mapDefine = new MDataMap();
+		mapDefine.put("parent_did", "46991807");
+
+		List<String> lDids = new ArrayList<String>();
+		for (MDataMap mDefineDataMap : DbUp.upTable("zw_define").queryIn(
+				"define_dids", "", "", mapDefine, -1, -1, "define_name",
+				sRunList)) {
+			lDids.add(mDefineDataMap.get("define_dids"));
+		}
+
+		MDataMap mJoQuerybMap = new MDataMap();
+		mJoQuerybMap.put("parent_did", "46991807");
+		for (MDataMap mJob : DbUp.upTable("za_job").queryIn("", "", "",
+				mJoQuerybMap, -1, -1, "run_group_did",
+				StringUtils.join(lDids, ","))) {
+
+			JobSupport.getInstance().addJob(mJob.get("job_class"),
+					mJob.get("job_triger"), mJob.get("uid"));
+			
+			bLogInfo(970212016, mJob.get("job_title"),mJob.get("job_triger"));
+
+		}
+
 		return true;
 	}
 
@@ -61,7 +94,6 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 					.setServerCode(bConfig("default.local_server_code"));
 
 			ServerInfo.INSTANCE.setRunType(sServerType);
-
 			bLogInfo(970212010, sServerType);
 
 			// 如果加载的是跟随者 则开始连接主服务器的配置
@@ -76,6 +108,10 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 				}
 			}
 
+		}
+
+		if (bFlagReturn) {
+			bFlagReturn = initJob();
 		}
 
 		return bFlagReturn;
