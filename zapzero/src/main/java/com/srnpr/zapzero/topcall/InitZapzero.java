@@ -12,8 +12,10 @@ import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.basemodel.MStringMap;
 import com.srnpr.zapcom.observable.ConfigObservable;
 import com.srnpr.zapcom.rootclass.RootInit;
+import com.srnpr.zapcom.topdo.TopConfig;
 import com.srnpr.zapcom.topdo.TopConst;
 import com.srnpr.zapcom.topdo.TopDir;
+import com.srnpr.zapcom.topdo.TopInit;
 import com.srnpr.zapcom.topdo.TopUp;
 import com.srnpr.zapweb.helper.WebHelper;
 import com.srnpr.zapweb.webapi.LeaderConfig;
@@ -50,7 +52,7 @@ public class InitZapzero extends RootInit implements Observer {
 			// 如果加载的是跟随者 则开始连接主服务器的配置
 			if (ServerInfo.INSTANCE.getRunType().equals("follower")) {
 
-				ConfigObservable.INSTANCE.addObserver(this);
+				//ConfigObservable.INSTANCE.addObserver(this);
 
 				bFlagReturn = doUpdateConfig();
 
@@ -68,6 +70,9 @@ public class InitZapzero extends RootInit implements Observer {
 	/**
 	 * 更新配置
 	 * 
+	 * @return
+	 */
+	/**
 	 * @return
 	 */
 	private boolean doUpdateConfig() {
@@ -122,6 +127,8 @@ public class InitZapzero extends RootInit implements Observer {
 			}
 		}
 
+		
+		//将配置文件写入到config文件夹
 		if (bReturn) {
 
 			// bLogInfo(0,lResult.getConfigMap().size());
@@ -149,6 +156,17 @@ public class InitZapzero extends RootInit implements Observer {
 			}
 
 		}
+		
+		
+		//重新刷新配置文件
+		TopConfig.Instance.refresh();
+		
+		
+		
+	
+		bLogDebug(970212015, bConfig("all.version"));
+		
+		
 
 		// apiCallSupport.doCallApi(sAddress, sTarget, sApiKey, sApiPass, input,
 		// tResult)
