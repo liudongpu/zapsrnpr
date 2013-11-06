@@ -6,6 +6,9 @@ import com.srnpr.zapzero.api.ApiKeepLiveInput;
 
 public class ServerInfo extends ApiKeepLiveInput implements IBaseInstance {
 
+	
+	
+	
 	public static ServerInfo INSTANCE = new ServerInfo();
 
 	
