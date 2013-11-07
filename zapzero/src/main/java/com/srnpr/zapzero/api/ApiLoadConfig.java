@@ -92,6 +92,16 @@ public class ApiLoadConfig extends RootApi<ApiLoadConfigResult, ServerInfo> {
 
 		leaderConfigResult.setConfigMap(map);
 
+		addKeepToDB(inputParam);
+
+		return leaderConfigResult;
+	}
+
+	/**
+	 * 初始化信息到数据库
+	 * @param inputParam
+	 */
+	public void addKeepToDB(ServerInfo inputParam) {
 		// 写入信息到数据库中
 		{
 			MDataMap mLiveKeepDataMap = DbUp.upTable("za_livekeep").one(
@@ -124,8 +134,6 @@ public class ApiLoadConfig extends RootApi<ApiLoadConfigResult, ServerInfo> {
 			}
 
 		}
-
-		return leaderConfigResult;
 	}
 
 }

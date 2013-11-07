@@ -23,7 +23,9 @@ import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.helper.WebHelper;
 import com.srnpr.zapweb.websupport.ApiCallSupport;
 import com.srnpr.zapzero.api.ApiKeepLiveInput;
+import com.srnpr.zapzero.api.ApiLoadConfig;
 import com.srnpr.zapzero.api.ApiLoadConfigResult;
+import com.srnpr.zapzero.cache.CacheKeepLive;
 
 public class ServerSync extends BaseClass {
 
@@ -109,16 +111,31 @@ public class ServerSync extends BaseClass {
 
 		}
 
-		// 如果加载的是leader 则标记历史信息以做备份用
+		// 如果加载的是leader 则标记历史信息以做备份用 并写入自己的心跳信息
 		if (bFlagReturn) {
+			if (ServerInfo.INSTANCE.getRunType().equals("leader")) {
+				
+				MDataMap mUpdateMap = new MDataMap();
+				mUpdateMap.put("leader_code",
+						ServerInfo.INSTANCE.getServerCode());
+				mUpdateMap.put("flag_delete", "1");
+				mUpdateMap.put("delete_time", FormatHelper.upDateTime());
 
-			MDataMap mUpdateMap = new MDataMap();
-			mUpdateMap.put("leader_code", ServerInfo.INSTANCE.getServerCode());
-			mUpdateMap.put("flag_delete", "1");
-			mUpdateMap.put("delete_time", FormatHelper.upDateTime());
+				DbUp.upTable("za_livekeep").dataUpdate(mUpdateMap,
+						"flag_delete,delete_time", "leader_code");
+				
+				
+				
 
-			DbUp.upTable("za_livekeep").dataUpdate(mUpdateMap,
-					"flag_delete,delete_time", "leader_code");
+				// 将自身信息写入到存活列表中
+				CacheKeepLive.getInstance().inElement(
+						ServerInfo.INSTANCE.getServerCode(),
+						ServerInfo.INSTANCE);
+
+				// 写入到数据库中
+				new ApiLoadConfig().addKeepToDB(ServerInfo.INSTANCE);
+			}
+
 		}
 
 		// 如果加载的是跟随者 则开始连接主服务器的配置

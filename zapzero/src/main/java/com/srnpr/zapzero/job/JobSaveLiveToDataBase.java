@@ -25,8 +25,13 @@ public class JobSaveLiveToDataBase extends RootJob {
 
 		String sDateTime = FormatHelper.upDateTime();
 
-		// 将自身信息写入到存活表
-		CacheKeepLive.getInstance().inElement(sLeaderCode, ServerInfo.INSTANCE);
+		
+		if (!CacheKeepLive.getInstance().containsKey(sLeaderCode)) {
+			CacheKeepLive.getInstance().inElement(sLeaderCode,
+					ServerInfo.INSTANCE);
+		}
+		CacheKeepLive.getInstance().upValue(sLeaderCode)
+				.setNoticeTime(sDateTime);
 
 		// 循环写入信息到存活表
 		for (String sKey : CacheKeepLive.getInstance().upKeys()) {
