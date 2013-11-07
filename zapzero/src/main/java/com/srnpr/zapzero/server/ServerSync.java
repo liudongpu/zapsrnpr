@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.net.*;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -19,6 +20,7 @@ import com.srnpr.zapcom.topdo.TopConfig;
 import com.srnpr.zapcom.topdo.TopConst;
 import com.srnpr.zapcom.topdo.TopDir;
 import com.srnpr.zapdata.dbdo.DbUp;
+import com.srnpr.zapweb.helper.WebHelper;
 import com.srnpr.zapweb.websupport.ApiCallSupport;
 import com.srnpr.zapzero.api.ApiKeepLiveInput;
 import com.srnpr.zapzero.api.ApiLoadConfigResult;
@@ -87,12 +89,16 @@ public class ServerSync extends BaseClass {
 
 			String sServerCode = bConfig("default.local_server_code");
 
-			ServerInfo.INSTANCE.setIpAddress(getIpAddress().getHostAddress());
+			ServerInfo.INSTANCE.setIpAddress(getLocalIP());
 
 			// 判断如果没有定义servercode则自动使用ip地址作为servercode
 			if (StringUtils.isBlank(sServerCode)
 					|| sServerCode.equals("default")) {
 				sServerCode = ServerInfo.INSTANCE.getIpAddress();
+			}
+
+			if (StringUtils.isEmpty(sServerCode)) {
+				sServerCode = WebHelper.upUuid();
 			}
 
 			ServerInfo.INSTANCE.setServerCode(sServerCode);
@@ -241,31 +247,33 @@ public class ServerSync extends BaseClass {
 		return bReturn;
 	}
 
-	/**
-	 * Get host IP address
-	 * 
-	 * @return IP Address
-	 */
-	public InetAddress getIpAddress() {
+	public static String getLocalIP() {
+		String address = "";
 		try {
-			for (Enumeration<NetworkInterface> interfaces = NetworkInterface
-					.getNetworkInterfaces(); interfaces.hasMoreElements();) {
-				NetworkInterface networkInterface = interfaces.nextElement();
-				if (networkInterface.isLoopback()
-						|| networkInterface.isVirtual()
-						|| !networkInterface.isUp()) {
-					continue;
-				}
-				Enumeration<InetAddress> addresses = networkInterface
-						.getInetAddresses();
-				if (addresses.hasMoreElements()) {
-					return addresses.nextElement();
+			Enumeration<?> allNetInterfaces = NetworkInterface
+					.getNetworkInterfaces();
+			InetAddress ine = null;
+			while (allNetInterfaces.hasMoreElements() && address.equals("")) {
+				NetworkInterface netInterface = (NetworkInterface) allNetInterfaces
+						.nextElement();
+				if (!netInterface.isVirtual()) {
+					Enumeration<?> addresses = netInterface.getInetAddresses();
+					while (addresses.hasMoreElements() && address.equals("")) {
+						ine = (InetAddress) addresses.nextElement();
+						if (ine != null && ine instanceof Inet4Address) {
+							if (!ine.getHostAddress().equals("127.0.0.1")
+									&& !netInterface.isVirtual()) {
+								address = ine.getHostAddress();
+								break;
+							}
+						}
+					}
 				}
 			}
-		} catch (SocketException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return address.trim();
 	}
 
 }
