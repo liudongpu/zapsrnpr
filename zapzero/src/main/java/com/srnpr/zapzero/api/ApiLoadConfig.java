@@ -22,7 +22,7 @@ public class ApiLoadConfig extends RootApi<ApiLoadConfigResult, ServerInfo> {
 
 		TopDir topDir = new TopDir();
 
-		String sFile = inputParam.getServerCode();
+		String sFile = inputParam.getSyncConfig();
 		MStringMap map = new MStringMap();
 
 		if (StringUtils.isNotBlank(sFile)) {
