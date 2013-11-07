@@ -119,7 +119,7 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 			bFlagReturn = initJob();
 		}
 
-		return bFlagReturn;
+		return true;
 
 	}
 
