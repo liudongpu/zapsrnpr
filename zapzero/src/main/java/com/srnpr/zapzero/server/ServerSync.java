@@ -52,18 +52,20 @@ public class ServerSync extends BaseClass {
 				lDids.add(mDefineDataMap.get("define_dids"));
 			}
 
-			MDataMap mJoQuerybMap = new MDataMap();
-			mJoQuerybMap.put("parent_did", "46991807");
-			for (MDataMap mJob : DbUp.upTable("za_job").queryIn("", "", "",
-					mJoQuerybMap, -1, -1, "run_group_did",
-					StringUtils.join(lDids, ","))) {
+			if (lDids.size() > 0) {
+				MDataMap mJoQuerybMap = new MDataMap();
+				mJoQuerybMap.put("parent_did", "46991807");
+				for (MDataMap mJob : DbUp.upTable("za_job").queryIn("", "", "",
+						mJoQuerybMap, -1, -1, "run_group_did",
+						StringUtils.join(lDids, ","))) {
 
-				JobSupport.getInstance().addJob(mJob.get("job_class"),
-						mJob.get("job_triger"), mJob.get("uid"));
+					JobSupport.getInstance().addJob(mJob.get("job_class"),
+							mJob.get("job_triger"), mJob.get("uid"));
 
-				bLogInfo(970212016, mJob.get("job_title"),
-						mJob.get("job_triger"));
+					bLogInfo(970212016, mJob.get("job_title"),
+							mJob.get("job_triger"));
 
+				}
 			}
 		}
 
