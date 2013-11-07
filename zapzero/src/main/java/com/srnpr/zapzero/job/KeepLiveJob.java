@@ -19,18 +19,28 @@ import com.srnpr.zapzero.server.ServerInfo;
  */
 public class KeepLiveJob extends RootJob {
 
+	final static ApiCallSupport<IBaseInput, ApiKeepLiveResult> keeperlive = new ApiCallSupport<IBaseInput, ApiKeepLiveResult>();
+
 	public void doExecute(JobExecutionContext context) {
 
-		ApiCallSupport<IBaseInput, ApiKeepLiveResult> keeperlive = new ApiCallSupport<IBaseInput, ApiKeepLiveResult>();
+		ApiKeepLiveResult apiResult = new ApiKeepLiveResult();
+		try {
+			keeperlive.doCallApi(ServerInfo.INSTANCE.getApiHost(),
+					"com_srnpr_zapweb_webapi_LeaderConfig",
+					bConfig("default.leader_server_apikey"),
+					bConfig("default.leader_server_apipass"),
+					ServerInfo.INSTANCE, apiResult);
+		} catch (Exception e) {
+			bLogError(970205001);
+			e.printStackTrace();
+		}
 
-		
-		//keeperlive.doCallApi(sAddress, sTarget, sApiKey, sApiPass, input, tResult)
-		
-		
-		
-		
-		//keeperlive.doCallApi(sAddress, sTarget, sApiKey, sApiPass, input, tResult)
-		
+		// keeperlive.doCallApi(sAddress, sTarget, sApiKey, sApiPass, input,
+		// tResult)
+
+		// keeperlive.doCallApi(sAddress, sTarget, sApiKey, sApiPass, input,
+		// tResult)
+
 		// keeperlive.doCallApi(ServerInfo.INSTANCE.getApiHost(), sTarget,
 		// sApiKey, sApiPass, input, tResult)
 

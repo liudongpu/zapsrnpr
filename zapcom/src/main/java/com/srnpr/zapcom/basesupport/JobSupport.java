@@ -31,9 +31,9 @@ public class JobSupport extends BaseClass implements IBaseInstance {
 
 	public static JobSupport getInstance() {
 		if (jobSupport == null) {
-			synchronized (jobSupport) {
+			
 				jobSupport = new JobSupport();
-			}
+			
 		}
 		return jobSupport;
 	}
