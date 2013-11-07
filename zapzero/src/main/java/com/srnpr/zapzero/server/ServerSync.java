@@ -161,7 +161,7 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 				try {
 
 					lResult = apiCallSupport.doCallApi(s,
-							"com_srnpr_zapweb_webapi_LeaderConfig",
+							"com_srnpr_zapzero_api_ApiLoadConfig",
 							bConfig("default.leader_server_apikey"),
 							bConfig("default.leader_server_apipass"), ServerInfo.INSTANCE,
 							lResult);
