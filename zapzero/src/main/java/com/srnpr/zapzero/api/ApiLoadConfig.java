@@ -6,16 +6,30 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
+import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.basemodel.MStringMap;
 import com.srnpr.zapcom.topapi.RootApi;
 import com.srnpr.zapcom.topcache.CacheTempConfigStringMap;
 import com.srnpr.zapcom.topdo.TopConst;
 import com.srnpr.zapcom.topdo.TopDir;
+import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapzero.server.ServerInfo;
 
+/**
+ * 读取配置文件返回给客户端
+ * 
+ * @author srnpr
+ * 
+ */
 public class ApiLoadConfig extends RootApi<ApiLoadConfigResult, ServerInfo> {
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.srnpr.zapcom.baseface.IBaseApi#Process(java.lang.Object,
+	 * com.srnpr.zapcom.basemodel.MDataMap)
+	 */
 	public ApiLoadConfigResult Process(ServerInfo inputParam,
 			MDataMap mRequestMap) {
 		ApiLoadConfigResult leaderConfigResult = new ApiLoadConfigResult();
@@ -28,7 +42,7 @@ public class ApiLoadConfig extends RootApi<ApiLoadConfigResult, ServerInfo> {
 		if (StringUtils.isNotBlank(sFile)) {
 
 			String sKeyString = CacheTempConfigStringMap
-					.upTempCacheName("com.srnpr.zapweb.webapi.LeaderConfig.Process.configfile"
+					.upTempCacheName("com.srnpr.zapzero.api.ApiLoadConfig.Process.configfile"
 							+ sFile);
 
 			if (!CacheTempConfigStringMap.getInstance().containsKey(sKeyString)
@@ -69,7 +83,7 @@ public class ApiLoadConfig extends RootApi<ApiLoadConfigResult, ServerInfo> {
 				CacheTempConfigStringMap.getInstance().inElement(sKeyString,
 						map);
 			} else {
-				//bLogInfo(0, map);
+				// bLogInfo(0, map);
 				map = CacheTempConfigStringMap.getInstance()
 						.upValue(sKeyString);
 			}
@@ -77,6 +91,39 @@ public class ApiLoadConfig extends RootApi<ApiLoadConfigResult, ServerInfo> {
 		}
 
 		leaderConfigResult.setConfigMap(map);
+
+		// 写入信息到数据库中
+		{
+			MDataMap mLiveKeepDataMap = DbUp.upTable("za_livekeep").one(
+					"leader_code", ServerInfo.INSTANCE.getServerCode(),
+					"follower_code", inputParam.getServerCode(), "flag_delete",
+					"0");
+			// 如果已有则更新 否则新增一条
+			if (mLiveKeepDataMap != null && mLiveKeepDataMap.size() > 0) {
+
+				mLiveKeepDataMap.put("connect_time", FormatHelper.upDateTime());
+				DbUp.upTable("za_livekeep").dataUpdate(mLiveKeepDataMap,
+						"connect_time", "zid");
+
+			} else {
+				String sDate = FormatHelper.upDateTime();
+				MDataMap mInserMap = new MDataMap();
+				mInserMap.put("leader_code",
+						ServerInfo.INSTANCE.getServerCode());
+				mInserMap.put("follower_code", inputParam.getServerCode());
+				mInserMap.put("follower_address", inputParam.getIpAddress());
+				mInserMap.put("follower_runlist", inputParam.getRunType());
+
+				mInserMap.put("create_time", sDate);
+				mInserMap.put("update_time", sDate);
+				mInserMap.put("flag_enable", "1");
+				mInserMap.put("flag_delete", "0");
+				mInserMap.put("connect_time", sDate);
+				DbUp.upTable("za_livekeep").dataInsert(mInserMap);
+
+			}
+
+		}
 
 		return leaderConfigResult;
 	}

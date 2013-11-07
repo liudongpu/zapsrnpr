@@ -15,13 +15,19 @@ public class ApiKeepLive extends RootApi<ApiKeepLiveResult, ApiKeepLiveInput> {
 			MDataMap mRequestMap) {
 
 		ApiKeepLiveResult aResult = new ApiKeepLiveResult();
-		
 
-		inputParam.setNoticeTime(FormatHelper.upDateTime());
-		
-		CacheKeepLive.getInstance().inElement(inputParam.getServerCode(),
-				inputParam);
-		
+		String sDateTime = FormatHelper.upDateTime();
+
+		if (CacheKeepLive.getInstance().containsKey(inputParam.getServerCode())) {
+			CacheKeepLive.getInstance().upValue(inputParam.getServerCode())
+					.setNoticeTime(sDateTime);
+
+		} else {
+
+			inputParam.setNoticeTime(sDateTime);
+			CacheKeepLive.getInstance().inElement(inputParam.getServerCode(),
+					inputParam);
+		}
 
 		return aResult;
 

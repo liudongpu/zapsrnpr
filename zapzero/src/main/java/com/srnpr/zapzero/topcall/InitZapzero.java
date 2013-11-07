@@ -13,7 +13,7 @@ public class InitZapzero extends RootInit {
 
 	public boolean init() {
 
-		return ServerSync.getInstance().initServer();
+		return new ServerSync().initServer();
 	}
 
 }

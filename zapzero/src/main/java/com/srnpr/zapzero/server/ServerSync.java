@@ -3,13 +3,15 @@ package com.srnpr.zapzero.server;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
-
+import java.net.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.baseface.IBaseInstance;
+import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.basemodel.MStringMap;
 import com.srnpr.zapcom.basesupport.JobSupport;
@@ -21,28 +23,14 @@ import com.srnpr.zapweb.websupport.ApiCallSupport;
 import com.srnpr.zapzero.api.ApiKeepLiveInput;
 import com.srnpr.zapzero.api.ApiLoadConfigResult;
 
-public class ServerSync extends BaseClass implements IBaseInstance {
-
-	private static ServerSync serverSync = null;
-
-	/**
-	 * 获取信息
-	 * 
-	 * @return
-	 */
-	public static ServerSync getInstance() {
-		if (serverSync == null) {
-			serverSync = new ServerSync();
-		}
-		return serverSync;
-	}
+public class ServerSync extends BaseClass {
 
 	public void init() {
 		// ServerInfo.INSTANCE.setIpAddress(ipAddress);
 	}
 
 	/**
-	 * 初始化任务模型
+	 * 初始化任务加载
 	 * 
 	 * @return
 	 */
@@ -91,16 +79,42 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 
 		boolean bFlagReturn = true;
 
+		// 初始化基本信息
 		if (bFlagReturn) {
 			String sServerType = bConfig("default.local_run_type");
 
-			ServerInfo.INSTANCE
-					.setServerCode(bConfig("default.local_server_code"));
+			String sServerCode = bConfig("default.local_server_code");
+
+			ServerInfo.INSTANCE.setIpAddress(getIpAddress().getHostAddress());
+
+			// 判断如果没有定义servercode则自动使用ip地址作为servercode
+			if (StringUtils.isBlank(sServerCode)
+					|| sServerCode.equals("default")) {
+				sServerCode = ServerInfo.INSTANCE.getIpAddress();
+			}
+
+			ServerInfo.INSTANCE.setServerCode(sServerCode);
 
 			ServerInfo.INSTANCE.setRunType(sServerType);
+
 			bLogInfo(970212010, sServerType);
 
-			// 如果加载的是跟随者 则开始连接主服务器的配置
+		}
+
+		// 如果加载的是leader 则标记历史信息以做备份用
+		if (bFlagReturn) {
+
+			MDataMap mUpdateMap = new MDataMap();
+			mUpdateMap.put("leader_code", ServerInfo.INSTANCE.getServerCode());
+			mUpdateMap.put("flag_delete", "1");
+			mUpdateMap.put("delete_time", FormatHelper.upDateTime());
+
+			DbUp.upTable("za_livekeep").dataUpdate(mUpdateMap,
+					"flag_delete,delete_time", "leader_code");
+		}
+
+		// 如果加载的是跟随者 则开始连接主服务器的配置
+		if (bFlagReturn) {
 			if (ServerInfo.INSTANCE.getRunType().equals("follower")) {
 
 				// ConfigObservable.INSTANCE.addObserver(this);
@@ -137,16 +151,15 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 		// 调用主服务器
 		ApiCallSupport<ApiKeepLiveInput, ApiLoadConfigResult> apiCallSupport = new ApiCallSupport<ApiKeepLiveInput, ApiLoadConfigResult>();
 
-		
 		ApiLoadConfigResult lResult = new ApiLoadConfigResult();
 
 		String[] sMaserServer = bConfig("default.leader_server_address").split(
 				",");
 
-		//sInput.setInputString(bConfig("default.follower_load_config"));
-		
-		ServerInfo.INSTANCE.setSyncConfig(bConfig("default.follower_load_config"));
-		
+		// sInput.setInputString(bConfig("default.follower_load_config"));
+
+		ServerInfo.INSTANCE
+				.setSyncConfig(bConfig("default.follower_load_config"));
 
 		if (bReturn) {
 			if (sMaserServer.length == 0) {
@@ -163,8 +176,8 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 					lResult = apiCallSupport.doCallApi(s,
 							"com_srnpr_zapzero_api_ApiLoadConfig",
 							bConfig("default.leader_server_apikey"),
-							bConfig("default.leader_server_apipass"), ServerInfo.INSTANCE,
-							lResult);
+							bConfig("default.leader_server_apipass"),
+							ServerInfo.INSTANCE, lResult);
 				} catch (Exception e) {
 					bReturn = false;
 					e.printStackTrace();
@@ -224,6 +237,33 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 		// tResult)
 
 		return bReturn;
+	}
+
+	/**
+	 * Get host IP address
+	 * 
+	 * @return IP Address
+	 */
+	public InetAddress getIpAddress() {
+		try {
+			for (Enumeration<NetworkInterface> interfaces = NetworkInterface
+					.getNetworkInterfaces(); interfaces.hasMoreElements();) {
+				NetworkInterface networkInterface = interfaces.nextElement();
+				if (networkInterface.isLoopback()
+						|| networkInterface.isVirtual()
+						|| !networkInterface.isUp()) {
+					continue;
+				}
+				Enumeration<InetAddress> addresses = networkInterface
+						.getInetAddresses();
+				if (addresses.hasMoreElements()) {
+					return addresses.nextElement();
+				}
+			}
+		} catch (SocketException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

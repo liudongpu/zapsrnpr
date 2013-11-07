@@ -25,11 +25,17 @@ public class KeepLiveJob extends RootJob {
 
 		ApiKeepLiveResult apiResult = new ApiKeepLiveResult();
 		try {
-			keeperlive.doCallApi(ServerInfo.INSTANCE.getApiHost(),
-					"com_srnpr_zapweb_webapi_LeaderConfig",
+			apiResult=keeperlive.doCallApi(ServerInfo.INSTANCE.getApiHost(),
+					"com_srnpr_zapzero_api_ApiKeepLive",
 					bConfig("default.leader_server_apikey"),
 					bConfig("default.leader_server_apipass"),
 					ServerInfo.INSTANCE, apiResult);
+			
+			if(apiResult.getResultCode()!=1)
+			{
+				bLogError(970205001);
+			}
+			
 		} catch (Exception e) {
 			bLogError(970205001);
 			e.printStackTrace();
