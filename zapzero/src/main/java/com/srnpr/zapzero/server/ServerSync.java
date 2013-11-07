@@ -17,7 +17,6 @@ import com.srnpr.zapcom.topdo.TopConfig;
 import com.srnpr.zapcom.topdo.TopConst;
 import com.srnpr.zapcom.topdo.TopDir;
 import com.srnpr.zapdata.dbdo.DbUp;
-import com.srnpr.zapweb.webapi.SimpleApiInput;
 import com.srnpr.zapweb.websupport.ApiCallSupport;
 import com.srnpr.zapzero.api.ApiKeepLiveInput;
 import com.srnpr.zapzero.api.ApiLoadConfigResult;
@@ -119,7 +118,7 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 			bFlagReturn = initJob();
 		}
 
-		return true;
+		return bFlagReturn;
 
 	}
 
