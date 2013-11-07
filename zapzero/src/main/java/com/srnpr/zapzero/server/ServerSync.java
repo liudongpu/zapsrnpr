@@ -17,9 +17,10 @@ import com.srnpr.zapcom.topdo.TopConfig;
 import com.srnpr.zapcom.topdo.TopConst;
 import com.srnpr.zapcom.topdo.TopDir;
 import com.srnpr.zapdata.dbdo.DbUp;
-import com.srnpr.zapweb.webapi.LeaderConfigResult;
 import com.srnpr.zapweb.webapi.SimpleApiInput;
 import com.srnpr.zapweb.websupport.ApiCallSupport;
+import com.srnpr.zapzero.api.ApiKeepLiveInput;
+import com.srnpr.zapzero.api.ApiLoadConfigResult;
 
 public class ServerSync extends BaseClass implements IBaseInstance {
 
@@ -52,27 +53,31 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 
 		String sRunList = bConfig("default.local_run_list");
 
-		MDataMap mapDefine = new MDataMap();
-		mapDefine.put("parent_did", "46991807");
+		if (StringUtils.isNotBlank(sRunList)) {
 
-		List<String> lDids = new ArrayList<String>();
-		for (MDataMap mDefineDataMap : DbUp.upTable("zw_define").queryIn(
-				"define_dids", "", "", mapDefine, -1, -1, "define_name",
-				sRunList)) {
-			lDids.add(mDefineDataMap.get("define_dids"));
-		}
+			MDataMap mapDefine = new MDataMap();
+			mapDefine.put("parent_did", "46991807");
 
-		MDataMap mJoQuerybMap = new MDataMap();
-		mJoQuerybMap.put("parent_did", "46991807");
-		for (MDataMap mJob : DbUp.upTable("za_job").queryIn("", "", "",
-				mJoQuerybMap, -1, -1, "run_group_did",
-				StringUtils.join(lDids, ","))) {
+			List<String> lDids = new ArrayList<String>();
+			for (MDataMap mDefineDataMap : DbUp.upTable("zw_define").queryIn(
+					"define_dids", "", "", mapDefine, -1, -1, "define_name",
+					sRunList)) {
+				lDids.add(mDefineDataMap.get("define_dids"));
+			}
 
-			JobSupport.getInstance().addJob(mJob.get("job_class"),
-					mJob.get("job_triger"), mJob.get("uid"));
-			
-			bLogInfo(970212016, mJob.get("job_title"),mJob.get("job_triger"));
+			MDataMap mJoQuerybMap = new MDataMap();
+			mJoQuerybMap.put("parent_did", "46991807");
+			for (MDataMap mJob : DbUp.upTable("za_job").queryIn("", "", "",
+					mJoQuerybMap, -1, -1, "run_group_did",
+					StringUtils.join(lDids, ","))) {
 
+				JobSupport.getInstance().addJob(mJob.get("job_class"),
+						mJob.get("job_triger"), mJob.get("uid"));
+
+				bLogInfo(970212016, mJob.get("job_title"),
+						mJob.get("job_triger"));
+
+			}
 		}
 
 		return true;
@@ -131,15 +136,18 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 		boolean bReturn = true;
 
 		// 调用主服务器
-		ApiCallSupport<SimpleApiInput, LeaderConfigResult> apiCallSupport = new ApiCallSupport<SimpleApiInput, LeaderConfigResult>();
+		ApiCallSupport<ApiKeepLiveInput, ApiLoadConfigResult> apiCallSupport = new ApiCallSupport<ApiKeepLiveInput, ApiLoadConfigResult>();
 
-		SimpleApiInput sInput = new SimpleApiInput();
-		LeaderConfigResult lResult = new LeaderConfigResult();
+		
+		ApiLoadConfigResult lResult = new ApiLoadConfigResult();
 
 		String[] sMaserServer = bConfig("default.leader_server_address").split(
 				",");
 
-		sInput.setInputString(bConfig("default.follower_load_config"));
+		//sInput.setInputString(bConfig("default.follower_load_config"));
+		
+		ServerInfo.INSTANCE.setSyncConfig(bConfig("default.follower_load_config"));
+		
 
 		if (bReturn) {
 			if (sMaserServer.length == 0) {
@@ -156,7 +164,7 @@ public class ServerSync extends BaseClass implements IBaseInstance {
 					lResult = apiCallSupport.doCallApi(s,
 							"com_srnpr_zapweb_webapi_LeaderConfig",
 							bConfig("default.leader_server_apikey"),
-							bConfig("default.leader_server_apipass"), sInput,
+							bConfig("default.leader_server_apipass"), ServerInfo.INSTANCE,
 							lResult);
 				} catch (Exception e) {
 					bReturn = false;

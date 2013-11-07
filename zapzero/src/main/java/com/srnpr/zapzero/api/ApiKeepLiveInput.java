@@ -22,7 +22,17 @@ public class ApiKeepLiveInput extends RootInput {
 	 * 本机回调地址
 	 */
 	private String apiHost = "";
+
+	/**
+	 * 通知时间
+	 */
+	private String noticeTime = "";
 	
+	
+	/**
+	 * 同步配置文件名
+	 */
+	private String syncConfig="";
 	
 
 	public String getServerCode() {
@@ -55,6 +65,22 @@ public class ApiKeepLiveInput extends RootInput {
 
 	public void setRunType(String runType) {
 		this.runType = runType;
+	}
+
+	public String getNoticeTime() {
+		return noticeTime;
+	}
+
+	public void setNoticeTime(String noticeTime) {
+		this.noticeTime = noticeTime;
+	}
+
+	public String getSyncConfig() {
+		return syncConfig;
+	}
+
+	public void setSyncConfig(String syncConfig) {
+		this.syncConfig = syncConfig;
 	}
 
 }

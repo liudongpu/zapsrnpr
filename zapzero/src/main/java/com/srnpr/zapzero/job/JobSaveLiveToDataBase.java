@@ -3,6 +3,7 @@ package com.srnpr.zapzero.job;
 import org.quartz.JobExecutionContext;
 
 import com.srnpr.zapcom.rootclass.RootJob;
+import com.srnpr.zapzero.api.ApiKeepLiveInput;
 import com.srnpr.zapzero.cache.CacheKeepLive;
 import com.srnpr.zapzero.server.ServerInfo;
 
@@ -21,7 +22,15 @@ public class JobSaveLiveToDataBase extends RootJob {
 		CacheKeepLive.getInstance().inElement(ServerInfo.INSTANCE.getServerCode(),
 				ServerInfo.INSTANCE);
 		
+		for(String sKey:CacheKeepLive.getInstance().upKeys())
+		{
+			
+			ApiKeepLiveInput aInfo=CacheKeepLive.getInstance().upValue(sKey);
+			
+			
 		
+			
+		}
 		
 		
 		
