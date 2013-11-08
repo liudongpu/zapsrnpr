@@ -15,7 +15,7 @@ import com.srnpr.zapcom.topdo.TopDir;
 
 public class TestConfig extends BaseClass {
 
-	@Test
+	
 	public void test() {
 
 		TopDir topDir = new TopDir();
