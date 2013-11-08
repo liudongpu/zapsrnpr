@@ -45,6 +45,14 @@ public class ServerSync extends BaseClass {
 		String sRunList = ServerInfo.INSTANCE.getRunList();
 
 		if (StringUtils.isNotBlank(sRunList)) {
+			
+			
+			
+			
+			
+			
+			
+			
 
 			MDataMap mapDefine = new MDataMap();
 			mapDefine.put("parent_did", "46991807");
