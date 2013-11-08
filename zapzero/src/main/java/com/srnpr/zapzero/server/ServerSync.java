@@ -42,7 +42,7 @@ public class ServerSync extends BaseClass {
 
 		// DbUp.upTable("za_job").queryByWhere("")
 
-		String sRunList = bConfig("default.local_run_list");
+		String sRunList = ServerInfo.INSTANCE.getRunList();
 
 		if (StringUtils.isNotBlank(sRunList)) {
 
@@ -93,10 +93,12 @@ public class ServerSync extends BaseClass {
 
 			ServerInfo.INSTANCE.setIpAddress(getLocalIP());
 
+			ServerInfo.INSTANCE.setRunList(bConfig("default.local_run_list"));
+
 			// 判断如果没有定义servercode则自动使用ip地址作为servercode
 			if (StringUtils.isBlank(sServerCode)
 					|| sServerCode.equals("default")) {
-				sServerCode = ServerInfo.INSTANCE.getIpAddress();
+				sServerCode = ServerInfo.INSTANCE.getIpAddress()+new TopDir().upServerletPath("");
 			}
 
 			if (StringUtils.isEmpty(sServerCode)) {
@@ -114,7 +116,7 @@ public class ServerSync extends BaseClass {
 		// 如果加载的是leader 则标记历史信息以做备份用 并写入自己的心跳信息
 		if (bFlagReturn) {
 			if (ServerInfo.INSTANCE.getRunType().equals("leader")) {
-				
+
 				MDataMap mUpdateMap = new MDataMap();
 				mUpdateMap.put("leader_code",
 						ServerInfo.INSTANCE.getServerCode());
@@ -123,9 +125,6 @@ public class ServerSync extends BaseClass {
 
 				DbUp.upTable("za_livekeep").dataUpdate(mUpdateMap,
 						"flag_delete,delete_time", "leader_code");
-				
-				
-				
 
 				// 将自身信息写入到存活列表中
 				CacheKeepLive.getInstance().inElement(

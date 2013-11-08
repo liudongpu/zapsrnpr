@@ -123,6 +123,7 @@ public class ApiLoadConfig extends RootApi<ApiLoadConfigResult, ServerInfo> {
 				mInserMap.put("follower_code", inputParam.getServerCode());
 				mInserMap.put("follower_address", inputParam.getIpAddress());
 				mInserMap.put("run_type", inputParam.getRunType());
+				mInserMap.put("follower_runlist", inputParam.getRunList());
 
 				mInserMap.put("create_time", sDate);
 				mInserMap.put("update_time", sDate);

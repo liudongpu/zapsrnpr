@@ -17,6 +17,11 @@ public class ApiKeepLiveInput extends RootInput {
 	 * 运行模式 leader或者follower
 	 */
 	private String runType = "";
+	
+	/**
+	 * 运行服务列表
+	 */
+	private String runList="";
 
 	/**
 	 * 本机回调地址
@@ -81,6 +86,14 @@ public class ApiKeepLiveInput extends RootInput {
 
 	public void setSyncConfig(String syncConfig) {
 		this.syncConfig = syncConfig;
+	}
+
+	public String getRunList() {
+		return runList;
+	}
+
+	public void setRunList(String runList) {
+		this.runList = runList;
 	}
 
 }
