@@ -1,3 +1,13 @@
+
+
+################################################
+#
+# 初始化视图 
+#
+#################################################
+
+
+
 DELIMITER $
 DROP PROCEDURE IF EXISTS `proc_zw_initview`$
 CREATE PROCEDURE `proc_zw_initview`(in p_view_code varchar(100))
@@ -40,13 +50,17 @@ select replace(uuid(),'-','') as uid
 from zapdata.zd_column zdc left join zw_view zwv
 on zdc.table_name=zwv.table_name
 where concat(zwv.view_code,zdc.column_name)
-not in(select concat(view_code,column_name) from zw_field)
+not in(select concat(view_code,column_name) from zw_field  where view_code=p_view_code)
 and zwv.view_code=p_view_code;
 
 
 
 
-#add
+
+
+
+
+#add页面
 INSERT INTO `zapdata`.`zw_page`
 (
 `uid`,
@@ -77,7 +91,10 @@ zwv.view_code=p_view_code;
 
 
 
+###判断只有第一次才初始化页按钮
+set p_exit=(select count(1) from zw_page where view_code=p_view_code);
 
+if p_exit=0 then
 
 
 INSERT INTO zw_operate
@@ -109,7 +126,9 @@ replace(uuid(),'-','') as uid
 
 from zw_page zwp 
  join zw_define zwd
-on zwp.page_type_aid=zwd.define_two
+on
+zwd.parent_did='46991615' and
+ zwp.page_type_aid=zwd.define_two
 
 where
 
@@ -124,7 +143,7 @@ and zwp.view_code=p_view_code;
 
 
 
-
+end if;
 
 
 

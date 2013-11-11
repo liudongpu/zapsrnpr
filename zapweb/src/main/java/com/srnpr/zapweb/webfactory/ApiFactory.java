@@ -32,6 +32,8 @@ import com.srnpr.zapcom.topapi.DefaultApiCache;
 import com.srnpr.zapcom.topapi.DefaultAuthorizeCache;
 import com.srnpr.zapcom.topapi.RootResult;
 import com.srnpr.zapdata.dbdo.DbUp;
+import com.srnpr.zapweb.helper.WebHelper;
+import com.srnpr.zapweb.webcache.WebCacheLog;
 import com.srnpr.zapweb.webdo.ObjectCache;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webdo.WebTemp;
@@ -70,6 +72,9 @@ public class ApiFactory implements IBaseInstance {
 
 		String sApiClassString = "";
 
+		// 定义日志Guid
+		String sLogGuid = "";
+
 		MDataMap mDataMap = ROOT_PROCESS.convertRequest(hRequest);
 
 		// 定义是否需要加密验证
@@ -79,9 +84,9 @@ public class ApiFactory implements IBaseInstance {
 
 		// 开始验证api名称和apikey
 		if (mResult.upFlagTrue()) {
-			 if (!mDataMap.containsKey("api_key")) {
+			if (!mDataMap.containsKey("api_key")) {
 				mResult.inErrorMessage(969905007, "api_key");
-			}  else {
+			} else {
 				sTarget = StringUtils.defaultIfBlank(
 						mDataMap.get("api_target"), sUrl);
 
@@ -89,35 +94,29 @@ public class ApiFactory implements IBaseInstance {
 
 				sApiKey = mDataMap.get("api_key");
 
-				if(mDataMap.containsKey("api_input"))
-				{
-					sInputString =StringUtils.defaultIfBlank(
-							 mDataMap.get("api_input"), "");
-				}
-				else
-				{
-					
-					//如果没有传入api_input 则自动根据url参数拼接简单json格式
-					
-					List<String> lInput=new ArrayList<String>();
-					
-					for(String skey:mDataMap.keySet())
-					{
-						if(!skey.startsWith("api_"))
-						{
-							lInput.add("\""+skey+"\":\""+mDataMap.get(skey)+"\"");
+				if (mDataMap.containsKey("api_input")) {
+					sInputString = StringUtils.defaultIfBlank(
+							mDataMap.get("api_input"), "");
+				} else {
+
+					// 如果没有传入api_input 则自动根据url参数拼接简单json格式
+
+					List<String> lInput = new ArrayList<String>();
+
+					for (String skey : mDataMap.keySet()) {
+						if (!skey.startsWith("api_")) {
+							lInput.add("\"" + skey + "\":\""
+									+ mDataMap.get(skey) + "\"");
 						}
-						
+
 					}
-					
-					if(lInput.size()>0)
-					{
-						sInputString="{"+StringUtils.join(lInput,",")+"}";
+
+					if (lInput.size() > 0) {
+						sInputString = "{" + StringUtils.join(lInput, ",")
+								+ "}";
 					}
-					
+
 				}
-				
-				
 
 			}
 		}
@@ -149,6 +148,12 @@ public class ApiFactory implements IBaseInstance {
 						.toString().equals("467701200002");
 			}
 
+		}
+
+		// 如果是加密参数 则写入日志
+		if (bSecret) {
+			sLogGuid = WebHelper.upUuid();
+			WebCacheLog.INSTANCE.inLog("api_request_" + sLogGuid, hRequest);
 		}
 
 		// 开始判断输入参数存在
@@ -240,6 +245,14 @@ public class ApiFactory implements IBaseInstance {
 						mDataMap);
 			} catch (Exception e) {
 				mResult.inErrorMessage(969905012);
+
+				if (StringUtils.isNotEmpty(sLogGuid)) {
+					WebCacheLog.INSTANCE.inElement(
+							"api_error_" + sLogGuid,
+							new MDataMap("uid", sLogGuid, "error", e
+									.getMessage()));
+				}
+
 				e.printStackTrace();
 			}
 
@@ -258,6 +271,11 @@ public class ApiFactory implements IBaseInstance {
 
 			sReturnString = rJsonHelper.ObjToString(rootResult);
 
+		}
+
+		if (StringUtils.isNotEmpty(sLogGuid)) {
+			WebCacheLog.INSTANCE.inElement("api_result_" + sLogGuid,
+					new MDataMap("uid", sLogGuid, "result", sReturnString));
 		}
 
 		return sReturnString;
@@ -281,7 +299,7 @@ public class ApiFactory implements IBaseInstance {
 	 * @param sInputJson
 	 * @param mDataMap
 	 * @return
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public String doProcess(String sClassName, String sInputJson,
 			MDataMap mDataMap) throws IOException {
