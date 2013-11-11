@@ -8,10 +8,12 @@ import java.util.List;
 import java.net.*;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.baseface.IBaseInstance;
+import com.srnpr.zapcom.baseface.IBaseJob;
 import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.basemodel.MStringMap;
@@ -41,18 +43,11 @@ public class ServerSync extends BaseClass {
 	public boolean initJob() {
 
 		// DbUp.upTable("za_job").queryByWhere("")
+		boolean bFlag = true;
 
 		String sRunList = ServerInfo.INSTANCE.getRunList();
 
 		if (StringUtils.isNotBlank(sRunList)) {
-			
-			
-			
-			
-			
-			
-			
-			
 
 			MDataMap mapDefine = new MDataMap();
 			mapDefine.put("parent_did", "46991807");
@@ -66,22 +61,42 @@ public class ServerSync extends BaseClass {
 
 			if (lDids.size() > 0) {
 				MDataMap mJoQuerybMap = new MDataMap();
-				mJoQuerybMap.put("parent_did", "46991807");
+				mJoQuerybMap.put("flag_enable", "1");
 				for (MDataMap mJob : DbUp.upTable("za_job").queryIn("", "", "",
 						mJoQuerybMap, -1, -1, "run_group_did",
 						StringUtils.join(lDids, ","))) {
 
-					JobSupport.getInstance().addJob(mJob.get("job_class"),
-							mJob.get("job_triger"), mJob.get("uid"));
+					String sJobTriger = mJob.get("job_triger");
 
-					bLogInfo(970212016, mJob.get("job_title"),
-							mJob.get("job_triger"));
+					// 如果事件定义的时间为空 则系统加载时则执行
+					if (StringUtils.isBlank(sJobTriger)) {
+
+						try {
+							IBaseJob iJob = (IBaseJob) ClassUtils.getClass(
+									mJob.get("job_class")).newInstance();
+
+							iJob.doExecute(null);
+
+							bLogInfo(970212017, mJob.get("job_title"));
+
+						} catch (Exception e) {
+							bFlag = false;
+							e.printStackTrace();
+						}
+
+					} else {
+						JobSupport.getInstance().addJob(mJob.get("job_class"),
+								mJob.get("job_triger"), mJob.get("uid"));
+
+						bLogInfo(970212016, mJob.get("job_title"),
+								mJob.get("job_triger"));
+					}
 
 				}
 			}
 		}
 
-		return true;
+		return bFlag;
 	}
 
 	/**
@@ -106,7 +121,8 @@ public class ServerSync extends BaseClass {
 			// 判断如果没有定义servercode则自动使用ip地址作为servercode
 			if (StringUtils.isBlank(sServerCode)
 					|| sServerCode.equals("default")) {
-				sServerCode = ServerInfo.INSTANCE.getIpAddress()+new TopDir().upServerletPath("");
+				sServerCode = ServerInfo.INSTANCE.getIpAddress()
+						+ new TopDir().upServerletPath("");
 			}
 
 			if (StringUtils.isEmpty(sServerCode)) {
