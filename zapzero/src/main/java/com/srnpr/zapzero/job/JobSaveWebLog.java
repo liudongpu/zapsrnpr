@@ -8,9 +8,11 @@ import com.srnpr.zapzero.support.JmsSupport;
 
 public class JobSaveWebLog extends RootJob {
 
+	
+	private final static ListenseWebLog listener = new ListenseWebLog();
 	public void doExecute(JobExecutionContext context) {
 
-		ListenseWebLog listener = new ListenseWebLog();
+		
 
 		JmsSupport.getInstance().addTopicLisense("469910200001",
 				this.getClass().getName(), listener);
