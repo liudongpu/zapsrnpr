@@ -5,6 +5,7 @@ import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
+import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapweb.helper.WebHelper;
 import com.srnpr.zapzero.face.IJmsListener;
 
@@ -29,9 +30,19 @@ public abstract class RootJmsListenser extends BaseClass implements
 		try {
 
 			TextMessage textMessage = (TextMessage) message;
+
 			sMsg = textMessage.getText();
 
-			if (!onReceiveText(sMsg)) {
+			MDataMap mPropMap = new MDataMap();
+
+			while (textMessage.getPropertyNames().hasMoreElements()) {
+				String sPkey = textMessage.getPropertyNames().nextElement()
+						.toString();
+				mPropMap.put(sPkey, textMessage.getStringProperty(sPkey));
+
+			}
+
+			if (!onReceiveText(sMsg, mPropMap)) {
 				bLogError(970205034, sMsg);
 			}
 

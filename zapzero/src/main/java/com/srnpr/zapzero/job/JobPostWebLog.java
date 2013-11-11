@@ -2,6 +2,7 @@ package com.srnpr.zapzero.job;
 
 import org.quartz.JobExecutionContext;
 
+import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basehelper.JsonHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.rootclass.RootJob;
@@ -21,11 +22,13 @@ public class JobPostWebLog extends RootJob {
 
 	public void doExecute(JobExecutionContext context) {
 
+		String sDateTime = FormatHelper.upDateTime();
 		for (String sKey : WebCacheLog.INSTANCE.upKeys()) {
 			JmsSupport.getInstance().sendToTopic(
 					"469910200001",
 					jsonHelper.ObjToString(WebCacheLog.INSTANCE
-							.upValueAndRemove(sKey)));
+							.upValueAndRemove(sKey)),
+					new MDataMap("code", sKey, "create_time", sDateTime));
 
 		}
 

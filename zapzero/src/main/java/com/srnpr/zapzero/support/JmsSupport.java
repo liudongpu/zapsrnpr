@@ -13,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.baseface.IBaseInstance;
+import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapweb.helper.WebHelper;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapzero.face.IJmsListener;
@@ -34,7 +35,7 @@ public class JmsSupport extends BaseClass implements IBaseInstance {
 	 * @param sMsg
 	 *            消息内容
 	 */
-	public void sendToTopic(String sTpoic, String sMsg) {
+	public void sendToTopic(String sTpoic, String sMsg,MDataMap mPropMap) {
 		try {
 
 			Session session = JmsConnection.getInstance().createSession(false,
@@ -46,6 +47,12 @@ public class JmsSupport extends BaseClass implements IBaseInstance {
 			// producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
 			TextMessage message = session.createTextMessage(sMsg);
+			
+			for(String sKey:mPropMap.keySet())
+			{
+				message.setStringProperty(sKey, mPropMap.get(sKey));
+			}
+			
 			producer.send(message);
 
 		} catch (JMSException e) {
