@@ -60,10 +60,10 @@ public class MysqlCall extends DbCall {
 			sBuffer.append(" where " + sWhere);
 		}
 
-		else if (mWhereMap != null && mWhereMap.size() > 0) {
-			sBuffer.append(" where "
-					+ (StringUtils.isEmpty(sWhere) ? FormatHelper
-							.joinWhereStrings(mWhereMap.upKeys()) : sWhere)
+		 if (mWhereMap != null && mWhereMap.size() > 0) {
+			sBuffer.append((StringUtils.isEmpty(sWhere) ? " where "
+					+ FormatHelper
+							.joinWhereStrings(mWhereMap.upKeys()) :" and "+ sWhere)
 					+ " ");
 		}
 
