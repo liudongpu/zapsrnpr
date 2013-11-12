@@ -1,5 +1,7 @@
 package com.srnpr.zapzero.root;
 
+import java.util.Enumeration;
+
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
@@ -35,12 +37,15 @@ public abstract class RootJmsListenser extends BaseClass implements
 
 			MDataMap mPropMap = new MDataMap();
 
-			while (textMessage.getPropertyNames().hasMoreElements()) {
-				String sPkey = textMessage.getPropertyNames().nextElement()
-						.toString();
+			Enumeration<String> eKeyEnumeration=textMessage.getPropertyNames();
+			while (eKeyEnumeration.hasMoreElements()) {
+				String sPkey = (String) eKeyEnumeration.nextElement();
 				mPropMap.put(sPkey, textMessage.getStringProperty(sPkey));
-
+				
 			}
+			
+			
+			
 
 			if (!onReceiveText(sMsg, mPropMap)) {
 				bLogError(970205034, sMsg);

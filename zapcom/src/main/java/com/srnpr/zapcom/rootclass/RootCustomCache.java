@@ -22,7 +22,7 @@ public class RootCustomCache<K, V> extends TopBase {
 
 		cacheConfiguration.setName(sCacheName);
 
-		cacheConfiguration.setMaxEntriesLocalHeap(0);
+		cacheConfiguration.setMaxEntriesLocalHeap(99999);
 		// 设置最长存活时间
 		cacheConfiguration.setTimeToIdleSeconds(6000);
 
