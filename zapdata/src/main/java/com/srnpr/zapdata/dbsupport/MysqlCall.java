@@ -61,10 +61,11 @@ public class MysqlCall extends DbCall {
 		}
 
 		 if (mWhereMap != null && mWhereMap.size() > 0) {
+	
 			sBuffer.append((StringUtils.isEmpty(sWhere) ? " where "
+					 :" and ")
 					+ FormatHelper
-							.joinWhereStrings(mWhereMap.upKeys()) :" and "+ sWhere)
-					+ " ");
+					.joinWhereStrings(mWhereMap.upKeys())+" ");
 		}
 
 		if (StringUtils.isNotEmpty(sOrders)) {
