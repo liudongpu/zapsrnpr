@@ -12,6 +12,7 @@ import net.sf.ehcache.Cache;
 import net.sf.ehcache.config.CacheConfiguration;
 
 import com.srnpr.zapcom.baseface.IBaseInstance;
+import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.basesupport.MapSupport;
 import com.srnpr.zapcom.rootclass.CacheDefine;
@@ -23,6 +24,11 @@ public class WebCacheLog extends RootCustomCache<String, MDataMap> implements
 
 	public final static WebCacheLog INSTANCE = new WebCacheLog();
 
+	/**
+	 * 添加web访问日志
+	 * @param sKey
+	 * @param hRequest
+	 */
 	public void inLog(String sKey, HttpServletRequest hRequest) {
 
 		MDataMap mLogMap = new MDataMap();
@@ -46,6 +52,7 @@ public class WebCacheLog extends RootCustomCache<String, MDataMap> implements
 			}
 		}
 		mLogMap.put("ip", ip);
+		mLogMap.put("time", FormatHelper.upDateTime());
 
 		mLogMap.put("path", hRequest.getServletPath());
 
