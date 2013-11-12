@@ -3,6 +3,7 @@ package com.srnpr.zapzero.demo;
 import org.quartz.JobExecutionContext;
 
 import com.srnpr.zapcom.rootclass.RootJob;
+import com.srnpr.zapzero.enumer.EJmsMessageType;
 import com.srnpr.zapzero.support.JmsSupport;
 
 public class DemoJob extends RootJob {
@@ -16,7 +17,7 @@ public class DemoJob extends RootJob {
 	public void doExecute(JobExecutionContext context) {
 		
 		
-		JmsSupport.getInstance().addTopicLisense("demolistenser", "DemoJob", LISTENSER);
+		JmsSupport.getInstance().addTopicLisense("demolistenser", "DemoJob",EJmsMessageType.Toplic, LISTENSER);
 		
 
 	}

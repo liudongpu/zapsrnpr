@@ -8,6 +8,7 @@ import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.rootclass.RootJob;
 import com.srnpr.zapweb.helper.WebHelper;
 import com.srnpr.zapweb.webcache.WebCacheLog;
+import com.srnpr.zapzero.enumer.EJmsMessageType;
 import com.srnpr.zapzero.support.JmsSupport;
 
 /**
@@ -24,11 +25,12 @@ public class JobPostWebLog extends RootJob {
 
 		String sDateTime = FormatHelper.upDateTime();
 		for (String sKey : WebCacheLog.INSTANCE.upKeys()) {
-			JmsSupport.getInstance().sendToTopic(
+			JmsSupport.getInstance().sendMessage(
 					"469910200001",
 					jsonHelper.ObjToString(WebCacheLog.INSTANCE
 							.upValueAndRemove(sKey)),
-					new MDataMap("code", sKey, "create_time", sDateTime));
+					new MDataMap("code", sKey, "create_time", sDateTime),
+					EJmsMessageType.Queue);
 
 		}
 
