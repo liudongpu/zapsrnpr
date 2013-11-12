@@ -119,5 +119,11 @@ public abstract class RootCache<K, V> extends TopBase implements IBaseCache {
 	public void removeAll() {
 		cache.removeAll();
 	}
+	
+	public void removeByKey(K k) {
+		synchronized (this) {
+			cache.remove(k);
+		}
+	}
 
 }
