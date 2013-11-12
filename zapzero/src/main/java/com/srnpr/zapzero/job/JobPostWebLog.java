@@ -23,13 +23,16 @@ public class JobPostWebLog extends RootJob {
 
 	public void doExecute(JobExecutionContext context) {
 
-		String sDateTime = FormatHelper.upDateTime();
+		//String sDateTime = FormatHelper.upDateTime();
 		for (String sKey : WebCacheLog.INSTANCE.upKeys()) {
+			
+			MDataMap map=WebCacheLog.INSTANCE
+					.upValueAndRemove(sKey);
+			
 			JmsSupport.getInstance().sendMessage(
 					"469910200001",
-					jsonHelper.ObjToString(WebCacheLog.INSTANCE
-							.upValueAndRemove(sKey)),
-					new MDataMap("code", sKey, "create_time", sDateTime),
+					jsonHelper.ObjToString(map),
+					new MDataMap("code", sKey, "create_time", map.get("time")),
 					EJmsMessageType.Queue);
 
 		}
