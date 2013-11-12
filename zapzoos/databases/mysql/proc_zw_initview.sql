@@ -92,7 +92,7 @@ zwv.view_code=p_view_code;
 
 
 ###判断只有第一次才初始化页按钮
-set p_exit=(select count(1) from zw_page where view_code=p_view_code);
+set p_exit=( select count(1) from zw_operate where page_code in(  select page_code from zw_page where view_code=p_view_code));
 
 if p_exit=0 then
 

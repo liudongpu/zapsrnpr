@@ -15,7 +15,7 @@ public class JobSaveWebLog extends RootJob {
 		
 
 		JmsSupport.getInstance().addTopicLisense("469910200001",
-				this.getClass().getName(), listener);
+				"", listener);
 
 	}
 
