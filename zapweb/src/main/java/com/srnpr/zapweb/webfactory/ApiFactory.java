@@ -249,7 +249,7 @@ public class ApiFactory implements IBaseInstance {
 				if (StringUtils.isNotEmpty(sLogGuid)) {
 					WebCacheLog.INSTANCE.inElement(
 							"api_error_" + sLogGuid,
-							new MDataMap("uid", sLogGuid, "error", e
+							new MDataMap("uid", sLogGuid,"time",FormatHelper.upDateTime(), "error", e
 									.getMessage()));
 				}
 
@@ -275,7 +275,7 @@ public class ApiFactory implements IBaseInstance {
 
 		if (StringUtils.isNotEmpty(sLogGuid)) {
 			WebCacheLog.INSTANCE.inElement("api_result_" + sLogGuid,
-					new MDataMap("uid", sLogGuid, "result", sReturnString));
+					new MDataMap("uid", sLogGuid, "time",FormatHelper.upDateTime(),"result", sReturnString));
 		}
 
 		return sReturnString;
