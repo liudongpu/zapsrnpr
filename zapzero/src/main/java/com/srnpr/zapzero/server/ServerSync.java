@@ -50,11 +50,11 @@ public class ServerSync extends BaseClass {
 		if (StringUtils.isNotBlank(sRunList)) {
 
 			MDataMap mapDefine = new MDataMap();
-			mapDefine.put("parent_did", "46991807");
+			
 
 			List<String> lDids = new ArrayList<String>();
 			for (MDataMap mDefineDataMap : DbUp.upTable("zw_define").queryIn(
-					"define_dids", "", "", mapDefine, -1, -1, "define_name",
+					"define_dids", "", "parent_did=46991807", mapDefine, -1, -1, "define_name",
 					sRunList)) {
 				lDids.add(mDefineDataMap.get("define_dids"));
 			}
