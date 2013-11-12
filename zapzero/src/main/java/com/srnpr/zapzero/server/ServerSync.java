@@ -61,8 +61,8 @@ public class ServerSync extends BaseClass {
 
 			if (lDids.size() > 0) {
 				MDataMap mJoQuerybMap = new MDataMap();
-				mJoQuerybMap.put("flag_enable", "1");
-				for (MDataMap mJob : DbUp.upTable("za_job").queryIn("", "", "",
+				//mJoQuerybMap.put("flag_enable", "1");
+				for (MDataMap mJob : DbUp.upTable("za_job").queryIn("", "", "flag_enable=1",
 						mJoQuerybMap, -1, -1, "run_group_did",
 						StringUtils.join(lDids, ","))) {
 
