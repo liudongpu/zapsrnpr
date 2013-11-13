@@ -31,7 +31,7 @@ public class WebConst implements IBaseConst {
 	
 	
 	
-	public final static String CONST_WEB_FIELD_NOT_NULL_TEXT="<span class=\"w_regex_need\">*</span>";
+	public final static String CONST_WEB_FIELD_NOT_NULL_TEXT="<span class='w_regex_need'>*</span>";
 	
 
 	/**
