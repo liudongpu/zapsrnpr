@@ -84,9 +84,8 @@ public class ViewCache extends RootCache<String, MWebView> {
 
 		String[] sKey = StringUtils.split(k, "-");
 
-		
-		MWebView mWebView=null;
-		
+		MWebView mWebView = null;
+
 		if (sKey.length == 2) {
 			String sViewCode = sKey[0];
 
@@ -106,7 +105,7 @@ public class ViewCache extends RootCache<String, MWebView> {
 						// break;
 					}
 
-					 mWebView = new MWebView();
+					mWebView = new MWebView();
 					mWebView.setViewCode(mViewDataMap.get("view_code"));
 					mWebView.setViewName(mViewDataMap.get("view_name"));
 					mWebView.setTableName(mViewDataMap.get("table_name"));
@@ -134,17 +133,13 @@ public class ViewCache extends RootCache<String, MWebView> {
 						mWebField.setRegexValue(mFieldDataMap
 								.get("regex_value"));
 
-						// 特殊判断 如果正则标记为无 则置为空
-						if (mWebField.getRegexValue().equals("469923180001")) {
-							mWebField.setRegexValue("");
-						}
+						mWebField.setFieldScope(mFieldDataMap
+								.get("field_scope"));
 
 						mWebField.setFieldTypeAid(mFieldDataMap
 								.get("field_type_aid"));
 
 						mWebField.setSort(mFieldDataMap.get(sSortField));
-						mWebField.setFieldScope(mFieldDataMap
-								.get("field_scope"));
 
 						mWebField.setFieldName(mFieldDataMap.get("field_name"));
 
@@ -152,6 +147,43 @@ public class ViewCache extends RootCache<String, MWebView> {
 								.get("source_code"));
 						mWebField.setSourceParam(mFieldDataMap
 								.get("source_param"));
+
+						// 特殊判断 如果正则标记为无 则置为空
+						if (mWebField.getRegexValue().equals("469923180001")) {
+							mWebField.setRegexValue("");
+						}
+
+						// 添加、修改模式下如果字段的设置不为空 则附加扩展字段
+						if (sViewType.equals("116022001")
+								|| sViewType.equals("116022005")) {
+							if (!mWebField.getRegexValue().equals(
+									"")) {
+								mWebField.setFieldExtend(mWebField
+										.getFieldExtend()
+										+ " "
+										+ WebConst.CONST_WEB_FIELD_ATTR
+										+ "regex_id=\""
+										+ mWebField.getRegexValue() + "\" ");
+								
+								mWebField.setFieldNote(WebConst.CONST_WEB_FIELD_NOT_NULL_TEXT+mWebField.getFieldNote());
+							}
+							
+							mWebField.setFieldNote(mWebField.getFieldNote()+"：");
+
+							MDataMap mScopeMap = new MDataMap().inUrlParams(
+									mWebField.getFieldScope()).upSubMap(
+									WebConst.CONST_WEB_PAGINATION_NAME);
+
+							if (mScopeMap != null && mScopeMap.size() > 0) {
+								if (mScopeMap.containsKey("cssname")) {
+									mWebField.setFieldExtend(mWebField
+											.getFieldExtend()
+											+ " class=\""
+											+ mScopeMap.get("cssname") + "\" ");
+								}
+							}
+
+						}
 
 						mWebField
 								.setPageFieldName(WebConst.CONST_WEB_FIELD_NAME

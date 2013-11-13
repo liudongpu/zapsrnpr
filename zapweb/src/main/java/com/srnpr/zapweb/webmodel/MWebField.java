@@ -61,6 +61,14 @@ public class MWebField implements Cloneable {
 	 * 字段设置
 	 */
 	private String fieldScope = "";
+	
+	
+	/**
+	 * 字段扩展 扩展字段的设置
+	 */
+	private String fieldExtend="";
+	
+	
 
 	public String getFieldNote() {
 		return fieldNote;
@@ -167,6 +175,14 @@ public class MWebField implements Cloneable {
 
 	public void setFieldScope(String fieldScope) {
 		this.fieldScope = fieldScope;
+	}
+
+	public String getFieldExtend() {
+		return fieldExtend;
+	}
+
+	public void setFieldExtend(String fieldExtend) {
+		this.fieldExtend = fieldExtend;
 	}
 
 }

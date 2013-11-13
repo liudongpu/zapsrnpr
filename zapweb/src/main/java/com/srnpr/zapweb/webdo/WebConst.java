@@ -28,6 +28,11 @@ public class WebConst implements IBaseConst {
 	 * 定义页面字段的默认左边 zw_f_ 126022006
 	 */
 	public final static String CONST_WEB_FIELD_NAME = "zw_f_";
+	
+	
+	
+	public final static String CONST_WEB_FIELD_NOT_NULL_TEXT="<span class=\"w_regex_need\">*</span>";
+	
 
 	/**
 	 * 定义页面分页以及设置字段字段左边 同时可定义字段的约束范围 zw_p_ 126022016

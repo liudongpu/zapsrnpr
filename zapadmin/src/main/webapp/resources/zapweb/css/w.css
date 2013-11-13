@@ -119,6 +119,12 @@ body,html
 	border:solid 1px #b94a48 !important;
 }
 
+.w_regex_need
+{
+	color:red;
+	padding-right:5px;
+}
+
 .w_position
 {
 	position: absolute;
