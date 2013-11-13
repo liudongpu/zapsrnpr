@@ -10,9 +10,9 @@ import com.srnpr.zapzero.server.ServerInfo;
  * @author srnpr
  * 
  */
-public class ApiKeepLive extends RootApi<ApiKeepLiveResult, ApiKeepLiveInput> {
+public class ApiKeepLive extends RootApi<ApiKeepLiveResult, ServerInfo> {
 
-	public ApiKeepLiveResult Process(ApiKeepLiveInput inputParam,
+	public ApiKeepLiveResult Process(ServerInfo inputParam,
 			MDataMap mRequestMap) {
 
 		ApiKeepLiveResult aResult = new ApiKeepLiveResult();
@@ -26,7 +26,7 @@ public class ApiKeepLive extends RootApi<ApiKeepLiveResult, ApiKeepLiveInput> {
 		} else {
 
 			inputParam.setNoticeTime(sDateTime);
-			new ApiLoadConfig().addKeepToDB((ServerInfo)inputParam);
+			new ApiLoadConfig().addKeepToDB(inputParam);
 			CacheKeepLive.getInstance().inElement(inputParam.getServerCode(),
 					inputParam);
 		}
