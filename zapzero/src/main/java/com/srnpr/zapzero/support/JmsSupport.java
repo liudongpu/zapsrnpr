@@ -56,9 +56,12 @@ public class JmsSupport extends BaseClass implements IBaseInstance {
 
 			TextMessage message = session.createTextMessage(sMsg);
 
-			for (String sKey : mPropMap.keySet()) {
-				message.setStringProperty(sKey, mPropMap.get(sKey));
+			if(mPropMap!=null){
+				for (String sKey : mPropMap.keySet()) {
+					message.setStringProperty(sKey, mPropMap.get(sKey));
+				}
 			}
+			
 
 			producer.send(message);
 
