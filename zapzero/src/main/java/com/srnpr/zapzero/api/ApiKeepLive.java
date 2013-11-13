@@ -4,6 +4,7 @@ import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.topapi.RootApi;
 import com.srnpr.zapzero.cache.CacheKeepLive;
+import com.srnpr.zapzero.server.ServerInfo;
 
 /**
  * @author srnpr
@@ -25,6 +26,7 @@ public class ApiKeepLive extends RootApi<ApiKeepLiveResult, ApiKeepLiveInput> {
 		} else {
 
 			inputParam.setNoticeTime(sDateTime);
+			new ApiLoadConfig().addKeepToDB((ServerInfo)inputParam);
 			CacheKeepLive.getInstance().inElement(inputParam.getServerCode(),
 					inputParam);
 		}
