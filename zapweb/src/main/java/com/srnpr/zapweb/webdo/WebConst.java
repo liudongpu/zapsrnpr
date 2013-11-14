@@ -31,7 +31,11 @@ public class WebConst implements IBaseConst {
 	
 	
 	
+	/**
+	 * 必填字段的标记位
+	 */
 	public final static String CONST_WEB_FIELD_NOT_NULL_TEXT="<span class='w_regex_need'>*</span>";
+	
 	
 
 	/**

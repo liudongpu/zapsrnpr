@@ -121,7 +121,8 @@ body,html
 
 .w_regex_need
 {
-	color:red;
+	color:#FF0000;
+	
 	padding-right:5px;
 }
 

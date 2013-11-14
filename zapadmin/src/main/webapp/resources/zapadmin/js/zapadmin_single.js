@@ -10,17 +10,20 @@ var zapadmin_single = {
 
 		var defaults = {
 			pagecode : '',
-			id : ''
+			id : '',
+			buttonflag:true
 		};
 
 		var s = $.extend({}, defaults, options || {});
 
 		zapadmin_single.temp.opts[s.id] = s;
 
-		$('#' + s.id).parent().append('<div class="w_left"><input class="btn" type="button" value="选择" onclick="zapadmin_single.show_box(\'' + s.id + '\')" /></div>');
-
-		$('#' + s.id).parent().append('<div class="w_left w_w_70p"><ul class="zab_js_zapadmin_single_ul" id="' + s.id + '_show_ul"></ul></div><div class="w_clear"></div>');
-
+		if(s.buttonflag)
+		{
+			$('#' + s.id+"_show_text").parent().append('<div class="w_left"><input class="btn" type="button" value="选择" onclick="zapadmin_single.show_box(\'' + s.id + '\')" /></div>');
+		
+			$('#' + s.id+"_show_text").parent().append('<div class="w_left w_w_70p"><ul class="zab_js_zapadmin_single_ul" id="' + s.id + '_show_ul"></ul></div><div class="w_clear"></div>');
+		}
 		zapadmin_single.show_text(s.id);
 	},
 	show_box : function(sId) {
