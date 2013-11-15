@@ -306,7 +306,7 @@ public class ApiFactory implements IBaseInstance {
 
 		String sReturnString = "";
 
-		IBaseApi iBaseApi = null;
+		IBaseApi<IBaseResult, IBaseInput> iBaseApi = null;
 
 		IBaseInput iBaseInput = null;
 
@@ -314,7 +314,7 @@ public class ApiFactory implements IBaseInstance {
 
 			MApiModel mApiModel = upApiModel(sClassName);
 
-			iBaseApi = (IBaseApi) mApiModel.getApiClass().newInstance();
+			iBaseApi = (IBaseApi<IBaseResult, IBaseInput>) mApiModel.getApiClass().newInstance();
 			if (StringUtils.isNotBlank(sInputJson))
 				iBaseInput = (IBaseInput) mApiModel.getInputClass()
 						.newInstance();

@@ -125,5 +125,5 @@ var zs_template = {
 	}
 };
 
-zs.f.define("zs/template/zs_template", ["lib/easyui/jquery.easyui.min", "zs/template/zs_template_set", "zs/storage/zs_storage", "zapjs/zapjs"], zs_template);
+zs.f.define("zs/template/zs_template", ["lib/easyui/jquery.easyui.min", "zs/template/zs_template_set", "zs/storage/zs_storage", "zapjs/zapjs", "zapjs/zapjs.zw"], zs_template);
 

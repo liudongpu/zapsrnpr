@@ -72,14 +72,13 @@ var zapadmin_chartajax = {
 			$('#' + s.id).append(aTable.join(''));
 			
 
-		
 
 		zapadmin_chartajax.temp.loadcount[s.id] =$('#' + s.id).find('table').datagrid({
 			rownumbers : true,
 			autoRowHeight : false,
 			pagination : true,
 			checkOnSelect:true,
-			singleSelect:true,
+			singleSelect:(s.maxnum==1?true:false),
 			method:'get',
 			pageSize : 10,
 			onLoadSuccess:function(tableData)

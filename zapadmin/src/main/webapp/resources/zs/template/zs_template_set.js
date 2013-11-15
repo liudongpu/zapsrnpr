@@ -41,25 +41,31 @@ var zs_template_set = {
 		var aHtml = [];
 		aHtml.push('<div class="zat_template_productlist w_p_20">');
 		aHtml.push('<input type="hidden" id="zat_template_productlist_productids"/>');
-		aHtml.push('<a class="l-btn" href="javascript:zs_template_set.add_product()"><span class="l-btn-left">选择商品</span></a>');
-
+		aHtml.push('<input type="hidden" id="zat_template_productlist_productids_show_text"/>');
+		//aHtml.push('<a class="l-btn" href="javascript:zs_template_set.add_product()"><span class="l-btn-left">选择商品</span></a>');
 		aHtml.push('</div>');
 		zapjs.f.window_box({
+			id:'zs_template_set_add_product_id',
 			content : aHtml.join('')
 		});
+		zs.r(['zapadmin/js/zapadmin_single'],function(a){a.init({"text":"","source":"page_chart_v_seller_pc_skuinfo","id":"zat_template_productlist_productids","callback":"parent.zs_template_set.add_product","value":"","max":"0"});});
+	},
+	add_product : function(sId,sVal) {
+
+		zapjs.f.window_close('zs_template_set_add_product_id');
+		//alert(sId);
+		
+		zapjs.zw.api_call('com_cmall_productcenter_service_api_ApiGetSkus',{skuStrs:sVal},zs_template_set.add_product_success);
+		
+		
 
 	},
-	add_product : function() {
-
-		zapjs.f.window_box({
-			id:'zs_template_set_add_product_id',
-			content:'<iframe src="../show/page_chart_v_seller_pc_skuinfo?zw_s_iframe_select_source=zat_template_productlist_productids" frameborder="0" style="width:100%;height:500px;"></iframe>',
-			
-			width:'700',
-			height:'550'
-		});
-
+	add_product_success:function(o)
+	{
+		
+		zapjs.d(o);
 	},
+	
 	close_product:function()
 	{
 		zapjs.f.window_close('zs_template_set_add_product_id');
