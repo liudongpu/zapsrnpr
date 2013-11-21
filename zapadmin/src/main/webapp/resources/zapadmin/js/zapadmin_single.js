@@ -28,7 +28,7 @@ var zapadmin_single = {
 		zapadmin_single.show_text(s.id);
 	},
 	show_box : function(sId) {
-var s=zapadmin_single.temp.opts[sId];
+		var s=zapadmin_single.temp.opts[sId];
 		zapjs.f.window_box({
 			id : sId + 'zapadmin_single_showbox',
 			content : '<iframe src="../show/'+s.source+'?zw_s_iframe_select_source=' + sId + '&zw_s_iframe_select_page=' + s.source + '&zw_s_iframe_max_select='+s.max+'&zw_s_iframe_select_callback='+s.callback+'" frameborder="0" style="width:100%;height:500px;"></iframe>',
@@ -38,7 +38,10 @@ var s=zapadmin_single.temp.opts[sId];
 		});
 
 	},
-
+	close_box:function(sId)
+	{
+		zapjs.f.window_close(sId + 'zapadmin_single_showbox');
+	},
 	show_text : function(sId) {
 
 		var sText = $('#' + sId + "_show_text").val();

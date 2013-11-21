@@ -82,7 +82,7 @@ var zapweb_upload = {
 
 				aHtml.push('<ul>');
 
-				for (var i in sFiles) {
+				for (var i=0,j=sFiles.length;i<j;i++) {
 
 					var aFname = sFiles[i].split('.');
 

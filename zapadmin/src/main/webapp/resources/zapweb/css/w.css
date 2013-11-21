@@ -51,7 +51,9 @@ body,html
 .w_h_40 {
 	height: 40px;
 }
-
+.w_h_10 {
+	height: 10px;
+}
 .w_h_20 {
 	height: 20px;
 }
@@ -74,6 +76,11 @@ body,html
 
 
 .w_w_number
+{
+	width:100px;
+}
+
+.w_w_100
 {
 	width:100px;
 }

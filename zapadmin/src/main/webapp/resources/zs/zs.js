@@ -1,12 +1,12 @@
 /**
- * zs.js  前台通用js
+ * zs.js 前台通用js
  */
 
 /*
- RequireJS 2.1.8 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.
- Available via the MIT or new BSD license.
- see: http://github.com/jrburke/requirejs for details
-*/
+ * RequireJS 2.1.8 Copyright (c) 2010-2012, The Dojo Foundation All Rights
+ * Reserved. Available via the MIT or new BSD license. see:
+ * http://github.com/jrburke/requirejs for details
+ */
 var requirejs,require,define;
 (function(Z){function H(b){return"[object Function]"===L.call(b)}function I(b){return"[object Array]"===L.call(b)}function y(b,c){if(b){var d;for(d=0;d<b.length&&(!b[d]||!c(b[d],d,b));d+=1);}}function M(b,c){if(b){var d;for(d=b.length-1;-1<d&&(!b[d]||!c(b[d],d,b));d-=1);}}function s(b,c){return ga.call(b,c)}function l(b,c){return s(b,c)&&b[c]}function F(b,c){for(var d in b)if(s(b,d)&&c(b[d],d))break}function Q(b,c,d,h){c&&F(c,function(c,j){if(d||!s(b,j))h&&"string"!==typeof c?(b[j]||(b[j]={}),Q(b[j],
 c,d,h)):b[j]=c});return b}function u(b,c){return function(){return c.apply(b,arguments)}}function aa(b){throw b;}function ba(b){if(!b)return b;var c=Z;y(b.split("."),function(b){c=c[b]});return c}function A(b,c,d,h){c=Error(c+"\nhttp://requirejs.org/docs/errors.html#"+b);c.requireType=b;c.requireModules=h;d&&(c.originalError=d);return c}function ha(b){function c(a,f,b){var e,m,c,g,d,h,j,i=f&&f.split("/");e=i;var n=k.map,p=n&&n["*"];if(a&&"."===a.charAt(0))if(f){e=l(k.pkgs,f)?i=[f]:i.slice(0,i.length-
@@ -60,13 +60,237 @@ requirejs.config({
 
 
 
+
+
+
+/** JSON2********************************************************************************************************** */
+if (typeof JSON !== 'object') {
+    JSON = {};
+}
+
+(function () {
+    'use strict';
+
+    function f(n) {
+        return n < 10 ? '0' + n : n;
+    }
+
+    if (typeof Date.prototype.toJSON !== 'function') {
+
+        Date.prototype.toJSON = function () {
+
+            return isFinite(this.valueOf())
+                ? this.getUTCFullYear()     + '-' +
+                    f(this.getUTCMonth() + 1) + '-' +
+                    f(this.getUTCDate())      + 'T' +
+                    f(this.getUTCHours())     + ':' +
+                    f(this.getUTCMinutes())   + ':' +
+                    f(this.getUTCSeconds())   + 'Z'
+                : null;
+        };
+
+        String.prototype.toJSON      =
+            Number.prototype.toJSON  =
+            Boolean.prototype.toJSON = function () {
+                return this.valueOf();
+            };
+    }
+
+    var cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
+        escapable = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
+        gap,
+        indent,
+        meta = {    // table of character substitutions
+            '\b': '\\b',
+            '\t': '\\t',
+            '\n': '\\n',
+            '\f': '\\f',
+            '\r': '\\r',
+            '"' : '\\"',
+            '\\': '\\\\'
+        },
+        rep;
+
+
+    function quote(string) {
+        escapable.lastIndex = 0;
+        return escapable.test(string) ? '"' + string.replace(escapable, function (a) {
+            var c = meta[a];
+            return typeof c === 'string'
+                ? c
+                : '\\u' + ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
+        }) + '"' : '"' + string + '"';
+    }
+
+
+    function str(key, holder) {
+
+        var i,          // The loop counter.
+            k,          // The member key.
+            v,          // The member value.
+            length,
+            mind = gap,
+            partial,
+            value = holder[key];
+        if (value && typeof value === 'object' &&
+                typeof value.toJSON === 'function') {
+            value = value.toJSON(key);
+        }
+        if (typeof rep === 'function') {
+            value = rep.call(holder, key, value);
+        }
+
+        switch (typeof value) {
+        case 'string':
+            return quote(value);
+        case 'number':
+            return isFinite(value) ? String(value) : 'null';
+        case 'boolean':
+        case 'null':
+            return String(value);
+        case 'object':
+            if (!value) {
+                return 'null';
+            }
+            gap += indent;
+            partial = [];
+
+            if (Object.prototype.toString.apply(value) === '[object Array]') {
+                length = value.length;
+                for (i = 0; i < length; i += 1) {
+                    partial[i] = str(i, value) || 'null';
+                }
+                v = partial.length === 0
+                    ? '[]'
+                    : gap
+                    ? '[\n' + gap + partial.join(',\n' + gap) + '\n' + mind + ']'
+                    : '[' + partial.join(',') + ']';
+                gap = mind;
+                return v;
+            }
+
+            if (rep && typeof rep === 'object') {
+                length = rep.length;
+                for (i = 0; i < length; i += 1) {
+                    if (typeof rep[i] === 'string') {
+                        k = rep[i];
+                        v = str(k, value);
+                        if (v) {
+                            partial.push(quote(k) + (gap ? ': ' : ':') + v);
+                        }
+                    }
+                }
+            } else {
+
+                for (k in value) {
+                    if (Object.prototype.hasOwnProperty.call(value, k)) {
+                        v = str(k, value);
+                        if (v) {
+                            partial.push(quote(k) + (gap ? ': ' : ':') + v);
+                        }
+                    }
+                }
+            }
+
+            v = partial.length === 0
+                ? '{}'
+                : gap
+                ? '{\n' + gap + partial.join(',\n' + gap) + '\n' + mind + '}'
+                : '{' + partial.join(',') + '}';
+            gap = mind;
+            return v;
+        }
+    }
+
+    if (typeof JSON.stringify !== 'function') {
+        JSON.stringify = function (value, replacer, space) {
+
+            var i;
+            gap = '';
+            indent = '';
+            if (typeof space === 'number') {
+                for (i = 0; i < space; i += 1) {
+                    indent += ' ';
+                }
+            } else if (typeof space === 'string') {
+                indent = space;
+            }
+
+            rep = replacer;
+            if (replacer && typeof replacer !== 'function' &&
+                    (typeof replacer !== 'object' ||
+                    typeof replacer.length !== 'number')) {
+                throw new Error('JSON.stringify');
+            }
+
+
+            return str('', {'': value});
+        };
+    }
+
+
+    if (typeof JSON.parse !== 'function') {
+        JSON.parse = function (text, reviver) {
+            var j;
+
+            function walk(holder, key) {
+
+                var k, v, value = holder[key];
+                if (value && typeof value === 'object') {
+                    for (k in value) {
+                        if (Object.prototype.hasOwnProperty.call(value, k)) {
+                            v = walk(value, k);
+                            if (v !== undefined) {
+                                value[k] = v;
+                            } else {
+                                delete value[k];
+                            }
+                        }
+                    }
+                }
+                return reviver.call(holder, key, value);
+            }
+
+            text = String(text);
+            cx.lastIndex = 0;
+            if (cx.test(text)) {
+                text = text.replace(cx, function (a) {
+                    return '\\u' +
+                        ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
+                });
+            }
+
+
+            if (/^[\],:{}\s]*$/
+                    .test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@')
+                        .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+                        .replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+
+
+                j = eval('(' + text + ')');
+                return typeof reviver === 'function'
+                    ? walk({'': j}, '')
+                    : j;
+            }
+            throw new SyntaxError('JSON.parse');
+        };
+    }
+}());
+
+
+
+
+
+
+
+
 var zs={};
 window.zs = zs;
 
 zs=
 {
 	r:function(aNeeds, f) {
-		require(aNeeds, f);
+		requirejs(aNeeds, f);
 	},
 	d : function(oLog) {
 		if (1==1) {
@@ -84,6 +308,10 @@ zs=
 
 zs.f=
 {
+	temp:
+	{
+		uuid:{}
+	},
 	ready:function()
 	{
 		
@@ -96,6 +324,54 @@ zs.f=
 			});
 		};
 
+	},
+	
+	uuid:function(sStart)
+	{
+		var s="";
+		while(s=="")
+			{
+			s= 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			      var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+			      return v.toString(16);
+			    });
+			if(zs.f.temp.uuid[s])
+				{
+				s='';
+				}
+			else
+				{
+				zs.f.temp.uuid[s]=s;
+				}
+			
+			};
+			
+			if(!sStart)
+				{
+				sStart='';
+				}
+		
+		return sStart+s;
+		
+		
+	},
+	
+	
+	encode:function(s)
+	{
+		return encodeURI(s);
+	},
+	decode:function(s)
+	{
+		return decodeURI(s);
+	},
+	/* 对象转换字符串转换 */
+	json_stringify : function(value, replacer, space) {
+		return JSON.stringify(value, replacer, space);
+	},
+	/* 字符串转为对象 */
+	json_parse : function(text, reviver) {
+		return JSON.parse(text, reviver);
 	}
 };
 

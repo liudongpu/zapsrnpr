@@ -37,7 +37,7 @@ var zapadmin_chartajax = {
 			var aV=sValues.split(',');
 			var aT=sTexts.split(',');
 			
-			for(var i in aV)
+			for(var i=0,j=aV.length;i<j;i++)
 			{
 				
 				zapadmin_chartajax.temp.checkdata[s.id][aV[i]]={key:aV[i],text:aT[i]};

@@ -73,7 +73,7 @@
 
 .zat_dragable_box_prev .zat_dragable_item {
 	width:200px;
-	height:35px;
+	height:55px;
 	margin-right:20px;
 	float:left;
 }
@@ -147,3 +147,45 @@
 	float:left;
 	border:solid 1px #ffff00;
 }
+
+
+.zat_template_productlist_show
+{
+	width:450px;
+	margin-left:10px;
+}
+
+.zat_template_productlist_show ul li
+{
+	
+	width:100px;
+	height:160px;
+	margin-right:5px;
+	margin-top:10px;
+	overflow: hidden;
+	
+	border:solid 1px #ccc;
+}
+.zat_template_productlist_show ul li .c_move
+{
+	background-color:#EBEBEB;
+}
+.zat_template_productlist_show ul li .c_image
+{
+	width:100px;
+	height:100px;
+}
+
+.zat_template_productlist_show ul li.zat_template_productlist_show_li_drag_css
+{
+	border:solid 1px #ff0000;
+}
+
+
+
+
+
+
+
+
+
