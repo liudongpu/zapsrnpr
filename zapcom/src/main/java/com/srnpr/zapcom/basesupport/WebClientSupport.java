@@ -119,7 +119,7 @@ public class WebClientSupport extends BaseClass implements IBaseCreate {
 
 			if (resEntity != null) {
 
-				sReturnString = EntityUtils.toString(resEntity);
+				sReturnString = EntityUtils.toString(resEntity,TopConst.CONST_BASE_ENCODING);
 
 			}
 		} finally {
