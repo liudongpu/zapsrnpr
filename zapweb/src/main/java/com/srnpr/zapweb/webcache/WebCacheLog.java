@@ -55,6 +55,8 @@ public class WebCacheLog extends RootCustomCache<String, MDataMap> implements
 		mLogMap.put("time", FormatHelper.upDateTime());
 
 		mLogMap.put("path", hRequest.getServletPath());
+		
+		bLogDebug(969905019, StringUtils.join( mLogMap.upStrings(),"-"));
 
 		this.inElement(sKey, mLogMap);
 
