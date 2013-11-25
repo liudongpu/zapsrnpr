@@ -58,7 +58,10 @@ public class WebCacheLog extends RootCustomCache<String, MDataMap> implements
 		
 		bLogDebug(969905019, StringUtils.join( mLogMap.upStrings(),"-"));
 
-		this.inElement(sKey, mLogMap);
+		//this.inElement(sKey, mLogMap);
+		
+		WebCacheLog.INSTANCE.inElement(sKey, mLogMap);
+		
 
 	}
 
