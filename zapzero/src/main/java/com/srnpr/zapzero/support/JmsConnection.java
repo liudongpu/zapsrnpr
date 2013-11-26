@@ -43,18 +43,18 @@ public class JmsConnection extends BaseClass {
 					activeMQConnectionFactory);
 
 			// session数
-			int maximumActive = 1;
+			int maximumActive = 200;
 
 			pooledConnectionFactory
 					.setMaximumActiveSessionPerConnection(maximumActive);
 			pooledConnectionFactory.setIdleTimeout(1000);
 
-			pooledConnectionFactory.setMaxConnections(1);
+			pooledConnectionFactory.setMaxConnections(5);
 			pooledConnectionFactory.setBlockIfSessionPoolIsFull(true);
 			connection = (PooledConnection) pooledConnectionFactory
 					.createConnection();
 
-			connection.setClientID(ServerInfo.INSTANCE.getServerCode());
+			//connection.setClientID(ServerInfo.INSTANCE.getServerCode());
 
 			// 必须start，否则无法接收消息
 			connection.start();
