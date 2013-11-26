@@ -10,7 +10,9 @@ public class RegexHelper implements IBaseHelper {
 	public static String upRegexEmpty(String sSource, String... sRegs) {
 
 		for (String s : sRegs) {
-			sSource = sSource.replaceAll(s, "");
+			//sSource = sSource.replaceAll(s, "");
+			
+			sSource=Pattern.compile(s,Pattern.CASE_INSENSITIVE).matcher(sSource).replaceAll("");
 
 		}
 
