@@ -49,7 +49,7 @@ public class JmsConnection extends BaseClass {
 					.setMaximumActiveSessionPerConnection(maximumActive);
 			pooledConnectionFactory.setIdleTimeout(1000);
 
-			pooledConnectionFactory.setMaxConnections(5);
+			pooledConnectionFactory.setMaxConnections(1);
 			pooledConnectionFactory.setBlockIfSessionPoolIsFull(true);
 			connection = (PooledConnection) pooledConnectionFactory
 					.createConnection();
