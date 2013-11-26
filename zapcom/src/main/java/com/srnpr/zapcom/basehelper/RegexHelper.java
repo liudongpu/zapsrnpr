@@ -41,5 +41,18 @@ public class RegexHelper implements IBaseHelper {
 	}
 	
 	
+	/**
+	 * 过滤html输入内容
+	 * @param sSource
+	 * @return
+	 */
+	public static String upScanHtml(String sSource)
+	{
+		return upRegexEmpty(sSource, "<script.*?</script.*?>","href.*?=.*?script.*?:","<iframe.*?</iframe.*?>","<frameset.*?</frameset.*?>");
+	}
+	
+	
+	
+	
 
 }
