@@ -43,7 +43,7 @@ public class JmsConnection extends BaseClass {
 					activeMQConnectionFactory);
 
 			// session数
-			int maximumActive = 200;
+			int maximumActive = 1;
 
 			pooledConnectionFactory
 					.setMaximumActiveSessionPerConnection(maximumActive);
