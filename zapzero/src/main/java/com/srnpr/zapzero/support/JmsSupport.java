@@ -64,6 +64,8 @@ public class JmsSupport extends BaseClass implements IBaseInstance {
 			
 
 			producer.send(message);
+			session.close();
+			
 
 		} catch (JMSException e) {
 
