@@ -54,7 +54,7 @@ public class JmsConnection extends BaseClass {
 			connection = (PooledConnection) pooledConnectionFactory
 					.createConnection();
 
-			//connection.setClientID(ServerInfo.INSTANCE.getServerCode());
+			connection.setClientID(ServerInfo.INSTANCE.getServerCode());
 
 			// 必须start，否则无法接收消息
 			connection.start();
