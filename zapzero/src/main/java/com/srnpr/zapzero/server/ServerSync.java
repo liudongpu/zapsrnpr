@@ -287,6 +287,10 @@ public class ServerSync extends BaseClass {
 		return bReturn;
 	}
 
+	/**
+	 * 获取本机IP
+	 * @return
+	 */
 	public static String getLocalIP() {
 		String address = "";
 		try {

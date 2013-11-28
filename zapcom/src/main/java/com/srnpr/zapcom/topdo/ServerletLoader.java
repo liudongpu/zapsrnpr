@@ -72,6 +72,21 @@ public class ServerletLoader implements WebApplicationInitializer {
 
 		return bFlagSuccess;
 	}
+	
+	
+	
+	/**
+	 * 容器关闭时调用
+	 * @param servletContext
+	 * @return
+	 */
+	public synchronized boolean destory(ServletContext servletContext) {
+		
+		
+		return new TopInit().destory();
+	}
+	
+	
 
 	/*
 	 * (non-Javadoc)

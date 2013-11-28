@@ -4,12 +4,18 @@ import com.srnpr.zapcom.rootclass.RootInit;
 import com.srnpr.zapdata.dbcache.TableCache;
 
 public class InitZapdata extends RootInit {
-
-	public boolean init() {
+	@Override
+	public boolean onInit() {
 
 		topInitCache(new TableCache());
 
 		return true;
+	}
+
+	@Override
+	public boolean onDestory() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

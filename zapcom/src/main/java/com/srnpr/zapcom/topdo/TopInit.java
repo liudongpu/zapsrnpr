@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.baseface.IBaseCache;
+import com.srnpr.zapcom.baseface.IBaseDestory;
 import com.srnpr.zapcom.baseface.IBaseInit;
 import com.srnpr.zapcom.basemodel.MStringMap;
 import com.srnpr.zapcom.rootclass.RootInit;
@@ -25,7 +26,7 @@ public class TopInit extends RootInit implements IBaseInit {
 	 * 
 	 * @see com.srnpr.zapcom.baseface.IBaseInit#init()
 	 */
-	public synchronized boolean init() {
+	public synchronized boolean onInit() {
 
 		initDelete();
 		initTop();
@@ -50,14 +51,18 @@ public class TopInit extends RootInit implements IBaseInit {
 	 * 初始化顶级配置
 	 */
 	private void initTop() {
-		topInitCache(TopConfig.Instance,new TopInfo());
+		topInitCache(TopConfig.Instance, new TopInfo());
 	}
 
+	/**
+	 * 初始化加载各个类
+	 * 
+	 * @return
+	 */
 	private boolean initClass() {
 
-		boolean bFlagInit=true;
-		
-		
+		boolean bFlagInit = true;
+
 		String sConfigName = "zapcom.initclass";
 
 		MStringMap mStringMap = TopUp.upConfigMap(sConfigName);
@@ -70,14 +75,13 @@ public class TopInit extends RootInit implements IBaseInit {
 					Class<?> cClass = ClassUtils.getClass(sClassName);
 					if (cClass != null && cClass.getDeclaredMethods() != null) {
 						IBaseInit init = (IBaseInit) cClass.newInstance();
-						if(! init.init())
-						{
-							bFlagInit=false;
+						if (!init.init()) {
+							bFlagInit = false;
 						}
 					}
 				} catch (Exception e) {
 
-					bFlagInit=false;
+					bFlagInit = false;
 					bLogInfo(967905001, sClassName);
 					e.printStackTrace();
 
@@ -85,8 +89,41 @@ public class TopInit extends RootInit implements IBaseInit {
 			}
 
 		}
-		
-		
+
+		return bFlagInit;
+	}
+
+	@Override
+	public boolean onDestory() {
+		boolean bFlagInit = true;
+
+		String sConfigName = "zapcom.initclass";
+
+		MStringMap mStringMap = TopUp.upConfigMap(sConfigName);
+
+		for (String sClassName : mStringMap.values()) {
+
+			if (!StringUtils.isEmpty(sClassName)) {
+				try {
+
+					Class<?> cClass = ClassUtils.getClass(sClassName);
+					if (cClass != null && cClass.getDeclaredMethods() != null) {
+						IBaseDestory init = (IBaseDestory) cClass.newInstance();
+						if (!init.destory()) {
+							bFlagInit = false;
+						}
+					}
+				} catch (Exception e) {
+
+					bFlagInit = false;
+					bLogInfo(967905001, sClassName);
+					e.printStackTrace();
+
+				}
+			}
+
+		}
+
 		return bFlagInit;
 	}
 

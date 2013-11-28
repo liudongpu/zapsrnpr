@@ -31,9 +31,9 @@ public class JobSupport extends BaseClass implements IBaseInstance {
 
 	public static JobSupport getInstance() {
 		if (jobSupport == null) {
-			
-				jobSupport = new JobSupport();
-			
+
+			jobSupport = new JobSupport();
+
 		}
 		return jobSupport;
 	}
@@ -102,6 +102,37 @@ public class JobSupport extends BaseClass implements IBaseInstance {
 			scheduler.deleteJob(JobKey
 					.jobKey(sJobName, Scheduler.DEFAULT_GROUP));
 		} catch (SchedulerException e) {
+
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	/**
+	 * 关闭所有定时器
+	 * 
+	 * @return
+	 */
+	public boolean shutDown() {
+
+		try {
+
+			if (scheduler != null)
+			{
+				scheduler.shutdown();
+				
+				//延迟一秒 静候所有任务停止
+				Thread.sleep(1000);
+				
+				while(!scheduler.isShutdown())
+				{
+					Thread.sleep(1000);
+				}
+				scheduler.shutdown(true);
+				
+			}
+
+		} catch (Exception e) {
 
 			e.printStackTrace();
 		}

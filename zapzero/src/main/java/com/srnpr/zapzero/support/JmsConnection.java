@@ -11,7 +11,7 @@ import com.srnpr.zapzero.server.ServerInfo;
 
 /**
  * @author srnpr
- *
+ * 
  */
 public class JmsConnection extends BaseClass {
 
@@ -62,6 +62,20 @@ public class JmsConnection extends BaseClass {
 
 			e.printStackTrace();
 		}
+	}
+
+	public boolean destory() {
+		try {
+
+			if (connection != null)
+				connection.close();
+
+		} catch (JMSException e) {
+
+			e.printStackTrace();
+		}
+
+		return true;
 	}
 
 }

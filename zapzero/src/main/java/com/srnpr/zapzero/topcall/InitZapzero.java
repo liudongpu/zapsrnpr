@@ -1,7 +1,9 @@
 package com.srnpr.zapzero.topcall;
 
+import com.srnpr.zapcom.basesupport.JobSupport;
 import com.srnpr.zapcom.rootclass.RootInit;
 import com.srnpr.zapzero.server.ServerSync;
+import com.srnpr.zapzero.support.JmsConnection;
 
 /**
  * 初始化
@@ -11,9 +13,20 @@ import com.srnpr.zapzero.server.ServerSync;
  */
 public class InitZapzero extends RootInit {
 
-	public boolean init() {
+	@Override
+	public boolean onInit() {
 
 		return new ServerSync().initServer();
+	}
+
+	@Override
+	public boolean onDestory() {
+
+		JobSupport.getInstance().shutDown();
+
+		new JmsConnection().destory();
+
+		return true;
 	}
 
 }

@@ -11,17 +11,29 @@ import com.srnpr.zapweb.webdo.ViewCache;
 
 /**
  * @author srnpr
- *
+ * 
  */
 public class InitZapweb extends RootInit implements IBaseInit {
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.srnpr.zapcom.baseface.IBaseInit#init()
 	 */
-	public boolean init() {
+	public boolean onInit() {
 		topInitCache(new ViewCache(), new PageCache(), new OperateCache(),
 				new FuncCache(), new ComponentCache(), new SourceCache());
-		
+
+		return true;
+	}
+
+	public boolean desctory() {
+
+		return true;
+	}
+
+	@Override
+	public boolean onDestory() {
 		return true;
 	}
 
