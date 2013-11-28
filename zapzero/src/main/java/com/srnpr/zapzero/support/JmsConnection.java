@@ -68,7 +68,10 @@ public class JmsConnection extends BaseClass {
 		try {
 
 			if (connection != null)
+			{
+				connection.stop();
 				connection.close();
+			}
 
 		} catch (JMSException e) {
 
