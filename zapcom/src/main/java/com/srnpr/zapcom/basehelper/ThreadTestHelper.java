@@ -6,6 +6,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import org.terracotta.statistics.Time.TimeSource;
+
 /**
  * 多线程测试类
  * 
@@ -13,6 +15,19 @@ import java.util.concurrent.TimeUnit;
  * 
  */
 public abstract class ThreadTestHelper extends TestHelper implements Runnable {
+
+	private static int threadNowIndex = 0;
+	private static int threadMaxNumber = 0;
+
+	private static long timerStart = 0;
+
+	private static long timerEnd = 0;
+
+	public void watchBegin(int iMax) {
+		threadNowIndex = 0;
+		threadMaxNumber = iMax;
+
+	}
 
 	/**
 	 * 获取线程名称
@@ -32,6 +47,11 @@ public abstract class ThreadTestHelper extends TestHelper implements Runnable {
 		Thread thread = new Thread(this);
 
 		// thread.start();
+		
+		if(threadMaxNumber==0)
+		{
+			threadMaxNumber=iNumber;
+		}startWatch();
 
 		for (int i = 0; i < iNumber; i++) {
 
@@ -71,6 +91,12 @@ public abstract class ThreadTestHelper extends TestHelper implements Runnable {
 				list.add(a1);
 			}
 
+			
+			if(threadMaxNumber==0)
+			{
+				threadMaxNumber=iNumber;
+			}
+			startWatch();
 			for (int i = 0; i < iNumber; i++) {
 				try {
 
@@ -80,6 +106,7 @@ public abstract class ThreadTestHelper extends TestHelper implements Runnable {
 					e.printStackTrace();
 				}
 			}
+
 		}
 
 	}
@@ -89,31 +116,37 @@ public abstract class ThreadTestHelper extends TestHelper implements Runnable {
 	 */
 	public void threadPool(int iNumber) {
 
-		ExecutorService pool = Executors.newCachedThreadPool();
-		 //ExecutorService pool = Executors.newFixedThreadPool(1000);
+		//ExecutorService pool = Executors.newCachedThreadPool();
+		 ExecutorService pool = Executors.newFixedThreadPool(500);
 		if (iNumber < 0) {
 
 		} else {
 			/*
-			List<Thread> list = new ArrayList<Thread>();
-
-			for (int i = 0; i < iNumber; i++) {
-
-				Thread a1 = new Thread(this, "test_thread_" + i);
-
-				
-
-				list.add(a1);
-			}*/
+			 * List<Thread> list = new ArrayList<Thread>();
+			 * 
+			 * for (int i = 0; i < iNumber; i++) {
+			 * 
+			 * Thread a1 = new Thread(this, "test_thread_" + i);
+			 * 
+			 * 
+			 * 
+			 * list.add(a1); }
+			 */
+			
+			if(threadMaxNumber==0)
+			{
+				threadMaxNumber=iNumber;
+			}
+			startWatch();
+			
 
 			for (int i = 0; i < iNumber; i++) {
 				try {
-					//bLogTest("test" + i);
+					// bLogTest("test" + i);
 					// bLogTest("test" + i);
 					// list.get(i).join();
-					//pool.execute(list.get(i));
+					// pool.execute(list.get(i));
 					pool.execute(this);
-					
 
 				} catch (Exception e) {
 
@@ -121,28 +154,58 @@ public abstract class ThreadTestHelper extends TestHelper implements Runnable {
 				}
 			}
 		}
-		
-		
-		
+
 		pool.shutdown();
 		try {
 			pool.awaitTermination(12, TimeUnit.HOURS);
 		} catch (InterruptedException e) {
-			
+
 			e.printStackTrace();
 		}
-		
-		//pool.shutdownNow();
+
+		// pool.shutdownNow();
 
 	}
 
-	public  void run()
-	{
-		
+	public void startWatch() {
+		// 如果第一次执行则开始
+		if (threadMaxNumber > 0 && timerStart == 0) {
+
+			bLogTest("开始计时");
+			timerStart = System.currentTimeMillis();
+
+		}
 	}
-	
-	
+
+	public void run() {
+
+		onRun();
+		listenResult();
+	}
+
+	public synchronized void listenResult() {
+
+		if (threadMaxNumber > 0) {
+
+			threadNowIndex=threadNowIndex+1;
+			
+			if (threadNowIndex >= threadMaxNumber) {
+
+				timerEnd = System.currentTimeMillis();
+
+				long lStep = timerEnd - timerStart;
+
+				bLogTest("finish " + String.valueOf(lStep));
+
+				bLogTest("every"
+						+ String.valueOf(threadMaxNumber / (lStep / 1000)));
+
+			}
+
+		}
+
+	}
+
 	public abstract void onRun();
-	
 
 }
