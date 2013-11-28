@@ -10,7 +10,7 @@ import com.srnpr.zapcom.basesupport.WebClientSupport;
 import com.srnpr.zapcom.topapi.RootInput;
 import com.srnpr.zapweb.webfactory.ApiFactory;
 
-public class TestWebApi extends ThreadTestHelper {
+public class TestWebApi {
 	/**
 	 * 测试专用
 	 */
@@ -21,7 +21,7 @@ public class TestWebApi extends ThreadTestHelper {
 		// 该方法会创建10个线程调用run方法
 		// muliThread(10);
 
-		muliThread(100);
+	
 
 	}
 
@@ -30,7 +30,7 @@ public class TestWebApi extends ThreadTestHelper {
 	 * 
 	 * @see java.lang.Runnable#run()
 	 */
-	public void run() {
+	public void onRun() {
 		// 执行的测试业务逻辑
 		// bLogTest(upThreadName() + "ad");
 

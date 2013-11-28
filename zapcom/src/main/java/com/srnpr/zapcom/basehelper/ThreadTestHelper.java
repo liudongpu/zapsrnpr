@@ -136,7 +136,13 @@ public abstract class ThreadTestHelper extends TestHelper implements Runnable {
 
 	}
 
-	public abstract void run();
+	public  void run()
+	{
+		
+	}
+	
+	
+	public abstract void onRun();
 	
 
 }
