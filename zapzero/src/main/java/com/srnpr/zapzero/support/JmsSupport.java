@@ -111,6 +111,8 @@ public class JmsSupport extends BaseClass implements IBaseInstance {
 			MessageConsumer consumer = null;
 
 			if (StringUtils.isNotBlank(sSubName)) {
+				session.unsubscribe(sSubName);
+				
 				consumer = session.createDurableSubscriber(
 						session.createTopic(sTypeName), sSubName);
 			} else {
@@ -118,6 +120,7 @@ public class JmsSupport extends BaseClass implements IBaseInstance {
 			}
 
 			consumer.setMessageListener(listener);
+			
 
 		} catch (JMSException e) {
 

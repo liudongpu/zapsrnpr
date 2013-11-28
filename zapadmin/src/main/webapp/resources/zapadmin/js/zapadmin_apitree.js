@@ -17,6 +17,7 @@ var zapadmin_apitree = {
 			zapadmin_apitree.temp.data = result.resultObject;
 
 			zapadmin_apitree.tree_show(zapadmin_apitree.temp.data);
+			zapadmin_apitree.setHitCollapse();
 		});
 
 	},
@@ -41,6 +42,16 @@ var zapadmin_apitree = {
 
 		//$('#'+sElm).after('<span id="'+sElm+'_span_show"></span>');
 		
+	},
+	
+	//设置节点开启
+	setHitExpand : function(){
+		$('#zw_page_common_tree').tree('expandAll');
+	},
+	
+	//设置节点关闭
+	setHitCollapse : function(){
+		$('#zw_page_common_tree').tree('collapseAll');
 	},
 
 	tree_select : function(sElm) {
