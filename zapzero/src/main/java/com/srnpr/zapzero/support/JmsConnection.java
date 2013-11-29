@@ -50,6 +50,7 @@ public class JmsConnection extends BaseClass {
 				clientConnection =new JmsConnection(). getFactory().createTopicConnection();
 				clientConnection.setClientID(ServerInfo.INSTANCE
 						.getServerCode());
+				clientConnection.start();
 			} catch (JMSException e) {
 
 				e.printStackTrace();
