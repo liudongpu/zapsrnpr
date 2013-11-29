@@ -9,8 +9,10 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
+import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basehelper.MapHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
+import com.srnpr.zapcom.topdo.TopUp;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.helper.WebSessionHelper;
 import com.srnpr.zapweb.usermodel.MUserInfo;
@@ -174,5 +176,20 @@ public abstract class RootMethod extends BaseClass implements IWebMethod {
 		return oReturn;
 
 	}
+	
+	
+	/**
+	 * 获取配置
+	 * 
+	 * @param sKey
+	 * @param sParams
+	 * @return
+	 */
+	public String upConfig(String sKey, Object... sParams) {
+		return FormatHelper.formatString(TopUp.upConfig(sKey), sParams);
+
+	}
+	
+	
 
 }
