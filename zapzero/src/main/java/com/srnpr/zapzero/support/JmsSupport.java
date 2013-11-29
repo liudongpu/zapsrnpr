@@ -56,16 +56,14 @@ public class JmsSupport extends BaseClass implements IBaseInstance {
 
 			TextMessage message = session.createTextMessage(sMsg);
 
-			if(mPropMap!=null){
+			if (mPropMap != null) {
 				for (String sKey : mPropMap.keySet()) {
 					message.setStringProperty(sKey, mPropMap.get(sKey));
 				}
 			}
-			
 
 			producer.send(message);
 			session.close();
-			
 
 		} catch (JMSException e) {
 
@@ -93,10 +91,20 @@ public class JmsSupport extends BaseClass implements IBaseInstance {
 	public void addTopicLisense(String sTypeName, String sSubName,
 			EJmsMessageType eMessageType, IJmsListener listener) {
 		try {
-			Session session = JmsConnection.getInstance().createSession(false,
-					Session.AUTO_ACKNOWLEDGE);
+			Session session = null;
+
+			if (eMessageType.equals(EJmsMessageType.Toplic)
+					&& StringUtils.isNotBlank(sSubName)) {
+				session = JmsConnection.getClientConnection().createSession(
+						false, Session.AUTO_ACKNOWLEDGE);
+			} else {
+				session = JmsConnection.getInstance().createSession(false,
+						Session.AUTO_ACKNOWLEDGE);
+			}
 
 			Destination destination = null;
+
+			MessageConsumer consumer = null;
 
 			switch (eMessageType) {
 			case Toplic:
@@ -108,11 +116,9 @@ public class JmsSupport extends BaseClass implements IBaseInstance {
 				break;
 			}
 
-			MessageConsumer consumer = null;
-
 			if (StringUtils.isNotBlank(sSubName)) {
 				session.unsubscribe(sSubName);
-				
+
 				consumer = session.createDurableSubscriber(
 						session.createTopic(sTypeName), sSubName);
 			} else {
@@ -120,7 +126,6 @@ public class JmsSupport extends BaseClass implements IBaseInstance {
 			}
 
 			consumer.setMessageListener(listener);
-			
 
 		} catch (JMSException e) {
 

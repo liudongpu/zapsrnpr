@@ -1,6 +1,8 @@
 package com.srnpr.zapzero.support;
 
+import javax.jms.Connection;
 import javax.jms.JMSException;
+import javax.jms.TopicConnection;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.pool.PooledConnection;
@@ -28,7 +30,7 @@ public class JmsConnection extends BaseClass {
 		return connection;
 	}
 
-	private void initConn() {
+	private ActiveMQConnectionFactory getFactory() {
 		String url = bConfig("zapzero.jms_server_conn");
 		ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory();
 		activeMQConnectionFactory
@@ -37,10 +39,32 @@ public class JmsConnection extends BaseClass {
 				.setPassword(bConfig("zapzero.jms_server_pass"));
 		activeMQConnectionFactory.setBrokerURL(url);
 
+		return activeMQConnectionFactory;
+	}
+
+	static TopicConnection clientConnection = null;
+
+	public static Connection getClientConnection() {
+		if (clientConnection == null) {
+			try {
+				clientConnection =new JmsConnection(). getFactory().createTopicConnection();
+				clientConnection.setClientID(ServerInfo.INSTANCE
+						.getServerCode());
+			} catch (JMSException e) {
+
+				e.printStackTrace();
+			}
+		}
+		return clientConnection;
+
+	}
+
+	private void initConn() {
+
 		try {
 
 			PooledConnectionFactory pooledConnectionFactory = new PooledConnectionFactory(
-					activeMQConnectionFactory);
+					getFactory());
 
 			// session数
 			int maximumActive = 2000;
@@ -54,7 +78,7 @@ public class JmsConnection extends BaseClass {
 			connection = (PooledConnection) pooledConnectionFactory
 					.createConnection();
 
-			connection.setClientID(ServerInfo.INSTANCE.getServerCode());
+			// connection.setClientID(ServerInfo.INSTANCE.getServerCode());
 
 			// 必须start，否则无法接收消息
 			connection.start();
@@ -67,10 +91,14 @@ public class JmsConnection extends BaseClass {
 	public boolean destory() {
 		try {
 
-			if (connection != null)
-			{
+			if (connection != null) {
 				connection.stop();
 				connection.close();
+			}
+
+			if (clientConnection != null) {
+				clientConnection.stop();
+				clientConnection.close();
 			}
 
 		} catch (JMSException e) {
