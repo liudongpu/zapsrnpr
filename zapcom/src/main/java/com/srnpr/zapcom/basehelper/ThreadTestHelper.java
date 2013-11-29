@@ -44,7 +44,7 @@ public abstract class ThreadTestHelper extends TestHelper implements Runnable {
 	 * @param iNumber
 	 */
 	public void singleThread(int iNumber) {
-		Thread thread = new Thread(this);
+		
 
 		// thread.start();
 		
@@ -55,17 +55,12 @@ public abstract class ThreadTestHelper extends TestHelper implements Runnable {
 
 		for (int i = 0; i < iNumber; i++) {
 
-			bLogTest("test" + i);
+		
 
-			thread.run();
+			onRun();
 		}
 
-		try {
-
-			thread.join();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 	}
 
 	/**
