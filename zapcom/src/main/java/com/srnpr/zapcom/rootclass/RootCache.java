@@ -102,6 +102,7 @@ public abstract class RootCache<K, V> extends TopBase implements IBaseCache {
 					v = (V) cache.get(k).getObjectValue();
 				} else {
 					v = upOne(k);
+					bLogInfo(0, "upOne cache " + k.toString());
 					if (v != null && !containsKey(k)) {
 						inElement(k, v);
 					}
