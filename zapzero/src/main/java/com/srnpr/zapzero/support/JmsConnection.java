@@ -30,6 +30,10 @@ public class JmsConnection extends BaseClass {
 		return connection;
 	}
 
+	/**
+	 * 获取连接
+	 * @return
+	 */
 	private ActiveMQConnectionFactory getFactory() {
 		String url = bConfig("zapzero.jms_server_conn");
 		ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory();
