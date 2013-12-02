@@ -57,7 +57,7 @@ public abstract class ThreadTestHelper extends TestHelper implements Runnable {
 
 		
 
-			onRun();
+			run();
 		}
 
 		

@@ -93,7 +93,17 @@ zapjs.zw = {
 		//oData = $.extend({}, defaults, oData || {});
 
 		zapjs.f.ajaxjson("../jsonapi/" + sTarget, defaults, function(data) {
-			fCallBack(data);
+			//fCallBack(data);			
+			if (data.resultCode == "1") {
+
+				fCallBack(data);
+
+			} else {
+				zapjs.zw.modal_show({
+					content : data.resultMessage
+				});
+			}
+			
 		});
 
 	},
