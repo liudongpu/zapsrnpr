@@ -1,0 +1,476 @@
+/*基本背景色*/
+/* line 13, zab_less_orange.less */
+body {
+  font-family: "Microsoft Yahei", Verdana, Simsun, "Segoe UI Light", "Segoe UI Web Light", "Segoe UI Web Regular", "Segoe UI", "Segoe UI Symbol", "HelveticaNeue-Light", "Helvetica Neue", Arial;
+  font-size: 13px;
+  word-wrap: break-word;
+  margin: 0px;
+  padding: 0px;
+}
+/* line 24, zab_less_orange.less */
+a {
+  text-decoration: none;
+}
+/* line 28, zab_less_orange.less */
+.cke_dialog_contents_body .ImagePreviewBox img {
+  max-width: none;
+}
+/* line 32, zab_less_orange.less */
+.control-group {
+  clear: both;
+}
+/* line 36, zab_less_orange.less */
+.control-group .controls label {
+  display: inline;
+}
+/* line 40, zab_less_orange.less */
+.control_book {
+  padding-top: 5px;
+}
+/* line 44, zab_less_orange.less */
+.container-fluid {
+  padding: 0px;
+}
+/* line 52, zab_less_orange.less */
+.control-upload_div {
+  margin-bottom: 10px;
+}
+/* line 56, zab_less_orange.less */
+.control-upload ul li {
+  margin-right: 10px;
+  float: left;
+  list-style-type: none;
+  text-align: center;
+  width: 112px;
+}
+/* line 64, zab_less_orange.less */
+.control-upload-image {
+  border: solid 1px #d24726;
+  padding: 5px;
+}
+/* line 68, zab_less_orange.less */
+.control-upload_fix {
+  height: 40px;
+}
+/* line 72, zab_less_orange.less */
+.control-upload-delete {
+  margin-top: 5px;
+}
+/* line 76, zab_less_orange.less */
+.control-upload img {
+  width: 100px;
+}
+/* line 80, zab_less_orange.less */
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+}
+/* line 85, zab_less_orange.less */
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  filter: alpha(opacity = 0);
+  transform: translate(-300px, 0) scale(4);
+  font-size: 23px;
+  direction: ltr;
+  cursor: pointer;
+}
+/* line 98, zab_less_orange.less */
+.fileupload-buttonbar .btn,
+.fileupload-buttonbar .toggle {
+  margin-bottom: 5px;
+}
+/* line 102, zab_less_orange.less */
+.progress-animated .progress-bar,
+.progress-animated .bar {
+  background: url(../img/progressbar.gif) !important;
+  filter: none;
+}
+/* line 107, zab_less_orange.less */
+.fileupload-loading {
+  float: right;
+  width: 32px;
+  height: 32px;
+  background: url(../img/loading.gif) center no-repeat;
+  background-size: contain;
+  display: none;
+}
+/* line 116, zab_less_orange.less */
+.fileupload-processing .fileupload-loading {
+  display: block;
+}
+/* line 120, zab_less_orange.less */
+.files audio,
+.files video {
+  max-width: 300px;
+}
+@media (max-width: 767px) {
+  /* line 125, zab_less_orange.less */
+  .fileupload-buttonbar .toggle,
+  .files .toggle,
+  .files .btn span {
+    display: none;
+  }
+  /* line 128, zab_less_orange.less */
+  .files .name {
+    width: 80px;
+    word-wrap: break-word;
+  }
+  /* line 132, zab_less_orange.less */
+  .files audio,
+  .files video {
+    max-width: 80px;
+  }
+}
+/* line 137, zab_less_orange.less */
+.zab_home_home_body {
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  overflow: hidden;
+}
+/* line 149, zab_less_orange.less */
+.zab_home_home_box {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  height: 100%;
+  width: 100%;
+}
+/* line 159, zab_less_orange.less */
+.zab_home_home_top {
+  background-color: #d24726;
+  color: #fff;
+  height: 40px;
+  font-size: 14px;
+  overflow: hidden;
+  width: 100%;
+  position: absolute;
+}
+/* line 169, zab_less_orange.less */
+.zab_home_home_top .c_site {
+  width: 190px;
+  text-indent: 30px;
+  font-size: 16px;
+}
+/* line 175, zab_less_orange.less */
+.zab_home_home_top .c_nav li a {
+  display: inline-block;
+  padding: 0px 15px 0px 15px;
+}
+/* line 180, zab_less_orange.less */
+.zab_home_home_top .c_nav li.c_active a {
+  background-color: #b83e21;
+}
+/* line 184, zab_less_orange.less */
+.zab_home_home_top,
+.zab_home_home_top li {
+  line-height: 40px;
+}
+/* line 188, zab_less_orange.less */
+.zab_home_home_top a {
+  color: #fff;
+}
+/* line 192, zab_less_orange.less */
+.zab_home_home_top .c_right {
+  margin-right: 20px;
+  font-size: 12px;
+}
+/* line 197, zab_less_orange.less */
+.zab_home_home_center {
+  position: absolute;
+  top: 40px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 1;
+}
+/* line 207, zab_less_orange.less */
+.zab_home_home_left {
+  background-color: #F0F0F0;
+  width: 180px;
+  bottom: 0px;
+  top: 0px;
+  left: 0px;
+  z-index: 3;
+  position: absolute;
+}
+/* line 217, zab_less_orange.less */
+.zab_home_home_left .c_title {
+  font-size: 24px;
+  text-indent: 10px;
+  color: #444;
+  height: 40px;
+  line-height: 40px;
+}
+/* line 225, zab_less_orange.less */
+.zab_home_home_left .c_box {
+  padding: 10px 10px 0px 10px;
+}
+/* line 229, zab_less_orange.less */
+.zab_home_home_left .c_box input {
+  width: 140px;
+}
+/* line 233, zab_less_orange.less */
+.zab_home_home_left .c_bottom {
+  position: absolute;
+  bottom: 0px;
+  height: 30px;
+  text-align: center;
+  color: #999;
+  width: 100%;
+}
+/* line 242, zab_less_orange.less */
+.zab_home_home_left .w_ullist li {
+  width: 100%;
+  min-height: 30px;
+  line-height: 30px;
+}
+/* line 248, zab_less_orange.less */
+.zab_home_home_left .c_header {
+  text-indent: 20px;
+}
+/* line 252, zab_less_orange.less */
+.zab_home_home_left .w_ullist li a {
+  width: 100%;
+  display: block;
+  line-height: 30px;
+  text-indent: 40px;
+  color: #444;
+}
+/* line 260, zab_less_orange.less */
+.zab_home_home_left .w_ullist li.c_active a,
+.zab_home_home_left .w_ullist li.c_active a:hover {
+  background-color: #cdcdcd;
+}
+/* line 264, zab_less_orange.less */
+.zab_home_home_left .w_ullist li a:hover {
+  background-color: #e7e7e7;
+}
+/* line 268, zab_less_orange.less */
+.zab_home_home_split {
+  left: 180px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 5;
+  width: 0px;
+  position: absolute;
+}
+/* line 278, zab_less_orange.less */
+.zab_home_home_right {
+  left: 180px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 2;
+  position: absolute;
+}
+/* line 288, zab_less_orange.less */
+.zab_home_home_main {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  z-index: 1;
+  min-width: 768px;
+}
+/* line 298, zab_less_orange.less */
+.zab_page_default_body {
+  width: 97%;
+  margin-left: 1%;
+}
+/* line 303, zab_less_orange.less */
+.zab_page_default_header {
+  height: 40px;
+  margin-bottom: 20px;
+  border-bottom: solid 1px #d24726;
+}
+/* line 308, zab_less_orange.less */
+.zab_page_default_header_title {
+  font-size: 24px;
+  line-height: 40px;
+  width: 60%;
+  float: left;
+}
+/* line 318, zab_less_orange.less */
+.zab_page_windowtree_buttons {
+  margin: 30px;
+  text-align: center;
+}
+/* line 323, zab_less_orange.less */
+.zw_page_common_data .pagination_label {
+  float: right;
+  margin-right: 30px;
+}
+/* line 328, zab_less_orange.less */
+.zw_page_common_data table tr th {
+  text-align: center;
+  line-height: 30px;
+}
+/* line 333, zab_less_orange.less */
+.zw_page_common_data table tr td {
+  text-indent: 3px;
+  line-height: 25px;
+}
+/* line 338, zab_less_orange.less */
+.zw_page_tree_left {
+  width: 30%;
+  float: left;
+}
+/* line 342, zab_less_orange.less */
+.zw_page_tree_topp {
+  width: 50%;
+}
+/* line 345, zab_less_orange.less */
+.zw_page_tree_right {
+  width: 65%;
+  float: right;
+}
+/* line 350, zab_less_orange.less */
+.zw_page_tree_box {
+  margin-top: 30px;
+}
+/* line 354, zab_less_orange.less */
+.zw_page_upload_iframe {
+  height: 50px;
+  width: 200px;
+}
+/* line 359, zab_less_orange.less */
+.zab_manage_login_body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+/* line 364, zab_less_orange.less */
+.zab_manage_login_body .c_login_header {
+  height: 64px;
+  position: relative;
+}
+/* line 369, zab_less_orange.less */
+.zab_manage_login_body .c_login_logo {
+  width: 146px;
+  height: 40px;
+  background-image: url("../img/login/logo.jpg");
+}
+/* line 375, zab_less_orange.less */
+.zab_manage_login_body .w_ul li {
+  padding: 0px 10px 0px 20px;
+}
+/* line 378, zab_less_orange.less */
+.zab_manage_login_body .w_ul li a,
+.c_login_footer {
+  color: #959595;
+}
+/* line 382, zab_less_orange.less */
+.zab_manage_login_body .c_login_bg {
+  background-color: #295487;
+  height: 600px;
+  background-image: url("../img/login/login_bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+/* line 390, zab_less_orange.less */
+.zab_manage_login_body .c_login_width {
+  width: 1000px;
+}
+/* line 394, zab_less_orange.less */
+.zab_manage_login_body .c_login_center {
+  position: relative;
+}
+/* line 398, zab_less_orange.less */
+.zab_manage_login_body .c_login_sign {
+  width: 340px;
+  height: 400px;
+  margin-left: 600px;
+  position: relative;
+}
+/* line 405, zab_less_orange.less */
+.zab_manage_login_body .c_login_fix {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border: 1px solid #e5e5e5;
+  background-color: #fff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+/* line 420, zab_less_orange.less */
+.zab_manage_login_body .c_login_info {
+  width: 300px;
+  height: 100%;
+  padding: 20px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+/* line 429, zab_less_orange.less */
+.zab_manage_login_body .c_login_title {
+  font-size: 21px;
+  border-bottom: solid 1px #de0816;
+  line-height: 30px;
+  height: 40px;
+  color: #333;
+}
+/* line 436, zab_less_orange.less */
+.zab_manage_login_body .c_login_pos {
+  height: 320px;
+}
+/* line 440, zab_less_orange.less */
+.zab_manage_login_body .c_login_desc {
+  color: #555;
+}
+/* line 443, zab_less_orange.less */
+.zab_manage_login_body .c_login_version {
+  border-top: solid 1px #de0816;
+  padding-top: 10px;
+  color: #555;
+}
+/* line 449, zab_less_orange.less */
+.zab_manage_login_body .c_login_text {
+  width: 200px;
+  padding: 7px 9px;
+}
+/* line 458, zab_less_orange.less */
+.zw_page_common_ajax_inquire .form-horizontal .control-group {
+  padding: 0px 0px 0px 20px;
+  float: left;
+  clear: none;
+  margin-bottom: 10px;
+}
+/* line 465, zab_less_orange.less */
+.zw_page_common_ajax_inquire .form-horizontal .control-group .control-label {
+  width: auto;
+}
+/* line 468, zab_less_orange.less */
+.zw_page_common_ajax_inquire .form-horizontal .control-group .controls {
+  margin-left: 15px;
+  float: left;
+}
+/* line 473, zab_less_orange.less */
+.zab_js_zapadmin_single_ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px 20px 0px 10px;
+}
+/* line 478, zab_less_orange.less */
+.zab_js_zapadmin_single_ul li {
+  float: left;
+  padding: 3px;
+  margin: 3px;
+  border: solid 1px #b83e21;
+  white-space: nowrap;
+}

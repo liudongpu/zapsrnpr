@@ -41,7 +41,7 @@
 
 	<@m_common_html_js ["lib/jquery/jquery-last.min.js","lib/require/require.js","zapjs/zapjs.js","zapjs/zapjs.zw.js","zapadmin/js/zapadmin.js"]/>
 	<@m_common_html_js ["lib/jquery/jquery-plugins-zap.min.js","lib/easyui/jquery.easyui.min.js"]/>
-	<@m_common_html_css ["lib/bootstrap/css/bootstrap.min.css","lib/easyui/themes/bootstrap/easyui.css","zapadmin/css/zab_base.css","zapweb/css/w.css"] />
+	<@m_common_html_css ["lib/bootstrap/css/bootstrap.min.css","lib/easyui/themes/bootstrap/easyui.css","zapadmin/css/zab_less_green.css","zapweb/css/w.css"] />
 	
 	<link rel="shortcut icon" href="http://www.cntv.cn/favicon.ico"  type="image/x-icon" />
 	<!--[if lte IE 7]> 
