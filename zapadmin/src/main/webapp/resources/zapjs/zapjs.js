@@ -100,10 +100,9 @@ zapjs.f = {
 
 		
 		/*
-		$.getJSON(sTarget, data, fCallBack).fail(function() {
-			alert('系统异步调用出现错误，请联系技术，谢谢！');
-		});
-		*/
+		 * $.getJSON(sTarget, data, fCallBack).fail(function() {
+		 * alert('系统异步调用出现错误，请联系技术，谢谢！'); });
+		 */
 	},
 
 	setdomain : function() {
@@ -133,7 +132,7 @@ zapjs.f = {
 
 	require : function(aNeeds, f) {
 
-		require(aNeeds, f);
+		requirejs(aNeeds, f);
 
 	},
 	// 获取当前主域
@@ -190,7 +189,7 @@ zapjs.f = {
 	},
 
 	/*
-	 * 自动刷新  如果有子页面  则刷新iframe
+	 * 自动刷新 如果有子页面 则刷新iframe
 	 */
 	autorefresh : function() {
 		if (zapjs.f.exist('main_iframe')) {
@@ -303,9 +302,13 @@ zapjs.f = {
 			id : sId,
 			close : true
 		});
+		
+		
+		
+		
 
 	},
-	//弹出窗口
+	// 弹出窗口
 	window_box : function(options) {
 		var defaults = {
 			id : 'zapjs_f_id_window_box',
@@ -318,7 +321,8 @@ zapjs.f = {
 		};
 
 		var s = $.extend({}, defaults, options || {});
-
+		
+		// s.onClose(function(){alert('2');});
 		if (s.close) {
 
 			$('#' + s.id).window('close');
@@ -345,7 +349,15 @@ zapjs.f = {
 			width : s.width,
 			height : s.height,
 			modal : true,
-			closed : false
+			closed : false,
+			onClose:function()
+			{
+				// 修正 关闭时强制删除所有元素
+				var oParent=$('#'+s.id).parent('.panel');
+				oParent.next('.window-shadow').remove();
+				oParent.next('.window-mask').remove();
+				oParent.remove();
+			}
 		});
 
 		if (s.url&&s.type!='iframe') {
@@ -354,7 +366,7 @@ zapjs.f = {
 
 	},
 
-	//提示消息
+	// 提示消息
 	message : function(sContent, okfunc) {
 		zapjs.f.modal({
 			content : sContent,
@@ -363,7 +375,7 @@ zapjs.f = {
 		});
 	},
 
-	//关闭模态窗口
+	// 关闭模态窗口
 	modal_close:function(sId)
 	{
 		zapjs.f.modal(
@@ -373,7 +385,7 @@ zapjs.f = {
 			
 		);
 	},
-	//打开模态窗口
+	// 打开模态窗口
 	modal:function(options) {
 
 		var defaults = {
@@ -471,6 +483,13 @@ zapjs.f = {
 		return sReturn;
 
 	},
+	//
+	split:function(sValue,sSplit){
+		
+		return sValue==""?[]:sValue.split(sSplit);
+		
+	},
+	
 
 	// url替换 如果没有的话会自动添加 如果值为空则自动删除
 	urlreplace : function(sUrl, sKey, sValue) {

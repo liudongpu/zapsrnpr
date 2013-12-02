@@ -1,41 +1,4 @@
-.control-upload {
 
-}
-.control-upload_iframe iframe
-{
-	height:50px;
-}
-.control-upload_div
-{
-	margin-bottom:10px;
-}
-
-
-.control-upload ul li {
-	margin-right: 10px;
-	float: left;
-	list-style-type: none;
-	text-align: center;
-	width:112px;
-}
-
-.control-upload-image {
-	border: solid 1px #008A17;
-	padding: 5px;
-}
-.control-upload_fix
-{
-	height:40px;
-}
-
-
-.control-upload-delete {
-	margin-top: 5px;
-}
-
-.control-upload img {
-	width: 100px;
-}
 
 
 .zat_body_top
@@ -71,9 +34,11 @@
 	display:none;
 }
 
+
+
 .zat_dragable_box_prev .zat_dragable_item {
-	width:200px;
-	height:55px;
+	width:150px;
+	height:45px;
 	margin-right:20px;
 	float:left;
 }
@@ -81,6 +46,9 @@
 {
 	background-color:#fff;
 	height:35px;
+	position:absolute;
+	z-index:99;
+	padding:0px 10px 0px 10px;
 	border:solid 1px #ccc;
 }
 
@@ -89,13 +57,16 @@
 .zat_target_box .zat_dragable_priview {
 	height:35px;
 	background-color:#ebebeb;
+	border-top:dashed 1px #999;
+	border-bottom:dashed 1px #999;
+	
 	
 }
 
 .zat_target_box .zat_dragable_view 
 {
 	margin:auto;
-	text-align:center;
+	
 	
 }
 .zat_target_box .zat_dragable_view img
@@ -181,7 +152,11 @@
 	border:solid 1px #ff0000;
 }
 
-
+.zat_template_customhtml textarea
+{
+	width:500px;
+	height:300px;
+}
 
 
 
