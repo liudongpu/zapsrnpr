@@ -11,6 +11,8 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -201,6 +203,14 @@ public class ApiFactory implements IBaseInstance {
 
 			if (mAuthorize != null) {
 				sApiPass = mAuthorize.getApiPass();
+			}
+			if(!"".equals(sApiClassString)&&mAuthorize.getApiAble()!=null&&!"".equals(mAuthorize.getApiAble())){
+				String reg = mAuthorize.getApiAble();
+				Pattern p =Pattern .compile(reg);
+				Matcher m = p.matcher(sApiClassString);
+				if(!m.find()){
+					mResult.inErrorMessage(969905020);
+				}
 			}
 
 		}
