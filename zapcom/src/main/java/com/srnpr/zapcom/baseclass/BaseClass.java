@@ -72,6 +72,17 @@ public abstract class BaseClass {
 	public String bConfig(String sKey) {
 		return TopUp.upConfig(sKey);
 	}
+	
+	/**
+	 * @param sKey
+	 *            配置主键
+	 * @param sParms
+	 *            拼接字符串
+	 * @return 配置内容字符串
+	 */
+	public String bConfig(String sKey, Object... sParms) {
+		return FormatHelper.formatString(TopUp.upConfig(sKey), sParms);
+	}
 
 	/**
 	 * @param lInfoId
