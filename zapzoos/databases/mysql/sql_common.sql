@@ -1,12 +1,19 @@
 
-#设置所有超级管理员菜单
+#剔除不存在菜单并且设置所有超级管理员和店铺管理员菜单
 [sql]
 use zapdata;
+delete from za_rolemenu where menu_code 
+not in (select menu_code from za_menu) or length(menu_code)<24;
 insert into za_rolemenu (uid,role_code,menu_code)
 select replace(uuid(),'-',''),'4677031800010001',
 menu_code from za_menu  a where a.menu_code 
 not in (select b.menu_code from za_rolemenu b) 
 and length(a.menu_code)=24;
+insert into za_rolemenu (uid,role_code,menu_code)
+select replace(uuid(),'-',''),'4677031800020001',
+menu_code from za_menu  a where a.menu_code 
+not in (select b.menu_code from za_rolemenu b where b.role_code='4677031800020001') 
+and length(a.menu_code)=24 and a.menu_code like '467703130002%';
 [/sql]
 
 #更新所有字段的备注名称
