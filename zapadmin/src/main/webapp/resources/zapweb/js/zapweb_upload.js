@@ -12,14 +12,24 @@ var zapweb_upload = {
 			sSet = '';
 		}
 
-		return '<input type="hidden" zapweb_attr_target_url="' + sTargetUpload + '"  zapweb_attr_set_params="' + sSet + '"  id="' + sId + '" name="' + sId + '" value="' + sValue + '"><span class="control-upload_iframe"></span><span class="control-upload"></span>';
+		return '<input type="hidden" zapweb_attr_target_url="'
+				+ sTargetUpload
+				+ '"  zapweb_attr_set_params="'
+				+ sSet
+				+ '"  id="'
+				+ sId
+				+ '" name="'
+				+ sId
+				+ '" value="'
+				+ sValue
+				+ '"><span class="control-upload_iframe"></span><span class="control-upload"></span>';
 
 	},
 
 	// 上传文件
 	upload_file : function(sFieldName, sUploadUrl) {
 
-		//zapjs.f.setdomain();
+		// zapjs.f.setdomain();
 		// sUploadUrl = "../upload/";
 
 		zapweb_upload.upload_show(sFieldName);
@@ -36,7 +46,7 @@ var zapweb_upload = {
 
 	// 上传文件结果
 	upload_result : function(o) {
-		//zapjs.f.setdomain();
+		// zapjs.f.setdomain();
 		parent.zapweb_upload.upload_success(o, zapjs.f.urlget('zw_s_source'));
 	},
 	// 上传展示
@@ -44,7 +54,11 @@ var zapweb_upload = {
 
 		var bFlagMul = false;
 
-		var sNumber = zapjs.f.upset($('#' + sField).attr(zapjs.c.field_attr + "set_params"), 'zw_s_number');
+		var sSetParams = $('#' + sField)
+				.attr(zapjs.c.field_attr + "set_params");
+
+		// 定义最大上传数量
+		var sNumber = zapjs.f.upset(sSetParams, 'zw_s_number');
 
 		if (sNumber != "") {
 
@@ -57,18 +71,33 @@ var zapweb_upload = {
 			}
 
 		}
-
-		var sUploadTarget = zapjs.f.upset($('#' + sField).attr(zapjs.c.field_attr + "set_params"), 'zw_s_target');
+		// 定义上传目标地址
+		var sUploadTarget = zapjs.f.upset(sSetParams, 'zw_s_target');
 		if (!sUploadTarget) {
 			sUploadTarget = "upload";
 		}
 
+		// 定义显示风格 如果定义为list的话则为顺序排列
+		var sUploadView = zapjs.f.upset(sSetParams, 'zw_s_view');
+
+		// 定义是否带有链接参数
+		var sUploadLink = zapjs.f.upset(sSetParams, 'zw_s_link');
+
 		if ($('#' + sField).val() == "" || bFlagMul) {
 
 			if ($('#' + sField).nextAll('.control-upload_iframe').html() == "") {
-				var sUploadUrl = $('#' + sField).attr(zapjs.c.field_attr + "target_url");
+				var sUploadUrl = $('#' + sField).attr(
+						zapjs.c.field_attr + "target_url");
 
-				$('#' + sField).nextAll('.control-upload_iframe').html('<iframe src="' + sUploadUrl + sUploadTarget + '?zw_s_source=' + sField + '" class="zw_page_upload_iframe" frameborder="0"></iframe>');
+				$('#' + sField)
+						.nextAll('.control-upload_iframe')
+						.html(
+								'<iframe src="'
+										+ sUploadUrl
+										+ sUploadTarget
+										+ '?zw_s_source='
+										+ sField
+										+ '" class="zw_page_upload_iframe" frameborder="0"></iframe>');
 			}
 		} else {
 			$('#' + sField).nextAll('.control-upload_iframe').html('');
@@ -82,15 +111,69 @@ var zapweb_upload = {
 
 				aHtml.push('<ul>');
 
-				for (var i=0,j=sFiles.length;i<j;i++) {
+				for (var i = 0, j = sFiles.length; i < j; i++) {
 
 					var aFname = sFiles[i].split('.');
 
 					var sFix = aFname[aFname.length - 1];
 
-					var sShowHex = zapweb_upload.is_image(sFix) ? ('<img src="' + sFiles[i] + '" />') : sFix;
+					var sShowHex = zapweb_upload.is_image(sFix) ? ('<img src="'
+							+ sFiles[i] + '" />') : sFix;
 
-					aHtml.push('<li><div class="control-upload-image"><a href="' + sFiles[i] + '" target="_blank">' + sShowHex + '</a></div><div class="control-upload-delete"><span class="btn btn-mini " onclick="zapweb_upload.upload_delete(\'' + sField + '\',' + i + ')"><i class="icon-trash "></i>&nbsp;&nbsp;删除</span></div></li>');
+					if (sUploadView == "12") {
+						aHtml
+								.push('<li class="control-upload-image-li"><div class="control-upload-image-div"><a href="'
+										+ sFiles[i]
+										+ '" target="_blank">'
+										+ sShowHex
+										+ '</a></div><div class="control-upload-delete"><span class="btn btn-mini " onclick="zapweb_upload.upload_delete(\''
+										+ sField
+										+ '\','
+										+ i
+										+ ')"><i class="icon-trash "></i>&nbsp;&nbsp;删除</span></div></li>');
+					} else {
+
+						var sView = '';
+
+						aHtml.push('<li class="control-upload-list-li"><div>');
+
+						aHtml.push('<div class="w_left w_w_100"><a href="' + sFiles[i]
+								+ '" target="_blank">' + sShowHex
+								+ '</a></div>');
+
+						aHtml
+								.push('<div class="w_left w_p_10">'
+										+ (j > 1 ? '<a href="javascript:zapweb_upload.change_index(\''
+												+ sField
+												+ '\','
+												+ i
+												+ ',\'up\')">上移</a><a href="javascript:zapweb_upload.change_index(\''
+												+ sField
+												+ '\','
+												+ i
+												+ ',\'down\')">下移</a>'
+												: '')
+										+ '<a href="javascript:zapweb_upload.change_index(\''
+										+ sField + '\',' + i
+										+ ',\'delete\')">删除</a></div>');
+
+						aHtml.push('<div class="w_clear"></div>');
+
+						if (sUploadLink != "") {
+							var sLinks = $('#' + sUploadLink).val().split(
+									zapjs.c.split);
+
+							var sLinkUrl = sLinks[i]?sLinks[i]:'';
+
+							aHtml.push('<div>链接地址：<input id="' + sUploadLink
+									+ '_zapweb_upload_link_' + i
+									+ '" type="text" value="' + sLinkUrl
+									+ '"/></div>');
+
+						}
+
+						aHtml.push('</div></li>');
+					}
 				}
 
 				aHtml.push('</ul>');
@@ -102,16 +185,99 @@ var zapweb_upload = {
 			$('#' + sField).nextAll('.control-upload').html('');
 		}
 	},
-	// 删除上传文件
-	upload_delete : function(sField, iIndex) {
+	array_change : function(aArray, iOne, iTwo) {
+		if (iOne < 0 || iTwo < 0 || iOne > aArray.length - 1
+				|| iTwo > aArray.length - 1) {
+			return aArray;
+		}
 
-		var sFiles = $('#' + sField).val().split(zapjs.c.split);
+		var sTemp = aArray[iOne];
+		aArray[iOne] = aArray[iTwo];
+		aArray[iTwo] = sTemp;
+		return aArray;
+	},
 
-		sFiles.splice(iIndex, 1);
+	save_link : function(sField) {
+
+		var sSetParams = $('#' + sField)
+				.attr(zapjs.c.field_attr + "set_params");
+		var sUploadLink = zapjs.f.upset(sSetParams, 'zw_s_link');
+		if (sUploadLink != "") {
+			var sFiles = zapjs.f.split($('#' + sField).val(), zapjs.c.split);
+
+			var aLinks = [];
+			for (var i = 0, j = sFiles.length; i < j; i++) {
+				var sLinkUrl = $('#' + sUploadLink + '_zapweb_upload_link_' + i)
+						.val();
+				aLinks.push(sLinkUrl ? sLinkUrl : '');
+
+			}
+			$('#' + sUploadLink).val(aLinks.join(zapjs.c.split));
+		}
+
+	},
+
+	// 更改
+	change_index : function(sField, iIndex, sLink) {
+		var sFiles = zapjs.f.split($('#' + sField).val(), zapjs.c.split);
+
+		var sLinks = [];
+
+		var sSetParams = $('#' + sField)
+				.attr(zapjs.c.field_attr + "set_params");
+		var sUploadLink = zapjs.f.upset(sSetParams, 'zw_s_link');
+		if (sUploadLink != "") {
+			zapweb_upload.save_link(sField);
+			
+			sLinks = zapjs.f.split($('#' + sUploadLink).val(), zapjs.c.split);
+		}
+
+		if (iIndex == -99) {
+			sFiles.push(sLink);
+			sLinks.push('');
+
+		} else if (sLink == "delete") {
+			sFiles.splice(iIndex, 1);
+			if (sUploadLink != "") {
+				sLinks.splice(iIndex, 1);
+			}
+		} else if (sLink == "up") {
+			sFiles = zapweb_upload.array_change(sFiles, iIndex, iIndex - 1);
+			if (sUploadLink != "") {
+				sLinks = zapweb_upload.array_change(sLinks, iIndex, iIndex - 1);
+			}
+		} else if (sLink == "down") {
+
+			sFiles = zapweb_upload.array_change(sFiles, iIndex, iIndex + 1);
+			if (sUploadLink != "") {
+				sLinks = zapweb_upload.array_change(sLinks, iIndex, iIndex + 1);
+			}
+
+		}
 
 		$('#' + sField).val(sFiles.join(zapjs.c.split));
 
+		if (sUploadLink != "") {
+			$('#' + sUploadLink).val(sLinks.join(zapjs.c.split));
+		}
+
 		zapweb_upload.upload_show(sField);
+
+	},
+
+	// 删除上传文件
+	upload_delete : function(sField, iIndex) {
+		/*
+		 * var sFiles = $('#' + sField).val().split(zapjs.c.split);
+		 * 
+		 * sFiles.splice(iIndex, 1);
+		 * 
+		 * $('#' + sField).val(sFiles.join(zapjs.c.split));
+		 * 
+		 * zapweb_upload.upload_show(sField);
+		 */
+		zapweb_upload.change_index(sField, iIndex, 'delete');
+
 	},
 	// 上传成功
 	upload_success : function(o, sField) {
@@ -121,16 +287,16 @@ var zapweb_upload = {
 
 		if (o.resultCode == 1) {
 			if (o.resultObject) {
+				/*
+				 * var sVal = $('#' + sField).val(); if (sVal != "") { sVal =
+				 * sVal + zapjs.c.split; } sVal = sVal + o.resultObject;
+				 * 
+				 * $('#' + sField).val(sVal);
+				 * 
+				 * zapweb_upload.upload_show(sField);
+				 */
 
-				var sVal = $('#' + sField).val();
-				if (sVal != "") {
-					sVal = sVal + zapjs.c.split;
-				}
-				sVal = sVal + o.resultObject;
-
-				$('#' + sField).val(sVal);
-
-				zapweb_upload.upload_show(sField);
+				zapweb_upload.change_index(sField, -99, o.resultObject);
 
 				if (zapjs.f.callextend("zapjs_e_zapweb_upload_upload_success")) {
 
@@ -151,9 +317,8 @@ var zapweb_upload = {
 	}
 };
 
-if ( typeof define === "function" && define.amd) {
+if (typeof define === "function" && define.amd) {
 	define("zapweb/js/zapweb_upload", function() {
 		return zapweb_upload;
 	});
 }
-

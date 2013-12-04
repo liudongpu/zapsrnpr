@@ -72,6 +72,8 @@
 .zat_target_box .zat_dragable_view img
 {
 	max-width:100%;
+	
+	width:auto;
 }
 
 .zat_target_inline

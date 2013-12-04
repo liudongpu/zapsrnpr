@@ -68,7 +68,9 @@ body,html
 {
 	height:100%;
 }
-
+.w_p_10 {
+	padding: 10px;
+}
 
 .w_p_20 {
 	padding: 20px;
