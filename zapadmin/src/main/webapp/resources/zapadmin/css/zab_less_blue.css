@@ -8,7 +8,7 @@ a{text-decoration:none}
 .control_book{padding-top:5px}
 .container-fluid{padding:0}
 .control-upload_div{margin-bottom:10px}
-.control-upload ul li.control-upload-list-li{list-style-type:none}
+.control-upload ul li.control-upload-list-li{list-style-type:none;margin-bottom:10px}
 .control-upload-list-li a{padding-right:10px}
 .control-upload ul li.control-upload-image-li{margin-right:10px;float:left;list-style-type:none;text-align:center;margin-bottom:10px}
 .control-upload-image-div{border:solid 1px #094ab2;padding:5px}
@@ -22,7 +22,9 @@ a{text-decoration:none}
 .fileupload-loading{float:right;width:32px;height:32px;background:url(../img/loading.gif) center no-repeat;background-size:contain;display:none}
 .fileupload-processing .fileupload-loading{display:block}
 .files audio,.files video{max-width:300px}
-@media (max-width:767px){.fileupload-buttonbar .toggle,.files .toggle,.files .btn span{display:none} .files .name{width:80px;word-wrap:break-word} .files audio,.files video{max-width:80px}}.zab_home_home_body{top:0;bottom:0;left:0;right:0;margin:0;padding:0;position:absolute;overflow:hidden}
+@media (max-width:767px){.fileupload-buttonbar .toggle,.files .toggle,.files .btn span{display:none} .files .name{width:80px;word-wrap:break-word} .files audio,.files video{max-width:80px}}.zab_base_color_back{background-color:#094ab2}
+.zab_base_color_border_bottom{border-bottom:solid 1px #094ab2}
+.zab_home_home_body{top:0;bottom:0;left:0;right:0;margin:0;padding:0;position:absolute;overflow:hidden}
 .zab_home_home_box{position:absolute;top:0;right:0;left:0;bottom:0;height:100%;width:100%}
 .zab_home_home_top{background-color:#094ab2;color:#fff;height:40px;font-size:14px;overflow:hidden;width:100%;position:absolute}
 .zab_home_home_top .c_site{width:190px;text-indent:30px;font-size:16px}
