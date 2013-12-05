@@ -71,6 +71,11 @@ var zapadmin_chartajax = {
 			aTable.push('</div>');
 			$('#' + s.id).append(aTable.join(''));
 			
+			
+			
+			var sBaseUrl=zapjs.f.upurl();
+			
+			var sDataUrl=zapjs.zw.api_link('com_srnpr_zapweb_webapi_ChartApi') + "&pagecode=" + s.pagecode+"&"+sBaseUrl.split('?')[1];
 
 
 		zapadmin_chartajax.temp.loadcount[s.id] =$('#' + s.id).find('table').datagrid({
@@ -110,7 +115,7 @@ var zapadmin_chartajax = {
 				zapadmin_chartajax.reset_checked(s.id);
 			},
 
-			url : zapjs.zw.api_link('com_srnpr_zapweb_webapi_ChartApi') + "&pagecode=" + s.pagecode
+			url : sDataUrl
 		});
 		
 
