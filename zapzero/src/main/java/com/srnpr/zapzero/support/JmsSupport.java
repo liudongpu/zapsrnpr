@@ -117,7 +117,7 @@ public class JmsSupport extends BaseClass implements IBaseInstance {
 			}
 
 			if (StringUtils.isNotBlank(sSubName)) {
-				session.unsubscribe(sSubName);
+				//session.unsubscribe(sSubName);
 
 				consumer = session.createDurableSubscriber(
 						session.createTopic(sTypeName), sSubName);
