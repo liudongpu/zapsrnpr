@@ -6,7 +6,7 @@ public class ApiKeepLiveInput extends RootInput {
 	/**
 	 * 服务编码
 	 */
-	private String serverCode = "";
+	private String serverCode = "undefined";
 
 	/**
 	 * IP地址
