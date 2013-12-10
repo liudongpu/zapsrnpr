@@ -12,6 +12,8 @@ import org.apache.commons.lang.StringUtils;
 import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basehelper.SecrurityHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
+import com.srnpr.zapcom.topdo.TopConfig;
+import com.srnpr.zapcom.topdo.TopUp;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.usermodel.MUserInfo;
 import com.srnpr.zapweb.webdo.WebConst;
@@ -182,6 +184,11 @@ public class WebHelper {
 				// 获取request请求值
 				else if (sKey.equals("request")) {
 					sReplace = WebSessionHelper.create().upRequest(sAttr).trim();
+				}
+				//替换config
+				else if(sKey.equals("config"))
+				{
+					sReplace=TopUp.upConfig(sAttr);
 				}
 				// 如果参数是user 则根据后续参数替换
 				else if (sKey.equals("user")) {
