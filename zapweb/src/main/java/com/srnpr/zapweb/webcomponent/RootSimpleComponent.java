@@ -127,6 +127,10 @@ public abstract class RootSimpleComponent extends RootComponent {
 			sRegStrings[2]=WebConst.CONST_WEB_FIELD_ATTR+"regex_title";
 			sRegStrings[3]=mField.getFieldNote();
 		}
+		else
+		{
+			sRegStrings=new String[0];
+		}
 		
 		
 		return sRegStrings;
