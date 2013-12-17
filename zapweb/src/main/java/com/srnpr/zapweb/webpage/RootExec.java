@@ -44,16 +44,36 @@ public class RootExec extends BaseClass {
 
 		// 查询条件
 		String sWhere = "";
+		
+		
+		MDataMap mPaginationMap=new MDataMap();
+		
 
 		if (StringUtils.isNotEmpty(webPage.getDataScope())) {
-			mReqMap.inAllValues(FormatHelper.upUrlStrings(WebHelper
+			
+			
+			MDataMap mScopeMap=new MDataMap();
+			mScopeMap.inAllValues(FormatHelper.upUrlStrings(WebHelper
 					.recheckReplace(webPage.getDataScope(), mReqMap)));
+			mPaginationMap=mScopeMap.upSubMap(WebConst.CONST_WEB_PAGINATION_NAME);
+			
+			
 		}
 
 		/********** 开始处理分页输入参数逻辑 ********************************/
 		{
-			MDataMap mPaginationMap = mReqMap
+			MDataMap mReqpageMap = mReqMap
 					.upSubMap(WebConst.CONST_WEB_PAGINATION_NAME);
+			
+			if(mReqpageMap!=null&&mReqpageMap.size()>0)
+			{
+				for(String sKey : mReqpageMap.keySet())
+				{
+					mPaginationMap.put(sKey, mReqpageMap.get(sKey));
+				}
+				
+			}
+			
 
 			if (mPaginationMap != null && mPaginationMap.size() > 0) {
 
