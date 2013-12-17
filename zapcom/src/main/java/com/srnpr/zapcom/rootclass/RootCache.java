@@ -106,6 +106,10 @@ public abstract class RootCache<K, V> extends TopBase implements IBaseCache {
 					if (v != null && !containsKey(k)) {
 						inElement(k, v);
 					}
+					else if(v==null)
+					{
+						bLogError(0, "error load cache name "+k.toString());
+					}
 				}
 
 			}
