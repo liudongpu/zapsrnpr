@@ -120,13 +120,14 @@ public class RootExec extends BaseClass {
 
 				}
 
-				//判断如果附加了SQL预条件定义
+				// 判断如果附加了SQL预条件定义
 				if (mPaginationMap.containsKey("sql_where")) {
 
 					String sField = mPaginationMap.get("sql_where");
 
 					if (StringUtils.isNotEmpty(sWhere)) {
-						sWhere =WebHelper.recheckReplace( sWhere,mReqMap) + " and ";
+						sWhere = WebHelper.recheckReplace(sWhere, mReqMap)
+								+ " and ";
 					}
 
 					sWhere = sWhere + sField;
@@ -325,15 +326,41 @@ public class RootExec extends BaseClass {
 					mReturnData.getPageSize())) {
 				List<String> listEach = new ArrayList<String>();
 
+				// 循环展示列
 				for (MWebField mField : listFields) {
+
+					String sFieldText = "";
 
 					// 判断如果是组件则重新输出文字
 					if (mField.getFieldTypeAid().equals("104005003")) {
-						listEach.add(WebUp.upComponent(mField.getSourceCode())
-								.upListText(mField, mData));
+
+						sFieldText = WebUp.upComponent(mField.getSourceCode())
+								.upListText(mField, mData);
+
 					} else {
-						listEach.add(mData.get(mField.getFieldName()));
+						sFieldText = mData.get(mField.getFieldName());
 					}
+
+					// 判断是否有展示替换
+					if (!StringUtils.isEmpty(mField.getFieldScope())) {
+
+						if (mField.getFieldScope().indexOf(
+								WebConst.CONST_WEB_PAGINATION_NAME
+										+ "showreplace") > -1) {
+							MDataMap mFieldScope = new MDataMap()
+									.inUrlParams(mField.getFieldScope());
+							MDataMap mScopeMap = mFieldScope
+									.upSubMap(WebConst.CONST_WEB_PAGINATION_NAME);
+							if (mScopeMap.containsKey("showreplace")) {
+								sFieldText = WebHelper.recheckReplace(
+										mScopeMap.get("showreplace"), mData);
+							}
+
+						}
+
+					}
+
+					listEach.add(sFieldText);
 
 				}
 
