@@ -17,7 +17,7 @@ var zapadmin_apitree = {
 			zapadmin_apitree.temp.data = result.resultObject;
 
 			zapadmin_apitree.tree_show(zapadmin_apitree.temp.data);
-			zapadmin_apitree.setHitCollapse();
+			zapadmin_apitree.setExpand($('#zw_page_tree_zw_s_openLevel').val());
 		});
 
 	},
@@ -44,14 +44,18 @@ var zapadmin_apitree = {
 		
 	},
 	
-	//设置节点开启
-	setHitExpand : function(){
-		$('#zw_page_common_tree').tree('expandAll');
-	},
-	
-	//设置节点关闭
-	setHitCollapse : function(){
+	//设置展开几级节点    0：root节点	1：一级节点   2：二级节点    其它：默认关闭所有节点
+	setExpand : function(openLevel){//参数：打开几级节点
 		$('#zw_page_common_tree').tree('collapseAll');
+		var data = $('#zw_page_common_tree').tree("getChildren");
+		if(openLevel!=undefined&&!isNaN(parseInt(openLevel))&&parseInt(openLevel)>=0&&parseInt(openLevel)<3){
+			var n = parseInt(8)+parseInt(4)*parseInt(openLevel);
+			for(var i=0;i<data.length;i++){
+				if(data[i].id.length<=n){
+					$('#zw_page_common_tree').tree('expand', data[i].target);
+				}
+			}
+		}
 	},
 
 	tree_select : function(sElm) {
