@@ -213,5 +213,14 @@ public class FormatHelper {
 	public static String upReplaceSerialize(String sKey) {
 		return sKey.replace("_", "").toLowerCase();
 	}
+	
+	
+	
+	
+	public static String upReplaceSql(String sSql)
+	{
+		 return sSql.replaceAll(".*([';]+|(--)+).*", " ");  
+	}
+	
 
 }
