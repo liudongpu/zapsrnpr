@@ -18,12 +18,7 @@
 	<dependencies>
 		<!-- Spring -->
 				
-		<!-- AspectJ -->
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>${org.aspectj-version}</version>
-		</dependency>	
+		<!-- AspectJ -->	
 		
 		<!-- Logging -->
 		<dependency>
