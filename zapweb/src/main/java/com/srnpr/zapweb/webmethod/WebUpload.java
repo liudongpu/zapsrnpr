@@ -194,7 +194,10 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 
 	private String upUploadHtml(MWebResult mResult) {
 		MWebHtml mDivHtml = new MWebHtml("div");
-		MWebHtml mForm = mDivHtml.addChild("form");
+		
+		MWebHtml mLeftHtml=mDivHtml.addChild("div", "class","w_left w_w_100");
+		
+		MWebHtml mForm = mLeftHtml.addChild("form");
 		mForm.inAttributes("enctype", "multipart/form-data", "method", "post");
 
 		MWebHtml mSpanHtml = mForm.addChild("span", "class",
@@ -226,6 +229,9 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 					.setHtml("zapjs.f.require(['zapweb/js/zapweb_upload'],function(a){a.upload_result("
 							+ mResult.upJson() + ");});");
 		}
+		
+		MWebHtml mRightHtml=mDivHtml.addChild("div", "class","w_left");
+		mRightHtml.setHtml("图片上传");
 
 		return mDivHtml.upString();
 	}
