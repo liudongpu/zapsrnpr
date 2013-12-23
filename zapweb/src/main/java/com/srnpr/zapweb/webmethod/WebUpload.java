@@ -1,11 +1,15 @@
 package com.srnpr.zapweb.webmethod;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -23,6 +27,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.apache.poi.ss.formula.ptg.StringPtg;
 import org.springframework.util.FileCopyUtils;
+
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.baseface.IBaseCreate;
 import com.srnpr.zapcom.baseface.IBaseInstance;
@@ -225,7 +230,19 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 		return mDivHtml.upString();
 	}
 
+	/**
+	 * 带扩展的图片上传
+	 * 
+	 * @param request
+	 * @param sTarget
+	 * @return
+	 */
 	private MWebResult doExtendUpload(HttpServletRequest request, String sTarget) {
+
+		return doExtendUpload(upFileFromRequest(request), sTarget);
+	}
+
+	public MWebResult doExtendUpload(FileItem fi, String sTarget) {
 
 		MWebResult mResult = new MWebResult();
 
@@ -233,8 +250,6 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 				"46992103", "define_name", sTarget);
 
 		if (mUpMap != null) {
-
-			FileItem fi = upFileFromRequest(request);
 
 			if (fi != null) {
 
@@ -326,11 +341,10 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 
 			} else {
 
-				 sReturnString = upUploadHtml(doExtendUpload(request,
-				 sTarget));
+				sReturnString = upUploadHtml(doExtendUpload(request, sTarget));
 				// sReturnString = doExtendUpload(request, sTarget).upJson();
 
-				//sReturnString = doExtendUpload(request, sTarget).upJson();
+				// sReturnString = doExtendUpload(request, sTarget).upJson();
 
 			}
 
@@ -431,6 +445,28 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 		}
 
 		return mResult;
+	}
+
+	/**
+	 * 远程下载文件并上传
+	 * 
+	 * @param sTarget
+	 * @param sUrl
+	 * @return
+	 */
+	public MWebResult uploadRemote(String sTarget, String sUrl) {
+		DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
+
+		FileItem fi = diskFileItemFactory.createItem("aa", "", true, "file");
+		try {
+			fi.write(new File(new URI(sUrl)));
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return doExtendUpload(fi, sTarget);
 	}
 
 }
