@@ -17,7 +17,7 @@ var zs_template_headerlogo = {
 		var sImage = $(oItem).find('img').attr('src');
 
 		var aHtml = zapweb_upload.upload_html(zapjs.c.path_upload,
-				'zw_f_headerlogo', sImage ? sImage : '', '');
+				'zw_f_headerlogo', sImage ? sImage : '', 'zw_s_description=建议宽度1200px');
 		var aContent = [];
 		aContent.push('<div class="zat_template_headerlogo w_p_20">');
 		aContent
@@ -48,8 +48,8 @@ var zs_template_headerlogo = {
 
 			var sText = $(el).text();
 			var sLink = $(el).attr('href');
-			zs_template_headerlogo.add_table(sText,sLink);
-			
+			zs_template_headerlogo.add_table(sText, sLink);
+
 		});
 
 	},
@@ -64,14 +64,13 @@ var zs_template_headerlogo = {
 			return false;
 		}
 
-		zs_template_headerlogo.add_table(sText,sLink);
+		zs_template_headerlogo.add_table(sText, sLink);
 
 		$('#zs_template_headerlogo_text').val('');
 		$('#zs_template_headerlogo_link').val('');
 
 	},
-	add_table:function(sText,sLink)
-	{
+	add_table : function(sText, sLink) {
 		var aHtml = [];
 		aHtml
 				.push('<tr><td><input type="text"  class="w_w_100  c_text" value="'
@@ -81,14 +80,22 @@ var zs_template_headerlogo = {
 
 		$('.zat_template_headerlogo table').append(aHtml.join(''));
 	},
-	
 
 	success_headerlogo : function() {
 		if ($('#zw_f_headerlogo').val() != '') {
 
 			var aHtml = [];
-			aHtml.push('<div class="c_theme_headerlogo"><div><img src="'
-					+ $('#zw_f_headerlogo').val() + '"/></div>');
+
+			var sFavLink = "";
+			if (zs_template.temp.customlink.code_seller) {
+				sFavLink = zs_template.temp.customlink.link_favorite.replace(
+						'{0}', zs_template.temp.customlink.code_seller);
+			}
+
+			aHtml.push('<div class="' + zs_template.up_css('headerlogo')
+					+ '"><div class="c_image"><a href="' + sFavLink
+					+ '"><img src="' + $('#zw_f_headerlogo').val()
+					+ '"/></a></div>');
 
 			aHtml.push('<div class="c_navbg"><div class="c_navtext"><ul>');
 
@@ -97,13 +104,14 @@ var zs_template_headerlogo = {
 						if (n > 1) {
 							var sText = $(el).find('.c_text').val();
 							var sLink = $(el).find('.c_link').val();
-							if(sText&&sLink)
-							aHtml.push('<li><a href="' + sLink + '">' + sText
-									+ '</a></li>');
+							if (sText && sLink)
+								aHtml.push('<li><a href="' + sLink + '">'
+										+ sText + '</a></li>');
 						}
 					});
 
-			aHtml.push('</ul></div><div class="c_theme_clear"></div></div>');
+			aHtml.push('</ul></div><div class="' + zs_template.up_css('clear')
+					+ '"></div></div>');
 
 			aHtml.push('</div>');
 

@@ -58,7 +58,7 @@ a{text-decoration:none}
 .zw_page_tree_topp{width:50%}
 .zw_page_tree_right{width:65%;float:right}
 .zw_page_tree_box{margin-top:30px}
-.zw_page_upload_iframe{height:50px;width:200px}
+.zw_page_upload_iframe{height:50px;min-width:400px}
 .zab_manage_login_body{padding-top:40px;padding-bottom:40px}
 .zab_manage_login_body .c_login_header{height:64px;position:relative}
 .zab_manage_login_body .c_login_logo{width:146px;height:40px;background-image:url("../img/login/logo.jpg")}

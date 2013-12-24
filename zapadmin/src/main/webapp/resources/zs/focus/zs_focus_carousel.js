@@ -3,12 +3,50 @@ var zs_focus_carousel = {
 	temp : {
 
 		objs : {},
-		//是否已添加过定时器 防止多个调用时的多次添加定时
-		flaginterval:false
+		// 是否已添加过定时器 防止多个调用时的多次添加定时
+		flaginterval : false
 	},
+
 	play : function(options) {
 
-		// alert(sId);
+		zs.f.delay(function() {
+			return typeof jQuery === "function";
+
+		}, function() {
+			zs.f.ready(function() {
+				zs_focus_carousel.do_play(options);
+			});
+		}, 500);
+
+	},
+	// 自动播放
+	auto_play : function() {
+
+		zs.f.delay_ready(
+
+		function() {
+
+			$('.ctheme_shop_boxbody .ctheme_shop_centeradv .c_info').each(
+					function(n, el) {
+
+						if (!$(el).attr('id')) {
+							$(el).attr('id', zs.f.uuid('uid_'));
+						}
+
+						zs_focus_carousel.do_play({
+							id : $(el).attr('id')
+						});
+					}
+
+			);
+		}
+
+		);
+
+	},
+
+	do_play : function(options) {
+
 		var defaults = {
 			id : '',
 			pics : [],
@@ -23,57 +61,69 @@ var zs_focus_carousel = {
 
 		var s = $.extend({}, defaults, options || {});
 
-		s.every = (parseInt($(document.body).width()) - s.width) / 2;
-
 		var sId = s.id;
 
-		var aImages = $('#' + sId).val().split('|');
+		if (zs_focus_carousel.temp.objs[sId]) {
+			return false;
+		}
+
+		var aImages = [];
+
+		$('#' + sId).find('img').each(function(n, el) {
+
+			aImages.push($('el').attr('src'));
+
+		});
 
 		if (aImages.length == 0) {
 			return false;
 		}
-
-		aImages.splice(0, 0, aImages[aImages.length - 1]);
-		aImages.push(aImages[1]);
 		s.pics = aImages;
 		s.size = s.pics.length;
-		zs_focus_carousel.temp.objs[sId] = s;
-		var aHtml = [];
 
-		aHtml.push('<div class="c_info"><div class="c_box"><ul id="' + sId
-				+ '_ul">');
-		for ( var p in aImages) {
-			aHtml.push('<li id="' + sId + '_li_' + p
-					+ '"><div class="c_item"><img src="' + aImages[p]
-					+ '"/></div></li>');
-		}
-		aHtml
-				.push('</ul></div><div class="c_left c_nav" onclick="zs_focus_carousel.move_to(\''
-						+ sId
-						+ '\',\'left\')"><div class="c_button"></div></div><div class="c_right c_nav" onclick="zs_focus_carousel.move_to(\''
-						+ sId
-						+ '\',\'right\')"><div class="c_button"></div></div></div>');
+		
+
+		$('#' + sId).show();
 
 		var eParent = $('#' + sId).parent();
+		var sWidth = eParent.find('ul li .c_item').width();
+		s.width = parseInt(sWidth);
 
-		eParent.find('.c_info').remove();
+		var iBodyWidth = parseInt($(document.body).width());
 
-		$('#' + sId).after(aHtml.join(''));
+		s.every = (iBodyWidth - s.width) / 2;
+		zs_focus_carousel.temp.objs[sId] = s;
+		if (iBodyWidth < s.width) {
+			eParent.find('.c_nav').hide();
+		} else {
+			// 如果没有导航信息
+			if (eParent.find('.c_nav').size() == 0) {
 
-		eParent.find('.c_nav').width(s.every);
+				eParent
+						.append('<div class="c_left c_nav" onclick="zs_focus_carousel.move_to(\''
+								+ sId
+								+ '\',\'left\')"><div class="c_button ctheme_shop_png"></div></div><div class="c_right c_nav ctheme_shop_png" onclick="zs_focus_carousel.move_to(\''
+								+ sId
+								+ '\',\'right\')"><div class="c_button ctheme_shop_png"></div></div>');
+				
+			}
+		}
+		
+		
+		eParent.find('.c_nav').width(s.every + 1);
 
-		eParent.find('.c_info').hover(function() {
+		eParent.hover(function() {
 			s.flagauto = false;
+			
 		}, function() {
 			s.flagauto = true;
+			
 		});
 
-		// zs_focus_carousel.move_to(sId,1);
-		$('#' + sId + '_ul').css('left',
-				(0 - (s.index * s.width - s.every)) + 'px');
+		zs_focus_carousel.left_to(s);
 
-		if (s.timer > 0&&zs_focus_carousel.temp.flaginterval==false) {
-			zs_focus_carousel.temp.flaginterval=true;
+		if (s.timer > 0 && zs_focus_carousel.temp.flaginterval == false) {
+			zs_focus_carousel.temp.flaginterval = true;
 			setInterval(zs_focus_carousel.interval_do, s.timer);
 		}
 
@@ -83,11 +133,16 @@ var zs_focus_carousel = {
 		for ( var sId in zs_focus_carousel.temp.objs) {
 			var s = zs_focus_carousel.temp.objs[sId];
 			if (s.flagauto) {
+				
 				zs_focus_carousel.move_to(sId, 'right');
 			}
 
 		}
 
+	},
+	left_to : function(s) {
+		$('#' + s.id + ' ul').css('left',
+				(0 - (s.index * s.width - s.every)) + 'px');
 	},
 
 	move_to : function(sId, sTo) {
@@ -101,26 +156,27 @@ var zs_focus_carousel = {
 		}
 		s.index = sTo;
 		var iLeft = 0 - (s.index * s.width - s.every);
-		$('#' + sId + '_ul').stop().animate(
-				{
-					left : iLeft
-				},
-				function() {
+		$('#' + sId + ' ul').stop().animate({
+			left : iLeft
+		}, function() {
 
-					if (s.index <= 0) {
-						s.index = s.size - 2;
-						$('#' + sId + '_ul').css('left',
-								(0 - (s.index * s.width - s.every)) + 'px');
-					} else if (s.index >= (s.size - 1)) {
-						s.index = 1;
-						$('#' + sId + '_ul').css('left',
-								(0 - (s.index * s.width - s.every)) + 'px');
-					}
+			if (s.index <= 0) {
+				s.index = s.size - 2;
 
-				});
+				zs_focus_carousel.left_to(s);
+			} else if (s.index >= (s.size - 1)) {
+				s.index = 1;
+
+				zs_focus_carousel.left_to(s);
+			}
+
+		});
 
 	}
 
 };
+
+// 调用自动播放代码
+zs_focus_carousel.auto_play();
 
 zs.f.define("zs/focus/zs_focus_carousel", [], zs_focus_carousel);

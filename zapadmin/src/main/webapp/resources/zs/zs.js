@@ -312,9 +312,9 @@ zs.f=
 	{
 		uuid:{}
 	},
-	ready:function()
+	ready:function(f)
 	{
-		
+		$(document).ready(f);
 	},
 	define:function(sPath,require,oReturn)
 	{
@@ -372,7 +372,37 @@ zs.f=
 	/* 字符串转为对象 */
 	json_parse : function(text, reviver) {
 		return JSON.parse(text, reviver);
+	},
+	
+
+	/*
+	 * 判断函数1返回结果如果为true 则执行函数2 否则定时延迟判断 直到函数1返回true
+	 * zs.f.delay(function() {return typeof jQuery === "function";}, function() {alert('jQuery has loading');}, 500);
+	 */
+	delay:function(f1,f2,iTimer)
+	{
+		if(f1())
+			{
+				f2();
+			}
+		else
+			{
+				setTimeout(function(){ zs.f.delay(f1,f2,iTimer);},iTimer?iTimer:100);
+			}
+	},
+	//延迟加载  该加载会判断juery是否加载完成
+	delay_ready:function(fCall)
+	{
+		zs.f.delay(function() {
+			return typeof jQuery === "function";
+		}, function() {
+			zs.f.ready(function() {
+				fCall();
+			});
+		}, 500);
 	}
+	
+	
 };
 
 

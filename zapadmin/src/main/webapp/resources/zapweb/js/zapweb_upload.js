@@ -82,6 +82,10 @@ var zapweb_upload = {
 
 		// 定义是否带有链接参数
 		var sUploadLink = zapjs.f.upset(sSetParams, 'zw_s_link');
+		
+		
+		// 定义是否带有描述信息
+		var sDescription = zapjs.f.upset(sSetParams, 'zw_s_description');
 
 		if ($('#' + sField).val() == "" || bFlagMul) {
 
@@ -97,7 +101,7 @@ var zapweb_upload = {
 										+ sUploadTarget
 										+ '?zw_s_source='
 										+ sField
-										+ '" class="zw_page_upload_iframe" frameborder="0"></iframe>');
+										+ '&zw_s_description='+sDescription+'" class="zw_page_upload_iframe" frameborder="0"></iframe>');
 			}
 		} else {
 			$('#' + sField).nextAll('.control-upload_iframe').html('');
@@ -311,7 +315,7 @@ var zapweb_upload = {
 	// 上传提交
 	upload_upload : function(oElm) {
 
-		$('form').hide();
+		$('form').parent().parent().hide();
 		$('body').append('<span class="panel-loading">正在上传，请稍后……</span>');
 		$('#formsubmit').click();
 	}

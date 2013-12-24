@@ -13,7 +13,7 @@ var zs_template_centerimage = {
 						function(a) {
 							var aHtml = zapweb_upload.upload_html(
 									zapjs.c.path_upload, 'zw_f_centerimage', sImage ? sImage : '',
-									'');
+									'zw_s_description=建议宽度980px');
 							var aContent = [];
 							aContent
 									.push('<div class="zat_template_centerimage w_p_20">');
@@ -24,6 +24,7 @@ var zs_template_centerimage = {
 									.push('<div class="w_clear"></div>');
 							aContent.push('</div>');
 							zapjs.f.window_box({
+								id:'zs_template_centerimage_window',
 								content : aContent.join('')
 							});
 
@@ -35,10 +36,10 @@ var zs_template_centerimage = {
 	success_centerimage : function() {
 		if ($('#zw_f_centerimage').val() != '') {
 
-			zs_template.view_html('<div class="c_theme_centerimage"><img src="'
+			zs_template.view_html('<div class="'+zs_template.up_css('centerimage')+'"><img src="'
 					+ $('#zw_f_centerimage').val() + '"/></div>');
 
-			zapjs.f.window_close();
+			zapjs.f.window_close('zs_template_centerimage_window');
 			zs_template.save_html();
 
 		} else {
