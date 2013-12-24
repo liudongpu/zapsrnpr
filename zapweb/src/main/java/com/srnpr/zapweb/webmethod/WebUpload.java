@@ -192,11 +192,12 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 
 	}
 
-	private String upUploadHtml(MWebResult mResult) {
+	private String upUploadHtml(MWebResult mResult, String sDescriptionText) {
 		MWebHtml mDivHtml = new MWebHtml("div");
-		
-		MWebHtml mLeftHtml=mDivHtml.addChild("div", "class","w_left w_w_100");
-		
+
+		MWebHtml mLeftHtml = mDivHtml
+				.addChild("div", "class", "w_left w_w_100");
+
 		MWebHtml mForm = mLeftHtml.addChild("form");
 		mForm.inAttributes("enctype", "multipart/form-data", "method", "post");
 
@@ -229,10 +230,11 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 					.setHtml("zapjs.f.require(['zapweb/js/zapweb_upload'],function(a){a.upload_result("
 							+ mResult.upJson() + ");});");
 		}
-		
-		MWebHtml mRightHtml=mDivHtml.addChild("div", "class","w_left");
-		mRightHtml.setHtml("图片上传");
 
+		if (StringUtils.isNotBlank(sDescriptionText)) {
+			MWebHtml mRightHtml = mDivHtml.addChild("div", "class", "w_left");
+			mRightHtml.setHtml(sDescriptionText);
+		}
 		return mDivHtml.upString();
 	}
 
@@ -318,6 +320,15 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 		boolean bRealSave = sTarget
 				.equals(WebConst.CONST_STATIC_WEB_UPLOAD_SAVE);
 
+		String sDescriptionText = "";
+
+		// 判断如果有描述信息
+		if (StringUtils.isNotBlank(request
+				.getParameter(WebConst.CONST_WEB_FIELD_SET + "description"))) {
+			sDescriptionText = request
+					.getParameter(WebConst.CONST_WEB_FIELD_SET + "description");
+		}
+
 		if (bRealSave) {
 
 			sReturnString = doRealSave(request, sTarget).upJson();
@@ -326,7 +337,8 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 
 			if (sTarget.equals("upload")) {
 
-				sReturnString = upUploadHtml(doRemoteUpload(request, sTarget));
+				sReturnString = upUploadHtml(doRemoteUpload(request, sTarget),
+						sDescriptionText);
 				// sReturnString = doRemoteUpload(request, sTarget).upJson();
 
 			} else if (sTarget.equals("editor")) {
@@ -347,7 +359,8 @@ public class WebUpload extends BaseClass implements IBaseCreate {
 
 			} else {
 
-				sReturnString = upUploadHtml(doExtendUpload(request, sTarget));
+				sReturnString = upUploadHtml(doExtendUpload(request, sTarget),
+						sDescriptionText);
 				// sReturnString = doExtendUpload(request, sTarget).upJson();
 
 				// sReturnString = doExtendUpload(request, sTarget).upJson();
