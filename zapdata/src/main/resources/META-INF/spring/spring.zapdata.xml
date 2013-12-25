@@ -64,9 +64,9 @@
 	<aop:aspectj-autoproxy />
 
 
-	<!-- 以AspectJ方式 定义 AOP -->
+	<!-- 以AspectJ方式 定义 AOP  默认情况下只注入txservice路径下 -->
 	<aop:config proxy-target-class="true">
-		<aop:advisor pointcut="execution(* com.cmall.ctestutils.dao.UserProcess.*(..))"
+		<aop:advisor pointcut="execution(* com.*.*.txservice.*(..))"
 			advice-ref="bean_zapdata_txAdvice" />
 	</aop:config>
 
