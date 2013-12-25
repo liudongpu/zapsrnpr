@@ -33,18 +33,13 @@ public class ConnCache extends RootCache<String, DbTemplate> implements
 					dbInit.bConfig("zapdata.base_jdbc_password")));
 
 			inElement(k, dTemplate);
-			
+
 			dbInit.bLogInfo(967912001, k);
 
 		} else {
 
 			// 加载各个操作序列
-			Map<String, Object> mData = upValue(
-					dbInit.bConfig("zapdata.base_jdbc_name")).queryForMap(
-					"select * from "
-							+ dbInit.bConfig("zapdata.base_jdbc_table")
-							+ " where server_name=:server_name",
-					new MDataMap("server_name", k));
+			Map<String, Object> mData = upConnInfo(k, 2);
 			if (mData != null) {
 				dTemplate = new DbTemplate(dbInit.upDataSource(
 						mData.get("jdbc_driver").toString(),
@@ -63,4 +58,25 @@ public class ConnCache extends RootCache<String, DbTemplate> implements
 		return dTemplate;
 
 	}
+
+	/**
+	 * 获取连接信息
+	 * 
+	 * @param sServerName
+	 * @param iConnType
+	 *            连接类型 1为conncache获取的连接 2为分布式事务获取的连接
+	 * @return
+	 */
+	public Map<String, Object> upConnInfo(String sServerName, int iConnType) {
+		DataInit dbInit = new DataInit();
+		dbInit.init();
+		Map<String, Object> mData = upValue(
+				dbInit.bConfig("zapdata.base_jdbc_name")).queryForMap(
+				"select * from " + dbInit.bConfig("zapdata.base_jdbc_table")
+						+ " where server_name=:server_name",
+				new MDataMap("server_name", sServerName));
+
+		return mData;
+	}
+
 }
