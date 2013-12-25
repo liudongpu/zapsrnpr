@@ -52,7 +52,7 @@ public class XaDataSourceBean extends AtomikosDataSourceBean {
 		properties.put("user", sUserString);
 		properties.put("password", sPasswodsString);
 
-		if (StringUtils.isNotEmpty(this.getUniqueResourceName())) {
+		if (StringUtils.isEmpty(this.getUniqueResourceName())) {
 			this.setUniqueResourceName(this.serverName);
 		}
 
