@@ -64,23 +64,25 @@
 	<aop:aspectj-autoproxy />
 
 
-	<!-- 以AspectJ方式 定义 AOP  默认情况下只注入txservice路径下 -->
+	<!-- 以AspectJ方式 定义 AOP proxy-target-class="true"该标记表示强制使用cglib -->
 	<aop:config proxy-target-class="true">
-		<aop:advisor pointcut="execution(* com*..*txservice*..*(..))"
+		<aop:advisor
+			pointcut=" execution(public * com+.*txmapper+.*(..)) and execution(public * com+.*txservice+.*(..)) and !execution(public void com+.*txservice+.set*(..))"
 			advice-ref="bean_zapdata_txAdvice" />
 	</aop:config>
 
 	<!-- 配置事务传播特性:如果存在一个事务，则支持当前事务。如果没有事务则开启：REQUIRED -->
 	<tx:advice id="bean_zapdata_txAdvice" transaction-manager="bean_zapdata_springTransactionManager">
 		<tx:attributes>
-			<tx:method name="get*" propagation="REQUIRED" rollback-for="Exception" />
+
 			<tx:method name="save*" propagation="REQUIRED"
 				rollback-for="Exception" />
 			<tx:method name="insert*" propagation="REQUIRED"
 				rollback-for="Exception" />
 			<tx:method name="create*" propagation="REQUIRED"
 				rollback-for="Exception" />
-			<tx:method name="del*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="delete*" propagation="REQUIRED"
+				rollback-for="Exception" />
 			<tx:method name="update*" propagation="REQUIRED"
 				rollback-for="Exception" />
 			<tx:method name="modify*" propagation="REQUIRED"
