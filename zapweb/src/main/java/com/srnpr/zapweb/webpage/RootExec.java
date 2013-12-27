@@ -44,36 +44,30 @@ public class RootExec extends BaseClass {
 
 		// 查询条件
 		String sWhere = "";
-		
-		
-		MDataMap mPaginationMap=new MDataMap();
-		
+
+		MDataMap mPaginationMap = new MDataMap();
 
 		if (StringUtils.isNotEmpty(webPage.getDataScope())) {
-			
-			
-			MDataMap mScopeMap=new MDataMap();
+
+			MDataMap mScopeMap = new MDataMap();
 			mScopeMap.inAllValues(FormatHelper.upUrlStrings(WebHelper
 					.recheckReplace(webPage.getDataScope(), mReqMap)));
-			mPaginationMap=mScopeMap.upSubMap(WebConst.CONST_WEB_PAGINATION_NAME);
-			
-			
+			mPaginationMap = mScopeMap
+					.upSubMap(WebConst.CONST_WEB_PAGINATION_NAME);
+
 		}
 
 		/********** 开始处理分页输入参数逻辑 ********************************/
 		{
 			MDataMap mReqpageMap = mReqMap
 					.upSubMap(WebConst.CONST_WEB_PAGINATION_NAME);
-			
-			if(mReqpageMap!=null&&mReqpageMap.size()>0)
-			{
-				for(String sKey : mReqpageMap.keySet())
-				{
+
+			if (mReqpageMap != null && mReqpageMap.size() > 0) {
+				for (String sKey : mReqpageMap.keySet()) {
 					mPaginationMap.put(sKey, mReqpageMap.get(sKey));
 				}
-				
+
 			}
-			
 
 			if (mPaginationMap != null && mPaginationMap.size() > 0) {
 
@@ -145,9 +139,9 @@ public class RootExec extends BaseClass {
 
 					String sField = mPaginationMap.get("sql_where");
 
-					if (StringUtils.isNotEmpty(sWhere)) {
-						sWhere = WebHelper.recheckReplace(sWhere, mReqMap)
-								+ " and ";
+					if (StringUtils.isNotEmpty(sField)) {
+						sField = (StringUtils.isEmpty(sWhere) ? "" : " and ")
+								+ WebHelper.recheckReplace(sField, mReqMap);
 					}
 
 					sWhere = sWhere + sField;
