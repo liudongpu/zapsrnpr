@@ -67,7 +67,7 @@
 	<!-- 以AspectJ方式 定义 AOP proxy-target-class="true"该标记表示强制使用cglib -->
 	<aop:config proxy-target-class="true">
 		<aop:advisor
-			pointcut=" execution(public * com+.*txmapper+.*(..)) and execution(public * com+.*txservice+.*(..)) and !execution(public void com+.*txservice+.set*(..))"
+			pointcut=" execution(public * com..txservice.*.*(..)) || execution(public * com..txmapper.*.*(..))"
 			advice-ref="bean_zapdata_txAdvice" />
 	</aop:config>
 
