@@ -28,10 +28,15 @@ public class DataInit extends BaseClass implements IBaseInit {
 			//最小连接数
 			cm.setMinPoolSize(1);
 			//初始化时初始的连接数
-			//cm.setInitialPoolSize(0);
+			cm.setInitialPoolSize(1);
 		
+			//<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+			cm.setAcquireIncrement(1);
+			//最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0
+			cm.setMaxIdleTime(60);
+			
 			//最大连接数
-			//cm.setMaxPoolSize(10);
+			cm.setMaxPoolSize(15);
 			
 			
 
