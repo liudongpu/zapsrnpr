@@ -4,6 +4,7 @@ encoding//src/main/resources=UTF-8
 encoding//src/main/resources/META-INF/zapsrnpr/config/config.zapdata.properties=UTF-8
 encoding//src/main/resources/META-INF/zapsrnpr/info/info.zapdata.9680.properties=UTF-8
 encoding//src/main/resources/c3p0.properties=UTF-8
+encoding//src/main/resources/jta.properties=UTF-8
 encoding//src/test/java=UTF-8
 encoding//src/test/resources=UTF-8
 encoding/<project>=UTF-8
