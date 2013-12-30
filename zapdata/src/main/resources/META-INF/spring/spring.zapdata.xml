@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans  xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -10,12 +10,12 @@
 	<description>Example configuration to get you started.</description>
 
 	<bean id="bean_zapdata_xadatasource" class="com.srnpr.zapdata.spring.XaDataSourceBean"
-		init-method="init" destroy-method="close" abstract="true">
+		init-method="init" destroy-method="close" abstract="true"  lazy-init="true">
 		<property name="xaDataSourceClassName"
 			value="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource" />
 		<property name="poolSize" value="1" />
 		<property name="minPoolSize" value="2" />
-		<property name="maxPoolSize" value="10" />
+		<property name="maxPoolSize" value="5" />
 		<property name="borrowConnectionTimeout" value="60" />
 		<property name="reapTimeout" value="20" />
 		<!-- 最大空闲时间 -->
@@ -23,7 +23,7 @@
 		<property name="maintenanceInterval" value="60" />
 		<property name="loginTimeout" value="60" />
 		<property name="logWriter" value="60" />
-		<!-- <property name="testQuery"> <value>select 1</value> </property> -->
+		<property name="testQuery"> <value>select 1</value> </property>
 	</bean>
 
 

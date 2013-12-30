@@ -15,12 +15,12 @@ public class BeansHelper implements IBaseHelper {
 
 	private static BeanFactory beanFactory = null;
 
-	private static String SyncFlag = "";
+	
 
 	private static Object getBeanObject(String name) {
 
 		if (beanFactory == null) {
-			new BeansHelper().initBeanFactory();
+			initBeanFactory();
 		}
 
 		return beanFactory.getBean(name);
@@ -30,10 +30,8 @@ public class BeansHelper implements IBaseHelper {
 		return (T) getBeanObject(sBeanName);
 	}
 
-	private synchronized void initBeanFactory() {
-		synchronized (SyncFlag) {
-
-			if (StringUtils.isEmpty(SyncFlag)) {
+	private synchronized static void initBeanFactory() {
+	
 
 				if (beanFactory == null) {
 					String[] sSpringConfig = TopUp.upConfig(
@@ -42,11 +40,10 @@ public class BeansHelper implements IBaseHelper {
 					beanFactory = new ClassPathXmlApplicationContext(
 							sSpringConfig).getBeanFactory();
 					
-					SyncFlag="ok";
+					
 					
 				}
-			}
-		}
+			
 	}
 
 }
