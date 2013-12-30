@@ -8,6 +8,11 @@ import org.apache.commons.lang.StringUtils;
 import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 
+/**
+ * Mysql调用
+ * @author srnpr
+ *
+ */
 public class MysqlCall extends DbCall {
 
 	/**
