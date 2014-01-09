@@ -57,7 +57,13 @@ public class ApiCallSupport<TInput extends IBaseInput, TResult extends IBaseResu
 
 		JsonHelper<TResult> jsonHelperResult = new JsonHelper<TResult>();
 
-		tResult = jsonHelperResult.StringToObjExp(sCallString, tResult);
+		try {
+			tResult = jsonHelperResult.StringToObjExp(sCallString, tResult);
+		} catch (Exception e) {
+			bLogDebug(0, sCallString);
+			e.printStackTrace();
+		}
+		
 
 		return tResult;
 

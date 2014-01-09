@@ -13,9 +13,9 @@
 		init-method="init" destroy-method="close" abstract="true"  lazy-init="true">
 		<property name="xaDataSourceClassName"
 			value="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource" />
-		<property name="poolSize" value="1" />
+		<property name="poolSize" value="10" />
 		<property name="minPoolSize" value="2" />
-		<property name="maxPoolSize" value="5" />
+		<property name="maxPoolSize" value="50" />
 		<property name="borrowConnectionTimeout" value="60" />
 		<property name="reapTimeout" value="20" />
 		<!-- 最大空闲时间 -->
@@ -23,7 +23,7 @@
 		<property name="maintenanceInterval" value="60" />
 		<property name="loginTimeout" value="60" />
 		<property name="logWriter" value="60" />
-		<property name="testQuery"> <value>select 1</value> </property>
+		
 	</bean>
 
 
