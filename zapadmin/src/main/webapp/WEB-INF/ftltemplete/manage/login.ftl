@@ -13,9 +13,8 @@
 			</div>
 			<div class="w_fr w_mt_30">
 				<ul class="w_ul">
-					<li><a href="">商城首页</a></li>
-					<li><a href="">央视网</a></li>
-					<li><a href="">中国好物产</a></li>
+					<li><a href="http://www.cctvmall.com">商城首页</a></li>
+					<li><a href="http://www.cctv.com">央视网</a></li>
 				</ul>
 			</div>
 		</div>
