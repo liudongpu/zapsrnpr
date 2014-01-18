@@ -22,5 +22,20 @@ public class RootInput implements IBaseInput {
 	public void setVersion(int version) {
 		this.version = version;
 	}
+	
+	public String getRandom() {
+		return random;
+	}
+
+	public void setRandom(String random) {
+		this.random = random;
+	}
+
+	/**
+	 * 随机标记位  该参数用户防止缓存  由调用方随机生成
+	 */
+	private String random="";
+	
+	
 
 }
