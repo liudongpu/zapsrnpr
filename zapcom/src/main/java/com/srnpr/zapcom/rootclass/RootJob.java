@@ -20,6 +20,9 @@ public abstract class RootJob extends BaseClass implements Job, IBaseJob {
 			throws JobExecutionException {
 
 		try {
+			
+			bLogInfo(967912002);
+			
 			doExecute(context);
 		} catch (Exception e) {
 
