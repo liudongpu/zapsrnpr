@@ -31,9 +31,9 @@ public class ProductUpload extends BaseClass implements IWebNotice {
 					.get());
 
 			if (mResult.upFlagTrue()) {
-				if (imageSupport.upSourceHeight() < 500
-						|| imageSupport.upSourceWidth() < 500) {
-					mResult.inErrorMessage(969905060, "500", "500");
+				if (imageSupport.upSourceHeight() < 600
+						|| imageSupport.upSourceWidth() < 600) {
+					mResult.inErrorMessage(969905060, "600", "600");
 				}
 			}
 
@@ -54,7 +54,7 @@ public class ProductUpload extends BaseClass implements IWebNotice {
 
 				if (mSourceResult.upFlagTrue()) {
 
-					imageSupport.scaleWhite(500, 500);
+					imageSupport.scaleWhite(600, 600);
 
 					MWebResult mBigFile = webUpload.remoteUploadCustom(mUpload
 							.getFile().getName(), imageSupport.upTargetByte(),
