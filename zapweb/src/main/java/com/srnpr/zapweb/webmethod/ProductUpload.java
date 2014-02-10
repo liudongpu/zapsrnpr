@@ -1,5 +1,8 @@
 package com.srnpr.zapweb.webmethod;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
@@ -29,6 +32,11 @@ public class ProductUpload extends BaseClass implements IWebNotice {
 
 			ImageSupport imageSupport = new ImageSupport(mUpload.getFile()
 					.get());
+			
+			if(imageSupport.getSourceImage() == null){
+				mResult.inErrorMessage(969905061);
+			}
+			
 
 			if (mResult.upFlagTrue()) {
 				if (imageSupport.upSourceHeight() < 500
@@ -124,5 +132,4 @@ public class ProductUpload extends BaseClass implements IWebNotice {
 
 		return mResult;
 	}
-
 }
