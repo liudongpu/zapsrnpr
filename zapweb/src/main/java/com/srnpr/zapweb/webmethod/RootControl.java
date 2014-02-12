@@ -154,6 +154,33 @@ public class RootControl {
 		return ApiFactory.INSTANCE.upProcess(sUrl,request);
 
 	}
+	
+	
+	
+	/**
+	 * json数据
+	 * 
+	 * @param sUrl
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/jsonpajax/{url}", produces = { "text/plain;charset=UTF-8" })
+	@ResponseBody
+	public String jsonp(@PathVariable("url") String sUrl, Model model,
+			HttpServletRequest request) {
+
+		String sReturnString= ApiFactory.INSTANCE.upProcess(sUrl,request);
+		
+		String sCallBackString=request.getParameter("callbackparam");
+		
+		return sCallBackString+"("+sReturnString+")";
+		
+		
+
+	}
+	
+	
 
 	/**
 	 * 函数操作

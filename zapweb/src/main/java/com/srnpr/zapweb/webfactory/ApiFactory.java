@@ -107,8 +107,13 @@ public class ApiFactory implements IBaseInstance {
 
 					for (String skey : mDataMap.keySet()) {
 						if (!skey.startsWith("api_")) {
-							lInput.add("\"" + skey + "\":\""
-									+ mDataMap.get(skey) + "\"");
+
+							if (!skey.equals("callbackparam")
+									&& !skey.equals("_")) {
+
+								lInput.add("\"" + skey + "\":\""
+										+ mDataMap.get(skey) + "\"");
+							}
 						}
 
 					}
@@ -204,11 +209,12 @@ public class ApiFactory implements IBaseInstance {
 			if (mAuthorize != null) {
 				sApiPass = mAuthorize.getApiPass();
 			}
-			if(!"".equals(sApiClassString)&&mAuthorize.getApiAble()!=null&&!"".equals(mAuthorize.getApiAble())){
+			if (!"".equals(sApiClassString) && mAuthorize.getApiAble() != null
+					&& !"".equals(mAuthorize.getApiAble())) {
 				String reg = mAuthorize.getApiAble();
-				Pattern p =Pattern .compile(reg);
+				Pattern p = Pattern.compile(reg);
 				Matcher m = p.matcher(sApiClassString);
-				if(!m.find()){
+				if (!m.find()) {
 					mResult.inErrorMessage(969905020);
 				}
 			}
@@ -259,8 +265,8 @@ public class ApiFactory implements IBaseInstance {
 				if (StringUtils.isNotEmpty(sLogGuid)) {
 					WebCacheLog.INSTANCE.inElement(
 							"api_error_" + sLogGuid,
-							new MDataMap("uid", sLogGuid,"time",FormatHelper.upDateTime(), "error", e
-									.getMessage()));
+							new MDataMap("uid", sLogGuid, "time", FormatHelper
+									.upDateTime(), "error", e.getMessage()));
 				}
 
 				e.printStackTrace();
@@ -284,8 +290,10 @@ public class ApiFactory implements IBaseInstance {
 		}
 
 		if (StringUtils.isNotEmpty(sLogGuid)) {
-			WebCacheLog.INSTANCE.inElement("api_result_" + sLogGuid,
-					new MDataMap("uid", sLogGuid, "time",FormatHelper.upDateTime(),"result", sReturnString));
+			WebCacheLog.INSTANCE.inElement(
+					"api_result_" + sLogGuid,
+					new MDataMap("uid", sLogGuid, "time", FormatHelper
+							.upDateTime(), "result", sReturnString));
 		}
 
 		return sReturnString;
@@ -324,7 +332,8 @@ public class ApiFactory implements IBaseInstance {
 
 			MApiModel mApiModel = upApiModel(sClassName);
 
-			iBaseApi = (IBaseApi<IBaseResult, IBaseInput>) mApiModel.getApiClass().newInstance();
+			iBaseApi = (IBaseApi<IBaseResult, IBaseInput>) mApiModel
+					.getApiClass().newInstance();
 			if (StringUtils.isNotBlank(sInputJson))
 				iBaseInput = (IBaseInput) mApiModel.getInputClass()
 						.newInstance();
