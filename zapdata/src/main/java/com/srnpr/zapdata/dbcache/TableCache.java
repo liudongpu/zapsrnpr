@@ -8,9 +8,11 @@ import com.srnpr.zapcom.basemodel.MStringMap;
 import com.srnpr.zapcom.rootclass.RootCache;
 import com.srnpr.zapcom.topdo.TopUp;
 import com.srnpr.zapdata.dbcache.DataInit;
+import com.srnpr.zapdata.dbdo.DataConst;
 import com.srnpr.zapdata.dbface.ITableCall;
 import com.srnpr.zapdata.dbsupport.DbTemplate;
 import com.srnpr.zapdata.dbsupport.MysqlCall;
+import com.srnpr.zapdata.dbsupport.MysqlCallForSlave;
 
 /**
  * @author srnpr
@@ -70,9 +72,18 @@ public class TableCache extends RootCache<String, ITableCall> {
 
 		{
 
-			mysqlCall = new MysqlCall(ConnCache.INSTANCE.upValue(mData.get(
-					"server_name").toString()), mData.get("table_name")
-					.toString());
+			// 开始根据不同的分离模型加载代码
+			if (DataConst.CONST_DATA_RUN_TYPE == 1) {
+				mysqlCall = new MysqlCallForSlave(
+						ConnCache.INSTANCE.upValue(mData.get("server_name")
+								.toString()), mData.get("server_name")
+								.toString(), mData.get("table_name").toString());
+			} else {
+
+				mysqlCall = new MysqlCall(ConnCache.INSTANCE.upValue(mData.get(
+						"server_name").toString()), mData.get("table_name")
+						.toString());
+			}
 
 			inElement(mData.get("table_name").toString(), mysqlCall);
 		}

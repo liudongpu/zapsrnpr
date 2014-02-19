@@ -7,6 +7,11 @@ import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbcache.ConnCache;
 import com.srnpr.zapdata.dbdo.DataConst;
 
+/**
+ * 读写分离模型
+ * @author srnpr
+ *
+ */
 public class MysqlCallForSlave extends MysqlCall {
 
 	private String dataBaseName = null;
