@@ -8,6 +8,7 @@ import com.srnpr.zapcom.baseface.IBaseInstance;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.rootclass.RootCache;
 import com.srnpr.zapdata.dbdo.DataConst;
+import com.srnpr.zapdata.dbdo.DataEnumerConnType;
 import com.srnpr.zapdata.dbsupport.DbTemplate;
 
 public class ConnCache extends RootCache<String, DbTemplate> implements
@@ -39,28 +40,21 @@ public class ConnCache extends RootCache<String, DbTemplate> implements
 
 			dbInit.bLogInfo(967912001, k);
 
-		} 
-		//如果是从库
-		else if (StringUtils.startsWith(k, DataConst.CONST_DATA_SLAVE_NAME)) {
-			// 加载各个操作序列
-			Map<String, Object> mData = upConnInfo(StringUtils.substringAfter(k, DataConst.CONST_DATA_SLAVE_NAME), 3);
-			if (mData != null) {
-				dTemplate = new DbTemplate(dbInit.upDataSource(
-						mData.get("jdbc_driver").toString(),
-						mData.get("jdbc_dburl").toString(),
-						mData.get("jdbc_user").toString(),
-						mData.get("jdbc_password").toString()));
-
-				inElement(k, dTemplate);
-
-				dbInit.bLogInfo(967912001, k);
-			} else {
-				bLogError(969905001, k);
-			}
 		} else {
 
-			// 加载各个操作序列
-			Map<String, Object> mData = upConnInfo(k, 1);
+			Map<String, Object> mData = null;
+
+			//判断连接类型
+			if (StringUtils.startsWith(k, DataConst.CONST_DATA_SLAVE_NAME)) {
+				mData = upConnInfo(StringUtils.substringAfter(k,
+						DataConst.CONST_DATA_SLAVE_NAME),
+						DataEnumerConnType.CodeSlave);
+			} else if (DataConst.CONST_DATA_RUN_TYPE == 2) {
+				mData = upConnInfo(k, DataEnumerConnType.ReplivationDriver);
+			} else {
+				mData = upConnInfo(k, DataEnumerConnType.BaseConn);
+			}
+
 			if (mData != null) {
 				dTemplate = new DbTemplate(dbInit.upDataSource(
 						mData.get("jdbc_driver").toString(),
@@ -74,35 +68,40 @@ public class ConnCache extends RootCache<String, DbTemplate> implements
 			} else {
 				bLogError(969905001, k);
 			}
+
 		}
 
 		return dTemplate;
 
 	}
 
+	
 	/**
 	 * 获取连接信息
-	 * 
 	 * @param sServerName
-	 * @param iConnType
-	 *            连接类型 1为conncache获取的连接 2为分布式事务获取的连接  3为获取从库链接  4为获取驱动级主从分离连接
+	 * @param dataEnumerConnType
 	 * @return
 	 */
-	public Map<String, Object> upConnInfo(String sServerName, int iConnType) {
+	public Map<String, Object> upConnInfo(String sServerName,
+			DataEnumerConnType dataEnumerConnType) {
 		DataInit dbInit = new DataInit();
 		dbInit.init();
 
-		String sTypeDid ="104020013";
-		
-		if(iConnType==3)
-		{
-			sTypeDid="104020019";
+		String sTypeDid = "104020013";
+
+		switch (dataEnumerConnType) {
+		case CodeSlave:
+			sTypeDid = "104020019";
+			break;
+		case ReplivationDriver:
+			sTypeDid = "104020004";
+			break;
+
+		default:
+			sTypeDid = "104020013";
+			break;
 		}
-		else if(iConnType==3)
-		{
-			sTypeDid="104020004";
-		}
-		
+
 		Map<String, Object> mData = upValue(
 				dbInit.bConfig("zapdata.base_jdbc_name"))
 				.queryForMap(

@@ -9,6 +9,7 @@ import com.atomikos.jdbc.AtomikosDataSourceBean;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.topdo.TopUp;
 import com.srnpr.zapdata.dbcache.ConnCache;
+import com.srnpr.zapdata.dbdo.DataEnumerConnType;
 import com.srnpr.zapdata.dbdo.DbUp;
 
 /**
@@ -42,7 +43,7 @@ public class XaDataSourceBean extends AtomikosDataSourceBean {
 		 */
 
 		Map<String, Object> mDataMap = ConnCache.INSTANCE.upConnInfo(
-				this.serverName, 2);
+				this.serverName, DataEnumerConnType.TxConn);
 
 		String sUrlString = mDataMap.get("jdbc_dburl").toString();
 		String sUserString = mDataMap.get("jdbc_user").toString();
