@@ -118,14 +118,19 @@ public class MysqlCall extends DbCall {
 
 	}
 
+	/**
+	 * 获取从库驱动模型
+	 * 
+	 * @return
+	 */
 	private DbTemplate upSlaveTemplate() {
-		if (slaveTemplate == null) {
+		if (slaveTemplate == null || slaveTemplate.getFlagEnable() == 0) {
 
 			slaveTemplate = ConnCache.INSTANCE
 					.upValue(DataConst.CONST_DATA_SLAVE_NAME + dataBaseName);
 
 			// 判断如果从库为空 则开始读取主库数据
-			if (slaveTemplate == null) {
+			if (slaveTemplate == null || slaveTemplate.getFlagEnable() == 0) {
 
 				bLogInfo(968005004, dataBaseName);
 
@@ -147,12 +152,22 @@ public class MysqlCall extends DbCall {
 
 		List<Map<String, Object>> listReturnMaps = null;
 
-		try {
-			listReturnMaps = upSlaveTemplate().queryForList(sSql, mWhereMap);
-		} catch (Exception e) {
-			bLogError(968005003, dataBaseName, dataTableName);
-			slaveTemplate = dataTemplate;
-			listReturnMaps = upSlaveTemplate().queryForList(sSql, mWhereMap);
+		if (DataConst.CONST_DATA_RUN_TYPE == 1) {
+
+			try {
+				listReturnMaps = upSlaveTemplate()
+						.queryForList(sSql, mWhereMap);
+			} catch (Exception e) {
+				bLogError(968005003, dataBaseName, dataTableName);
+				ConnCache.INSTANCE.upValue(
+						DataConst.CONST_DATA_SLAVE_NAME + dataBaseName)
+						.setFlagEnable(0);
+				slaveTemplate = dataTemplate;
+				listReturnMaps = upSlaveTemplate()
+						.queryForList(sSql, mWhereMap);
+			}
+		} else {
+			listReturnMaps = dataTemplate.queryForList(sSql, mWhereMap);
 		}
 
 		return listReturnMaps;
