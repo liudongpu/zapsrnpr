@@ -71,8 +71,7 @@ public class TableCache extends RootCache<String, ITableCall> {
 		{
 
 			mysqlCall = new MysqlCall(ConnCache.INSTANCE.upValue(mData.get(
-					"server_name").toString()),mData.get(
-							"server_name").toString(), mData.get("table_name")
+					"server_name").toString()), mData.get("table_name")
 					.toString());
 
 			inElement(mData.get("table_name").toString(), mysqlCall);

@@ -5,17 +5,13 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
-
 import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
-import com.srnpr.zapdata.dbcache.ConnCache;
-import com.srnpr.zapdata.dbdo.DataConst;
 
 /**
  * Mysql调用
- * 
  * @author srnpr
- * 
+ *
  */
 public class MysqlCall extends DbCall {
 
@@ -25,24 +21,16 @@ public class MysqlCall extends DbCall {
 	private DbTemplate dataTemplate = null;
 
 	/**
-	 * 从库数据源 该数据源为只读数据源
-	 */
-	private DbTemplate slaveTemplate = null;
-
-	/**
 	 * @param dBase
 	 *            数据源
 	 * @param sTableName
 	 *            表名称
 	 */
-	public MysqlCall(DbTemplate dBase, String sDataBaseName, String sTableName) {
+	public MysqlCall(DbTemplate dBase, String sTableName) {
 		dataTemplate = dBase;
 
-		dataBaseName = sDataBaseName;
 		dataTableName = sTableName;
 	}
-
-	private String dataBaseName = null;
 
 	/**
 	 * 表名
@@ -86,16 +74,16 @@ public class MysqlCall extends DbCall {
 
 		if (StringUtils.isNotEmpty(sOrders)) {
 
-			String[] sOrderStrings = sOrders.split(",");
-			for (int i = 0, j = sOrderStrings.length; i < j; i++) {
-				if (StringUtils.startsWith(sOrderStrings[i], "-")) {
-					sOrderStrings[i] = StringUtils.substringAfter(
-							sOrderStrings[i], "-") + " desc ";
+			String[] sOrderStrings=sOrders.split(",");
+			for(int i=0,j=sOrderStrings.length;i<j;i++)
+			{
+				if(StringUtils.startsWith(sOrderStrings[i], "-"))
+				{
+					sOrderStrings[i]=StringUtils.substringAfter(sOrderStrings[i], "-")+" desc ";
 				}
 			}
 
-			sBuffer.append(" order by " + StringUtils.join(sOrderStrings, ",")
-					+ " ");
+			sBuffer.append(" order by " + StringUtils.join(sOrderStrings,",")+" ");
 
 		}
 
@@ -118,68 +106,10 @@ public class MysqlCall extends DbCall {
 
 	}
 
-	/**
-	 * 获取从库驱动模型
-	 * 
-	 * @return
-	 */
-	private DbTemplate upSlaveTemplate() {
-		if (slaveTemplate == null || slaveTemplate.getFlagEnable() == 0) {
-
-			slaveTemplate = ConnCache.INSTANCE
-					.upValue(DataConst.CONST_DATA_SLAVE_NAME + dataBaseName);
-
-			// 判断如果从库为空 则开始读取主库数据
-			if (slaveTemplate == null || slaveTemplate.getFlagEnable() == 0) {
-
-				bLogInfo(968005004, dataBaseName);
-
-				slaveTemplate = dataTemplate;
-			}
-
-		}
-
-		return slaveTemplate;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.srnpr.zapdata.dbface.ITableCall#dataSqlList(java.lang.String,
-	 * com.srnpr.zapcom.basemodel.MDataMap)
-	 */
 	public List<Map<String, Object>> dataSqlList(String sSql, MDataMap mWhereMap) {
-
-		List<Map<String, Object>> listReturnMaps = null;
-
-		if (DataConst.CONST_DATA_RUN_TYPE == 1) {
-
-			try {
-				listReturnMaps = upSlaveTemplate()
-						.queryForList(sSql, mWhereMap);
-			} catch (Exception e) {
-				bLogError(968005003, dataBaseName, dataTableName);
-				ConnCache.INSTANCE.upValue(
-						DataConst.CONST_DATA_SLAVE_NAME + dataBaseName)
-						.setFlagEnable(0);
-				slaveTemplate = dataTemplate;
-				listReturnMaps = upSlaveTemplate()
-						.queryForList(sSql, mWhereMap);
-			}
-		} else {
-			listReturnMaps = dataTemplate.queryForList(sSql, mWhereMap);
-		}
-
-		return listReturnMaps;
+		return dataTemplate.queryForList(sSql, mWhereMap);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.srnpr.zapdata.dbface.ITableCall#dataInsert(com.srnpr.zapcom.basemodel
-	 * .MDataMap)
-	 */
 	public String dataInsert(MDataMap mDataMap) {
 		String sUid = UUID.randomUUID().toString().replace("-", "");
 		if (!mDataMap.containsKey("uid")) {
@@ -191,9 +121,6 @@ public class MysqlCall extends DbCall {
 
 	}
 
-	/**
-	 * @param mDataMap
-	 */
 	public void baseInsert(MDataMap mDataMap) {
 
 		StringBuffer sSqlBuffer = new StringBuffer();
@@ -207,24 +134,11 @@ public class MysqlCall extends DbCall {
 		dataExec(sSqlBuffer.toString(), mDataMap);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.srnpr.zapdata.dbface.ITableCall#dataExec(java.lang.String,
-	 * com.srnpr.zapcom.basemodel.MDataMap)
-	 */
 	public int dataExec(String sSql, MDataMap mDataMap) {
 		return dataTemplate.update(sSql, mDataMap);
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.srnpr.zapdata.dbface.ITableCall#dataUpdate(com.srnpr.zapcom.basemodel
-	 * .MDataMap, java.lang.String, java.lang.String)
-	 */
 	public int dataUpdate(MDataMap mDataMap, String sUpdateFields,
 			String sWhereFields) {
 		StringBuffer sSqlBuffer = new StringBuffer();
@@ -252,12 +166,6 @@ public class MysqlCall extends DbCall {
 		return dataExec(sSqlBuffer.toString(), mDataMap);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.srnpr.zapdata.dbface.ITableCall#dataDelete(java.lang.String,
-	 * com.srnpr.zapcom.basemodel.MDataMap, java.lang.String)
-	 */
 	public int dataDelete(String sDeleteSql, MDataMap mDataMap,
 			String sWhereFields) {
 
@@ -286,12 +194,6 @@ public class MysqlCall extends DbCall {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.srnpr.zapdata.dbface.ITableCall#dataGet(java.lang.String,
-	 * java.lang.String, com.srnpr.zapcom.basemodel.MDataMap)
-	 */
 	public Object dataGet(String sField, String sWhere, MDataMap mWhereMap) {
 		Map<String, Object> rResultMap = dataQuery(sField + " as dataget", "",
 				sWhere, mWhereMap, -1, -1).get(0);
@@ -299,23 +201,12 @@ public class MysqlCall extends DbCall {
 		return rResultMap.get("dataget");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.srnpr.zapdata.dbface.ITableCall#dataCount(java.lang.String,
-	 * com.srnpr.zapcom.basemodel.MDataMap)
-	 */
 	public int dataCount(String sWhere, MDataMap mWhereMap) {
 
 		return Integer.valueOf(dataGet("count(1) ", sWhere, mWhereMap)
 				.toString());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.srnpr.zapdata.dbface.ITableCall#upTemplate()
-	 */
 	public DbTemplate upTemplate() {
 
 		return dataTemplate;
