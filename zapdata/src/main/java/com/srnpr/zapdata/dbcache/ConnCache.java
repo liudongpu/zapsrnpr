@@ -85,15 +85,24 @@ public class ConnCache extends RootCache<String, DbTemplate> implements
 	 * 
 	 * @param sServerName
 	 * @param iConnType
-	 *            连接类型 1为conncache获取的连接 2为分布式事务获取的连接  3为获取从库链接
+	 *            连接类型 1为conncache获取的连接 2为分布式事务获取的连接  3为获取从库链接  4为获取驱动级主从分离连接
 	 * @return
 	 */
 	public Map<String, Object> upConnInfo(String sServerName, int iConnType) {
 		DataInit dbInit = new DataInit();
 		dbInit.init();
 
-		String sTypeDid = iConnType == 3 ? "104020019" : "104020013";
-
+		String sTypeDid ="104020013";
+		
+		if(iConnType==3)
+		{
+			sTypeDid="104020019";
+		}
+		else if(iConnType==3)
+		{
+			sTypeDid="104020004";
+		}
+		
 		Map<String, Object> mData = upValue(
 				dbInit.bConfig("zapdata.base_jdbc_name"))
 				.queryForMap(

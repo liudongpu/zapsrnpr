@@ -4,7 +4,9 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-public class DbTemplate extends NamedParameterJdbcTemplate {
+import com.srnpr.zapdata.dbdriver.SlaveNamedParameterJdbcTemplate;
+
+public class DbTemplate extends SlaveNamedParameterJdbcTemplate {
 
 	
 	/**

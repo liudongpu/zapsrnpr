@@ -34,6 +34,9 @@ public class InitZapdata extends RootInit {
 	private void checkReplication() {
 		DataConst.CONST_DATA_RUN_TYPE = Integer
 				.parseInt(bConfig("zapdata.data_replication_type"));
+
+		bLogInfo(968012002, DataConst.CONST_DATA_RUN_TYPE);
+
 	}
 
 }
