@@ -82,8 +82,10 @@ var zapweb_upload = {
 
 		// 定义是否带有链接参数
 		var sUploadLink = zapjs.f.upset(sSetParams, 'zw_s_link');
-		
-		
+
+		// 定义是否带有标题参数
+		var sUploadTitle = zapjs.f.upset(sSetParams, 'zw_s_title');
+
 		// 定义是否带有描述信息
 		var sDescription = zapjs.f.upset(sSetParams, 'zw_s_description');
 
@@ -101,7 +103,9 @@ var zapweb_upload = {
 										+ sUploadTarget
 										+ '?zw_s_source='
 										+ sField
-										+ '&zw_s_description='+sDescription+'" class="zw_page_upload_iframe" frameborder="0"></iframe>');
+										+ '&zw_s_description='
+										+ sDescription
+										+ '" class="zw_page_upload_iframe" frameborder="0"></iframe>');
 			}
 		} else {
 			$('#' + sField).nextAll('.control-upload_iframe').html('');
@@ -141,8 +145,8 @@ var zapweb_upload = {
 
 						aHtml.push('<li class="control-upload-list-li"><div>');
 
-						aHtml.push('<div class="w_left w_w_100"><a href="' + sFiles[i]
-								+ '" target="_blank">' + sShowHex
+						aHtml.push('<div class="w_left w_w_100"><a href="'
+								+ sFiles[i] + '" target="_blank">' + sShowHex
 								+ '</a></div>');
 
 						aHtml
@@ -167,11 +171,24 @@ var zapweb_upload = {
 							var sLinks = $('#' + sUploadLink).val().split(
 									zapjs.c.split);
 
-							var sLinkUrl = sLinks[i]?sLinks[i]:'';
+							var sLinkUrl = sLinks[i] ? sLinks[i] : '';
 
 							aHtml.push('<div>链接地址：<input id="' + sUploadLink
 									+ '_zapweb_upload_link_' + i
 									+ '" type="text" value="' + sLinkUrl
+									+ '"/></div>');
+
+						}
+
+						if (sUploadTitle != "") {
+							var sTitles = $('#' + sUploadTitle).val().split(
+									zapjs.c.split);
+
+							var sTitleUrl = sTitles[i] ? sTitles[i] : '';
+
+							aHtml.push('<div>标题信息：<input id="' + sUploadTitle
+									+ '_zapweb_upload_title_' + i
+									+ '" type="text" value="' + sTitleUrl
 									+ '"/></div>');
 
 						}
@@ -211,12 +228,33 @@ var zapweb_upload = {
 
 			var aLinks = [];
 			for (var i = 0, j = sFiles.length; i < j; i++) {
-				var sLinkUrl = $('#' + sUploadLink + '_zapweb_upload_link_' + i)
-						.val();
+				var sLinkUrl = zapjs.f.formatsplit($(
+						'#' + sUploadLink + '_zapweb_upload_link_' + i).val());
 				aLinks.push(sLinkUrl ? sLinkUrl : '');
 
 			}
 			$('#' + sUploadLink).val(aLinks.join(zapjs.c.split));
+		}
+
+	},
+	save_title : function(sField) {
+
+		var sSetParams = $('#' + sField)
+				.attr(zapjs.c.field_attr + "set_params");
+		var sUploadTitle = zapjs.f.upset(sSetParams, 'zw_s_title');
+		if (sUploadTitle != "") {
+			var sFiles = zapjs.f.split($('#' + sField).val(), zapjs.c.split);
+
+			var aTitles = [];
+			for (var i = 0, j = sFiles.length; i < j; i++) {
+				var sTitleUrl = zapjs.f
+						.formatsplit($(
+								'#' + sUploadTitle + '_zapweb_upload_title_'
+										+ i).val());
+				aTitles.push(sTitleUrl ? sTitleUrl : '');
+
+			}
+			$('#' + sUploadTitle).val(aTitles.join(zapjs.c.split));
 		}
 
 	},
@@ -226,35 +264,56 @@ var zapweb_upload = {
 		var sFiles = zapjs.f.split($('#' + sField).val(), zapjs.c.split);
 
 		var sLinks = [];
+		var sTitles = [];
 
 		var sSetParams = $('#' + sField)
 				.attr(zapjs.c.field_attr + "set_params");
 		var sUploadLink = zapjs.f.upset(sSetParams, 'zw_s_link');
 		if (sUploadLink != "") {
 			zapweb_upload.save_link(sField);
-			
+
 			sLinks = zapjs.f.split($('#' + sUploadLink).val(), zapjs.c.split);
+		}
+
+		var sUploadTitle = zapjs.f.upset(sSetParams, 'zw_s_title');
+		if (sUploadTitle != "") {
+			zapweb_upload.save_title(sField);
+
+			sTitles = zapjs.f.split($('#' + sUploadTitle).val(), zapjs.c.split);
 		}
 
 		if (iIndex == -99) {
 			sFiles.push(sLink);
 			sLinks.push('');
+			sTitles.push('');
 
 		} else if (sLink == "delete") {
 			sFiles.splice(iIndex, 1);
 			if (sUploadLink != "") {
 				sLinks.splice(iIndex, 1);
 			}
+			if (sUploadTitle != "") {
+				sTitles.splice(iIndex, 1);
+			}
+
 		} else if (sLink == "up") {
 			sFiles = zapweb_upload.array_change(sFiles, iIndex, iIndex - 1);
 			if (sUploadLink != "") {
 				sLinks = zapweb_upload.array_change(sLinks, iIndex, iIndex - 1);
+			}
+			if (sUploadTitle != "") {
+				sTitles = zapweb_upload.array_change(sTitles, iIndex,
+						iIndex - 1);
 			}
 		} else if (sLink == "down") {
 
 			sFiles = zapweb_upload.array_change(sFiles, iIndex, iIndex + 1);
 			if (sUploadLink != "") {
 				sLinks = zapweb_upload.array_change(sLinks, iIndex, iIndex + 1);
+			}
+			if (sUploadTitle != "") {
+				sTitles = zapweb_upload.array_change(sTitles, iIndex,
+						iIndex + 1);
 			}
 
 		}
@@ -263,6 +322,10 @@ var zapweb_upload = {
 
 		if (sUploadLink != "") {
 			$('#' + sUploadLink).val(sLinks.join(zapjs.c.split));
+		}
+
+		if (sUploadTitle != "") {
+			$('#' + sUploadTitle).val(sTitles.join(zapjs.c.split));
 		}
 
 		zapweb_upload.upload_show(sField);

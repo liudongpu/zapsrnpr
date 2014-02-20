@@ -198,6 +198,13 @@ zapjs.f = {
 			zapjs.f.tourl();
 		}
 	},
+	/*
+	 * 格式化字符串
+	 */
+	formatsplit:function(sSource)
+	{
+	return zapjs.f.replace(sSource,zapjs.c.split,'-');	
+	},
 
 	replace : function(sSource, sOld, sNew) {
 
