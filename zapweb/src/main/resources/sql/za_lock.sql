@@ -1,5 +1,4 @@
 
-
 -- 加锁的存储过程。
 
 DROP PROCEDURE IF EXISTS proc_lock_or_unlock_somekey;
@@ -26,8 +25,6 @@ BEGIN
 
 	/** 标记是否出错 */ 
 	DECLARE t_error int default 0; 
-	/** 标记是否出错 */ 
-	DECLARE t_error_not_exist int default 0; 
 	/** 如果出现sql异常，则将t_error设置为1后继续执行后面的操作 */ 
 	DECLARE continue handler for sqlexception set t_error=1; -- 出错处理 
 	SET outFlag=2;
@@ -35,9 +32,7 @@ BEGIN
 	-- 加锁
 	IF lockflag =1 THEN
 
-				SET global log_bin_trust_function_creators=1;
-				SELECT func_get_split_string_total(somekey,keysplit) into i;
-
+				-- SET global log_bin_trust_function_creators=1;
 				/** 设置时间 */ 
 				SET createTime=CONCAT(current_timestamp,'');
 				-- SELECT  uuid;
@@ -45,52 +40,32 @@ BEGIN
 				-- SELECT lockid;
 				-- 循环加入到 cc_cardlock
 
+				DELETE FROM zd_lock where keycode=somekey and (UNIX_TIMESTAMP(createTime) - UNIX_TIMESTAMP(create_time))>timeoutsecond;
 
-				START TRANSACTION;
 
-				loop_label:LOOP
+				SELECT zid INTO lockzid from zd_lock where keycode=somekey;
 
-					IF i=0 THEN
-					
-					LEAVE loop_label;
-				
-					END IF;
-						
-						SELECT func_get_split_string(somekey,keysplit,i) into lockCurrentKey;
+					IF FOUND_ROWS()<=0 THEN
 
-						
-						DELETE FROM zd_lock where keycode=lockCurrentKey and (UNIX_TIMESTAMP(createTime) - UNIX_TIMESTAMP(create_time))>timeoutsecond;
 
-						SELECT zid INTO lockzid from zd_lock where keycode=lockCurrentKey FOR UPDATE;
+						-- START TRANSACTION;
+							-- 插入锁
+								INSERT INTO zd_lock (uid,keycode,keyid,create_time)
+									SELECT REPLACE(UUID(),'-',''),somekey,uuid,createTime ;
 
-						IF FOUND_ROWS()<=0 THEN
-							 -- 插入锁
-							INSERT INTO zd_lock (uid,keycode,keyid,create_time)
-								SELECT REPLACE(UUID(),'-',''),lockCurrentKey,uuid,createTime ;
+								IF ROW_COUNT()<=0 THEN
+									-- SELECT 3;
+									set outFlag=2;
 
-							IF ROW_COUNT()<=0 THEN
-								-- SELECT 3;
-								set t_error=1;
-								LEAVE loop_label;
-							END IF;
-						ELSE
-							set t_error=1;
-							LEAVE loop_label;
-						END IF;
+								ELSE
+									
+									SET outFlag=1;
+								END IF;
 
-					SET i=i-1;
-					END LOOP loop_label;
-
-					-- 如果 插入失败了 ，
-					IF t_error=1 THEN 
-						SET uuid='';
-						SET outFlag=2;
-						ROLLBACK;
 					ELSE
 						SET uuid=lockid;
-						SET outFlag=1;
-						COMMIT;			
-					END IF;	
+						SET outFlag=2;
+					END IF;
 
 		
 	-- 解锁 
@@ -101,7 +76,7 @@ BEGIN
 				-- 循环加入到 cc_cardlock
 				START TRANSACTION;
 				
-				DELETE FROM zd_lock where keyid=uuid;
+				 DELETE FROM zd_lock where keyid=uuid;
 
 				-- 如果 插入失败了 ，
 				IF t_error=1 THEN 
@@ -123,4 +98,3 @@ BEGIN
 	SELECT outFlag;
 
 END;
-
