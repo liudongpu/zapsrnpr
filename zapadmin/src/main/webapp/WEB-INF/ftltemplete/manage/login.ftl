@@ -2,7 +2,15 @@
 <#include "../macro/macro_common.ftl" />
 
 <@m_common_page_head_common e_title="后台登陆界面" e_bodyclass="easyui-layout zab_manage_login_body" />
-
+<style>
+.zab_manage_login_body .c_login_bg {
+	background-color: #fff;
+	height: 600px;
+	background-image: url("http://res2.windows.microsoft.com/resbox/en/windows%207/main/9891b0cd-a6ba-4af2-9e66-b52505bdb0cb_5.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+</style>
 	<div class="c_login_box">
 		<div class=" w_m_auto c_login_header c_login_width">
 
