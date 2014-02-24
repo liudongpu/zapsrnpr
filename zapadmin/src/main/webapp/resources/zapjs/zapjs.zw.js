@@ -379,6 +379,21 @@ zapjs.zw = {
 		zapjs.e('zapjs_e_zapjs_f_ajaxsubmit_submit', zapjs.zw.editorsubmit);
 
 	},
+	
+	
+	login_post:function(oElm)
+	{
+		var oData=
+			{
+				loginName:$(oElm).parents('form').find('#zw_f_login_name').val(),
+				loginPass:$(oElm).parents('form').find('#zw_f_login_pass').val()
+			};
+		
+		
+		zapjs.zw.api_call("com_srnpr_zapweb_webapi_UserLoginApi", oData, zapjs.zw.func_success);
+		
+	},
+	
 
 	// 用户登录成功
 	login_sucess : function(oUserInfo) {

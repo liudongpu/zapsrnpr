@@ -172,7 +172,7 @@ public class RootControl {
 
 		String sReturnString= ApiFactory.INSTANCE.upProcess(sUrl,request);
 		
-		String sCallBackString=request.getParameter("callbackparam");
+		String sCallBackString=request.getParameter("api_callback");
 		
 		return sCallBackString+"("+sReturnString+")";
 		
