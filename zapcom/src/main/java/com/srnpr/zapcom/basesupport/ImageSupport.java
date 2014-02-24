@@ -217,9 +217,30 @@ public class ImageSupport {
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP,
 					alpha));
 			// 在指定坐标绘制水印文字
+			/*
 			g.drawString(pressText,
 					(upSourceWidth() - (getLength(pressText) * fontSize)) / 2
 							+ x, (upSourceHeight() - fontSize) / 2 + y);
+			*/
+			
+			int width_1 = fontSize * getLength(pressText);
+			            int height_1 = fontSize;
+			          int widthDiff = upSourceWidth() - width_1;
+			             int heightDiff = upSourceHeight() - height_1;
+			            if(x < 0){
+			              x = widthDiff / 2;
+			            }else if(x > widthDiff){
+			               x = widthDiff;
+			          }
+		            if(y < 0){
+			              y = heightDiff / 2;
+			         }else if(y > heightDiff){
+			                y = heightDiff;
+		           }
+		             
+		          g.drawString(pressText, x, y + height_1);
+			
+			
 			g.dispose();
 
 		} catch (Exception e) {
