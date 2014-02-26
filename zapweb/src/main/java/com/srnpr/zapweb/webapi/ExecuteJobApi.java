@@ -7,7 +7,7 @@ import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.topapi.RootApi;
 import com.srnpr.zapcom.topapi.RootResult;
 
-public class ExecuteJobAPi extends RootApi<RootResult, ExecuteJobInput> {
+public class ExecuteJobApi extends RootApi<RootResult, ExecuteJobInput> {
 
 	@Override
 	public RootResult Process(ExecuteJobInput inputParam, MDataMap mRequestMap) {
