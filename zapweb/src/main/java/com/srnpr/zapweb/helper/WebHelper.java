@@ -76,6 +76,7 @@ public class WebHelper {
 			else
 				return "";
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return "";
 		}
 
