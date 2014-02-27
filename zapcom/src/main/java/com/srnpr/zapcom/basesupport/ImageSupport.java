@@ -217,9 +217,7 @@ public class ImageSupport {
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP,
 					alpha));
 			// 在指定坐标绘制水印文字
-			g.drawString(pressText,
-					(upSourceWidth() - (getLength(pressText) * fontSize)) / 2
-							+ x, (upSourceHeight() - fontSize) / 2 + y);
+			g.drawString(pressText, x, y);
 			
 			/*
 			int width_1 = fontSize * getLength(pressText);
