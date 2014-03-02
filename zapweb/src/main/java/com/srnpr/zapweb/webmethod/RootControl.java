@@ -59,6 +59,24 @@ public class RootControl {
 		model.addAttribute("b_method", web_method);
 		return "manage/" + sUrl;
 	}
+	
+	
+	/**
+	 * 后台
+	 * 
+	 * @param sUrl
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/system/{url}")
+	public String system(@PathVariable("url") String sUrl, Model model,
+			HttpServletRequest request) {
+		model.addAttribute("b_method", web_method);
+		return "system/" + sUrl;
+	}
+	
+	
 
 	/**
 	 * 页面
@@ -158,7 +176,7 @@ public class RootControl {
 	
 	
 	/**
-	 * json数据
+	 * 异步调用json格式返回
 	 * 
 	 * @param sUrl
 	 * @param model

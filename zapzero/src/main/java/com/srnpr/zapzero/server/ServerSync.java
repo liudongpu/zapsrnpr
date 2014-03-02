@@ -15,6 +15,7 @@ import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.baseface.IBaseInstance;
 import com.srnpr.zapcom.baseface.IBaseJob;
 import com.srnpr.zapcom.basehelper.FormatHelper;
+import com.srnpr.zapcom.basehelper.NetHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.basemodel.MStringMap;
 import com.srnpr.zapcom.basesupport.JobSupport;
@@ -50,20 +51,19 @@ public class ServerSync extends BaseClass {
 		if (StringUtils.isNotBlank(sRunList)) {
 
 			MDataMap mapDefine = new MDataMap();
-			
 
 			List<String> lDids = new ArrayList<String>();
 			for (MDataMap mDefineDataMap : DbUp.upTable("zw_define").queryIn(
-					"define_dids", "", "parent_did=46991807", mapDefine, -1, -1, "define_name",
-					sRunList)) {
+					"define_dids", "", "parent_did=46991807", mapDefine, -1,
+					-1, "define_name", sRunList)) {
 				lDids.add(mDefineDataMap.get("define_dids"));
 			}
 
 			if (lDids.size() > 0) {
 				MDataMap mJoQuerybMap = new MDataMap();
-				//mJoQuerybMap.put("flag_enable", "1");
-				for (MDataMap mJob : DbUp.upTable("za_job").queryIn("", "", "flag_enable=1",
-						mJoQuerybMap, -1, -1, "run_group_did",
+				// mJoQuerybMap.put("flag_enable", "1");
+				for (MDataMap mJob : DbUp.upTable("za_job").queryIn("", "",
+						"flag_enable=1", mJoQuerybMap, -1, -1, "run_group_did",
 						StringUtils.join(lDids, ","))) {
 
 					String sJobTriger = mJob.get("job_triger");
@@ -114,7 +114,7 @@ public class ServerSync extends BaseClass {
 
 			String sServerCode = bConfig("default.local_server_code");
 
-			ServerInfo.INSTANCE.setIpAddress(getLocalIP());
+			ServerInfo.INSTANCE.setIpAddress(NetHelper.getLocalIP());
 
 			ServerInfo.INSTANCE.setRunList(bConfig("default.local_run_list"));
 
@@ -285,39 +285,6 @@ public class ServerSync extends BaseClass {
 		// tResult)
 
 		return bReturn;
-	}
-
-	/**
-	 * 获取本机IP
-	 * @return
-	 */
-	public static String getLocalIP() {
-		String address = "";
-		try {
-			Enumeration<?> allNetInterfaces = NetworkInterface
-					.getNetworkInterfaces();
-			InetAddress ine = null;
-			while (allNetInterfaces.hasMoreElements() && address.equals("")) {
-				NetworkInterface netInterface = (NetworkInterface) allNetInterfaces
-						.nextElement();
-				if (!netInterface.isVirtual()) {
-					Enumeration<?> addresses = netInterface.getInetAddresses();
-					while (addresses.hasMoreElements() && address.equals("")) {
-						ine = (InetAddress) addresses.nextElement();
-						if (ine != null && ine instanceof Inet4Address) {
-							if (!ine.getHostAddress().equals("127.0.0.1")
-									&& !netInterface.isVirtual()) {
-								address = ine.getHostAddress();
-								break;
-							}
-						}
-					}
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return address.trim();
 	}
 
 }
