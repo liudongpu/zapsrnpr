@@ -29,6 +29,10 @@ public class SysInfo extends BaseClass {
 				.getRemoteHost()
 				+ ":"
 				+ webSessionHelper.upHttpRequest().getRemotePort());
+		
+		
+		mDataMap.put("sysinfo_client", webSessionHelper.upIpaddress());
+		
 
 		mDataMap.put("sysinfo_local", webSessionHelper.upHttpRequest()
 				.getLocalAddr()
