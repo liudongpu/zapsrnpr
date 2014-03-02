@@ -26,6 +26,7 @@ public class BeansHelper implements IBaseHelper {
 		return beanFactory.getBean(name);
 	}
 
+	@SuppressWarnings("unchecked")
 	public static <T> T upBean(String sBeanName) {
 		return (T) getBeanObject(sBeanName);
 	}

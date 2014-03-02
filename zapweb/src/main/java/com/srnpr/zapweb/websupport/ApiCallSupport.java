@@ -62,6 +62,7 @@ public class ApiCallSupport<TInput extends IBaseInput, TResult extends IBaseResu
 		} catch (Exception e) {
 			bLogDebug(0, sCallString);
 			e.printStackTrace();
+			throw e;
 		}
 		
 
