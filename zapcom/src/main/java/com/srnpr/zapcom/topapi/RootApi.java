@@ -1,5 +1,6 @@
 package com.srnpr.zapcom.topapi;
 
+import com.srnpr.zapcom.baseannotation.ZapcomApi;
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.baseface.IBaseApi;
 
@@ -13,6 +14,7 @@ import com.srnpr.zapcom.baseface.IBaseApi;
  * @param <TInput>
  *            输入结果类型
  */
+@ZapcomApi
 public abstract class RootApi<TResult, TInput> extends BaseClass implements
 		IBaseApi<TResult, TInput> {
 
