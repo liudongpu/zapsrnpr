@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="sitenav">
+<meta name="author" content="srnpr">
+<title>sitenav</title>
+<link
+	href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!--[if lt IE 9]><script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script><![endif]-->
+
+<link rel="shortcut icon" href="http://www.cntv.cn/favicon.ico" />
+
+
+<style>
+/*
+ * Style tweaks
+ * --------------------------------------------------
+ */
+html,body {
+	overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+
+body {
+	padding-top: 70px;
+}
+
+footer {
+	padding: 30px 0;
+}
+
+/*
+ * Off Canvas
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 767px) {
+	.row-offcanvas {
+		position: relative;
+		-webkit-transition: all 0.25s ease-out;
+		-moz-transition: all 0.25s ease-out;
+		transition: all 0.25s ease-out;
+	}
+	.row-offcanvas-right
+  .sidebar-offcanvas {
+		right: -50%; /* 6 columns */
+	}
+	.row-offcanvas-left
+  .sidebar-offcanvas {
+		left: -50%; /* 6 columns */
+	}
+	.row-offcanvas-right.active {
+		right: 50%; /* 6 columns */
+	}
+	.row-offcanvas-left.active {
+		left: 50%; /* 6 columns */
+	}
+	.sidebar-offcanvas {
+		position: absolute;
+		top: 0;
+		width: 50%; /* 6 columns */
+	}
+}
+</style>
+
+
+
+<style>
+body {
+	font-family: "Microsoft Yahei", Verdana, Simsun, "Segoe UI Light",
+		"Segoe UI Web Light", "Segoe UI Web Regular", "Segoe UI",
+		"Segoe UI Symbol", "HelveticaNeue-Light", "Helvetica Neue", Arial;
+	word-wrap: break-word;
+	
+}
+
+.navbar-inverse {
+	background-color: #1fa67a;
+	border-top: 1px solid #34a782;
+	border-bottom: 1px solid #1c9971;
+}
+
+.navbar-inverse .navbar-brand {
+	color: #fff;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+	color: #fff;
+}
+
+.index_listbox .list-group-item a {
+	padding-left: 12px;
+}
+
+.navbar-inverse .navbar-nav>.active>a,.navbar-inverse .navbar-nav>.active>a:hover,.navbar-inverse .navbar-nav>.active>a:focus
+	{
+	background-color: #1c9971;
+}
+</style>
+
+
+</head>
+<body>
+	<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+
+				<a class="navbar-brand" href="#">CCTVMALL 导航</a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">首页</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+			</div>
+			<!-- /.nav-collapse -->
+		</div>
+		<!-- /.container -->
+	</div>
+	<!-- /.navbar -->
+
+	<div class="container">
+
+		<div class="row row-offcanvas row-offcanvas-right">
+
+			<div class="col-xs-9 col-sm-9">
+
+
+
+				<div class="progress  progress-striped active">
+					<div class="progress-bar" role="progressbar" aria-valuenow="100"
+						aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+						<span class="sr-only">45% Complete</span>
+					</div>
+				</div>
+
+
+				<div class="panel  panel-info index_listbox">
+					<!-- Default panel contents -->
+					<div class="panel-heading">Beta测试系统</div>
+
+
+					<!-- List group -->
+					<ul class="list-group">
+						<li class="list-group-item"><span
+							class="glyphicon glyphicon-star"></span><a
+							href="http://www.mall.beta.cctvmall.cn/" target="_blank">Beta：网站前台</a></li>
+						<li class="list-group-item"><span
+							class="glyphicon glyphicon-calendar"></span><a
+							href="http://cshop.cmall.beta.cctvmall.cn/cshop" target="_blank">Beta：商家后台管理系统</a></li>
+						<li class="list-group-item"><span
+							class="glyphicon glyphicon-cloud"></span><a
+							href="http://cmanage.cmall.beta.cctvmall.cn/cmanage"
+							target="_blank">Beta：平台管理系统</a></li>
+						<li class="list-group-item"><span
+							class="glyphicon glyphicon-tower"></span><a
+							href="http://leader.cmallleader.beta.cctvmall.cn/zapadmin"
+							target="_blank">Beta：超级管理系统</a></li>
+						<li class="list-group-item"><span
+							class="glyphicon glyphicon-compressed"></span><a
+							href="http://api.cmallapi.beta.cctvmall.cn/cmanage/manage/apitest"
+							target="_blank">Beta：API接口测试</a></li>
+					</ul>
+				</div>
+				<div class="panel panel-danger index_listbox">
+					<!-- Default panel contents -->
+					<div class="panel-heading">正式系统导航</div>
+
+
+					<!-- List group -->
+					<ul class="list-group">
+						<li class="list-group-item"><span
+							class="glyphicon glyphicon-adjust"></span><a
+							href="http://www.cctvmall.com" target="_blank">Format：网站前台</a></li>
+						<li class="list-group-item"><span
+							class="glyphicon glyphicon-film"></span><a
+							href="http://seller.cctvmall.com" target="_blank">Format：商家后台管理系统</a></li>
+						<li class="list-group-item"><span
+							class="glyphicon glyphicon-leaf"></span><a
+							href="http://cmanage.wcf.srnpr.com/" target="_blank">Format：平台管理系统</a></li>
+					</ul>
+				</div>
+
+
+				<div class="panel  panel-success index_listbox">
+					<!-- Default panel contents -->
+					<div class="panel-heading">技术测试版</div>
+
+
+					<!-- List group -->
+					<ul class="list-group">
+						<li class="list-group-item"><span
+							class="glyphicon glyphicon-print"></span><a
+							href="http://www.cctvmall.com" target="_blank">Test：网站前台</a></li>
+						<li class="list-group-item"><span
+							class="glyphicon glyphicon-road"></span><a
+							href="http://cshop.test.cctvmall.cn/cshop" target="_blank">Test：商家后台管理系统</a></li>
+						<li class="list-group-item"><span
+							class="glyphicon glyphicon-tags"></span><a
+							href="http://cmanage.test.cctvmall.cn/cmanage" target="_blank">Test：平台管理系统</a></li>
+						<li class="list-group-item"><span
+							class="glyphicon glyphicon-tint"></span><a
+							href="http://cmanage.test.cctvmall.cn/cmanage" target="_blank">Test：API测试</a></li>
+					</ul>
+				</div>
+
+
+			</div>
+			<!--/span-->
+
+			<div class="col-xs-3 col-sm-3 sidebar-offcanvas" id="sidebar"
+				role="navigation">
+				<div class="list-group">
+					<a href="#" class="list-group-item active">技术管理系统</a> <a
+						href="http://pms.beta.cctvmall.cn/" class="list-group-item"
+						target="_blank">bug管理系统</a> <a href="http://hudson.wcf.srnpr.com/"
+						class="list-group-item" target="_blank">hudson</a> <a
+						href="http://git.wcf.srnpr.com/scm/" class="list-group-item"
+						target="_blank">scm</a> <a
+						href="http://jenkins.wcn.srnpr.com/jenkins/"
+						class="list-group-item" target="_blank">jenkins</a> <a
+						href="http://activemq.wcn.srnpr.com/" class="list-group-item"
+						target="_blank">activemq</a> <a
+						href="http://maven.wcn.srnpr.com/nexus" class="list-group-item"
+						target="_blank">nexus</a> <a
+						href="http://maven.wcf.srnpr.com/nexus" class="list-group-item"
+						target="_blank">format.maven</a> <a
+						href="http://jenkins.wcn.srnpr.com/gcount/20131113/zapsrnpr/"
+						class="list-group-item" target="_blank">gitstat</a> <a href=""
+						class="list-group-item" target="_blank">more</a>
+				</div>
+			</div>
+			<!--/span-->
+		</div>
+		<!--/row-->
+
+		<hr>
+
+		<footer>
+			<p>&copy; Company 2013</p>
+		</footer>
+
+	</div>
+	<!--/.container-->
+
+
+	<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+	<script
+		src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
