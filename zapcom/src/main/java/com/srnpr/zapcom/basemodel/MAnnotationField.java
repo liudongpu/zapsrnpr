@@ -34,9 +34,15 @@ public class MAnnotationField {
 	private String demo = "";
 
 	/**
-	 * 字段的类结构 该字段默认为空 如果属性为结构体 则为结构体的类名称
+	 * 字段的类名称 该字段默认为空 如果属性为结构体 则为结构体的类名称
 	 */
 	private String fieldClass = "";
+	
+	/**
+	 * 字段的类型
+	 */
+	private String type="";
+	
 
 	public String getFieldName() {
 		return fieldName;
@@ -84,6 +90,14 @@ public class MAnnotationField {
 
 	public void setFieldClass(String fieldClass) {
 		this.fieldClass = fieldClass;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

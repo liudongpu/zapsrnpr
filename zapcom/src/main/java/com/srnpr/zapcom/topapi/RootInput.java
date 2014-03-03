@@ -9,13 +9,12 @@ import com.srnpr.zapcom.baseface.IBaseInput;
  * @author srnpr
  * 
  */
-@ZapcomApi
 public class RootInput implements IBaseInput {
 
 	/**
 	 * 版本标记 默认值为1 该参数用于扩展使用
 	 */
-	@ZapcomApi
+	@ZapcomApi("版本号 该参数用于扩展  无需传入")
 	private int version = 1;
 
 	public int getVersion() {
