@@ -22,40 +22,42 @@ public class ShowApiInfo extends BaseClass {
 	AnnotationSupport aSupport = new AnnotationSupport();
 
 	public ShowApiInfo() {
-		
-		
-		WebSessionHelper webSessionHelper=WebSessionHelper.create();
-		
-		String sApiCode=webSessionHelper.upRequest("apicode");
-		if(StringUtils.isEmpty(sApiCode))
-		{
-			sApiCode="4677010900010001";
+
+		WebSessionHelper webSessionHelper = WebSessionHelper.create();
+
+		String sApiCode = webSessionHelper.upRequest("apicode");
+		if (StringUtils.isEmpty(sApiCode)) {
+			sApiCode = "467701090001";
 		}
-		
-		
-		
-		
 
-		apiInfo = DbUp.upTable("za_apiinfo")
-				.one("api_code", sApiCode);
-		
-		
-		
-		listInfo=DbUp.upTable("za_apiinfo").queryByWhere("parent_code",apiInfo.get("parent_code"));
-		
-		
-		
+		apiInfo = DbUp.upTable("za_apiinfo").one("api_code", sApiCode);
 
-		MApiModel mApiModel = DefaultApiCache.INSTANCE.upValue(apiInfo
-				.get("class_name"));
+		listInfo = DbUp.upTable("za_apiinfo").queryByWhere("parent_code",
+				apiInfo.get("parent_code"));
 
-		inputClass = aSupport.upModel(mApiModel.getInputClass().getName());
+		if (StringUtils.length(sApiCode) == 16) {
 
-		reconnClass(inputClass);
+			MApiModel mApiModel = DefaultApiCache.INSTANCE.upValue(apiInfo
+					.get("class_name"));
 
-		resultClass = aSupport.upModel(mApiModel.getResultClass().getName());
+			inputClass = aSupport.upModel(mApiModel.getInputClass().getName());
 
-		reconnClass(resultClass);
+			reconnClass(inputClass);
+
+			resultClass = aSupport
+					.upModel(mApiModel.getResultClass().getName());
+
+			reconnClass(resultClass);
+			
+			showType="info";
+		}
+		else if(StringUtils.length(sApiCode)==12)
+		{
+			listSub=DbUp.upTable("za_apiinfo").queryByWhere("parent_code",
+					apiInfo.get("api_code"));
+			
+			showType="list";
+		}
 
 	}
 
@@ -84,8 +86,13 @@ public class ShowApiInfo extends BaseClass {
 	private MDataMap apiInfo;
 
 	private Map<String, MAnnotationClass> connClass = new ConcurrentHashMap<String, MAnnotationClass>();
-	
+
 	private List<MDataMap> listInfo;
+	
+	private List<MDataMap> listSub;
+	
+	
+	private String showType="index";
 	
 
 	public MAnnotationClass getInputClass() {
@@ -126,6 +133,22 @@ public class ShowApiInfo extends BaseClass {
 
 	public void setListInfo(List<MDataMap> listInfo) {
 		this.listInfo = listInfo;
+	}
+
+	public List<MDataMap> getListSub() {
+		return listSub;
+	}
+
+	public void setListSub(List<MDataMap> listSub) {
+		this.listSub = listSub;
+	}
+
+	public String getShowType() {
+		return showType;
+	}
+
+	public void setShowType(String showType) {
+		this.showType = showType;
 	}
 
 }
