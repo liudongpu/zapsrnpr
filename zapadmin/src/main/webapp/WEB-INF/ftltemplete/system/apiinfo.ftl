@@ -39,7 +39,7 @@ api_model=b_method.upClass("com.srnpr.zapweb.webclass.ShowApiInfo")>
 			<#if api_model.getShowType()=="info">
 			<a href="?apicode=${api_model.getApiInfo()['parent_code']}" class="btn btn-warning btn-block">&nbsp;返回</a>
 			<hr>
-			</#if>
+			</#if><div >
 			<div class="list-group">
 				 <#list
 				api_model.getListInfo() as e_list> 
@@ -61,7 +61,7 @@ api_model=b_method.upClass("com.srnpr.zapweb.webclass.ShowApiInfo")>
 				</#list>
 
 
-
+</div>
 			</div>
 		</div>
 		<!--/span-->
@@ -201,6 +201,45 @@ api_model=b_method.upClass("com.srnpr.zapweb.webclass.ShowApiInfo")>
 					</div>
 
 				</div>
+				
+				
+				<#if api_model.getConnClass()??>
+				<div class="w_h_20"></div>
+				<div class="panel  panel-danger index_listbox">
+					<!-- Default panel contents -->
+					<div class="panel-heading">
+
+						<a data-toggle="collapse" data-toggle="collapse"
+							href="#apiinfo_panel_four"> 结构体 </a>
+					</div>
+					<div id="apiinfo_panel_four" class="panel-collapse collapse in">
+						<div class="panel-body">
+						
+						
+						<#list api_model.getConnClass()?keys as e_key> 
+						<div class="w_h_40" id="apiinfo_field_${e_key?replace('.','_')}">
+						
+						<#assign e_keyscm=e_key?split('.') >
+						
+						<span class="label label-info">${e_keyscm[e_keyscm?size-1]}</span>
+						</div>
+						
+						
+						<@m_open_show_class
+							p_class_model=api_model.getConnClass()[e_key] p_show_type=1 />
+						
+						<hr/>
+						</#list>
+						
+						
+						</div>
+						
+					</div>
+
+				</div>
+				
+				</#if>
+				
 
 			</div>
 			</#if>

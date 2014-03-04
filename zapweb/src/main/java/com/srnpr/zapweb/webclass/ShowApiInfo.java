@@ -46,7 +46,7 @@ public class ShowApiInfo extends BaseClass {
 			apiInfo.put("parent_name", mParentDataMap.get("api_name"));
 			
 
-			if (mApiModel != null) {
+			if (mApiModel != null&&mApiModel.getInputClass()!=null) {
 
 				inputClass = aSupport.upModel(mApiModel.getInputClass()
 						.getName());
@@ -62,6 +62,8 @@ public class ShowApiInfo extends BaseClass {
 				inputClass=new MAnnotationClass();
 				resultClass=new MAnnotationClass();
 			}
+			
+			
 
 			showType = "info";
 		} else if (StringUtils.length(sApiCode) == 12) {
@@ -83,6 +85,11 @@ public class ShowApiInfo extends BaseClass {
 
 				MAnnotationClass mNew = aSupport.upModel(sClassName);
 
+				if(connClass==null)
+				{
+					connClass= new ConcurrentHashMap<String, MAnnotationClass>();
+				}
+				
 				connClass.put(sClassName, mNew);
 				reconnClass(mNew);
 
@@ -97,7 +104,7 @@ public class ShowApiInfo extends BaseClass {
 
 	private MDataMap apiInfo;
 
-	private Map<String, MAnnotationClass> connClass = new ConcurrentHashMap<String, MAnnotationClass>();
+	private Map<String, MAnnotationClass> connClass ;
 
 	private List<MDataMap> listInfo;
 

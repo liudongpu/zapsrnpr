@@ -153,7 +153,18 @@ body {
 	    <tr>
 	    <td>${testKey} 
 	    </td>
-	    <td>${input_field[testKey].getType()}
+	    <td>
+	    <#if (input_field[testKey].getFieldClass()!="")>
+	    <a href="#apiinfo_field_${input_field[testKey].getFieldClass()?replace('.','_')}">
+	    ${input_field[testKey].getType()}
+	    </a>
+	    <#else>
+	    
+	     ${input_field[testKey].getType()}
+	    
+	    </#if>
+	    
+	   
 	    </td>
 	    <#if (p_show_type==0)>
 	    <td>${input_field[testKey].getFlagRequire()}
