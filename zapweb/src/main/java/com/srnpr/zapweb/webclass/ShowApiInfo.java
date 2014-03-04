@@ -39,24 +39,36 @@ public class ShowApiInfo extends BaseClass {
 
 			MApiModel mApiModel = DefaultApiCache.INSTANCE.upValue(apiInfo
 					.get("class_name"));
-
-			inputClass = aSupport.upModel(mApiModel.getInputClass().getName());
-
-			reconnClass(inputClass);
-
-			resultClass = aSupport
-					.upModel(mApiModel.getResultClass().getName());
-
-			reconnClass(resultClass);
 			
-			showType="info";
-		}
-		else if(StringUtils.length(sApiCode)==12)
-		{
-			listSub=DbUp.upTable("za_apiinfo").queryByWhere("parent_code",
+			
+			MDataMap mParentDataMap= DbUp.upTable("za_apiinfo").one("api_code",apiInfo.get("parent_code"));
+			
+			apiInfo.put("parent_name", mParentDataMap.get("api_name"));
+			
+
+			if (mApiModel != null) {
+
+				inputClass = aSupport.upModel(mApiModel.getInputClass()
+						.getName());
+
+				reconnClass(inputClass);
+
+				resultClass = aSupport.upModel(mApiModel.getResultClass()
+						.getName());
+
+				reconnClass(resultClass);
+			}
+			else {
+				inputClass=new MAnnotationClass();
+				resultClass=new MAnnotationClass();
+			}
+
+			showType = "info";
+		} else if (StringUtils.length(sApiCode) == 12) {
+			listSub = DbUp.upTable("za_apiinfo").queryByWhere("parent_code",
 					apiInfo.get("api_code"));
-			
-			showType="list";
+
+			showType = "list";
 		}
 
 	}
@@ -88,12 +100,10 @@ public class ShowApiInfo extends BaseClass {
 	private Map<String, MAnnotationClass> connClass = new ConcurrentHashMap<String, MAnnotationClass>();
 
 	private List<MDataMap> listInfo;
-	
+
 	private List<MDataMap> listSub;
-	
-	
-	private String showType="index";
-	
+
+	private String showType = "index";
 
 	public MAnnotationClass getInputClass() {
 		return inputClass;

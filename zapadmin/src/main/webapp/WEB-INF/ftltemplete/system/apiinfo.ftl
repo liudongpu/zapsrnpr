@@ -6,7 +6,7 @@ api_model=b_method.upClass("com.srnpr.zapweb.webclass.ShowApiInfo")>
 	<div class="container">
 		<div class="navbar-header">
 
-			<a class="navbar-brand" href="#">仓颉开放平台</a>
+			<a class="navbar-brand" href="?"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;仓颉开放平台</a>
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
@@ -26,6 +26,9 @@ api_model=b_method.upClass("com.srnpr.zapweb.webclass.ShowApiInfo")>
 <div class="container">
 	<ol class="breadcrumb">
 		<li><a href="?">首页</a></li>
+		<#if api_model.getShowType()=="info">
+		<li><a href="?apicode=${api_model.getApiInfo()['parent_code']}">${api_model.getApiInfo()["parent_name"]}</a></li>
+		</#if>
 		<li class="active"><@m_open_format_name
 			api_model.getApiInfo()["class_name"]/>
 			${api_model.getApiInfo()["api_name"]}</li>
@@ -34,15 +37,27 @@ api_model=b_method.upClass("com.srnpr.zapweb.webclass.ShowApiInfo")>
 		<div class="col-xs-3 col-sm-3 sidebar-offcanvas" id="sidebar"
 			role="navigation">
 			<#if api_model.getShowType()=="info">
-			<a href="?apicode=${api_model.getApiInfo()['parent_code']}" class="btn btn-warning btn-block">返回</a>
+			<a href="?apicode=${api_model.getApiInfo()['parent_code']}" class="btn btn-warning btn-block">&nbsp;返回</a>
 			<hr>
 			</#if>
 			<div class="list-group">
 				 <#list
-				api_model.getListInfo() as e_list> <a
+				api_model.getListInfo() as e_list> 
+				
+				<#if (e_list['api_code']==api_model.getApiInfo()['api_code'])>
+				
+				<a
 					href="?apicode=${e_list['api_code']}"
-					class="list-group-item <#if (e_list['api_code']==api_model.getApiInfo()['api_code'])> active</#if>">${e_list["api_name"]}</a>
-
+					class="list-group-item active"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;${e_list["api_name"]}</a>
+				
+				<#else>
+				<a
+					href="?apicode=${e_list['api_code']}"
+					class="list-group-item">${e_list["api_name"]}</a>
+				
+				</#if>
+				
+				
 				</#list>
 
 
@@ -54,7 +69,7 @@ api_model=b_method.upClass("com.srnpr.zapweb.webclass.ShowApiInfo")>
 
 			<#if api_model.getShowType()=="list">
 			
-			<a href="#" class="btn btn-warning btn-block">API列表</a>
+			<a href="#" class="btn btn-warning btn-block">${api_model.getApiInfo()["api_name"]}-API列表</a>
 			<div class="w_h_40"></div>
 			
 			<table class="table">
@@ -106,7 +121,7 @@ api_model=b_method.upClass("com.srnpr.zapweb.webclass.ShowApiInfo")>
 					<div id="apiinfo_panel_one" class="panel-collapse collapse in">
 						<div class="panel-body">
 							<table class="table  table-condensed table-bordered table-hover">
-								<tr>
+								<tr  class="active">
 									<th style="width: 10%;">参数名称</th>
 									<th style="width: 8%;">类型</th>
 									<th style="width: 10%;">是否必须</th>
@@ -199,6 +214,7 @@ api_model=b_method.upClass("com.srnpr.zapweb.webclass.ShowApiInfo")>
 	<hr>
 
 	<footer>
+
 		<p>&copy; Company 2013</p>
 	</footer>
 

@@ -132,16 +132,16 @@ body {
 <#macro m_open_show_class p_class_model p_show_type=0>
 
  <table class="table  table-condensed table-bordered table-hover">
-  <tr>
-	    <th>参数名称
+  <tr class="active">
+	    <th style="width:10%;">参数名称
 	    </th>
-	    <th>类型
+	    <th style="width:10%;">类型
 	    </th>
 	    <#if (p_show_type==0)>
-	    <th>是否必须
+	    <th style="width:10%;">是否必须
 	    </th>
 	    </#if>
-	    <th>参数描述
+	    <th style="width:20%;">参数描述
 	    </th><th>备注
 	    </th>
 	    </tr>
