@@ -8,9 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="sitenav">
 <meta name="author" content="srnpr">
-<title>sitenav</title>
+<title>仓颉开放平台</title>
 <link
-	href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css"
+	href="../resources/lib/bootthree/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <!--[if lt IE 9]><script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
@@ -119,9 +119,9 @@ body {
 
 
 <#macro m_open_footer>
-<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+<script src="../resources/lib/jquery/jquery-last.min.js"></script>
 	<script
-		src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		src="../resources/lib/bootthree/js/bootstrap.min.js"></script>
 </body>
 </html>
 </#macro>
@@ -177,7 +177,20 @@ ${p_class_name?replace(".","_")}
 </#macro>
 
 
+<#macro m_open_format_type p_type_code>
 
+<#if p_type_code=="467701200001">
+<span class="label label-danger"><span
+					class="glyphicon glyphicon-star"></span>&nbsp;私有&nbsp;&nbsp;</span>
+					
+					<#else>
+					<span class="label label-success"><span
+					class="glyphicon glyphicon-globe"></span>&nbsp;公开&nbsp;&nbsp;</span>
+</#if>
+
+
+
+</#macro>
 
 
 
