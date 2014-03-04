@@ -1,5 +1,6 @@
 package com.srnpr.zapweb.demo;
 
+import com.srnpr.zapcom.baseannotation.ZapcomApi;
 import com.srnpr.zapcom.topapi.RootResult;
 
 /**
@@ -13,6 +14,8 @@ public class DemoApiResult extends RootResult {
 	/**
 	 * 返回结果一号
 	 */
+	
+	@ZapcomApi(value="返回结果值一")
 	private String resultFiledOne = "";
 
 	/**

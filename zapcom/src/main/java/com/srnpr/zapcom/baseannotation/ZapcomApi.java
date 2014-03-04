@@ -28,4 +28,18 @@ public @interface ZapcomApi {
 	 */
 	public String[] remark() default {};
 
+	/**
+	 * 是否必须参数 默认为1必填 0为非必填 该参数仅用于输入参数的字段标记
+	 * 
+	 * @return
+	 */
+	public int require() default 0;
+
+	/**
+	 * 参数示例
+	 * 
+	 * @return
+	 */
+	public String[] demo() default {};
+
 }

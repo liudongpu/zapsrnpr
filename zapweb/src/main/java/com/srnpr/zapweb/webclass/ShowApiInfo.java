@@ -15,15 +15,36 @@ import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.basesupport.AnnotationSupport;
 import com.srnpr.zapcom.topapi.DefaultApiCache;
 import com.srnpr.zapdata.dbdo.DbUp;
+import com.srnpr.zapweb.helper.WebSessionHelper;
 
 public class ShowApiInfo extends BaseClass {
 
 	AnnotationSupport aSupport = new AnnotationSupport();
 
 	public ShowApiInfo() {
+		
+		
+		WebSessionHelper webSessionHelper=WebSessionHelper.create();
+		
+		String sApiCode=webSessionHelper.upRequest("apicode");
+		if(StringUtils.isEmpty(sApiCode))
+		{
+			sApiCode="4677010900010001";
+		}
+		
+		
+		
+		
 
 		apiInfo = DbUp.upTable("za_apiinfo")
-				.one("api_code", "4677010900010001");
+				.one("api_code", sApiCode);
+		
+		
+		
+		listInfo=DbUp.upTable("za_apiinfo").queryByWhere("parent_code",apiInfo.get("parent_code"));
+		
+		
+		
 
 		MApiModel mApiModel = DefaultApiCache.INSTANCE.upValue(apiInfo
 				.get("class_name"));
@@ -63,6 +84,9 @@ public class ShowApiInfo extends BaseClass {
 	private MDataMap apiInfo;
 
 	private Map<String, MAnnotationClass> connClass = new ConcurrentHashMap<String, MAnnotationClass>();
+	
+	private List<MDataMap> listInfo;
+	
 
 	public MAnnotationClass getInputClass() {
 		return inputClass;
@@ -94,6 +118,14 @@ public class ShowApiInfo extends BaseClass {
 
 	public void setApiInfo(MDataMap apiInfo) {
 		this.apiInfo = apiInfo;
+	}
+
+	public List<MDataMap> getListInfo() {
+		return listInfo;
+	}
+
+	public void setListInfo(List<MDataMap> listInfo) {
+		this.listInfo = listInfo;
 	}
 
 }
