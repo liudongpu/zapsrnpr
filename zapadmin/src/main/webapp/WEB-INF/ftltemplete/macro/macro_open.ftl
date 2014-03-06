@@ -1,6 +1,4 @@
-
-
-<#macro m_open_header>
+ <#macro m_open_header>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -9,14 +7,13 @@
 <meta name="description" content="sitenav">
 <meta name="author" content="srnpr">
 <title>仓颉开放平台</title>
-<link
-	href="../resources/lib/bootthree/css/bootstrap.min.css"
+<link href="../resources/lib/bootthree/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <!--[if lt IE 9]><script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
     <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script><![endif]-->
 
-<link rel="shortcut icon" href="http://www.cntv.cn/favicon.ico" />
+<link rel="shortcut icon" href="../resources/zapadmin/img/icons/apiopen.ico" />
 <link
 	href="http://seller.static.cctvmall.cn/cshop/resources/zapweb/css/w.css"
 	rel="stylesheet">
@@ -79,7 +76,6 @@ body {
 		"Segoe UI Web Light", "Segoe UI Web Regular", "Segoe UI",
 		"Segoe UI Symbol", "HelveticaNeue-Light", "Helvetica Neue", Arial;
 	word-wrap: break-word;
-	
 }
 
 .navbar-inverse {
@@ -104,104 +100,57 @@ body {
 	{
 	background-color: #1c9971;
 }
-
 </style>
 
 
 </head>
 <body>
-</#macro>
-
-
-
-
-
-
-
-<#macro m_open_footer>
-<script src="../resources/lib/jquery/jquery-last.min.js"></script>
-	<script
-		src="../resources/lib/bootthree/js/bootstrap.min.js"></script>
+	</#macro> <#macro m_open_footer>
+	<script src="../resources/lib/jquery/jquery-last.min.js"></script>
+	<script src="../resources/lib/bootthree/js/bootstrap.min.js"></script>
 </body>
 </html>
-</#macro>
+</#macro> <#macro m_open_show_class p_class_model p_show_type=0>
+
+<table class="table  table-condensed table-bordered table-hover">
+	<tr class="active">
+		<th style="width: 10%;">参数名称</th>
+		<th style="width: 10%;">类型</th> <#if (p_show_type==0)>
+		<th style="width: 10%;">是否必须</th> </#if>
+		<th style="width: 20%;">参数描述</th>
+		<th>备注</th>
+	</tr>
 
 
+	<#local input_field=p_class_model.getFields()> <#list input_field?keys
+	as testKey>
+	<tr>
+		<td>${testKey}</td>
+		<td><#if (input_field[testKey].getFieldClass()!="")> <a
+			href="#apiinfo_field_${input_field[testKey].getFieldClass()?replace('.','_')}">
+				${input_field[testKey].getType()} </a> <#else>
+
+			${input_field[testKey].getType()} </#if>
 
 
-<#macro m_open_show_class p_class_model p_show_type=0>
-
- <table class="table  table-condensed table-bordered table-hover">
-  <tr class="active">
-	    <th style="width:10%;">参数名称
-	    </th>
-	    <th style="width:10%;">类型
-	    </th>
-	    <#if (p_show_type==0)>
-	    <th style="width:10%;">是否必须
-	    </th>
-	    </#if>
-	    <th style="width:20%;">参数描述
-	    </th><th>备注
-	    </th>
-	    </tr>
-
- 
- <#local input_field=p_class_model.getFields()>
- 
-	<#list input_field?keys as testKey> 
-	    <tr>
-	    <td>${testKey} 
-	    </td>
-	    <td>
-	    <#if (input_field[testKey].getFieldClass()!="")>
-	    <a href="#apiinfo_field_${input_field[testKey].getFieldClass()?replace('.','_')}">
-	    ${input_field[testKey].getType()}
-	    </a>
-	    <#else>
-	    
-	     ${input_field[testKey].getType()}
-	    
-	    </#if>
-	    
-	   
-	    </td>
-	    <#if (p_show_type==0)>
-	    <td>${input_field[testKey].getFlagRequire()}
-	    </td>
-	    </#if>
-	    <td>${input_field[testKey].getTitle()}
-	    </td>
-	    <td>${input_field[testKey].getRemark()}
-	    </td>
-	    </tr>
+		</td> <#if (p_show_type==0)>
+		<td>${input_field[testKey].getFlagRequire()}</td> </#if>
+		<td>${input_field[testKey].getTitle()}</td>
+		<td>${input_field[testKey].getRemark()}</td>
+	</tr>
 	</#list>
- </table>
- 
- </#macro>
+</table>
 
-
-
-
-<#macro m_open_format_name p_class_name>
-${p_class_name?replace(".","_")}
-</#macro>
-
-
-<#macro m_open_format_type p_type_code>
-
-<#if p_type_code=="467701200001">
+</#macro> <#macro m_open_format_name p_class_name>
+${p_class_name?replace(".","_")} </#macro> <#macro m_open_format_type
+p_type_code> <#if p_type_code=="467701200001">
 <span class="label label-danger"><span
-					class="glyphicon glyphicon-star"></span>&nbsp;私有&nbsp;&nbsp;</span>
-					
-					<#else>
-					<span class="label label-success"><span
-					class="glyphicon glyphicon-globe"></span>&nbsp;公开&nbsp;&nbsp;</span>
-</#if>
+	class="glyphicon glyphicon-star"></span>&nbsp;私有&nbsp;&nbsp;</span>
 
-
-
-</#macro>
+<#else>
+<span class="label label-success"><span
+	class="glyphicon glyphicon-globe"></span>&nbsp;公开&nbsp;&nbsp;</span>
+</#if> </#macro>
 
 
 
