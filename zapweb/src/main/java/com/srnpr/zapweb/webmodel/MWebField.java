@@ -1,10 +1,13 @@
 package com.srnpr.zapweb.webmodel;
 
+import com.srnpr.zapcom.baseannotation.ZapcomApi;
+
 public class MWebField implements Cloneable {
 
 	/**
 	 * 字段中文名
 	 */
+	@ZapcomApi("字段中文名")
 	private String fieldNote = "";
 
 	/**
@@ -15,6 +18,7 @@ public class MWebField implements Cloneable {
 	/**
 	 * 数据库名称
 	 */
+	@ZapcomApi("数据库名称")
 	private String columnName = "";
 
 	/**

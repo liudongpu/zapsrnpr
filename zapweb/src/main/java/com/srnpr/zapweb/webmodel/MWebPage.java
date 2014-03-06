@@ -2,6 +2,8 @@ package com.srnpr.zapweb.webmodel;
 
 import java.util.List;
 
+import com.srnpr.zapcom.baseannotation.ZapcomApi;
+
 public class MWebPage {
 
 	private String pageCode = "";
@@ -19,9 +21,10 @@ public class MWebPage {
 	
 	
 
+	@ZapcomApi(value="页面按钮",remark="页面操作的所有按钮")
 	private List<MWebOperate> pageOperate;
 	
-	
+	@ZapcomApi(value="页面字段",remark="字段的定义")
 	private List<MWebField> pageFields;
 	
 

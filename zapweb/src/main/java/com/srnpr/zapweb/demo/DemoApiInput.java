@@ -5,6 +5,7 @@ import java.util.List;
 import com.srnpr.zapcom.baseannotation.ZapcomApi;
 import com.srnpr.zapcom.basemodel.MAnnotationClass;
 import com.srnpr.zapcom.topapi.RootInput;
+import com.srnpr.zapweb.webmodel.MWebPage;
 import com.srnpr.zapweb.webmodel.MWebResult;
 
 /**
@@ -32,7 +33,7 @@ public class DemoApiInput extends RootInput {
 	
 	
 	@ZapcomApi(value = "测试MAnnotationClass", remark = "测啊测")
-	private MWebResult man;
+	private MWebPage man;
 	
 
 	public String getDemoInputFirst() {
