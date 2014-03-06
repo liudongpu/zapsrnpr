@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.srnpr.zapcom.baseclass.BaseLog;
 import com.srnpr.zapcom.baseface.IBaseHelper;
 import com.srnpr.zapcom.topdo.TopUp;
 
@@ -14,8 +15,6 @@ import com.srnpr.zapcom.topdo.TopUp;
 public class BeansHelper implements IBaseHelper {
 
 	private static BeanFactory beanFactory = null;
-
-	
 
 	private static Object getBeanObject(String name) {
 
@@ -32,19 +31,19 @@ public class BeansHelper implements IBaseHelper {
 	}
 
 	private synchronized static void initBeanFactory() {
-	
 
-				if (beanFactory == null) {
-					String[] sSpringConfig = TopUp.upConfig(
-							"zapcom.spring_bean").split(",");
+		if (beanFactory == null) {
+			String[] sSpringConfig = TopUp.upConfig("zapcom.spring_bean")
+					.split(",");
 
-					beanFactory = new ClassPathXmlApplicationContext(
-							sSpringConfig).getBeanFactory();
-					
-					
-					
-				}
-			
+			BaseLog.LogInfo(new BeansHelper().getClass().getName(), 0,
+					sSpringConfig);
+
+			beanFactory = new ClassPathXmlApplicationContext(sSpringConfig)
+					.getBeanFactory();
+
+		}
+
 	}
 
 }
