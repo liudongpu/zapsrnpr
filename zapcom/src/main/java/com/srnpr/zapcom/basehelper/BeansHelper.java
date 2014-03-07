@@ -18,7 +18,7 @@ public class BeansHelper implements IBaseHelper {
 
 	private static int flagInit = 0;
 
-	private Object getBeanObject(String name) {
+	private static Object getBeanObject(String name) {
 
 		if (flagInit < 1 || beanFactory == null) {
 			flagInit = 2;
@@ -38,7 +38,7 @@ public class BeansHelper implements IBaseHelper {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			BaseLog.LogInfo(this.getClass().getName(), 967912050, name);
+			BaseLog.LogInfo(BeansHelper.class.getName(), 967912050, name);
 			beanFactory = null;
 			new BeansHelper().initBeanFactory();
 			oReturn = beanFactory.getBean(name);
@@ -50,7 +50,7 @@ public class BeansHelper implements IBaseHelper {
 
 	@SuppressWarnings("unchecked")
 	public static <T> T upBean(String sBeanName) {
-		return (T) new BeansHelper().getBeanObject(sBeanName);
+		return (T) getBeanObject(sBeanName);
 	}
 
 	private synchronized void initBeanFactory() {
@@ -59,7 +59,7 @@ public class BeansHelper implements IBaseHelper {
 			String[] sSpringConfig = TopUp.upConfig("zapcom.spring_bean")
 					.split(",");
 
-			BaseLog.LogInfo(this.getClass().getName(), 967912051,
+			BaseLog.LogInfo(BeansHelper.class.getName(), 967912051,
 					TopUp.upConfig("zapcom.spring_bean"));
 
 			beanFactory = new ClassPathXmlApplicationContext(sSpringConfig)
