@@ -2,7 +2,7 @@
 api_model=b_method.upClass("com.srnpr.zapweb.webclass.ShowApiInfo")>
 
 
-<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+<div class="navbar  navbar-inverse" role="navigation">
 	<div class="container">
 		<div class="navbar-header">
 
@@ -220,10 +220,10 @@ api_model=b_method.upClass("com.srnpr.zapweb.webclass.ShowApiInfo")>
 						<div class="w_h_40" id="apiinfo_field_${e_key?replace('.','_')}">
 						
 						<#assign e_keyscm=e_key?split('.') >
-						
+						<div class="w_h_20"></div>
 						<span class="label label-info">${e_keyscm[e_keyscm?size-1]}</span>
 						</div>
-						
+						<div class="w_h_20"></div>
 						
 						<@m_open_show_class
 							p_class_model=api_model.getConnClass()[e_key] p_show_type=1 />

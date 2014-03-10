@@ -15,7 +15,10 @@
 
 <link rel="shortcut icon" href="../resources/zapadmin/img/icons/apiopen.ico" />
 <link
-	href="http://seller.static.cctvmall.cn/cshop/resources/zapweb/css/w.css"
+	href="../resources/zapweb/css/w.css"
+	rel="stylesheet">
+	<link
+	href="../resources/lib/jplugins/grumble/css/grumble.min.css"
 	rel="stylesheet">
 
 <style>
@@ -28,7 +31,7 @@ html,body {
 }
 
 body {
-	padding-top: 70px;
+	
 }
 
 footer {
@@ -80,6 +83,10 @@ body {
 
 .navbar-inverse {
 	background-color: #1fa67a;
+	border-color: #1fa67a;
+	border-radius:0px;
+	border:0px;
+	
 	border-top: 1px solid #34a782;
 	border-bottom: 1px solid #1c9971;
 }
@@ -103,11 +110,28 @@ body {
 </style>
 
 
+<script>
+function func_open_rumble(s)
+{
+	$('#'+s+' span').grumble(
+	{
+		text: '结构描述', 
+		angle: 240, 
+		distance: 0, 
+		showAfter: 300,
+		//type: 'alt-', 
+		hideAfter: 3000
+	}
+);
+}
+</script>
+
 </head>
 <body>
 	</#macro> <#macro m_open_footer>
 	<script src="../resources/lib/jquery/jquery-last.min.js"></script>
 	<script src="../resources/lib/bootthree/js/bootstrap.min.js"></script>
+	<script src="../resources/lib/jplugins/grumble/js/jquery.grumble.min.js"></script>
 </body>
 </html>
 </#macro> <#macro m_open_show_class p_class_model p_show_type=0>
@@ -127,7 +151,7 @@ body {
 	<tr>
 		<td>${testKey}</td>
 		<td><#if (input_field[testKey].getFieldClass()!="")> <a
-			href="#apiinfo_field_${input_field[testKey].getFieldClass()?replace('.','_')}">
+			href="#apiinfo_field_${input_field[testKey].getFieldClass()?replace('.','_')}" onclick="func_open_rumble('apiinfo_field_${input_field[testKey].getFieldClass()?replace('.','_')}')">
 				${input_field[testKey].getType()} </a> <#else>
 
 			${input_field[testKey].getType()} </#if>
