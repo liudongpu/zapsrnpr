@@ -84,7 +84,7 @@ var zapadmin = {
 
 				var iStepLength = step.length;
 				for (var i = 0; i < iStepLength; i++) {
-					
+
 					if (step[i].id == oEvery[2]) {
 
 						if (!step[i].hasOwnProperty("children")) {
@@ -147,14 +147,24 @@ var zapadmin = {
 
 	window_open : function(options) {
 
-		//this.window_url('../show/page_tree_v_za_role');
+		// this.window_url('../show/page_tree_v_za_role');
+
+	},
+	// 登陆页面初始化
+	login_page : function() {
+
+		$('#zw_f_login_name').focus();
+		$('#zw_f_login_pass').keydown(function(e) {
+			if (e.keyCode == 13) {
+				$('#id_manage_login_login_submit').click();
+			}
+		});
 
 	}
 };
 
-if ( typeof define === "function" && define.amd) {
-	define("zapadmin/js/zapadmin", ["zapjs/zapjs.zw"], function() {
+if (typeof define === "function" && define.amd) {
+	define("zapadmin/js/zapadmin", [ "zapjs/zapjs.zw" ], function() {
 		return zapadmin;
 	});
 }
-

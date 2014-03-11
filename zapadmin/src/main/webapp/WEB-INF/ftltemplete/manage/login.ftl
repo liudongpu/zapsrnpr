@@ -41,7 +41,7 @@
 										placeholder="请输入密码" value="">
 									<div class="w_h_20"></div>
 									<div class="w_al_center">
-										<input class="btn btn-large btn-danger" type="button"
+										<input class="btn btn-large btn-danger" id="id_manage_login_login_submit" type="button"
 											zapweb_attr_operate_id="115793e80b38485aaba8223e0ea101b6"
 											onclick="zapjs.zw.login_post(this)" value="登录"/>
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a>新商户申请</a>
@@ -89,5 +89,8 @@
 		</div>
 	</div>
 
+<script type="text/javascript">
+$(function(){zapadmin.login_page()});
+</script>
 
 <@m_common_page_foot_base  />
