@@ -36,9 +36,9 @@ public class FunConfirmedReturn extends RootFunc {
 		Map<String, String> sParaTemp = new HashMap<String, String>();
 		String idArray = "";
 		String detail_data = "";
-		if(StringUtils.isNotEmpty(mDataMap.get("ttt")))
+		if(StringUtils.isNotEmpty(mDataMap.get("sData")))
 		{
-			idArray = mDataMap.get("ttt");
+			idArray = mDataMap.get("sData");
 			String[] a = idArray.split(",");
 			List<String> stooges = Arrays.asList(a);
 			String sql = "";
