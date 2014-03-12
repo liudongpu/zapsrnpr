@@ -48,8 +48,7 @@ public class WebHelper {
 	/**
 	 * 加锁
 	 * 
-	 * @param keys
-	 *            要加锁的Key,用 英文逗号 “ ,” 分割。
+	 * @param keys。
 	 * @param timeOutSeconds
 	 *            过期秒数。
 	 * @return
