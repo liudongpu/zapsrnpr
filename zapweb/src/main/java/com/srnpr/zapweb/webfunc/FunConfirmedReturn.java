@@ -63,11 +63,11 @@ public class FunConfirmedReturn extends RootFunc {
 			String ssql = "select * from oc_return_money_detail where " +sql;
 			List<Map<String, Object>> dataSqlList = DbUp.upTable("oc_return_money_detail").dataSqlList(ssql, new MDataMap());
 			
-			sParaTemp.put("service", AlipayConfig.service);
+			sParaTemp.put("service", bConfig("zapweb.service"));
 	        sParaTemp.put("partner", AlipayConfig.partner);
 	        sParaTemp.put("_input_charset", AlipayConfig.input_charset);
 			sParaTemp.put("notify_url", notify_url);
-			sParaTemp.put("seller_email", "zhongjinwancheng@sina.com");
+			sParaTemp.put("seller_email", bConfig("zapweb.seller_email"));
 			sParaTemp.put("refund_date", nowTime);
 			sParaTemp.put("batch_no", df1.format(new Date()).toString() + nousedate.toString().replace(" ", "")
 					.replace("-", "")

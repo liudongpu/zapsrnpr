@@ -1,11 +1,6 @@
 package com.srnpr.zapweb.ali.config;
 
-import org.apache.commons.configuration.Configuration; 
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
-
-
-
+import com.srnpr.zapcom.baseclass.BaseClass;
 
 
 /* *
@@ -29,41 +24,26 @@ import org.apache.commons.configuration.PropertiesConfiguration;
  *2、更换浏览器或电脑，重新登录查询。
  */
 
-public class AlipayConfig {
+public class AlipayConfig  extends BaseClass{
 	
-	public static String partner = "";
-	// 商户的私钥
-	public static String key = "";
+	//↓↓↓↓↓↓↓↓↓↓请在这里配置您的基本信息↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+		// 合作身份者ID，以2088开头由16位纯数字组成的字符串
+		public static String partner = "2088901463027765";
+		// 商户的私钥
+		public static String key = "exk7iwejd1nuwjh7j2bn2wkyr54ojqqf";
 
-	//↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
-	
-
-	// 调试用，创建TXT日志文件夹路径
-	public static String log_path = "";
-
-	// 字符编码格式 目前支持 gbk 或 utf-8
-	public static String input_charset = "";
-	// 签名方式 不需修改
-	public static String sign_type = "";
-	public static String seller_email = "";
-	public static String service = "";
-	static
-	{
-		try {
-			Configuration config = new PropertiesConfiguration("com/srnpr/zapweb/ali/config/ali.properties");
-			 partner = config.getString("partner");
-			 key=config.getString("key");
-			 input_charset = config.getString("input_charset");
-			 sign_type =config.getString("sign_type");
-			 seller_email = config.getString("seller_email");
-			 service = config.getString("service");
-		} catch (ConfigurationException e) {
-			e.printStackTrace();
-		}
-	}
-	
-		
+		//↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 		
 
+		// 调试用，创建TXT日志文件夹路径
+		public static String log_path = "D:\\";
+
+		// 字符编码格式 目前支持 gbk 或 utf-8
+		public static String input_charset = "utf-8";
+		
+		// 签名方式 不需修改
+		public static String sign_type = "MD5";
+	
+	
 
 }
