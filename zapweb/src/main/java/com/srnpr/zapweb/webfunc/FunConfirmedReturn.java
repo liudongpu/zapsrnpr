@@ -8,8 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
@@ -27,6 +30,7 @@ public class FunConfirmedReturn extends RootFunc {
 	
 	@Override
 	public MWebResult funcDo(String sOperateUid, MDataMap mDataMap) {
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();   
 		MWebResult mResult = new MWebResult();
 		mResult.setResultType("116018010");
 		String notify_url = "http://localhost:8080/return/notify_url.jsp";
@@ -87,6 +91,9 @@ public class FunConfirmedReturn extends RootFunc {
 		}
 		String sHtmlText = AlipaySubmit.buildRequest(sParaTemp,"post","确认");
 		mResult.setResultObject("returnMsg('"+ sHtmlText+ "')");
+		request.setAttribute("sHtmlText", sHtmlText);
+		//System.out.println(request.getParameter("xxx"));
+		//System.out.println(request.getAttribute("sHtmlText"));
 		 
 		return mResult;
 	}
