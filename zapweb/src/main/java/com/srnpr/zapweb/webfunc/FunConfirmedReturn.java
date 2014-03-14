@@ -7,7 +7,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+
 import org.apache.commons.lang.StringUtils;
+
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.ali.config.AlipayConfig;
@@ -21,7 +24,7 @@ import com.srnpr.zapweb.webmodel.MWebResult;
  * 
  */
 public class FunConfirmedReturn extends RootFunc {
-
+	
 	@Override
 	public MWebResult funcDo(String sOperateUid, MDataMap mDataMap) {
 		MWebResult mResult = new MWebResult();
@@ -83,9 +86,8 @@ public class FunConfirmedReturn extends RootFunc {
 			sParaTemp.put("detail_data", detail_data);
 		}
 		String sHtmlText = AlipaySubmit.buildRequest(sParaTemp,"post","确认");
-		mResult.setResultObject("returnMsg('"
-				+ sHtmlText
-				+ "')");
+		mResult.setResultObject("returnMsg('"+ sHtmlText+ "')");
+		 
 		return mResult;
 	}
 	
