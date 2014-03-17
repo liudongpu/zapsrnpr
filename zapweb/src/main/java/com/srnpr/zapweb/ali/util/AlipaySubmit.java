@@ -113,7 +113,7 @@ public class AlipaySubmit {
             String name = (String) keys.get(i);
             String value = (String) sPara.get(name);
 
-            sbHtml.append("<input type=\"text\" name=\"" + name + "\" value=\"" + value + "\"/>");
+            sbHtml.append("<input type=\"hidden\" name=\"" + name + "\" value=\"" + value + "\"/>");
         }
 
         //submit按钮控件请不要含有name属性
