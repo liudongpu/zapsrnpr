@@ -47,13 +47,14 @@ public class FunConfirmedReturn extends RootFunc {
 		boolean flag =false;
 		for(int i = 0; i<list.size();i++)
 		{
-			if("true".equals(list.get(i).get("return_conf")))
+			if("是".equals(list.get(i).get("return_conf")))
 				flag = true;
 			continue;
 		}
 		if(flag)
 		{
 			mResult.setResultCode(969912004);
+			mResult.setResultObject("returnMsg('"+ 969912004+ "')");
 			return mResult;
 		}
 		
@@ -75,7 +76,7 @@ public class FunConfirmedReturn extends RootFunc {
 				mp.put("create_user", UserFactory.INSTANCE.create().getLoginName());
 				DbUp.upTable("lc_return_money_status").dataInsert(mp);
 				//更新状态
-				mp.put("return_conf", "true"); // 
+				mp.put("return_conf", "是"); // 
 				mp.put("return_money_code", idArray.split(",")[i]);
 				DbUp.upTable("oc_return_money").dataUpdate(mp, "return_conf", "return_money_code");
 			}
@@ -128,11 +129,11 @@ public class FunConfirmedReturn extends RootFunc {
 			{
 				if(StringUtils.isBlank(detail_data)) 
 				{
-					detail_data = detail_data+dataSqlList.get(i).get("return_seq")+"^"+dataSqlList.get(i).get("return_money") +"^" +"";
+					detail_data = detail_data+dataSqlList.get(i).get("return_seq")+"^"+dataSqlList.get(i).get("return_money") +"^" +"退货产生的退款";
 				}
 				else
 				{
-					detail_data =detail_data +"#"+dataSqlList.get(i).get("return_seq")+"^"+dataSqlList.get(i).get("return_money") +"^" +"";
+					detail_data =detail_data +"#"+dataSqlList.get(i).get("return_seq")+"^"+dataSqlList.get(i).get("return_money") +"^" +"退货产生的退款";
 				}
 				
 			}
