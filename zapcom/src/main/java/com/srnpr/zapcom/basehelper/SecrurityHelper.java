@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.srnpr.zapcom.basesupport.DesSupport;
+
 public class SecrurityHelper {
 
 	/**
@@ -40,6 +42,32 @@ public class SecrurityHelper {
 	}
 
 	/**
+	 * des算法加密字符串
+	 * 
+	 * @param sKey
+	 * @param sInput
+	 * @return
+	 */
+	public static String DesEncryptStr(String sKey, String sInput) {
+		DesSupport desSupport = new DesSupport(sKey);
+
+		return desSupport.encryptStr(sInput);
+	}
+
+	/**
+	 * des算法解密字符串
+	 * 
+	 * @param sKey
+	 * @param sInput
+	 * @return
+	 */
+	public static String DesDencryptStr(String sKey, String sInput) {
+		DesSupport desSupport = new DesSupport(sKey);
+
+		return desSupport.decryptStr(sInput);
+	}
+
+	/**
 	 * MD5加密自定义
 	 * 
 	 * @param s
@@ -71,35 +99,35 @@ public class SecrurityHelper {
 			return null;
 		}
 	}
-	
-    /*
-     * 返回32位小写的MD5码
-     */
-     public static String getEncoderByMd5(String sessionid)
-     throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
-     StringBuffer hexString = null;
-     byte[] defaultBytes = sessionid.getBytes();
-     try {
-         MessageDigest algorithm = MessageDigest.getInstance("MD5");
-         algorithm.reset();
-         algorithm.update(defaultBytes);
-         byte messageDigest[] = algorithm.digest();
+	/*
+	 * 返回32位小写的MD5码
+	 */
+	public static String getEncoderByMd5(String sessionid)
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
-         hexString = new StringBuffer();
-         for (int i = 0; i < messageDigest.length; i++) {
-             if (Integer.toHexString(0xFF & messageDigest[i]).length() == 1) {
-                 hexString.append(0);
-             }
-             hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
-         }
-         messageDigest.toString();
-         sessionid = hexString + "";
-     } catch (NoSuchAlgorithmException nsae) {
+		StringBuffer hexString = null;
+		byte[] defaultBytes = sessionid.getBytes();
+		try {
+			MessageDigest algorithm = MessageDigest.getInstance("MD5");
+			algorithm.reset();
+			algorithm.update(defaultBytes);
+			byte messageDigest[] = algorithm.digest();
 
-     }
-     return hexString.toString().toLowerCase();
+			hexString = new StringBuffer();
+			for (int i = 0; i < messageDigest.length; i++) {
+				if (Integer.toHexString(0xFF & messageDigest[i]).length() == 1) {
+					hexString.append(0);
+				}
+				hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
+			}
+			messageDigest.toString();
+			sessionid = hexString + "";
+		} catch (NoSuchAlgorithmException nsae) {
 
-    }
+		}
+		return hexString.toString().toLowerCase();
+
+	}
 
 }
