@@ -61,9 +61,16 @@ public class XaDataSourceBean extends AtomikosDataSourceBean {
 		this.setXaProperties(properties);
 		
 		this.setPoolSize(1);
-		this.setMaxPoolSize(DataConst.CONST_DATA_INIT_MAX_POOL);
+		this.setMaxPoolSize(DataConst.CONST_DATA_XASOURCE_MAXPOOL);
 		this.setMinPoolSize(1);
 		this.setTestQuery(DataConst.CONST_DATA_TEST_QUERY);
+		
+		
+		this.setBorrowConnectionTimeout(30);
+		this.setMaxIdleTime(60);
+		this.setReapTimeout(20);
+		this.setMaintenanceInterval(60);
+		
 		
 		
 	}
