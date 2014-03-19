@@ -47,11 +47,15 @@ public class SecrurityHelper {
 	 * @param sKey
 	 * @param sInput
 	 * @return
+	 * @throws Exception
 	 */
-	public static String DesEncryptStr(String sKey, String sInput) {
+	public static String DesEncryptStr(String sKey, String sInput)
+			throws Exception {
+
 		DesSupport desSupport = new DesSupport(sKey);
 
-		return desSupport.encryptStr(sInput);
+		return desSupport.encrypt(sInput);
+
 	}
 
 	/**
@@ -60,11 +64,13 @@ public class SecrurityHelper {
 	 * @param sKey
 	 * @param sInput
 	 * @return
+	 * @throws Exception
 	 */
-	public static String DesDencryptStr(String sKey, String sInput) {
+	public static String DesDencryptStr(String sKey, String sInput)
+			throws Exception {
 		DesSupport desSupport = new DesSupport(sKey);
 
-		return desSupport.decryptStr(sInput);
+		return desSupport.decrypt(sInput);
 	}
 
 	/**

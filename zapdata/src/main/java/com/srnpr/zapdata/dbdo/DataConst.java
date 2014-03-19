@@ -23,4 +23,14 @@ public class DataConst implements IBaseConst {
 	 */
 	public static int CONST_DATA_RUN_TYPE = 0;
 
+	/**
+	 * 连接池最大数量
+	 */
+	public final static int CONST_DATA_INIT_MAX_POOL = 10;
+
+	/**
+	 * 事务连接前的测试代码
+	 */
+	public final static String CONST_DATA_TEST_QUERY = "select 1";
+
 }

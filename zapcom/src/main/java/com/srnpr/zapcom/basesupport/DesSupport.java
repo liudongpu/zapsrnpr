@@ -11,184 +11,69 @@ import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
 import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
+
 import org.apache.commons.codec.binary.Base64;
 
 public class DesSupport {
-	Key key;
+	private byte[] desKey;
 
-	public DesSupport() {
-
+	public DesSupport(String desKey) {
+		this.desKey = desKey.getBytes();
 	}
 
-	public DesSupport(String str) {
-		setKey(str); // 生成密匙
+	public byte[] desEncrypt(byte[] plainText) throws Exception {
+		SecureRandom sr = new SecureRandom();
+		byte rawKeyData[] = desKey;
+		DESKeySpec dks = new DESKeySpec(rawKeyData);
+		SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+		SecretKey key = keyFactory.generateSecret(dks);
+		Cipher cipher = Cipher.getInstance("DES");
+		cipher.init(Cipher.ENCRYPT_MODE, key, sr);
+		byte data[] = plainText;
+		byte encryptedData[] = cipher.doFinal(data);
+		return encryptedData;
 	}
 
-	public Key getKey() {
-		return key;
+	public byte[] desDecrypt(byte[] encryptText) throws Exception {
+		SecureRandom sr = new SecureRandom();
+		byte rawKeyData[] = desKey;
+		DESKeySpec dks = new DESKeySpec(rawKeyData);
+		SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+		SecretKey key = keyFactory.generateSecret(dks);
+		Cipher cipher = Cipher.getInstance("DES");
+		cipher.init(Cipher.DECRYPT_MODE, key, sr);
+		byte encryptedData[] = encryptText;
+		byte decryptedData[] = cipher.doFinal(encryptedData);
+		return decryptedData;
 	}
 
-	public void setKey(Key key) {
-		this.key = key;
+	public String encrypt(String input) throws Exception {
+		return base64Encode(desEncrypt(input.getBytes()));
 	}
 
-	/**
-	 * 根据参数生成 KEY
-	 */
-	public void setKey(String strKey) {
-		try {
-			KeyGenerator _generator = KeyGenerator.getInstance("DES");
-			_generator.init(new SecureRandom(strKey.getBytes()));
-			this.key = _generator.generateKey();
-			_generator = null;
-		} catch (Exception e) {
-			throw new RuntimeException(
-					"Error initializing SqlMap class. Cause: " + e);
-		}
+	public String decrypt(String input) throws Exception {
+		byte[] result = base64Decode(input);
+		return new String(desDecrypt(result));
 	}
 
-	/**
-	 * 加密 String 明文输入 ,String 密文输出
-	 */
-	public String encryptStr(String strMing) {
-		byte[] byteMi = null;
-		byte[] byteMing = null;
-		String strMi = "";
+	public static String base64Encode(byte[] s) {
+		if (s == null)
+			return null;
 
 		Base64 base64 = new Base64();
 
-		try {
-			byteMing = strMing.getBytes("UTF8");
-			byteMi = this.encryptByte(byteMing);
-			strMi = base64.encodeAsString(byteMi);
-		} catch (Exception e) {
-			throw new RuntimeException(
-					"Error initializing SqlMap class. Cause: " + e);
-		} finally {
-			base64 = null;
-			byteMing = null;
-			byteMi = null;
-		}
-		return strMi;
+		return base64.encodeAsString(s);
 	}
 
-	/**
-	 * 解密 以 String 密文输入 ,String 明文输出
-	 * 
-	 * @param strMi
-	 * @return
-	 */
-	public String decryptStr(String strMi) {
-
+	public static byte[] base64Decode(String s) {
+		if (s == null)
+			return null;
 		Base64 base64 = new Base64();
-		byte[] byteMing = null;
-		byte[] byteMi = null;
-		String strMing = "";
-		try {
-			byteMi = base64.decode(strMi);
-			byteMing = this.decryptByte(byteMi);
-			strMing = new String(byteMing, "UTF8");
-		} catch (Exception e) {
-			throw new RuntimeException(
-					"Error initializing SqlMap class. Cause: " + e);
-		} finally {
-			base64 = null;
-			byteMing = null;
-			byteMi = null;
-		}
-		return strMing;
-	}
 
-	/**
-	 * 加密以 byte[] 明文输入 ,byte[] 密文输出
-	 * 
-	 * @param byteS
-	 * @return
-	 */
-	private byte[] encryptByte(byte[] byteS) {
-		byte[] byteFina = null;
-		Cipher cipher;
-		try {
-			cipher = Cipher.getInstance("DES");
-			cipher.init(Cipher.ENCRYPT_MODE, key);
-			byteFina = cipher.doFinal(byteS);
-		} catch (Exception e) {
-			throw new RuntimeException(
-					"Error initializing SqlMap class. Cause: " + e);
-		} finally {
-			cipher = null;
-		}
-		return byteFina;
-	}
-
-	/**
-	 * 解密以 byte[] 密文输入 , 以 byte[] 明文输出
-	 * 
-	 * @param byteD
-	 * @return
-	 */
-	private byte[] decryptByte(byte[] byteD) {
-		Cipher cipher;
-		byte[] byteFina = null;
-		try {
-			cipher = Cipher.getInstance("DES");
-			cipher.init(Cipher.DECRYPT_MODE, key);
-			byteFina = cipher.doFinal(byteD);
-		} catch (Exception e) {
-			throw new RuntimeException(
-					"Error initializing SqlMap class. Cause: " + e);
-		} finally {
-			cipher = null;
-		}
-		return byteFina;
-	}
-
-	/**
-	 * 文件 file 进行加密并保存目标文件 destFile 中
-	 * 
-	 * @param file
-	 *            要加密的文件 如 c:/test/srcFile.txt
-	 * @param destFile
-	 *            加密后存放的文件名 如 c:/ 加密后文件 .txt
-	 */
-	public void encryptFile(String file, String destFile) throws Exception {
-		Cipher cipher = Cipher.getInstance("DES");
-		// cipher.init(Cipher.ENCRYPT_MODE, getKey());
-		cipher.init(Cipher.ENCRYPT_MODE, this.key);
-		InputStream is = new FileInputStream(file);
-		OutputStream out = new FileOutputStream(destFile);
-		CipherInputStream cis = new CipherInputStream(is, cipher);
-		byte[] buffer = new byte[1024];
-		int r;
-		while ((r = cis.read(buffer)) > 0) {
-			out.write(buffer, 0, r);
-		}
-		cis.close();
-		is.close();
-		out.close();
-	}
-
-	/**
-	 * 文件采用 DES 算法解密文件
-	 * 
-	 * @param file
-	 *            已加密的文件 如 c:/ 加密后文件 .txt *
-	 * @param destFile
-	 *            解密后存放的文件名 如 c:/ test/ 解密后文件 .txt
-	 */
-	public void decryptFile(String file, String dest) throws Exception {
-		Cipher cipher = Cipher.getInstance("DES");
-		cipher.init(Cipher.DECRYPT_MODE, this.key);
-		InputStream is = new FileInputStream(file);
-		OutputStream out = new FileOutputStream(dest);
-		CipherOutputStream cos = new CipherOutputStream(out, cipher);
-		byte[] buffer = new byte[1024];
-		int r;
-		while ((r = is.read(buffer)) >= 0) {
-			cos.write(buffer, 0, r);
-		}
-		cos.close();
-		out.close();
-		is.close();
+		byte[] b = base64.decode(s);
+		return b;
 	}
 }

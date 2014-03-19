@@ -9,6 +9,7 @@ import com.atomikos.jdbc.AtomikosDataSourceBean;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapcom.topdo.TopUp;
 import com.srnpr.zapdata.dbcache.ConnCache;
+import com.srnpr.zapdata.dbdo.DataConst;
 import com.srnpr.zapdata.dbdo.DataEnumerConnType;
 import com.srnpr.zapdata.dbdo.DbUp;
 
@@ -58,6 +59,13 @@ public class XaDataSourceBean extends AtomikosDataSourceBean {
 		}
 
 		this.setXaProperties(properties);
+		
+		this.setPoolSize(1);
+		this.setMaxPoolSize(DataConst.CONST_DATA_INIT_MAX_POOL);
+		this.setMinPoolSize(1);
+		this.setTestQuery(DataConst.CONST_DATA_TEST_QUERY);
+		
+		
 	}
 
 }
