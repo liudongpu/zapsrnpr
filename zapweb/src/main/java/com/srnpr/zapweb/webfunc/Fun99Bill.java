@@ -76,6 +76,7 @@ public class Fun99Bill extends RootFunc {
 		params.put("amount", pro.getAmount());
 		params.put("postdate", pro.getPostdate());
 		params.put("orderid", pro.getOrderid());
+		params.put("payeeidsrc", mWindowMap.get("payeeidsrc"));
 		params.put("mac", pro.getMac());
 		String msg = doPost(url, params, "utf8", true);
         System.out.println(msg);
