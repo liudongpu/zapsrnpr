@@ -1,5 +1,6 @@
 package com.srnpr.zapweb.webfunc;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -8,14 +9,20 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.ali.config.AlipayConfig;
 import com.srnpr.zapweb.ali.util.AlipaySubmit;
+import com.srnpr.zapweb.helper.WebHelper;
+import com.srnpr.zapweb.kuaiqian.KqProperties;
+import com.srnpr.zapweb.kuaiqian.MD5Util;
 import com.srnpr.zapweb.webfactory.UserFactory;
 import com.srnpr.zapweb.webmodel.MWebResult;
 
@@ -26,7 +33,6 @@ import com.srnpr.zapweb.webmodel.MWebResult;
  * 
  */
 public class FunConfirmedReturn extends RootFunc {
-	
 	@Override
 	public MWebResult funcDo(String sOperateUid, MDataMap mDataMap) {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();   
@@ -54,8 +60,6 @@ public class FunConfirmedReturn extends RootFunc {
 			mResult.setResultMessage(bInfo(969912004));
 			return mResult;
 		}
-		
-		
 		List<Map<String, Object>> list = getUidList(idArray);
 		boolean flag =false;
 		for(int i = 0; i<list.size();i++)
@@ -70,15 +74,36 @@ public class FunConfirmedReturn extends RootFunc {
 			mResult.setResultObject("returnMsg('"+ 969912004+ "')");
 			return mResult;
 		}
-		
-//		String bill_pay = "449746280004";
-//		// 支付宝    ali_pay = "449746280003";
+		if("快钱支付".equals(array_unique(type.split(","))[0]))    //array_unique
+		{
+			MDataMap map = DbUp.upTable("oc_return_money_detail").one("return_money_code",idArray.split(",")[0]);
+			KqProperties pro = new KqProperties();
+			//商户编号，线上的话改成你们自己的商户编号的，发到商户的注册快钱账户邮箱的
+			pro.setMerchant_id(map.get("merchant_id"));
+			//原商户订单号
+			pro.setOrderid(map.get("order_code"));
+			//退款金额，整数或小数，小数位为2位   以人民币元为单位
+			pro.setAmount(getAmountByCode(idArray.split(",")[0]));  
+			StringBuffer htm = new StringBuffer();
+			htm.append("merchant_id="+pro.getMerchant_id());
+			htm.append("&returnMoney_code="+idArray.split(",")[0]);
+			htm.append("&amount="+pro.getAmount());
+			mResult.setResultObject("returnKq('"+ htm+ "')");
+			//lockAndlog(idArray);
+		}
 		if("支付宝支付".equals(array_unique(type.split(","))[0]))    //array_unique
 		{
 			String   sHtmlText = aliData(mDataMap, notify_url, nousedate, df1,idArray);
 			mResult.setResultObject("returnMsg('"+ sHtmlText+ "')");
 			request.setAttribute("sHtmlText", sHtmlText);	
+			lockAndlog(idArray);
 		}
+		return mResult;
+	}
+
+
+	//锁表 添加日志
+	private void lockAndlog(String idArray) {
 		MDataMap mp = new MDataMap();
 		MDataMap mp1 = new MDataMap();
 		if(StringUtils.isNotBlank(idArray))
@@ -86,7 +111,7 @@ public class FunConfirmedReturn extends RootFunc {
 			for(int i=0;i<idArray.split(",").length;i++)
 			{
 				//锁表
-				//WebHelper.addLock(idArray.split(",")[i], 60);
+				WebHelper.addLock(idArray.split(",")[i], 60);
 				//添加日志
 				mp.put("return_money_no", idArray.split(",")[i]);
 				mp.put("info", "财务退款确认");
@@ -99,7 +124,6 @@ public class FunConfirmedReturn extends RootFunc {
 				DbUp.upTable("oc_return_money").dataUpdate(mp1, "return_conf", "return_money_code");
 			}
 		}
-		return mResult;
 	}
 	
 	
@@ -206,4 +230,15 @@ public class FunConfirmedReturn extends RootFunc {
 	    }  
 	    return (String[])list.toArray(new String[list.size()]);  
 	} 
+	
+	
+
+	
+	
+	private String getAmountByCode(String moneyCode)
+	{
+		MDataMap map = DbUp.upTable("oc_return_money").one("return_money_code",moneyCode);
+		
+		return map.get("online_money");
+	}
 }
