@@ -5,19 +5,24 @@ import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
+
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
 import com.srnpr.zapweb.helper.WebHelper;
+import com.srnpr.zapweb.kuaiqian.BillHttp;
 import com.srnpr.zapweb.kuaiqian.KqProperties;
 import com.srnpr.zapweb.kuaiqian.MD5Util;
 import com.srnpr.zapweb.webfactory.UserFactory;
 import com.srnpr.zapweb.webmodel.MWebResult;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 /**
@@ -78,10 +83,8 @@ public class Fun99Bill extends RootFunc {
 		params.put("orderid", pro.getOrderid());
 		params.put("payeeidsrc", mWindowMap.get("payeeidsrc"));
 		params.put("mac", pro.getMac());
-		String msg = doPost(url, params, "utf8", true);
-        System.out.println(msg);
-		//mResult.setResultObject("returnMsg('"+ 969912006+ "')");
-		//mResult.setResultType("116018010");
+		String msg = BillHttp.doPost(url, params, "utf8");
+        mResult.setResultMessage(msg.substring(msg.indexOf("<CODE>")+6,msg.indexOf("</CODE>")));
 		return mResult;
 	}
 

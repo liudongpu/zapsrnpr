@@ -1,6 +1,5 @@
 package com.srnpr.zapweb.webfunc;
 
-import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -22,7 +21,6 @@ import com.srnpr.zapweb.ali.config.AlipayConfig;
 import com.srnpr.zapweb.ali.util.AlipaySubmit;
 import com.srnpr.zapweb.helper.WebHelper;
 import com.srnpr.zapweb.kuaiqian.KqProperties;
-import com.srnpr.zapweb.kuaiqian.MD5Util;
 import com.srnpr.zapweb.webfactory.UserFactory;
 import com.srnpr.zapweb.webmodel.MWebResult;
 
