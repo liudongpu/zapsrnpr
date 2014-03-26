@@ -10,6 +10,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -119,7 +120,8 @@ public class WebClientSupport extends BaseClass implements IBaseCreate {
 
 			if (resEntity != null) {
 
-				sReturnString = EntityUtils.toString(resEntity,TopConst.CONST_BASE_ENCODING);
+				sReturnString = EntityUtils.toString(resEntity,
+						TopConst.CONST_BASE_ENCODING);
 
 			}
 		} finally {
@@ -178,6 +180,53 @@ public class WebClientSupport extends BaseClass implements IBaseCreate {
 			response.close();
 
 			httppost.reset();
+			httpclient.close();
+			httpclient = null;
+
+		}
+
+		return sReturnString;
+	}
+
+	public String doGet(String sUrl) throws Exception {
+		String sReturnString = null;
+		HttpClientBuilder hClientBuilder = HttpClientBuilder.create();
+
+		CloseableHttpClient httpclient = hClientBuilder.build();
+
+		// HttpPost httppost = new HttpPost(sUrl);
+
+		HttpGet httpGet = new HttpGet(sUrl);
+
+		CloseableHttpResponse response = null;
+
+		try {
+
+			response = httpclient.execute(httpGet);
+
+			HttpEntity resEntity = response.getEntity();
+
+			if (resEntity != null) {
+
+				sReturnString = EntityUtils.toString(resEntity);
+
+			}
+			if (resEntity != null) {
+
+				EntityUtils.consume(resEntity);
+
+			}
+
+		} catch (Exception e) {
+			httpGet.reset();
+			httpclient = null;
+			e.printStackTrace();
+			throw e;
+
+		} finally {
+			response.close();
+
+			httpGet.reset();
 			httpclient.close();
 			httpclient = null;
 
