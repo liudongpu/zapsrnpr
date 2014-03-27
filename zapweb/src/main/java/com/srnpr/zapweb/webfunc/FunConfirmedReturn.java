@@ -150,7 +150,7 @@ public class FunConfirmedReturn extends RootFunc {
 					sql = sql +" or return_money_code ='"+m+"'";
 				}
 			}
-			String ssql = "select * from oc_return_money_detail where " +sql;
+			String ssql = "select * from oc_return_money where " +sql;
 			List<Map<String, Object>> dataSqlList = DbUp.upTable("oc_return_money_detail").dataSqlList(ssql, new MDataMap());
 			
 			sParaTemp.put("service", bConfig("zapweb.service"));
@@ -169,11 +169,11 @@ public class FunConfirmedReturn extends RootFunc {
 			{
 				if(StringUtils.isBlank(detail_data)) 
 				{
-					detail_data = detail_data+dataSqlList.get(i).get("return_seq")+"^"+dataSqlList.get(i).get("return_money") +"^" +"退货产生的退款";
+					detail_data = detail_data+dataSqlList.get(i).get("batch_no")+"^"+dataSqlList.get(i).get("online_money") +"^" +"退货产生的退款";
 				}
 				else
 				{
-					detail_data =detail_data +"#"+dataSqlList.get(i).get("return_seq")+"^"+dataSqlList.get(i).get("return_money") +"^" +"退货产生的退款";
+					detail_data =detail_data +"#"+dataSqlList.get(i).get("batch_no")+"^"+dataSqlList.get(i).get("online_money") +"^" +"退货产生的退款";
 				}
 				
 			}
