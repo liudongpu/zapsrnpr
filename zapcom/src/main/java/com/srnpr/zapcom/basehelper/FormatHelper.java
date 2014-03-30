@@ -64,13 +64,11 @@ public class FormatHelper {
 		char[] cNumber = sParam.toCharArray();
 		char[] cInfo = sInput.toCharArray();
 		int iNumLength = cNumber.length;
-		
-		BigInteger bNumLength =BigInteger.valueOf(iNumLength);
-		
+
+		BigInteger bNumLength = BigInteger.valueOf(iNumLength);
+
 		BigInteger lReturnNum = BigInteger.ZERO;
-		
-		
-		
+
 		for (int i = 0, j = cInfo.length; i < j; i++) {
 			int iNow = 0;
 			for (int n = 0; n < iNumLength; n++) {
@@ -78,58 +76,47 @@ public class FormatHelper {
 					iNow = n + 1;
 				}
 			}
-			
-			lReturnNum=lReturnNum.add(BigInteger.valueOf(iNow).multiply(bNumLength.pow(j-i-1)));
-			
-			//lReturnNum +=  iNow * Math.pow(iNumLength, j - i - 1);
+
+			lReturnNum = lReturnNum.add(BigInteger.valueOf(iNow).multiply(
+					bNumLength.pow(j - i - 1)));
+
+			// lReturnNum += iNow * Math.pow(iNumLength, j - i - 1);
 		}
 
-		
-		
-		
-		
 		return lReturnNum.toString();
 	}
 
-	public static  String convertFormatNumberBack(String dSource, String sParam) {
+	public static String convertFormatNumberBack(String dSource, String sParam) {
 
 		char[] cNumber = sParam.toCharArray();
 
 		int iLength = cNumber.length;
 
 		int iStep = 0;
-		
-		
-		BigInteger bSource=new BigInteger(dSource);
-		
+
+		BigInteger bSource = new BigInteger(dSource);
 
 		ArrayList<Integer> aList = new ArrayList<Integer>();
-		
-	
-		
-		while (bSource.divide(BigInteger.valueOf(iLength).pow(iStep)).compareTo(BigInteger.ONE)!=-1)
-		{
-			
-			int iNow =bSource.remainder(BigInteger.valueOf(iLength).pow(iStep+1)).divide(BigInteger.valueOf(iLength).pow(iStep)).intValue();
-			
+
+		while (bSource.divide(BigInteger.valueOf(iLength).pow(iStep))
+				.compareTo(BigInteger.ONE) != -1) {
+
+			int iNow = bSource
+					.remainder(BigInteger.valueOf(iLength).pow(iStep + 1))
+					.divide(BigInteger.valueOf(iLength).pow(iStep)).intValue();
+
 			if (iNow == 0) {
 				iNow = iLength;
 			}
-		
-			
-			
-			bSource=bSource.subtract(BigInteger.valueOf(iNow).multiply(BigInteger.valueOf(iLength).pow(iStep)));
-			
-			
+
+			bSource = bSource.subtract(BigInteger.valueOf(iNow).multiply(
+					BigInteger.valueOf(iLength).pow(iStep)));
+
 			aList.add(iNow);
 			iStep++;
-			
-			
+
 		}
-		
-		
-		
-	
+
 		StringBuffer sBuffer = new StringBuffer();
 		for (int i = aList.size() - 1; i >= 0; i--) {
 			if (aList.get(i) == 0) {
@@ -213,14 +200,15 @@ public class FormatHelper {
 	public static String upReplaceSerialize(String sKey) {
 		return sKey.replace("_", "").toLowerCase();
 	}
-	
-	
-	
-	
-	public static String upReplaceSql(String sSql)
-	{
-		 return sSql.replaceAll(".*([';]+|(--)+).*", " ");  
+
+	/**
+	 * 获取sql格式化
+	 * 
+	 * @param sSql
+	 * @return
+	 */
+	public static String upReplaceSql(String sSql) {
+		return sSql.replaceAll(".*([';]+|(--)+).*", " ");
 	}
-	
 
 }

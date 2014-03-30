@@ -10,9 +10,10 @@ public class RegexHelper implements IBaseHelper {
 	public static String upRegexEmpty(String sSource, String... sRegs) {
 
 		for (String s : sRegs) {
-			//sSource = sSource.replaceAll(s, "");
-			
-			sSource=Pattern.compile(s,Pattern.CASE_INSENSITIVE).matcher(sSource).replaceAll("");
+			// sSource = sSource.replaceAll(s, "");
+
+			sSource = Pattern.compile(s, Pattern.CASE_INSENSITIVE)
+					.matcher(sSource).replaceAll("");
 
 		}
 
@@ -33,26 +34,35 @@ public class RegexHelper implements IBaseHelper {
 		return sSource;
 
 	}
-	public static String upReplaceAll(String sSource, String sReg,String sVal) {
-		
-		
-	return 	sSource.replaceAll(sReg, sVal);
-		
+
+	public static String upReplaceAll(String sSource, String sReg, String sVal) {
+
+		return sSource.replaceAll(sReg, sVal);
+
 	}
-	
-	
+
 	/**
 	 * 过滤html输入内容
+	 * 
 	 * @param sSource
 	 * @return
 	 */
-	public static String upScanHtml(String sSource)
-	{
-		return upRegexEmpty(sSource, "<script.*?</script.*?>","href.*?=.*?script.*?:","<iframe.*?</iframe.*?>","<frameset.*?</frameset.*?>");
+	public static String upScanHtml(String sSource) {
+		return upRegexEmpty(sSource, "<script.*?</script.*?>",
+				"href.*?=.*?script.*?:", "<iframe.*?</iframe.*?>",
+				"<frameset.*?</frameset.*?>");
 	}
-	
-	
-	
-	
+
+	/**
+	 * 获取html内容的文本表示
+	 * 
+	 * @param sSource
+	 * @return
+	 */
+	public static String upHtmlText(String sSource) {
+
+		
+		return upRegexEmpty(sSource, "<[^>]+>");
+	}
 
 }
