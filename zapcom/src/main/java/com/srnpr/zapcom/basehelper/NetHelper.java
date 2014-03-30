@@ -1,9 +1,16 @@
 package com.srnpr.zapcom.basehelper;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.NetworkInterface;
+import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.Enumeration;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.baseface.IBaseHelper;
 
@@ -41,6 +48,71 @@ public class NetHelper implements IBaseHelper {
 			e.printStackTrace();
 		}
 		return address.trim();
+	}
+
+	/**
+	 * 判断url根域是否可以访问 比如传入http://www.srnpr.com/a/b/c.html
+	 * 只会判断http://www.srnpr.com是否可访问
+	 * 
+	 * @param sUrl
+	 * @return
+	 */
+	public static boolean checkUrlHost(String sUrl) {
+		
+
+		//判断如果没有带标记 则增加标记
+		if(!StringUtils.containsIgnoreCase(sUrl, "://"))
+		{
+			sUrl="http://"+sUrl;
+		}
+		
+		String sHttpString=StringUtils.substringBefore(sUrl, "//");
+		
+		sUrl=sHttpString+"//"+StringUtils.substringBefore(StringUtils.substringAfter(sUrl, "//"), "/");
+		
+		
+		return checkUrlStatus(sUrl);
+
+	}
+
+	/**
+	 * 判断url是否可以访问
+	 * 
+	 * @param urlStr
+	 * @return
+	 */
+	public static boolean checkUrlStatus(String urlStr) {
+
+		boolean bFlag = false;
+
+		int counts = 0;
+
+		if (urlStr == null || urlStr.length() <= 0) {
+			return bFlag;
+		}
+		//只检测一次
+		while (counts < 1) {
+
+			try {
+				URL url = new URL(urlStr);
+
+				HttpURLConnection con = (HttpURLConnection) url
+						.openConnection();
+				con.setConnectTimeout(2000);
+				int state = con.getResponseCode();
+
+				if (state == 200) {
+
+					bFlag = true;
+				}
+				break;
+			} catch (Exception ex) {
+				counts++;
+				ex.printStackTrace();
+				continue;
+			}
+		}
+		return bFlag;
 	}
 
 }

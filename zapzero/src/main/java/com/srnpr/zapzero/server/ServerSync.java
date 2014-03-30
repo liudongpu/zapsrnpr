@@ -107,6 +107,13 @@ public class ServerSync extends BaseClass {
 	public boolean initServer() {
 
 		boolean bFlagReturn = true;
+		
+		if(bConfig("zapzero.flag_enable_initserver").equals("0"))
+		{
+			bLogInfo(970212019,bConfig("zapzero.flag_enable_initserver"));
+			return bFlagReturn;
+		}
+		
 
 		// 初始化基本信息
 		if (bFlagReturn) {
@@ -192,6 +199,9 @@ public class ServerSync extends BaseClass {
 	/**
 	 * @return
 	 */
+	/**
+	 * @return
+	 */
 	private boolean doUpdateConfig() {
 
 		boolean bReturn = true;
@@ -219,28 +229,40 @@ public class ServerSync extends BaseClass {
 
 			for (String s : sMaserServer) {
 				bLogInfo(970212011, s);
-				try {
 
-					lResult = apiCallSupport.doCallApi(s,
-							"com_srnpr_zapzero_api_ApiLoadConfig",
-							bConfig("default.leader_server_apikey"),
-							bConfig("default.leader_server_apipass"),
-							ServerInfo.INSTANCE, lResult);
-				} catch (Exception e) {
+				// 判断链接是否可以访问
+				if (NetHelper.checkUrlHost(s)) {
+					try {
+
+						lResult = apiCallSupport.doCallApi(s,
+								"com_srnpr_zapzero_api_ApiLoadConfig",
+								bConfig("default.leader_server_apikey"),
+								bConfig("default.leader_server_apipass"),
+								ServerInfo.INSTANCE, lResult);
+
+						bReturn = true;
+
+					} catch (Exception e) {
+						bReturn = false;
+						e.printStackTrace();
+
+					}
+
+					// 如果返回结果错误 也置为失败
+					if (lResult.getResultCode() != 1) {
+						bReturn = false;
+					}
+
+					// 如果连接成功 则设置连接配置
+					if (bReturn) {
+						ServerInfo.INSTANCE.setApiHost(s);
+						break;
+					}
+				} else {
+
 					bReturn = false;
-					e.printStackTrace();
+					bLogInfo(970212018, s);
 
-				}
-
-				// 如果返回结果错误 也置为失败
-				if (lResult.getResultCode() != 1) {
-					bReturn = false;
-				}
-
-				// 如果连接成功 则设置连接配置
-				if (bReturn) {
-					ServerInfo.INSTANCE.setApiHost(s);
-					break;
 				}
 
 			}
@@ -279,8 +301,9 @@ public class ServerSync extends BaseClass {
 		// 重新刷新配置文件
 		TopConfig.Instance.refresh();
 
-		bLogDebug(970212015, bConfig("all.version"));
-
+		if (bReturn) {
+			bLogDebug(970212015, bConfig("all.version"));
+		}
 		// apiCallSupport.doCallApi(sAddress, sTarget, sApiKey, sApiPass, input,
 		// tResult)
 
