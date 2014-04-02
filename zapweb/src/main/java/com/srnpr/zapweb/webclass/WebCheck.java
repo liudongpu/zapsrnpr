@@ -62,7 +62,10 @@ public class WebCheck extends BaseClass implements IBaseInstance {
 					// 以下逻辑用于获取链接地址的hostname
 
 					// 获取链接的http:// 或者https://之后的内容
-					sRegexCheck = StringUtils.substringAfter(sRegexCheck, "//");
+					if (StringUtils.contains(sRegexCheck, "//")) {
+						sRegexCheck = StringUtils.substringAfter(sRegexCheck,
+								"//");
+					}
 					sRegexCheck = StringUtils.substringBefore(sRegexCheck, "#");
 					sRegexCheck = StringUtils.substringBefore(sRegexCheck, "?");
 					sRegexCheck = StringUtils.substringBefore(sRegexCheck, "/");
@@ -86,7 +89,7 @@ public class WebCheck extends BaseClass implements IBaseInstance {
 			String sDangerString = RegexHelper.upRegexExist(sSource, sDanger);
 
 			if (StringUtils.isNotEmpty(sDangerString)) {
-				sDangerString=RegexHelper.upReplaceShowHtml(sDangerString);
+				sDangerString = RegexHelper.upReplaceShowHtml(sDangerString);
 				mResult.setResultCode(969905121);
 				mResult.inErrorMessage(969905121, sDangerString);
 			}
