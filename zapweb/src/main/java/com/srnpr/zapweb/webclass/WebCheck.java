@@ -86,7 +86,7 @@ public class WebCheck extends BaseClass implements IBaseInstance {
 			String sDangerString = RegexHelper.upRegexExist(sSource, sDanger);
 
 			if (StringUtils.isNotEmpty(sDangerString)) {
-				sDangerString=RegexHelper.upReplaceShowHtml(sDangerRegex);
+				sDangerString=RegexHelper.upReplaceShowHtml(sDangerString);
 				mResult.setResultCode(969905121);
 				mResult.inErrorMessage(969905121, sDangerString);
 			}
