@@ -10,6 +10,7 @@ import us.codecraft.webmagic.selector.Html;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.baseface.IBaseInstance;
+import com.srnpr.zapcom.basehelper.RegexHelper;
 import com.srnpr.zapweb.webdo.WebConst;
 import com.srnpr.zapweb.webmodel.MWebResult;
 
@@ -22,13 +23,17 @@ public class WebCheck extends BaseClass implements IBaseInstance {
 	 *            要检查的内容
 	 * @param sAllow
 	 *            允许的域名后缀
+	 * @param sDangerRegex
+	 *            恶意代码表达式
 	 * @return
 	 */
-	public MWebResult checkLinks(String sSource, String sAllow) {
+	public MWebResult checkLinks(String sSource, String sAllow,
+			String sDangerRegex) {
 		MWebResult mResult = new MWebResult();
 
+		sSource = StringUtils.lowerCase(sSource);
 		if (sSource.indexOf("<") > -1) {
-			Html htmlSource = new Html(StringUtils.lowerCase(sSource));
+			Html htmlSource = new Html(sSource);
 
 			List<String> listCheck = new ArrayList<String>();
 
@@ -70,6 +75,22 @@ public class WebCheck extends BaseClass implements IBaseInstance {
 
 				}
 			}
+		}
+
+		// 开始校验脚本之类的过滤内容
+		if (mResult.upFlagTrue()) {
+			// String[] sDangerHtml=new
+			// StringUtils()[]{"<script.*?>","<iframe.*?>"};
+			String[] sDanger = sDangerRegex.split(WebConst.CONST_SPLIT_COMMA);
+
+			String sDangerString = RegexHelper.upRegexExist(sSource, sDanger);
+
+			if (StringUtils.isNotEmpty(sDangerString)) {
+				sDangerString=RegexHelper.upReplaceShowHtml(sDangerRegex);
+				mResult.setResultCode(969905121);
+				mResult.inErrorMessage(969905121, sDangerString);
+			}
+
 		}
 
 		return mResult;
