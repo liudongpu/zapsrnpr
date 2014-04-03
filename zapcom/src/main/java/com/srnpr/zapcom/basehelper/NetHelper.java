@@ -106,7 +106,7 @@ public class NetHelper implements IBaseHelper {
 
 					bFlag = true;
 				} else {
-					BaseLog.LogClassInfo(NetHelper.class, "connect to "
+					BaseLog.ClassLogWarn(NetHelper.class, "connect to "
 							+ urlStr + " return status " + state);
 
 				}

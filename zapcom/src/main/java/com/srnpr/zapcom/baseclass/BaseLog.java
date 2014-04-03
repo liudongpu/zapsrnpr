@@ -48,8 +48,18 @@ public class BaseLog {
 	 * @param clazz
 	 * @param objects
 	 */
-	public static void LogClassInfo(Class clazz, Object... objects) {
+	public static void ClassLogInfo(Class<?> clazz, Object... objects) {
 		LogFactory.getLog(clazz).info(StringUtils.join(objects));
+	}
+
+	/**
+	 * 类日志警告
+	 * 
+	 * @param clazz
+	 * @param objects
+	 */
+	public static void ClassLogWarn(Class<?> clazz, Object... objects) {
+		LogFactory.getLog(clazz).warn(StringUtils.join(objects));
 	}
 
 }
