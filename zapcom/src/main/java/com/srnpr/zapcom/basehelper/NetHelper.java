@@ -102,7 +102,7 @@ public class NetHelper implements IBaseHelper {
 				con.setConnectTimeout(2000);
 				int state = con.getResponseCode();
 
-				if (state == 200) {
+				if (state == 200||state==404) {
 
 					bFlag = true;
 				} else {
