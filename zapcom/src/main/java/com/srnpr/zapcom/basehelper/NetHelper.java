@@ -12,6 +12,7 @@ import java.util.Enumeration;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.srnpr.zapcom.baseclass.BaseLog;
 import com.srnpr.zapcom.baseface.IBaseHelper;
 
 public class NetHelper implements IBaseHelper {
@@ -58,19 +59,19 @@ public class NetHelper implements IBaseHelper {
 	 * @return
 	 */
 	public static boolean checkUrlHost(String sUrl) {
-		
 
-		//判断如果没有带标记 则增加标记
-		if(!StringUtils.containsIgnoreCase(sUrl, "://"))
-		{
-			sUrl="http://"+sUrl;
+		// 判断如果没有带标记 则增加标记
+		if (!StringUtils.containsIgnoreCase(sUrl, "://")) {
+			sUrl = "http://" + sUrl;
 		}
-		
-		String sHttpString=StringUtils.substringBefore(sUrl, "//");
-		
-		sUrl=sHttpString+"//"+StringUtils.substringBefore(StringUtils.substringAfter(sUrl, "//"), "/");
-		
-		
+
+		String sHttpString = StringUtils.substringBefore(sUrl, "//");
+
+		sUrl = sHttpString
+				+ "//"
+				+ StringUtils.substringBefore(
+						StringUtils.substringAfter(sUrl, "//"), "/");
+
 		return checkUrlStatus(sUrl);
 
 	}
@@ -90,7 +91,7 @@ public class NetHelper implements IBaseHelper {
 		if (urlStr == null || urlStr.length() <= 0) {
 			return bFlag;
 		}
-		//只检测一次
+		// 只检测一次
 		while (counts < 1) {
 
 			try {
@@ -104,6 +105,10 @@ public class NetHelper implements IBaseHelper {
 				if (state == 200) {
 
 					bFlag = true;
+				} else {
+					BaseLog.LogClassInfo(NetHelper.class, "connect to "
+							+ urlStr + " return status " + state);
+
 				}
 				break;
 			} catch (Exception ex) {

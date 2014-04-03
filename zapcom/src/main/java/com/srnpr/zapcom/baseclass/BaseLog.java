@@ -1,5 +1,6 @@
 package com.srnpr.zapcom.baseclass;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.LogFactory;
 
 import com.srnpr.zapcom.topdo.TopUp;
@@ -35,6 +36,20 @@ public class BaseLog {
 
 		return "[" + String.valueOf(iInfoCode) + "] "
 				+ TopUp.upLogInfo(iInfoCode, sParms);
+	}
+
+	/**
+	 * 类日志记录
+	 * 
+	 * @param clazz
+	 * @param objects
+	 */
+	/**
+	 * @param clazz
+	 * @param objects
+	 */
+	public static void LogClassInfo(Class clazz, Object... objects) {
+		LogFactory.getLog(clazz).info(StringUtils.join(objects));
 	}
 
 }
