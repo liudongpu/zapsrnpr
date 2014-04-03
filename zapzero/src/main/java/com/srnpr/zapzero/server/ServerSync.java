@@ -240,6 +240,8 @@ public class ServerSync extends BaseClass {
 								bConfig("default.leader_server_apipass"),
 								ServerInfo.INSTANCE, lResult);
 
+						bLogInfo(970212020, ServerInfo.INSTANCE.getServerCode(),s);
+						
 						bReturn = true;
 
 					} catch (Exception e) {
