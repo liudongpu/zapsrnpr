@@ -1,13 +1,30 @@
+<#-- 系统版本号 -->
+<#assign a_macro_common_system_version="2.0.0.1">
+<#-- 资源附加后缀版本 -->
+<#assign a_macro_common_resources_version="?v="+a_macro_common_system_version >
+<#-- 资源文件路径 -->
+<#assign a_macro_common_resources_link="../" >
+<#-- 项目特殊样式 -->
+<#assign a_macro_common_resources_thems_css=["zapadmin/css/zab_less_green.css"] >
+<#-- 后台名称 -->
+<#assign a_macro_common_manage_home_title="超级管理后台" >
+<#-- 后台菜单起始编号 -->
+<#assign a_macro_common_manage_home_menu="467703130003" >
+
+
+
+
+
 
 
 <#macro m_common_html_js e_list>
 	<#list e_list as e>
-	<script type="text/javascript" src="../resources/${e}"></script>
+	<script type="text/javascript" src="${a_macro_common_resources_link}resources/${e}${a_macro_common_resources_version}"></script>
 	</#list>
 </#macro>
 <#macro m_common_html_css e_list >
     <#list e_list as e>
-	<link type="text/css" href="../resources/${e}" rel="stylesheet">
+	<link type="text/css" href="${a_macro_common_resources_link}resources/${e}${a_macro_common_resources_version}" rel="stylesheet">
 	</#list>
 </#macro>
 
@@ -43,8 +60,8 @@
 	<@m_common_html_js ["lib/jquery/jquery-plugins-zap.min.js","lib/easyui/jquery.easyui.min.js"]/>
 	<@m_common_html_css ["lib/bootstrap/css/bootstrap.min.css","lib/easyui/themes/bootstrap/easyui.css","zapweb/css/w.css"] />
 	
-	<link rel="shortcut icon" href="../resources/zapadmin/img/icons/green.ico"  type="image/x-icon" />
-	<@m_common_html_css ["zapadmin/css/zab_less_green.css"] />
+
+	<@m_common_html_css    a_macro_common_resources_thems_css />
 	<!--[if lte IE 7]> 
 	<@m_common_html_css ["zapadmin/hack/zab_base_ie6.css"] />
 	<![endif]-->

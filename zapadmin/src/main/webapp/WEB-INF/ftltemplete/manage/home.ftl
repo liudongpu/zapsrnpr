@@ -1,7 +1,8 @@
-<#assign manage_home_title="超级管理后台">
-<#assign manage_home_menu="467703130003">
 <#include "../zapmacro/zapmacro_common.ftl" />
 <#include "../macro/macro_common.ftl" />
+
+<#assign manage_home_title=a_macro_common_manage_home_title>
+<#assign manage_home_menu=a_macro_common_manage_home_menu>
 <#assign user_support=b_method.upClass("com.srnpr.zapweb.websupport.UserSupport")>
 <#if user_support.checkLogin()>
 	<#assign user_info=user_support.getUserInfo()>
