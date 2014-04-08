@@ -6,10 +6,7 @@
 <#assign a_macro_common_resources_link="../" >
 <#-- 项目特殊样式 -->
 <#assign a_macro_common_resources_thems_css=["zapadmin/css/zab_less_green.css"] >
-<#-- 后台名称 -->
-<#assign a_macro_common_manage_home_title="超级管理后台" >
-<#-- 后台菜单起始编号 -->
-<#assign a_macro_common_manage_home_menu="467703130003" >
+
 
 
 

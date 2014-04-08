@@ -1,8 +1,9 @@
 <#include "../zapmacro/zapmacro_common.ftl" />
 <#include "../macro/macro_common.ftl" />
+<#include "../macro/macro_const.ftl" />
 
-<#assign manage_home_title=a_macro_common_manage_home_title>
-<#assign manage_home_menu=a_macro_common_manage_home_menu>
+<#assign manage_home_title=a_macro_const_manage_home_title>
+<#assign manage_home_menu=a_macro_const_manage_home_menu>
 <#assign user_support=b_method.upClass("com.srnpr.zapweb.websupport.UserSupport")>
 <#if user_support.checkLogin()>
 	<#assign user_info=user_support.getUserInfo()>
