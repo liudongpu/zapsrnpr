@@ -5,7 +5,7 @@
 <#-- 资源文件路径 -->
 <#assign a_macro_common_resources_link="../" >
 <#-- 项目特殊样式 -->
-<#assign a_macro_common_resources_thems_css=["zapadmin/css/zab_less_green.css"] >
+<#assign a_macro_common_resources_thems_css=["zapadmin/themes/green/css/zab_css.css"] >
 
 
 
