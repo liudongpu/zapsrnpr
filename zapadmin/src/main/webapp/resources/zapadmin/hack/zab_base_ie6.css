@@ -70,7 +70,10 @@ input.btn
 	background-color:#ebebeb ;
 }
 
-
+.zab_manage_login_body .c_login_new_input
+										{
+											text-indent:20px;
+										}
 
 body{
 	

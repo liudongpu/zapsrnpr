@@ -13,7 +13,7 @@
 <!--[if lt IE 9]><script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
     <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script><![endif]-->
 
-<link rel="shortcut icon" href="../resources/zapadmin/img/icons/apiopen.ico" />
+<link rel="shortcut icon" href="../resources/zapadmin/themes/history/icons/apiopen.ico" />
 <link
 	href="../resources/zapweb/css/w.css"
 	rel="stylesheet">
