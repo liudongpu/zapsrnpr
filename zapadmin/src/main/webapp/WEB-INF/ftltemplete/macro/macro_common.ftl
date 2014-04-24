@@ -5,7 +5,8 @@
 <#-- 资源文件路径 -->
 <#assign a_macro_common_resources_link="../" >
 <#-- 项目特殊样式 -->
-<#assign a_macro_common_resources_thems_css=["zapadmin/themes/green/css/zab_css.css"] >
+<#assign a_macro_common_resources_thems_js=["fileconcat/js-zapadmin.js"] >
+<#assign a_macro_common_resources_thems_css=["fileconcat/css-zapadmin.css"] >
 
 
 
@@ -53,11 +54,9 @@
 
 <#macro m_common_html_head   >
 
-	<@m_common_html_js ["lib/jquery/jquery-last.min.js","lib/require/require.js","zapjs/zapjs.js","zapjs/zapjs.zw.js","zapadmin/js/zapadmin.js"]/>
-	<@m_common_html_js ["lib/jquery/jquery-plugins-zap.min.js","lib/easyui/jquery.easyui.min.js"]/>
-	<@m_common_html_css ["lib/bootstrap/css/bootstrap.min.css","lib/easyui/themes/bootstrap/easyui.css","zapweb/css/w.css"] />
-	
 
+	<@m_common_html_js a_macro_common_resources_thems_js />
+	
 	<@m_common_html_css    a_macro_common_resources_thems_css />
 	<!--[if lte IE 7]> 
 	<@m_common_html_css ["zapadmin/hack/zab_base_ie6.css"] />

@@ -8,6 +8,7 @@ import com.srnpr.zapweb.webdo.OperateCache;
 import com.srnpr.zapweb.webdo.PageCache;
 import com.srnpr.zapweb.webdo.SourceCache;
 import com.srnpr.zapweb.webdo.ViewCache;
+import com.srnpr.zapweb.websupport.FileConcatSupport;
 
 /**
  * @author srnpr
@@ -23,6 +24,9 @@ public class InitZapweb extends RootInit implements IBaseInit {
 	public boolean onInit() {
 		topInitCache(new ViewCache(), new PageCache(), new OperateCache(),
 				new FuncCache(), new ComponentCache(), new SourceCache());
+
+		// 初始化合并文件
+		new FileConcatSupport().concatByConfig();
 
 		return true;
 	}
