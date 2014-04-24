@@ -11,8 +11,10 @@ import org.apache.commons.lang.StringUtils;
 import com.srnpr.zapcom.baseclass.BaseClass;
 import com.srnpr.zapcom.basehelper.RegexHelper;
 import com.srnpr.zapcom.basemodel.MStringMap;
+import com.srnpr.zapcom.topdo.TopConst;
 import com.srnpr.zapcom.topdo.TopDir;
 import com.srnpr.zapcom.topdo.TopUp;
+import com.srnpr.zapweb.webdo.WebConst;
 
 /**
  * 文件合并类 该类主要合并resources路径下的各种静态文件
@@ -74,7 +76,7 @@ public class FileConcatSupport extends BaseClass {
 			sSource = StringUtils.replace(sSource, "\"", "");
 
 			String sContent = FileUtils.readFileToString(new File(sBasePath
-					+ sSource));
+					+ sSource),TopConst.CONST_BASE_ENCODING);
 
 			// 判断如果是css文件 则格式化其中的相对图片路径
 			if (sSource.endsWith(".css")) {
@@ -113,7 +115,7 @@ public class FileConcatSupport extends BaseClass {
 
 		}
 
-		FileUtils.writeStringToFile(new File(sTargetFile), sBuffer.toString());
+		FileUtils.writeStringToFile(new File(sTargetFile), sBuffer.toString(),TopConst.CONST_BASE_ENCODING);
 
 	}
 
