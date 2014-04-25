@@ -9,6 +9,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.srnpr.zapcom.baseclass.BaseClass;
+import com.srnpr.zapcom.basehelper.FormatHelper;
 import com.srnpr.zapcom.basehelper.RegexHelper;
 import com.srnpr.zapcom.basemodel.MStringMap;
 import com.srnpr.zapcom.topdo.TopConst;
@@ -76,7 +77,10 @@ public class FileConcatSupport extends BaseClass {
 			sSource = StringUtils.replace(sSource, "\"", "");
 
 			String sContent = FileUtils.readFileToString(new File(sBasePath
-					+ sSource),TopConst.CONST_BASE_ENCODING);
+					+ sSource), TopConst.CONST_BASE_ENCODING);
+			
+			
+			
 
 			// 判断如果是css文件 则格式化其中的相对图片路径
 			if (sSource.endsWith(".css")) {
@@ -89,12 +93,14 @@ public class FileConcatSupport extends BaseClass {
 
 				String sCssPath = "../"
 						+ StringUtils.substringBeforeLast(sSource, "/") + "/";
+				// 循环检测
 				while (matcher.find()) {
 					String sInfo = matcher.group();
 					String sLink = matcher.group(1);
 
 					String sNewLink = sCssPath + sLink;
 
+					// 格式化链接
 					while (sNewLink.contains(sCheckLink)) {
 
 						sNewLink = StringUtils.substringBeforeLast(StringUtils
@@ -110,12 +116,16 @@ public class FileConcatSupport extends BaseClass {
 				}
 
 			}
+			
+		
+			sBuffer.append("/* fileconcat:"+sSource+" date:"+FormatHelper.upDateTime()+" */ \n");
 
 			sBuffer.append(sContent);
 
 		}
 
-		FileUtils.writeStringToFile(new File(sTargetFile), sBuffer.toString(),TopConst.CONST_BASE_ENCODING);
+		FileUtils.writeStringToFile(new File(sTargetFile), sBuffer.toString(),
+				TopConst.CONST_BASE_ENCODING);
 
 	}
 
