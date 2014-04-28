@@ -66,6 +66,17 @@ public class RegexHelper implements IBaseHelper {
 				"href.*?=.*?script.*?:", "<iframe.*?</iframe.*?>",
 				"<frameset.*?</frameset.*?>");
 	}
+	
+	/**
+	 * 过滤html输入内容
+	 * 
+	 * @param sSource
+	 * @return
+	 */
+	public static String upScanHtmlSimple(String sSource) {
+		return upRegexEmpty(sSource, "<script.*?</script.*?>","<iframe.*?</iframe.*?>",
+				"<frameset.*?</frameset.*?>");
+	}
 
 	/**
 	 * 替换html中的标记输出展示
