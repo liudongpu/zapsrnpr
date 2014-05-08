@@ -78,9 +78,6 @@ public class FileConcatSupport extends BaseClass {
 
 			String sContent = FileUtils.readFileToString(new File(sBasePath
 					+ sSource), TopConst.CONST_BASE_ENCODING);
-			
-			
-			
 
 			// 判断如果是css文件 则格式化其中的相对图片路径
 			if (sSource.endsWith(".css")) {
@@ -116,14 +113,15 @@ public class FileConcatSupport extends BaseClass {
 				}
 
 			}
-			
-		
-			sBuffer.append("/* fileconcat:"+sSource+" date:"+FormatHelper.upDateTime()+" */ \n");
+
+			sBuffer.append("\n/* fileconcat:" + sSource + " date:"
+					+ FormatHelper.upDateTime() + " */ \n");
 
 			sBuffer.append(sContent);
 
 		}
 
+		// 写入文件
 		FileUtils.writeStringToFile(new File(sTargetFile), sBuffer.toString(),
 				TopConst.CONST_BASE_ENCODING);
 
