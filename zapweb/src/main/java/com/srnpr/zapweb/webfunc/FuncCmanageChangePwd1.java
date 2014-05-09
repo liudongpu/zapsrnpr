@@ -1,6 +1,9 @@
 package com.srnpr.zapweb.webfunc;
 
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
 import com.srnpr.zapcom.basehelper.SecrurityHelper;
 import com.srnpr.zapcom.basemodel.MDataMap;
 import com.srnpr.zapdata.dbdo.DbUp;
@@ -36,7 +39,18 @@ public class FuncCmanageChangePwd1 extends RootFunc {
 		DbUp.upTable("bc_purchase_log").dataInsert(logInsertMap);*/
 		
 		MDataMap mUpdateMap = new MDataMap();
-		mUpdateMap.put("loginpwd", SecrurityHelper.MD5Customer(mDataMap.get("window_change_password_new_password")));
+		try
+		{
+			mUpdateMap.put("loginpwd", SecrurityHelper.getEncoderByMd5(mDataMap.get("window_change_password_new_password")));
+		} catch (NoSuchAlgorithmException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mUpdateMap.put("agent_code", mDataMap.get("agent_code"));
 		DbUp.upTable("agent_information").dataUpdate(mUpdateMap, "loginpwd","agent_code");
 		return mResult;
